@@ -1,0 +1,18 @@
+<ion-content>
+  <div>
+    <h3>Sistema de catalogagem de computadores</h3>
+    <img src="assets/home.png">
+  </div>
+  <form>
+    <ion-item>
+      <ion-label>Email</ion-label>
+      <ion-input type="text" [(ngModel)]="credentials.email" name="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Senha</ion-label>
+      <ion-input type="password" [(ngModel)]="credentials.password" name="password"></ion-input>
+    </ion-item>
+    
+    <ion-button (click)="login()" expand="block" type="submit">Entrar</ion-button>
+  </form>
+</ion-content>
