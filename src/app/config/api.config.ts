@@ -1,6 +1,6 @@
 export const API_CONFIG = {
-    baseUrl: "http://localhost:8080/api",
+    baseUrl: "http://localhost:8080/",
     paths: {
-        "computers": "/computers"
+        "computers": "api/computers"
     }
 }

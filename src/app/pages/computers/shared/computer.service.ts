@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { API_CONFIG } from "../../../config";
-import { ComputerDTO } from "../../../models";
 import { Observable } from 'rxjs';
+import { ComputerDTO } from 'src/app/models';
+import { API_CONFIG } from 'src/app/config';
 
 @Injectable()
 export class ComputerService {

@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ComputersPageRoutingModule } from './computers-routing.module';
 
 import { ComputersPage } from './computers.page';
-import { ComputerService } from './domain';
+import { ComputerService } from './shared';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({

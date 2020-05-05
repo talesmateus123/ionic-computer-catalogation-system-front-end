@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from '@ionic/angular';
-import { ComputerService } from './domain';
+import { ComputerService } from './shared';
 import { ComputerDTO } from '../../models';
 
 @Component({

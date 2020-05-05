@@ -8,6 +8,9 @@ import { HomePageRoutingModule } from './home-routing.module';
 
 import { HomePage } from './home.page';
 import { LoginPageModule } from '../authentication';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from 'src/app/services';
+import { StorageService } from 'src/app/services/storage.service';
 
 @NgModule({
   imports: [
@@ -15,7 +18,12 @@ import { LoginPageModule } from '../authentication';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    LoginPageModule
+    LoginPageModule,
+    HttpClientModule
+  ],
+  providers: [
+    AuthService,
+    StorageService
   ],
   declarations: [HomePage]
 })

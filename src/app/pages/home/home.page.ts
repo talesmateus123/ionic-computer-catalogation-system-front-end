@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { CredentialsDTO } from '../../models';
+import { CredentialsDTO } from 'src/app/models';
+import { AuthService } from 'src/app/services';
+import { RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,13 +15,21 @@ export class HomePage implements OnInit {
     "password": ""
   }
 
-  constructor() { }
+  constructor(
+    public authService: AuthService,
+    public router: Router) { }
 
   ngOnInit() {
   }
 
   login() {
-    console.log(this.credentials)
+    this.authService.authenticate(this.credentials).subscribe(response => {
+      this.authService.successfulLogin(response.headers.get('Authorization'));
+      this.router.navigate(['/computers']);
+    }, error => {
+      console.log(error);
+    })
   }
+
 
 }
