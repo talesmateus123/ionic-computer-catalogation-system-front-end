@@ -22,6 +22,11 @@ export class AppComponent implements OnInit {
       title: 'Monitores',
       url: '/monitors',
       icon: 'desktop'
+    },
+    {
+      title: 'Setores',
+      url: '/sectors',
+      icon: 'desktop'
     }
   ];
   public labels = ['Family', 'Friends'];
@@ -44,6 +49,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    /*
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd ) {
         if(event.url === "/" || event.url === "/home")
@@ -52,5 +58,6 @@ export class AppComponent implements OnInit {
           this.isTheHomePage = false;
       }
     });
+    */
   }
 }

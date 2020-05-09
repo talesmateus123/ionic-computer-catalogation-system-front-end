@@ -1,0 +1,14 @@
+<div *ngIf="object">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Informações do setor</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-item>
+      <ion-label>Nome</ion-label>
+      <ion-input type="text" [(ngModel)]="object.name" ></ion-input>
+    </ion-item>
+  </ion-content>
+</div>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CredentialsDTO } from '../models';
 import { HttpClient } from '@angular/common/http';
 import { API_CONFIG } from '../config';
-import { LocalUser } from '../models/local_user';
+import { LocalUser } from '../models';
 import { StorageService } from './storage.service';
 
 @Injectable()
@@ -14,8 +14,9 @@ export class AuthService {
     }
 
     authenticate(credentials: CredentialsDTO) {
+        
         return this.http.post(
-            `${API_CONFIG.baseUrl}login`, 
+            `${API_CONFIG.baseUrl}${API_CONFIG.paths.login}`, 
             credentials,
             {
                 observe: 'response',

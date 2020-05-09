@@ -1,4 +1,4 @@
-export interface ComputerDTO {
+export interface PrinterDTO {
     id: string;
 	createdDate: Date;
 	lastModifiedDate: Date;
@@ -11,12 +11,4 @@ export interface ComputerDTO {
 	patrimonyId: string;
 	ipAddress: string;
 	hostName: string;
-	motherBoardName: string;
-	hasCdBurner: boolean;
-	cabinetModel: string;
-	operatingSystem: number;
-	operatingSystemArchitecture: number;
-	onTheDomain: string;
-	totalRamMemory: number;
-	totalStorageMemory: number;	
 }

@@ -1,13 +1,8 @@
-export interface ComputerDTO {
-    id: string;
-	createdDate: Date;
-	lastModifiedDate: Date;
-	equipmentType: number;
+export interface ComputerNewDTO {
 	manufacturer: string;
 	model: string;
 	description: string;
 	itWorks: boolean;
-	itComposed: boolean;
 	patrimonyId: string;
 	ipAddress: string;
 	hostName: string;
@@ -17,6 +12,9 @@ export interface ComputerDTO {
 	operatingSystem: number;
 	operatingSystemArchitecture: number;
 	onTheDomain: string;
-	totalRamMemory: number;
-	totalStorageMemory: number;	
+	processorId: number;
+	sectorId: number;
+	ramMemoriesId: number[];
+	storageDevicesId: number[];
+	computerUsersId: number[];
 }
