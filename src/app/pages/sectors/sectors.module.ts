@@ -9,7 +9,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { SectorsPageRoutingModule } from './sectors-routing.module';
 import { SectorsPage } from './sectors.page';
 import { NewSectorPage } from './new';
-import { UpdateSectorPage } from './update';
 import { InfoSectorPage } from './info';
 import { SectorService } from './shared';
 
@@ -19,14 +18,13 @@ import { SectorService } from './shared';
     FormsModule,
     IonicModule,
     HttpClientModule,
+    FormsModule,
     SectorsPageRoutingModule,
     RouterModule,
-    FormsModule
   ],
   declarations: [
     SectorsPage,
     NewSectorPage,
-    UpdateSectorPage,
     InfoSectorPage
   ],
   providers: [

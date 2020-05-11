@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Novo equipamento</ion-title>
+  </ion-toolbar>
+
+  <ion-item>
+    <ion-label>Tipo de equipamento</ion-label>
+    <ion-select [(ngModel)]="equipmentType" ok-text="Ok" cancel-text="Cancelar">
+      <ion-select-option *ngFor="let equipment of equipmentTypes">{{ equipment }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-header>
+
+<ion-content>  
+  <div *ngIf="equipment === 'Computador'">
+    <ion-item>
+      <ion-label>Nome:</ion-label>
+      <ion-input type="text" [(ngModel)]="object.name" ></ion-input>    
+    </ion-item>
+  </div>
+</ion-content>

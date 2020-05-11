@@ -1,0 +1,36 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+import { PrinterDTO, MonitorNewDTO } from '../models/equipments';
+import { API_CONFIG } from 'src/app/config';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class PrinterService {
+  private url = `${API_CONFIG.baseUrl}${API_CONFIG.paths.printers}`;
+
+  constructor(public http: HttpClient) {
+  }
+
+  findAll(): Observable<PrinterDTO[]> {
+      return this.http.get<PrinterDTO[]>(`${this.url}`);
+  }
+
+  findById(id: string): Observable<MonitorNewDTO> {
+      return this.http.get<MonitorNewDTO>(`${this.url}/${id}`);
+  }
+
+  create(object: MonitorNewDTO): Observable<any> {
+      return this.http.post<MonitorNewDTO>(`${this.url}`, object);
+  }
+
+  update(id: string, object: MonitorNewDTO): Observable<any> {
+      return this.http.put<MonitorNewDTO>(`${this.url}/${id}`, object);
+  }
+
+  delete(id: string): Observable<any> {
+      return this.http.delete<MonitorNewDTO>(`${this.url}/${id}`);
+  }
+}

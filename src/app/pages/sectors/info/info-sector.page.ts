@@ -1,20 +1,26 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { SectorDTO } from 'src/app/models/sector.dto';
-import { SectorService } from '../shared';
-import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
+import { SectorNewDTO } from 'src/app/models/sector_new.dto';
+import { SectorService } from '../shared';
 @Component({
   selector: 'app-info-sector',
   templateUrl: './info-sector.page.html',
   styleUrls: ['./info-sector.page.scss'],
 })
 export class InfoSectorPage implements OnInit {
-  //@ViewChild('form') form: NgForm;
   id: string;
-  object: SectorDTO;
+  object: SectorNewDTO;
+  editForm: boolean
 
-  constructor(private service: SectorService, private route: ActivatedRoute) { }
+  constructor(
+    public alertController: AlertController,
+    private route: ActivatedRoute,
+    private router: Router,
+    private service: SectorService) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id')
@@ -23,5 +29,33 @@ export class InfoSectorPage implements OnInit {
         this.object = res
       }
     )
+    this.editForm = true;
   }
+
+
+  setEditForm() {
+    if (this.editForm)
+      this.editForm = false;
+    else
+      this.editForm = true;
+  }
+
+  update(){
+    this.service.update(this.id, this.object).subscribe(
+      res => {
+        alert('Atualizado com sucesso!');
+        this.router.navigate(['/sectors']);
+      }
+    )
+  }
+
+  delete(){
+    this.service.delete(this.id).subscribe(
+      res => {
+        alert('Excluído com sucesso!');
+        this.router.navigate(['/sectors']);
+      }
+    )
+  }
+
 }

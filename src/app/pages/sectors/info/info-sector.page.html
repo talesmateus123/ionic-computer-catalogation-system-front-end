@@ -2,13 +2,26 @@
   <ion-header>
     <ion-toolbar>
       <ion-title>Informações do setor</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="setEditForm()">
+          <ion-icon slot="icon-only" name="create"></ion-icon>          
+        </ion-button>
+      </ion-buttons>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
     <ion-item>
-      <ion-label>Nome</ion-label>
-      <ion-input type="text" [(ngModel)]="object.name" ></ion-input>
+      <ion-label>Nome:</ion-label>
+      <ion-input [disabled]="editForm" type="text" [(ngModel)]="object.name" ></ion-input>
+    
+      
+    
     </ion-item>
   </ion-content>
+
+  <ion-button (click)="delete()" expand="block" color="dark">Excluir</ion-button>
+  <ion-button (click)="update()" [hidden]="editForm" expand="block" color="dark">Salvar</ion-button>
+
+
 </div>

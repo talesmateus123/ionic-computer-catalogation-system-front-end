@@ -14,19 +14,24 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public appPages = [
     {
-      title: 'Computadores',
-      url: '/computers',
-      icon: 'laptop'
+      title: 'Equipamentos',
+      url: '/equipments',
+      icon: 'desktop'
     },
     {
-      title: 'Monitores',
-      url: '/monitors',
-      icon: 'desktop'
+      title: 'Componentes',
+      url: '/',
+      icon: 'git-network'
+    },    
+    {
+      title: 'Usuários',
+      url: '/',
+      icon: 'people'
     },
     {
       title: 'Setores',
       url: '/sectors',
-      icon: 'desktop'
+      icon: 'albums'
     }
   ];
   public labels = ['Family', 'Friends'];

@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { API_CONFIG } from 'src/app/config';
 import { SectorDTO } from 'src/app/models/sector.dto';
+import { SectorNewDTO } from 'src/app/models/sector_new.dto';
 
 @Injectable()
 export class SectorService {
@@ -15,19 +16,19 @@ export class SectorService {
         return this.http.get<SectorDTO[]>(`${this.url}`);
     }
 
-    findById(id: string): Observable<SectorDTO> {
-        return this.http.get<SectorDTO>(`${this.url}/${id}`);
+    findById(id: string): Observable<SectorNewDTO> {
+        return this.http.get<SectorNewDTO>(`${this.url}/${id}`);
     }
 
-    create(object: SectorDTO): Observable<SectorDTO> {
-        return this.http.post<SectorDTO>(`${this.url}`, object);
+    create(object: SectorNewDTO): Observable<any> {
+        return this.http.post<SectorNewDTO>(`${this.url}`, object);
     }
 
-    update(id: string, object: SectorDTO): Observable<SectorDTO> {
-        return this.http.put<SectorDTO>(`${this.url}/${id}`, object);
+    update(id: string, object: SectorNewDTO): Observable<any> {
+        return this.http.put<SectorNewDTO>(`${this.url}/${id}`, object);
     }
 
-    delete(id: string): Observable<SectorDTO> {
-        return this.http.delete<SectorDTO>(`${this.url}/${id}`);
+    delete(id: string): Observable<any> {
+        return this.http.delete<SectorNewDTO>(`${this.url}/${id}`);
     }
 }
