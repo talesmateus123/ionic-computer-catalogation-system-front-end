@@ -1,21 +1,92 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Novo equipamento</ion-title>
+    <ion-title *ngIf="equipmentType === 'Computador'">Novo computador</ion-title>
+    <ion-title *ngIf="equipmentType === 'Impressora'">Nova impressora</ion-title>
+    <ion-title *ngIf="equipmentType === 'Monitor'">Novo monitor</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-select [(ngModel)]="equipmentType"  ok-text="Ok" cancel-text="Cancelar">
+          <ion-select-option *ngFor="let equipment of equipmentTypes">{{ equipment }}</ion-select-option>
+        </ion-select>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
-
-  <ion-item>
-    <ion-label>Tipo de equipamento</ion-label>
-    <ion-select [(ngModel)]="equipmentType" ok-text="Ok" cancel-text="Cancelar">
-      <ion-select-option *ngFor="let equipment of equipmentTypes">{{ equipment }}</ion-select-option>
-    </ion-select>
-  </ion-item>
 </ion-header>
 
-<ion-content>  
-  <div *ngIf="equipment === 'Computador'">
+<ion-content *ngIf="sectors">
+  <ion-item>
+    <ion-label>Número de patrimônio:</ion-label>
+    <ion-input type="text" [(ngModel)]="formPatrimonyId"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Fabricante:</ion-label>
+    <ion-input type="text" [(ngModel)]="formManufacturer"></ion-input>    
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Modelo:</ion-label>
+    <ion-input type="text" [(ngModel)]="formModel"></ion-input>    
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Está funcionando?</ion-label>
+    <ion-checkbox color="dark" [(ngModel)]="formItWorks"></ion-checkbox>
+  </ion-item>
+
+  <div *ngIf="equipmentType === 'Computador'">
     <ion-item>
-      <ion-label>Nome:</ion-label>
-      <ion-input type="text" [(ngModel)]="object.name" ></ion-input>    
+      <ion-label>Endereço IP:</ion-label>
+      <ion-input type="text" [(ngModel)]="formIpAddress"></ion-input>    
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Nome do computador:</ion-label>
+      <ion-input type="text" [(ngModel)]="formHostName"></ion-input>    
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Associado ao monitor:</ion-label>
+      <ion-select [(ngModel)]="formMonitorId"  ok-text="Ok" cancel-text="Cancelar">
+        <ion-select-option value="">Nenhum</ion-select-option>
+        <ion-select-option *ngFor="let monitor of monitors" value={{monitor.id}}>{{ monitor.patrimonyId }}</ion-select-option>
+      </ion-select>
     </ion-item>
   </div>
+
+  <div *ngIf="equipmentType === 'Impressora'">
+    <ion-item>
+      <ion-label>Endereço IP:</ion-label>
+      <ion-input type="text" [(ngModel)]="formIpAddress"></ion-input>    
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Nome da impressora:</ion-label>
+      <ion-input type="text" [(ngModel)]="formHostName"></ion-input>    
+    </ion-item>
+  </div>
+
+  <div *ngIf="equipmentType === 'Monitor'">
+    <ion-item>
+      <ion-label>Associado ao computador:</ion-label>
+      <ion-select [(ngModel)]="formComputerId"  ok-text="Ok" cancel-text="Cancelar">
+        <ion-select-option value="">Nenhum</ion-select-option>
+        <ion-select-option *ngFor="let computer of computers" value={{computer.id}}>{{ computer.patrimonyId }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </div>
+
+  <ion-item>
+    <ion-label>Setor:</ion-label>
+    <ion-select [(ngModel)]="formSectorId"  ok-text="Ok" cancel-text="Cancelar">
+      <ion-select-option *ngFor="let sector of sectors" value={{sector.id}}>{{ sector.name }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Descrição:</ion-label>
+    <ion-textarea [(ngModel)]="formDescription"></ion-textarea>
+  </ion-item>
+  
 </ion-content>
+<ion-button (click)="create()" expand="block" color="dark">Salvar</ion-button>

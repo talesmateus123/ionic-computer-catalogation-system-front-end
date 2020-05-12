@@ -13,6 +13,10 @@ export class SectorsPage implements OnInit {
   constructor(private sectorService: SectorService) { }
 
   ngOnInit() {
+    this.populateSectors();
+  }
+
+  populateSectors() {
     this.sectorService.findAll()
       .subscribe(response => {
         this.items = response;

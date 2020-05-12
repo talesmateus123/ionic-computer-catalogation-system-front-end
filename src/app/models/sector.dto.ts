@@ -1,4 +1,4 @@
 export interface SectorDTO {
-    id: string;
+    id: number;
 	name: string;
 }

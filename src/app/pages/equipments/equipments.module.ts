@@ -12,6 +12,7 @@ import { EquipmentsPage } from './equipments.page';
 import { NewEquipmentPage } from './new/new-equipment.page';
 import { InfoEquipmentPage } from './info/info-equipment.page';
 import { ComputerService, MonitorService, PrinterService } from './shared';
+import { SectorService } from '../sectors/shared';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { ComputerService, MonitorService, PrinterService } from './shared';
   providers: [
     ComputerService,
     MonitorService,
-    PrinterService
+    PrinterService,
+    SectorService
   ]
 })
 export class EquipmentsPageModule {}
