@@ -43,19 +43,55 @@ export class InfoSectorPage implements OnInit {
   update(){
     this.service.update(this.id, this.object).subscribe(
       res => {
-        alert('Atualizado com sucesso!');
-        this.router.navigate(['/sectors']);
+        this.successMessageAlert("Setor salvo com sucesso");
+      },
+      error => {
+        this.errorMessageAlert(error);
       }
-    )
+    );
+    this.cancel();
   }
 
   delete(){
     this.service.delete(this.id).subscribe(
       res => {
-        alert('Excluído com sucesso!');
-        this.router.navigate(['/sectors']);
+        this.successMessageAlert("Setor excluído com sucesso");
+      },
+      error => {
+        this.errorMessageAlert(error);
       }
-    )
+    );
+    this.cancel();
   }
 
+  cancel() {
+    this.router.navigate(['/sectors']);    
+  }
+
+  async successMessageAlert(msg: string) {
+    const alert = await this.alertController.create({
+      header: 'Sucesso!',
+      //subHeader: 'Subtitle',
+      message: msg,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  async errorMessageAlert(error: any) {
+    let msg: any;
+    if(error.error.error === undefined)
+      msg = "Erro desconhecido";
+    else
+      msg = error.error.error;
+    const alert = await this.alertController.create({
+      header: 'Opps!',
+      //subHeader: 'Subtitle',
+      message: 'Parece que ocorreu um erro: ' + msg,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
 }

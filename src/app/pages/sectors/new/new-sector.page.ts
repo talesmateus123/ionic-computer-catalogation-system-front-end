@@ -27,35 +27,40 @@ export class NewSectorPage implements OnInit {
   create(){
     this.service.create(this.object).subscribe(
       res => {
-        this.successMessageAlert();
-        this.router.navigate(['/sectors']);
+        this.successMessageAlert("Setor criado com sucesso");
       },
       error => {
         this.errorMessageAlert(error);
       }
-    )
+    );
+    this.cancel();
   }
 
   cancel() {
     this.router.navigate(['/sectors']);    
   }
 
-  async successMessageAlert() {
+  async successMessageAlert(msg: string) {
     const alert = await this.alertController.create({
       header: 'Sucesso!',
       //subHeader: 'Subtitle',
-      message: 'Objeto criado com sucesso.',
+      message: msg,
       buttons: ['OK']
     });
 
     await alert.present();
   }
 
-  async errorMessageAlert(error: string) {
+  async errorMessageAlert(error: any) {
+    let msg: any;
+    if(error.error.error === undefined)
+      msg = "Erro desconhecido";
+    else
+      msg = error.error.error;
     const alert = await this.alertController.create({
       header: 'Opps!',
       //subHeader: 'Subtitle',
-      message: 'Parece que ocorreu um erro: ' + error,
+      message: 'Parece que ocorreu um erro: ' + msg,
       buttons: ['OK']
     });
 
