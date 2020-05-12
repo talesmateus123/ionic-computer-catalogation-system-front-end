@@ -20,12 +20,12 @@ export class AppComponent implements OnInit {
     },
     {
       title: 'Componentes',
-      url: '/',
+      url: '/electronic-components',
       icon: 'git-network'
     },    
     {
       title: 'Usuários',
-      url: '/',
+      url: '/computer-users',
       icon: 'people'
     },
     {

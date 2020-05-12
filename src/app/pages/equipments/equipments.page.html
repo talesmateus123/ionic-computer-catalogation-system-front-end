@@ -22,7 +22,7 @@
 <ion-content>
   <ion-list *ngIf="equipmentType === 'Computadores'">
     <ion-item *ngFor="let computer of computers" routerLink="/equipments/info/{{computer.id}}">
-      <ion-icon slot="start" name="desktop"></ion-icon>
+      <ion-icon slot="start" name="laptop"></ion-icon>
       <ion-label>
         <h2>{{ computer.patrimonyId }}</h2>
         <h3>{{ computer.manufacturer }}</h3>
@@ -33,7 +33,7 @@
 
   <ion-list *ngIf="equipmentType === 'Impressoras'">
     <ion-item *ngFor="let printer of printers" routerLink="/equipments/info/{{printer.id}}">
-      <ion-icon slot="start" name="desktop"></ion-icon>
+      <ion-icon slot="start" name="print"></ion-icon>
       <ion-label>
         <h2>{{ printer.patrimonyId }}</h2>
         <h3>{{ printer.manufacturer }}</h3>
@@ -56,6 +56,16 @@
   <!-- Skeleton screen -->
   <div *ngIf="!computers">
     <ion-list>
+      <ion-item>
+        <ion-avatar slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label>
+          <h2><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></h2>
+          <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+          <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+        </ion-label>
+      </ion-item>
       <ion-item>
         <ion-avatar slot="start">
           <ion-skeleton-text animated></ion-skeleton-text>

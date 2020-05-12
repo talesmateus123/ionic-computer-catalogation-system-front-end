@@ -25,7 +25,15 @@ const routes: Routes = [
   },
   {
     path: 'equipments',
-    loadChildren: () => import('./pages/equipments/equipments.module').then( m => m.EquipmentsPageModule)
+    loadChildren: () => import('./pages/').then( m => m.EquipmentsPageModule)
+  },
+  {
+    path: 'electronic-components',
+    loadChildren: () => import('./pages/').then( m => m.ElectronicComponentsPageModule)
+  },
+  {
+    path: 'computer-users',
+    loadChildren: () => import('./pages/').then( m => m.ComputerUsersPageModule)
   }
 ];
 
