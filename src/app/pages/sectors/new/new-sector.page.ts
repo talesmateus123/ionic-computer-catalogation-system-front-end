@@ -31,9 +31,13 @@ export class NewSectorPage implements OnInit {
         this.router.navigate(['/sectors']);
       },
       error => {
-        this.errorMessageAlert();
+        this.errorMessageAlert(error);
       }
     )
+  }
+
+  cancel() {
+    this.router.navigate(['/sectors']);    
   }
 
   async successMessageAlert() {
@@ -46,11 +50,12 @@ export class NewSectorPage implements OnInit {
 
     await alert.present();
   }
-  async errorMessageAlert() {
+
+  async errorMessageAlert(error: string) {
     const alert = await this.alertController.create({
       header: 'Opps!',
       //subHeader: 'Subtitle',
-      message: 'Parece que ocorreu um erro.',
+      message: 'Parece que ocorreu um erro: ' + error,
       buttons: ['OK']
     });
 

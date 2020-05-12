@@ -13,7 +13,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="sectors">
+
+<ion-content *ngIf="sectors && computers && monitors">
   <ion-item>
     <ion-label>Número de patrimônio:</ion-label>
     <ion-input type="text" [(ngModel)]="formPatrimonyId"></ion-input>
@@ -87,6 +88,10 @@
     <ion-label position="floating">Descrição:</ion-label>
     <ion-textarea [(ngModel)]="formDescription"></ion-textarea>
   </ion-item>
+
+  <ion-button (click)="cancel()" expand="block" color="dark">Cancelar</ion-button>
+  <ion-button (click)="create()" expand="block" color="dark">Salvar</ion-button>
   
 </ion-content>
-<ion-button (click)="create()" expand="block" color="dark">Salvar</ion-button>
+
+

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
-import { ComputerService, MonitorService, PrinterService, ComputerDTO, MonitorDTO } from '../shared';
+import { ComputerService, MonitorService, PrinterService, ComputerDTO, MonitorDTO, PrinterDTO } from '../shared';
 import { ComputerNewDTO, MonitorNewDTO, PrinterNewDTO } from '../shared';
 import { SectorDTO } from 'src/app/models/sector.dto';
 import { SectorService } from '../../sectors/shared';
@@ -50,6 +50,7 @@ export class NewEquipmentPage implements OnInit {
   computer: ComputerNewDTO;
   printer: PrinterNewDTO;
   monitor: MonitorNewDTO;
+
   sectors: SectorDTO[];
   computers: ComputerDTO[];
   monitors: MonitorDTO[];
@@ -127,7 +128,7 @@ export class NewEquipmentPage implements OnInit {
           this.router.navigate(['/equipments']);
         },
         error => {
-          this.errorMessageAlert();
+          this.errorMessageAlert(error);
         }
       )
     }
@@ -149,7 +150,7 @@ export class NewEquipmentPage implements OnInit {
           this.router.navigate(['/equipments']);
         },
         error => {
-          this.errorMessageAlert();
+          this.errorMessageAlert(error);
         }
       )
     }
@@ -169,10 +170,14 @@ export class NewEquipmentPage implements OnInit {
           this.router.navigate(['/equipments']);
         },
         error => {
-          this.errorMessageAlert();
+          this.errorMessageAlert(error);
         }
       )
     }
+  }
+
+  cancel() {
+    this.router.navigate(['/equipments']);    
   }
   
   async successMessageAlert() {
@@ -185,11 +190,12 @@ export class NewEquipmentPage implements OnInit {
 
     await alert.present();
   }
-  async errorMessageAlert() {
+
+  async errorMessageAlert(error: string) {
     const alert = await this.alertController.create({
       header: 'Opps!',
       //subHeader: 'Subtitle',
-      message: 'Parece que ocorreu um erro.',
+      message: 'Parece que ocorreu um erro: ' + error,
       buttons: ['OK']
     });
 

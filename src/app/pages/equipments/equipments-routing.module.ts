@@ -15,7 +15,7 @@ const routes: Routes = [
     component: NewEquipmentPage
   },
   {
-    path: 'info',
+    path: 'info/:id',
     component: InfoEquipmentPage
   }
 ];

@@ -1,5 +1,5 @@
 export abstract class EquipmentDTO {
-    id: string;
+    id: number;
 	createdDate: Date;
 	lastModifiedDate: Date;
 	equipmentType: number;

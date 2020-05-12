@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EquipmentDTO } from './shared';
+
+import { EquipmentDTO, ComputerDTO, PrinterDTO, MonitorDTO } from './shared';
 import { ComputerService, MonitorService, PrinterService } from './shared';
 
 @Component({
@@ -8,13 +9,16 @@ import { ComputerService, MonitorService, PrinterService } from './shared';
   styleUrls: ['./equipments.page.scss'],
 })
 export class EquipmentsPage implements OnInit {
-  items: EquipmentDTO[];
   equipmentTypes: string[] =[
-    "Computador",
-    "Impressora",
-    "Monitor",
+    "Computadores",
+    "Impressoras",
+    "Monitores",
   ];
-  equipmentType: string = "Computador";
+  equipmentType = "Computadores";
+
+  computers: ComputerDTO[];
+  printers: PrinterDTO[];
+  monitors: MonitorDTO[];
 
   constructor(
     private computerService: ComputerService,
@@ -23,18 +27,38 @@ export class EquipmentsPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(this.equipmentType === "Computador") 
-      this.populateComputersList();
+    this.populateComputersList();
+    this.populatePrintersList();
+    this.populateMonitorsList();
   }
 
   populateComputersList() {
     this.computerService.findAll()
     .subscribe(response => {
-      this.items = response;
+      this.computers = response;
     },
     error => {
       console.log(error);
     });
   }
 
+  populatePrintersList() {
+    this.printerService.findAll()
+    .subscribe(response => {
+      this.printers = response;
+    },
+    error => {
+      console.log(error);
+    });
+  }
+
+  populateMonitorsList() {
+    this.monitorService.findAll()
+    .subscribe(response => {
+      this.monitors = response;
+    },
+    error => {
+      console.log(error);
+    });
+  }
 }
