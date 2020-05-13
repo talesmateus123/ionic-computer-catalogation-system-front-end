@@ -1,12 +1,100 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Informações do equipamento</ion-title>
+    <ion-title *ngIf="equipmentType === 'Computador'">Informações do computador</ion-title>
+    <ion-title *ngIf="equipmentType === 'Impressora'">Informações da impressora</ion-title>
+    <ion-title *ngIf="equipmentType === 'Monitor'">Informações do monitor</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="setEditForm()">
+        <ion-icon slot="icon-only" name="create"></ion-icon>          
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+
+<ion-content *ngIf="sectors && computers && monitors">
   <ion-item>
-    <ion-label>Nome:</ion-label>
-    <ion-input type="text"></ion-input>    
+    <ion-label>Número de patrimônio:</ion-label>
+    <ion-input [disabled]="editForm" type="text" [(ngModel)]="formPatrimonyId"></ion-input>
   </ion-item>
+
+  <ion-item>
+    <ion-label>Fabricante:</ion-label>
+    <ion-input [disabled]="editForm" type="text" [(ngModel)]="formManufacturer"></ion-input>    
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Modelo:</ion-label>
+    <ion-input [disabled]="editForm" type="text" [(ngModel)]="formModel"></ion-input>    
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Está funcionando?</ion-label>
+    <ion-checkbox [disabled]="editForm" color="dark" [(ngModel)]="formItWorks"></ion-checkbox>
+  </ion-item>
+
+  <div *ngIf="equipmentType === 'Computador'">
+    <ion-item>
+      <ion-label>Endereço IP:</ion-label>
+      <ion-input [disabled]="editForm" type="text" [(ngModel)]="formIpAddress"></ion-input>    
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Nome do computador:</ion-label>
+      <ion-input [disabled]="editForm" type="text" [(ngModel)]="formHostName"></ion-input>    
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Associado ao monitor:</ion-label>
+      <ion-select [disabled]="editForm" [(ngModel)]="formMonitorId"  ok-text="Ok" cancel-text="Cancelar">
+        <ion-select-option value="">Nenhum</ion-select-option>
+        <ion-select-option *ngFor="let monitor of monitors" value={{monitor.id}}>{{ monitor.patrimonyId }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </div>
+
+  <div *ngIf="equipmentType === 'Impressora'">
+    <ion-item>
+      <ion-label>Endereço IP:</ion-label>
+      <ion-input [disabled]="editForm" type="text" [(ngModel)]="formIpAddress"></ion-input>    
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Nome da impressora:</ion-label>
+      <ion-input [disabled]="editForm" type="text" [(ngModel)]="formHostName"></ion-input>    
+    </ion-item>
+  </div>
+
+  <div *ngIf="equipmentType === 'Monitor'">
+    <ion-item>
+      <ion-label>Associado ao computador:</ion-label>
+      <ion-select [disabled]="editForm" [(ngModel)]="formComputerId"  ok-text="Ok" cancel-text="Cancelar">
+        <ion-select-option value="">Nenhum</ion-select-option>
+        <ion-select-option *ngFor="let computer of computers" value={{computer.id}}>{{ computer.patrimonyId }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </div>
+
+  <ion-item>
+    <ion-label>Setor:</ion-label>
+    <ion-select [disabled]="editForm" [(ngModel)]="formSectorId"  ok-text="Ok" cancel-text="Cancelar">
+      <ion-select-option *ngFor="let sector of sectors" value={{sector.id}}>{{ sector.name }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Descrição:</ion-label>
+    <ion-textarea [disabled]="editForm" [(ngModel)]="formDescription"></ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>
+      {{formComputerId}}
+    </ion-label>
+  </ion-item>
+
+  <ion-button (click)="cancel()" expand="block" color="dark">Voltar</ion-button>
+  <ion-button (click)="delete()" expand="block" color="dark">Excluir</ion-button>
+  <ion-button (click)="update()" [hidden]="editForm" expand="block" color="dark">Salvar</ion-button>
+  
 </ion-content>

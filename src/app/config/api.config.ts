@@ -8,6 +8,7 @@ export const API_CONFIG = {
         "printers": "api/printers",
         "storage_devices": "api/storage_devices",
         "ram_memories": "api/ram_memories",
-        "computer_users": "api/computer_users"
+        "computer_users": "api/computer_users",
+        "equipments": "api/equipments"
     }
 }
