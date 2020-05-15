@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
+import { ENUMS } from 'src/app/config/enums';
 import { ComputerService, MonitorService, PrinterService, ComputerDTO, MonitorDTO, PrinterDTO } from '../shared';
 import { ComputerNewDTO, MonitorNewDTO, PrinterNewDTO } from '../shared';
 import { SectorDTO } from 'src/app/models/sector.dto';
@@ -54,6 +55,8 @@ export class NewEquipmentPage implements OnInit {
   sectors: SectorDTO[];
   computers: ComputerDTO[];
   monitors: MonitorDTO[];
+
+  operatingSystemTypes = ENUMS.operatingSystem;
   
   constructor(
     public alertController: AlertController,
@@ -68,6 +71,7 @@ export class NewEquipmentPage implements OnInit {
     this.populateSectors();
     this.populateComputers();
     this.populateMonitors();
+    console.log(this.operatingSystemTypes)
   }
 
   populateSectors() {
@@ -122,6 +126,7 @@ export class NewEquipmentPage implements OnInit {
         storageDevicesId: this.formStorageDevicesId,
         computerUsersId: this.formComputerUsersId
       }
+      console.log(this.computer);
       this.computerService.create(this.computer).subscribe(
         res => {          
           this.successMessageAlert("Computador criado com sucesso");

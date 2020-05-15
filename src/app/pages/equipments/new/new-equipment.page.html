@@ -37,6 +37,16 @@
 
   <div *ngIf="equipmentType === 'Computador'">
     <ion-item>
+      <ion-label>Está no domínio?</ion-label>
+      <ion-checkbox color="dark" [(ngModel)]="formOnTheDomain"></ion-checkbox>    
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Possui leitor de CD/DVD?</ion-label>
+      <ion-checkbox color="dark" [(ngModel)]="formHasCdBurner"></ion-checkbox>    
+    </ion-item>
+
+    <ion-item>
       <ion-label>Endereço IP:</ion-label>
       <ion-input type="text" [(ngModel)]="formIpAddress"></ion-input>    
     </ion-item>
@@ -47,12 +57,41 @@
     </ion-item>
 
     <ion-item>
+      <ion-label>Nome da placa mãe:</ion-label>
+      <ion-input type="text" [(ngModel)]="formMotherBoardName"></ion-input>    
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Modelo do gabinete:</ion-label>
+      <ion-input type="text" [(ngModel)]="formCabinetModel"></ion-input>    
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Sistema operacional:</ion-label>
+      <ion-input type="text" [(ngModel)]="formOperatingSystem"></ion-input>    
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Arquitetura do sistema operacional:</ion-label>
+      <ion-input type="text" [(ngModel)]="formOperatingSystemArchitecture"></ion-input>    
+    </ion-item>
+
+    <ion-item>
       <ion-label>Associado ao monitor:</ion-label>
       <ion-select [(ngModel)]="formMonitorId"  ok-text="Ok" cancel-text="Cancelar">
         <ion-select-option value="">Nenhum</ion-select-option>
         <ion-select-option *ngFor="let monitor of monitors" value={{monitor.id}}>{{ monitor.patrimonyId }}</ion-select-option>
       </ion-select>
     </ion-item>
+
+    <ion-item>
+      <ion-label>Associado ao processador:</ion-label>
+      <ion-select [(ngModel)]="formProcessorId"  ok-text="Ok" cancel-text="Cancelar">
+        <ion-select-option value="">Nenhum</ion-select-option>
+        <ion-select-option *ngFor="let processor of processors" value={{processor.id}}>{{ processor.processorName }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
   </div>
 
   <div *ngIf="equipmentType === 'Impressora'">

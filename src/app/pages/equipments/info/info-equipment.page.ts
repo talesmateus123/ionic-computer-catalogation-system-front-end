@@ -33,7 +33,6 @@ export class InfoEquipmentPage implements OnInit {
   formOnTheDomain: boolean;
   formProcessorId: number;
   formMonitorId: number;
-  formComputerId: number;
   formSectorId: number;
   formRamMemoriesId: number[];
   formStorageDevicesId: number[];
@@ -94,7 +93,6 @@ export class InfoEquipmentPage implements OnInit {
           this.monitor = response;
         }        
         this.populateForm();
-        console.log(this.monitor);
       },
       error => {
         this.errorMessageAlert(error);
@@ -117,8 +115,10 @@ export class InfoEquipmentPage implements OnInit {
       this.formOperatingSystem = this.computer.operatingSystem;
       this.formOperatingSystemArchitecture = this.computer.operatingSystemArchitecture;
       this.formOnTheDomain = this.computer.onTheDomain;
-      this.formProcessorId = this.computer.processor.id;
-      this.formMonitorId = this.computer.monitor.id;
+      if (this.computer.processor !== null)
+        this.formProcessorId = this.computer.processor.id;
+      if (this.computer.monitor !== null)
+        this.formMonitorId = this.computer.monitor.id;
       this.formSectorId = this.computer.sector.id;
       /*
       this.formRamMemoriesId = number[];
@@ -127,14 +127,14 @@ export class InfoEquipmentPage implements OnInit {
       */
     }
     else if(this.equipmentType === "Impressora") {
-      this.formManufacturer = this.computer.manufacturer;
-      this.formModel = this.computer.model;
-      this.formDescription = this.computer.description;
-      this.formItWorks = this.computer.itWorks;
-      this.formPatrimonyId = this.computer.patrimonyId;
-      this.formIpAddress = this.computer.ipAddress;
-      this.formHostName = this.computer.hostName;
-      this.formSectorId = this.computer.sector.id;
+      this.formManufacturer = this.printer.manufacturer;
+      this.formModel = this.printer.model;
+      this.formDescription = this.printer.description;
+      this.formItWorks = this.printer.itWorks;
+      this.formPatrimonyId = this.printer.patrimonyId;
+      this.formIpAddress = this.printer.ipAddress;
+      this.formHostName = this.printer.hostName;
+      this.formSectorId = this.printer.sector.id;
     }
     else if(this.equipmentType === "Monitor") {    
       this.formManufacturer = this.monitor.manufacturer;
@@ -142,7 +142,7 @@ export class InfoEquipmentPage implements OnInit {
       this.formDescription = this.monitor.description;
       this.formItWorks = this.monitor.itWorks;
       this.formPatrimonyId = this.monitor.patrimonyId;
-      this.formComputerId = this.monitor.computer;
+      // this.formComputerId = this.monitor.computer;
       this.formSectorId = this.monitor.sector.id;
     }
   }
@@ -257,7 +257,7 @@ export class InfoEquipmentPage implements OnInit {
     if(this.equipmentType === "Computador") {    
       this.computerService.delete(this.id).subscribe(
         res => {
-          this.successMessageAlert("Setor excluído com sucesso");
+          this.successMessageAlert("Computador excluído com sucesso");
         },
         error => {
           this.errorMessageAlert(error);
@@ -267,7 +267,7 @@ export class InfoEquipmentPage implements OnInit {
     else if(this.equipmentType === "Impressora") {    
       this.printerService.delete(this.id).subscribe(
         res => {
-          this.successMessageAlert("Setor excluído com sucesso");
+          this.successMessageAlert("Impressora excluída com sucesso");
         },
         error => {
           this.errorMessageAlert(error);
@@ -277,7 +277,7 @@ export class InfoEquipmentPage implements OnInit {
     else if(this.equipmentType === "Monitor") {    
       this.monitorService.delete(this.id).subscribe(
         res => {
-          this.successMessageAlert("Setor excluído com sucesso");
+          this.successMessageAlert("Monitor excluído com sucesso");
         },
         error => {
           this.errorMessageAlert(error);
