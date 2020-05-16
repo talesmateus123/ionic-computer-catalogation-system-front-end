@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { EquipmentDTO, ComputerDTO, PrinterDTO, MonitorDTO } from './shared';
+import { EquipmentDTO, ComputerDTO, PrinterDTO, MonitorDTO, PageService } from './shared';
 import { ComputerService, MonitorService, PrinterService } from './shared';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-equipments',
@@ -16,49 +17,13 @@ export class EquipmentsPage implements OnInit {
   ];
   equipmentType = "Computadores";
 
-  computers: ComputerDTO[];
-  printers: PrinterDTO[];
-  monitors: MonitorDTO[];
-
   constructor(
-    private computerService: ComputerService,
-    private monitorService: MonitorService,
-    private printerService: PrinterService
+    public pageService: PageService
   ) { }
 
   ngOnInit() {
-    this.populateComputersList();
-    this.populatePrintersList();
-    this.populateMonitorsList();
-  }
-
-  populateComputersList() {
-    this.computerService.findAll()
-    .subscribe(response => {
-      this.computers = response;
-    },
-    error => {
-      console.log(error);
-    });
-  }
-
-  populatePrintersList() {
-    this.printerService.findAll()
-    .subscribe(response => {
-      this.printers = response;
-    },
-    error => {
-      console.log(error);
-    });
-  }
-
-  populateMonitorsList() {
-    this.monitorService.findAll()
-    .subscribe(response => {
-      this.monitors = response;
-    },
-    error => {
-      console.log(error);
-    });
+    this.pageService.updateComputersList();
+    this.pageService.updatePrintersList();
+    this.pageService.updateMonitorsList();
   }
 }

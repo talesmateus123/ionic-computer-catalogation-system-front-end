@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ComputerService, MonitorService, PrinterService, ComputerNewDTO, PrinterNewDTO, MonitorNewDTO, ComputerDTO, MonitorDTO, PrinterDTO, EquipmentDTO, EquipmentService } from '../shared';
+import { Location } from '@angular/common';
+
+import { ComputerService, MonitorService, PrinterService, ComputerNewDTO, PrinterNewDTO, MonitorNewDTO, ComputerDTO, MonitorDTO, PrinterDTO, EquipmentDTO, EquipmentService, PageService } from '../shared';
 import { SectorService } from '../../sectors/shared';
 import { SectorDTO } from 'src/app/models/sector.dto';
 
@@ -28,8 +30,8 @@ export class InfoEquipmentPage implements OnInit {
   formMotherBoardName: string;
   formHasCdBurner: boolean;
   formCabinetModel: string;
-  formOperatingSystem: number;
-  formOperatingSystemArchitecture: number;
+  formOperatingSystem: string;
+  formOperatingSystemArchitecture: string;
   formOnTheDomain: boolean;
   formProcessorId: number;
   formMonitorId: number;
@@ -49,6 +51,7 @@ export class InfoEquipmentPage implements OnInit {
   monitors: MonitorDTO[];
 
   constructor(
+    public pageService: PageService,
     public alertController: AlertController,
     private route: ActivatedRoute,
     private router: Router,
@@ -178,6 +181,7 @@ export class InfoEquipmentPage implements OnInit {
   }
 
   update() {
+    
     if(this.equipmentType === "Computador"){
       let computer: ComputerNewDTO = {
         manufacturer: this.formManufacturer,
@@ -195,19 +199,22 @@ export class InfoEquipmentPage implements OnInit {
         operatingSystemArchitecture: this.formOperatingSystemArchitecture,
         onTheDomain: this.formOnTheDomain,
         processorId: this.formProcessorId,
+        monitorId: this.formMonitorId,
         ramMemoriesId: this.formRamMemoriesId,
         storageDevicesId: this.formStorageDevicesId,
         computerUsersId: this.formComputerUsersId
       }
+
       this.computerService.update(this.id, computer).subscribe(
         res => {          
           this.successMessageAlert("Computador atualizado com sucesso");
+          this.pageService.updateComputersList();
+          this.pageService.redirectToRootPage();
         },
         error => {
           this.errorMessageAlert(error);
         }
       );
-      this.cancel();
     }
     else if(this.equipmentType === "Impressora") {
       let printer: PrinterNewDTO = {
@@ -224,12 +231,12 @@ export class InfoEquipmentPage implements OnInit {
       this.printerService.update(this.id, printer).subscribe(
         res => {          
           this.successMessageAlert("Impressora atualizado com sucesso");
+          this.cancel();
         },
         error => {
           this.errorMessageAlert(error);
         }
       );
-      this.cancel();
     }
     else if(this.equipmentType === "Monitor") {      
       let monitor: MonitorNewDTO = {
@@ -244,12 +251,12 @@ export class InfoEquipmentPage implements OnInit {
       this.monitorService.update(this.id, monitor).subscribe(
         res => {          
           this.successMessageAlert("Monitor atualizado com sucesso");
+          this.cancel();
         },
         error => {
           this.errorMessageAlert(error);
         }
       );
-      this.cancel();
     }
   }
 
@@ -258,6 +265,7 @@ export class InfoEquipmentPage implements OnInit {
       this.computerService.delete(this.id).subscribe(
         res => {
           this.successMessageAlert("Computador excluído com sucesso");
+          this.cancel();
         },
         error => {
           this.errorMessageAlert(error);
@@ -268,6 +276,7 @@ export class InfoEquipmentPage implements OnInit {
       this.printerService.delete(this.id).subscribe(
         res => {
           this.successMessageAlert("Impressora excluída com sucesso");
+          this.cancel();
         },
         error => {
           this.errorMessageAlert(error);
@@ -278,17 +287,17 @@ export class InfoEquipmentPage implements OnInit {
       this.monitorService.delete(this.id).subscribe(
         res => {
           this.successMessageAlert("Monitor excluído com sucesso");
+          this.cancel();
         },
         error => {
           this.errorMessageAlert(error);
         }
       );
     }
-    this.cancel();
   }
 
   cancel() {
-    this.router.navigate(['/equipments']);    
+    this.router.navigate(['/equipments']);
   }
 
   async successMessageAlert(msg: string) {

@@ -1,7 +1,7 @@
 import { SectorDTO } from 'src/app/models/sector.dto';
 
 export abstract class EquipmentDTO {
-    id: number;
+    id: string;
 	createdDate: Date;
 	lastModifiedDate: Date;
 	equipmentType: string;

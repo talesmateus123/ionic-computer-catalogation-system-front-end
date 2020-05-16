@@ -6,8 +6,8 @@ export class ComputerDTO extends EquipmentDTO {
 	motherBoardName: string;
 	hasCdBurner: boolean;
 	cabinetModel: string;
-	operatingSystem: number;
-	operatingSystemArchitecture: number;
+	operatingSystem: string;
+	operatingSystemArchitecture: string;
 	onTheDomain: boolean;
 	monitor: any;
 	processor: any;

@@ -33,7 +33,17 @@
     <ion-checkbox [disabled]="editForm" color="dark" [(ngModel)]="formItWorks"></ion-checkbox>
   </ion-item>
 
-  <div *ngIf="equipmentType === 'Computador'">
+  <div *ngIf="equipmentType === 'Computador'" >
+    <ion-item>
+      <ion-label>Está no domínio?</ion-label>
+      <ion-checkbox [disabled]="editForm" color="dark" [(ngModel)]="formOnTheDomain"></ion-checkbox>    
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Possui leitor de CD/DVD?</ion-label>
+      <ion-checkbox [disabled]="editForm" color="dark" [(ngModel)]="formHasCdBurner"></ion-checkbox>    
+    </ion-item>
+
     <ion-item>
       <ion-label>Endereço IP:</ion-label>
       <ion-input [disabled]="editForm" type="text" [(ngModel)]="formIpAddress"></ion-input>    
@@ -45,10 +55,49 @@
     </ion-item>
 
     <ion-item>
+      <ion-label>Nome da placa mãe:</ion-label>
+      <ion-input [disabled]="editForm" type="text" [(ngModel)]="formMotherBoardName"></ion-input>    
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Modelo do gabinete:</ion-label>
+      <ion-input [disabled]="editForm" type="text" [(ngModel)]="formCabinetModel"></ion-input>    
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Sistema operacional:</ion-label>
+      <ion-select [disabled]="editForm" [(ngModel)]="formOperatingSystem"  ok-text="Ok" cancel-text="Cancelar">
+        <ion-select-option value="NONE">Nenhum</ion-select-option>
+        <ion-select-option value="WINDOWS_XP">Windows XP</ion-select-option>
+        <ion-select-option value="WINDOWS_VISTA">Windows Vista</ion-select-option>
+        <ion-select-option value="WINDOWS_7">Windows 7</ion-select-option>
+        <ion-select-option value="WINDOWS_10">Windows 10</ion-select-option>
+        <ion-select-option value="LINUX_DISTRO">Distribuição linux</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Arquitetura do sistema operacional:</ion-label>
+      <ion-select [disabled]="editForm" [(ngModel)]="formOperatingSystemArchitecture"  ok-text="Ok" cancel-text="Cancelar">
+        <ion-select-option value="NONE">Nenhum</ion-select-option>
+        <ion-select-option value="AMD64">64 bits</ion-select-option>
+        <ion-select-option value="I386">32 bits</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
       <ion-label>Associado ao monitor:</ion-label>
       <ion-select [disabled]="editForm" [(ngModel)]="formMonitorId"  ok-text="Ok" cancel-text="Cancelar">
         <ion-select-option value="">Nenhum</ion-select-option>
-        <ion-select-option *ngFor="let monitor of monitors" value={{monitor.id}}>{{ monitor.patrimonyId }}</ion-select-option>
+        <ion-select-option *ngFor="let monitor of monitors" [value]="monitor.id">{{ monitor.patrimonyId }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Associado ao processador:</ion-label>
+      <ion-select [disabled]="editForm" [(ngModel)]="formProcessorId"  ok-text="Ok" cancel-text="Cancelar">
+        <ion-select-option value="">Nenhum</ion-select-option>
+        <ion-select-option *ngFor="let processor of processors" [value]="processor.id">{{ processor.processorName }}</ion-select-option>
       </ion-select>
     </ion-item>
   </div>
@@ -65,7 +114,7 @@
     </ion-item>
   </div>
 
-  <!--
+  
   <div *ngIf="equipmentType === 'Monitor'">
     <ion-item>
       <ion-label>Associado ao computador:</ion-label>
@@ -75,7 +124,7 @@
       </ion-select>
     </ion-item>
   </div>
-  -->
+  
 
   <ion-item>
     <ion-label>Setor:</ion-label>
@@ -88,9 +137,7 @@
     <ion-label position="floating">Descrição:</ion-label>
     <ion-textarea [disabled]="editForm" [(ngModel)]="formDescription"></ion-textarea>
   </ion-item>
-
-  <ion-button (click)="cancel()" expand="block" color="dark">Voltar</ion-button>
-  <ion-button (click)="delete()" expand="block" color="dark">Excluir</ion-button>
-  <ion-button (click)="update()" [hidden]="editForm" expand="block" color="dark">Salvar</ion-button>
-  
 </ion-content>
+<ion-button (click)="cancel()" expand="block" color="dark">Voltar</ion-button>
+<ion-button (click)="delete()" expand="block" color="dark">Excluir</ion-button>
+<ion-button (click)="update()" [hidden]="editForm" expand="block" color="dark">Salvar</ion-button>

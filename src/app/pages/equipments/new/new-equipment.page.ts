@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
-import { ENUMS } from 'src/app/config/enums';
 import { ComputerService, MonitorService, PrinterService, ComputerDTO, MonitorDTO, PrinterDTO } from '../shared';
 import { ComputerNewDTO, MonitorNewDTO, PrinterNewDTO } from '../shared';
 import { SectorDTO } from 'src/app/models/sector.dto';
@@ -30,16 +29,16 @@ export class NewEquipmentPage implements OnInit {
   formManufacturer: string;
   formModel: string;
   formDescription: string;
-  formItWorks: boolean
+  formItWorks: boolean = true;
   formPatrimonyId: string;
   formIpAddress: string;
   formHostName: string;
   formMotherBoardName: string;
-  formHasCdBurner: boolean;
+  formHasCdBurner: boolean = true;
   formCabinetModel: string;
-  formOperatingSystem: number;
-  formOperatingSystemArchitecture: number;
-  formOnTheDomain: boolean;
+  formOperatingSystem: string = "NONE";
+  formOperatingSystemArchitecture: string = "NONE";
+  formOnTheDomain: boolean = false;
   formProcessorId: number;
   formMonitorId: number;
   formComputerId: number;
@@ -55,8 +54,6 @@ export class NewEquipmentPage implements OnInit {
   sectors: SectorDTO[];
   computers: ComputerDTO[];
   monitors: MonitorDTO[];
-
-  operatingSystemTypes = ENUMS.operatingSystem;
   
   constructor(
     public alertController: AlertController,
@@ -71,7 +68,6 @@ export class NewEquipmentPage implements OnInit {
     this.populateSectors();
     this.populateComputers();
     this.populateMonitors();
-    console.log(this.operatingSystemTypes)
   }
 
   populateSectors() {
@@ -122,6 +118,7 @@ export class NewEquipmentPage implements OnInit {
         operatingSystemArchitecture: this.formOperatingSystemArchitecture,
         onTheDomain: this.formOnTheDomain,
         processorId: this.formProcessorId,
+        monitorId: this.formMonitorId,
         ramMemoriesId: this.formRamMemoriesId,
         storageDevicesId: this.formStorageDevicesId,
         computerUsersId: this.formComputerUsersId

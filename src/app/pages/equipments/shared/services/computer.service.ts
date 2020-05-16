@@ -17,6 +17,10 @@ export class ComputerService {
   findAll(): Observable<ComputerDTO[]> {
       return this.http.get<ComputerDTO[]>(`${this.url}`);
   }
+  
+  findAvailable(): Observable<ComputerDTO[]> {
+    return this.http.get<ComputerDTO[]>(`${this.url}`);
+  }
 
   findById(id: string): Observable<ComputerNewDTO> {
       return this.http.get<ComputerNewDTO>(`${this.url}/${id}`);

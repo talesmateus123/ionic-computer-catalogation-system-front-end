@@ -6,10 +6,11 @@ export class ComputerNewDTO extends EquipmentNewDTO {
 	motherBoardName: string;
 	hasCdBurner: boolean;
 	cabinetModel: string;
-	operatingSystem: number;
-	operatingSystemArchitecture: number;
+	operatingSystem: string;
+	operatingSystemArchitecture: string;
 	onTheDomain: boolean;
 	processorId: number;
+	monitorId: number;
 	sectorId: number;
 	ramMemoriesId: number[];
 	storageDevicesId: number[];

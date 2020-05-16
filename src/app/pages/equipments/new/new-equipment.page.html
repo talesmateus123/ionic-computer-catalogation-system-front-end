@@ -68,12 +68,23 @@
 
     <ion-item>
       <ion-label>Sistema operacional:</ion-label>
-      <ion-input type="text" [(ngModel)]="formOperatingSystem"></ion-input>    
+      <ion-select [(ngModel)]="formOperatingSystem"  ok-text="Ok" cancel-text="Cancelar">
+        <ion-select-option value="NONE">Nenhum</ion-select-option>
+        <ion-select-option value="WINDOWS_XP">Windows XP</ion-select-option>
+        <ion-select-option value="WINDOWS_VISTA">Windows Vista</ion-select-option>
+        <ion-select-option value="WINDOWS_7">Windows 7</ion-select-option>
+        <ion-select-option value="WINDOWS_10">Windows 10</ion-select-option>
+        <ion-select-option value="LINUX_DISTRO">Distribuição linux</ion-select-option>
+      </ion-select>
     </ion-item>
 
     <ion-item>
       <ion-label>Arquitetura do sistema operacional:</ion-label>
-      <ion-input type="text" [(ngModel)]="formOperatingSystemArchitecture"></ion-input>    
+      <ion-select [(ngModel)]="formOperatingSystemArchitecture"  ok-text="Ok" cancel-text="Cancelar">
+        <ion-select-option value="NONE">Nenhum</ion-select-option>
+        <ion-select-option value="AMD64">Sistema de 64 bits</ion-select-option>
+        <ion-select-option value="I386">Sistema de 32 bits</ion-select-option>
+      </ion-select>
     </ion-item>
 
     <ion-item>
@@ -107,6 +118,7 @@
   </div>
 
   <div *ngIf="equipmentType === 'Monitor'">
+    <!--
     <ion-item>
       <ion-label>Associado ao computador:</ion-label>
       <ion-select [(ngModel)]="formComputerId"  ok-text="Ok" cancel-text="Cancelar">
@@ -114,6 +126,7 @@
         <ion-select-option *ngFor="let computer of computers" value={{computer.id}}>{{ computer.patrimonyId }}</ion-select-option>
       </ion-select>
     </ion-item>
+    -->
   </div>
 
   <ion-item>
@@ -126,11 +139,9 @@
   <ion-item>
     <ion-label position="floating">Descrição:</ion-label>
     <ion-textarea [(ngModel)]="formDescription"></ion-textarea>
-  </ion-item>
-
-  <ion-button (click)="cancel()" expand="block" color="dark">Cancelar</ion-button>
-  <ion-button (click)="create()" expand="block" color="dark">Salvar</ion-button>
-  
+  </ion-item>  
 </ion-content>
+<ion-button (click)="cancel()" expand="block" color="dark">Cancelar</ion-button>
+<ion-button (click)="create()" expand="block" color="dark">Salvar</ion-button>
 
 
