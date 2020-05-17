@@ -1,28 +1,35 @@
-<div *ngIf="object">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Informações do setor</ion-title>
-      <ion-buttons slot="end">
-        <ion-button (click)="setEditForm()">
-          <ion-icon slot="icon-only" name="create"></ion-icon>          
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="equipments"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Informações do setor</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="setEditForm()">
+        <ion-icon slot="icon-only" name="create"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-content>
-    <ion-item>
-      <ion-label>Nome:</ion-label>
-      <ion-input [disabled]="editForm" type="text" [(ngModel)]="object.name" ></ion-input>
-    
-      
-    
-    </ion-item>
-  </ion-content>
+<ion-content *ngIf="sector">
+  <ion-item>
+    <ion-label>Nome:</ion-label>
+    <ion-input [disabled]="editForm" type="text" [(ngModel)]="sector.name" ></ion-input>
+  </ion-item>
+</ion-content>
 
-  <ion-button (click)="cancel()" expand="block" color="dark">Voltar</ion-button>
-  <ion-button (click)="delete()" expand="block" color="dark">Excluir</ion-button>
-  <ion-button (click)="update()" [hidden]="editForm" expand="block" color="dark">Salvar</ion-button>
-
-
-</div>
+<ion-footer *ngIf="!editForm"> 
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="6" class="ion-text-center">            
+          <ion-button (click)="delete()" expand="block" fill="clear" color="dark">Excluir</ion-button>
+        </ion-col>
+        <ion-col size="6" class="ion-text-center">
+          <ion-button (click)="update()" expand="block" fill="clear" color="dark">Salvar</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>    
+</ion-footer>

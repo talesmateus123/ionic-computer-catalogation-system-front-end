@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { EquipmentDTO, ComputerDTO, PrinterDTO, MonitorDTO, PageService } from './shared';
-import { ComputerService, MonitorService, PrinterService } from './shared';
-import { Router } from '@angular/router';
+import { EquipmentControllerService } from './shared';
 
 @Component({
   selector: 'app-equipments',
@@ -18,12 +16,12 @@ export class EquipmentsPage implements OnInit {
   equipmentType = "Computadores";
 
   constructor(
-    public pageService: PageService
+    public controller: EquipmentControllerService
   ) { }
 
   ngOnInit() {
-    this.pageService.updateComputersList();
-    this.pageService.updatePrintersList();
-    this.pageService.updateMonitorsList();
+    this.controller.updateComputersList();
+    this.controller.updatePrintersList();
+    this.controller.updateMonitorsList();
   }
 }

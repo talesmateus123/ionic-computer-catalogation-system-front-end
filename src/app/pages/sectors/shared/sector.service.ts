@@ -16,8 +16,8 @@ export class SectorService {
         return this.http.get<SectorDTO[]>(`${this.url}`);
     }
 
-    findById(id: string): Observable<SectorNewDTO> {
-        return this.http.get<SectorNewDTO>(`${this.url}/${id}`);
+    findById(id: string): Observable<SectorDTO> {
+        return this.http.get<SectorDTO>(`${this.url}/${id}`);
     }
 
     create(object: SectorNewDTO): Observable<any> {

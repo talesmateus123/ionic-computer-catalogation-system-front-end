@@ -9,6 +9,7 @@ import { ElectronicComponentsPageRoutingModule } from './electronic-components-r
 import { ElectronicComponentsPage } from './electronic-components.page';
 import { NewElectronicComponentPage } from './new';
 import { InfoElectronicComponentPage } from './info';
+import { ElectronicComponentControllerService, RamMemoryService, StorageDeviceService, ProcessorService } from './shared';
 
 @NgModule({
   imports: [
@@ -23,6 +24,12 @@ import { InfoElectronicComponentPage } from './info';
     ElectronicComponentsPage,
     NewElectronicComponentPage,
     InfoElectronicComponentPage
+  ],
+  providers: [
+    ElectronicComponentControllerService,
+    ProcessorService,
+    RamMemoryService,
+    StorageDeviceService
   ]
 })
 export class ElectronicComponentsPageModule {}

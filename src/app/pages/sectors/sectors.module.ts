@@ -10,7 +10,7 @@ import { SectorsPageRoutingModule } from './sectors-routing.module';
 import { SectorsPage } from './sectors.page';
 import { NewSectorPage } from './new';
 import { InfoSectorPage } from './info';
-import { SectorService } from './shared';
+import { SectorService, SectorControllerService } from './shared';
 
 @NgModule({
   imports: [
@@ -28,6 +28,7 @@ import { SectorService } from './shared';
     InfoSectorPage
   ],
   providers: [
+    SectorControllerService,
     SectorService
   ]
 })

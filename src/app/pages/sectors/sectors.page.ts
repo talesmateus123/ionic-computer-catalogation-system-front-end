@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SectorDTO } from 'src/app/models/sector.dto';
-import { SectorService } from './shared';
+import { SectorControllerService } from './shared';
 
 @Component({
   selector: 'app-sectors',
@@ -8,22 +7,11 @@ import { SectorService } from './shared';
   styleUrls: ['./sectors.page.scss'],
 })
 export class SectorsPage implements OnInit {
-  items: SectorDTO[];
 
-  constructor(private sectorService: SectorService) { }
+  constructor(public controller: SectorControllerService) { }
 
   ngOnInit() {
-    this.populateSectors();
-  }
-
-  populateSectors() {
-    this.sectorService.findAll()
-      .subscribe(response => {
-        this.items = response;
-      },
-      error => {
-        console.log(error);
-      });
+    this.controller.updateSectorsList();
   }
 
 }

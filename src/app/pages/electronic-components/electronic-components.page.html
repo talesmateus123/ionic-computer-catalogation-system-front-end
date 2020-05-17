@@ -3,7 +3,11 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-      <ion-title>Componentes eletrônicos</ion-title>
+      <ion-title>
+        <ion-select [(ngModel)]="electronicComponentType" ok-text="Ok" cancel-text="Cancelar">
+          <ion-select-option *ngFor="let electronicComponent of electronicComponentTypes">{{ electronicComponent }}</ion-select-option>
+        </ion-select>
+      </ion-title>
     <ion-buttons slot="end">
       <ion-button >
         <ion-icon slot="icon-only" name="search"></ion-icon>          
@@ -16,5 +20,62 @@
 </ion-header>
 
 <ion-content>
+  <ion-list *ngIf="electronicComponentType === 'Processadores'">
+    <ion-item *ngFor="let processor of controller.processors" routerLink="/electronic-components/info/{{processor.id}}">
+      <ion-icon slot="start" name="laptop"></ion-icon>
+      <ion-label>
+        <h2>{{ processor.patrimonyId }}</h2>
+        <h3>{{ processor.manufacturer }} | {{ processor.model }}</h3>
+        <p>{{ processor.ipAddress }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 
+  <ion-list *ngIf="electronicComponentType === 'Memórias RAM'">
+    <ion-item *ngFor="let ramMemory of controller.ramMemories" routerLink="/electronic-components/info/{{ramMemory.id}}">
+      <ion-icon slot="start" name="laptop"></ion-icon>
+      <ion-label>
+        <h2>{{ ramMemory.patrimonyId }}</h2>
+        <h3>{{ ramMemory.manufacturer }} | {{ ramMemory.model }}</h3>
+        <p>{{ ramMemory.ipAddress }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="electronicComponentType === 'Dispositivos de armazenamento'">
+    <ion-item *ngFor="let storageDevice of controller.storageDevices" routerLink="/electronic-components/info/{{storageDevice.id}}">
+      <ion-icon slot="start" name="laptop"></ion-icon>
+      <ion-label>
+        <h2>{{ storageDevice.patrimonyId }}</h2>
+        <h3>{{ storageDevice.manufacturer }} | {{ storageDevice.model }}</h3>
+        <p>{{ storageDevice.ipAddress }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Skeleton screen -->
+  <div *ngIf="!controller.processors">
+    <ion-list>
+      <ion-item>
+        <ion-avatar slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label>
+          <h2><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></h2>
+          <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+          <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-avatar slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label>
+          <h2><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></h2>
+          <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+          <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>

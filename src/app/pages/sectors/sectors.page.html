@@ -17,14 +17,14 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let item of items" routerLink="/sectors/info/{{item.id}}">      
+    <ion-item *ngFor="let sector of controller.sectors" routerLink="/sectors/info/{{sector.id}}">      
       <ion-icon slot="start" name="albums"></ion-icon>
-      <ion-label>{{ item.name }}</ion-label>
+      <ion-label>{{ sector.name }}</ion-label>
     </ion-item>
   </ion-list>
 
   <!-- Skeleton screen -->
-  <div *ngIf="!items">
+  <div *ngIf="!controller.sectors">
     <ion-list>
       <ion-item>
         <ion-avatar slot="start">
