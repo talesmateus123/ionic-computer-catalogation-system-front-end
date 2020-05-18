@@ -17,7 +17,7 @@
 </ion-header>
 
 
-<ion-content *ngIf="controller.sectors && availableComputers || availableMonitors">
+<ion-content>
   <ion-item>
     <ion-label>Número de patrimônio:</ion-label>
     <ion-input type="text" [(ngModel)]="formPatrimonyId"></ion-input>
@@ -90,7 +90,7 @@
       </ion-select>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="availableMonitors">
       <ion-label>Associado ao monitor:</ion-label>
       <ion-select [(ngModel)]="formMonitorId"  ok-text="Ok" cancel-text="Cancelar">
         <ion-select-option value="">Nenhum</ion-select-option>
@@ -103,7 +103,7 @@
       <ion-label>Associado ao processador:</ion-label>
       <ion-select [(ngModel)]="formProcessorId"  ok-text="Ok" cancel-text="Cancelar">
         <ion-select-option value="">Nenhum</ion-select-option>
-        <ion-select-option *ngFor="let processor of controller.availableProcessors" value={{processor.id}}>{{ processor.processorName }}</ion-select-option>
+        <ion-select-option *ngFor="let processor of availableProcessors" value={{processor.id}}>{{ processor.processorName }}</ion-select-option>
       </ion-select>
     </ion-item>
 
@@ -123,7 +123,7 @@
 
   <!--
   <div *ngIf="equipmentType === 'Monitor'">
-    <ion-item>
+    <ion-item *ngIf="availableComputers">
       <ion-label>Associado ao computador:</ion-label>
       <ion-select [(ngModel)]="formComputerId"  ok-text="Ok" cancel-text="Cancelar">
         <ion-select-option value="">Nenhum</ion-select-option>
@@ -133,7 +133,7 @@
   </div>
   -->
 
-  <ion-item>
+  <ion-item *ngIf="controller.sectors">
     <ion-label>Setor:</ion-label>
     <ion-select [(ngModel)]="formSectorId"  ok-text="Ok" cancel-text="Cancelar">
       <ion-select-option *ngFor="let sector of controller.sectors" value={{sector.id}}>{{ sector.name }}</ion-select-option>

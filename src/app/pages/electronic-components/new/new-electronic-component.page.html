@@ -1,9 +1,60 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Novo componente eletrônico</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="electronic-components"></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="electronicComponentType === 'Processador'">Novo processador</ion-title>
+    <ion-title *ngIf="electronicComponentType === 'Memória RAM'">Nova memória RAM</ion-title>
+    <ion-title *ngIf="electronicComponentType === 'Dispositivo de armazenamento'">Novo dispositivo de armazenamento</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-select [(ngModel)]="electronicComponentType"  ok-text="Ok" cancel-text="Cancelar">
+          <ion-select-option *ngFor="let electronicComponentType of electronicComponentTypes">{{ electronicComponentType }}</ion-select-option>
+        </ion-select>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-item>
+    <ion-label>Fabricante:</ion-label>
+    <ion-input type="text" [(ngModel)]="formManufacturer"></ion-input>    
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Modelo:</ion-label>
+    <ion-input type="text" [(ngModel)]="formModel"></ion-input>    
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Está funcionando?</ion-label>
+    <ion-checkbox color="dark" [(ngModel)]="formItWorks"></ion-checkbox>
+  </ion-item>
+
+  <ion-item *ngIf="electronicComponentType === 'Processador'" >
+    <ion-label>Arquitetura:</ion-label>
+    <ion-select [(ngModel)]="formRamMemoryArchitecture" ok-text="Ok" cancel-text="Cancelar">
+      <ion-select-option *ngFor="let architecture of keys(ramMemoryArchitectures)" [value]="architecture">{{ramMemoryArchitectures[architecture]}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngIf="electronicComponentType === 'Dispositivo de armazenamento'" >
+    <ion-label>Arquitetura:</ion-label>
+      <ion-select [(ngModel)]="formStorageDeviceArchitecture" ok-text="Ok" cancel-text="Cancelar">
+        <ion-select-option *ngFor="let architecture of keys(storageDeviceArchitectures)" [value]="architecture">{{storageDeviceArchitectures[architecture]}}</ion-select-option>
+    </ion-select>
+  </ion-item>
 
 </ion-content>
+<ion-footer *ngIf="!editForm"> 
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="12" class="ion-text-center">
+          <ion-button (click)="create()" expand="block" fill="clear" color="dark">Salvar</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>    
+</ion-footer>

@@ -7,7 +7,6 @@ export interface RamMemoryDTO {
 	model: string;
 	description: string;
 	itWorks: boolean;
-	itComposed: boolean;
 	sizeInMB: number;
 	architecture: number;	
 }

@@ -7,7 +7,6 @@ export interface ProcessorDTO {
 	model: string;
 	description: string;
 	itWorks: boolean;
-	itComposed: boolean;
 	processorName: string;
 	architecture: number;
 }

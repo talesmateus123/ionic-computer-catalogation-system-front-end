@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { RamMemoryService } from './ram-memory.service';
@@ -7,7 +8,7 @@ import { StorageDeviceService } from './storage-device.service';
 import { RamMemoryDTO } from 'src/app/pages/electronic-components/shared/models/ram_memory.dto';
 import { StorageDeviceDTO } from 'src/app/pages/electronic-components/shared/models/storage_device.dto';
 import { ProcessorService } from './processor.service';
-import { ProcessorDTO } from '../models';
+import { ProcessorDTO, ProcessorNewDTO, RamMemoryNewDTO, StorageDeviceNewDTO } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class ElectronicComponentControllerService {
 
   constructor(
     public alertController: AlertController,
+    private router: Router, 
     private processorService: ProcessorService,
     private ramMemoryService: RamMemoryService,
     private storageDeviceService: StorageDeviceService
@@ -59,6 +61,108 @@ export class ElectronicComponentControllerService {
   }
 
   // create update delete
+  createProcessor(objetcNewDTO: ProcessorNewDTO) {
+    this.processorService.create(objetcNewDTO).subscribe(res => {
+      this.successMessageAlert("Processador criado com sucesso");
+      this.updateProcessorsList();
+      this.redirectToRootPage();
+    }, 
+    error => {
+      this.errorMessageAlert(error);
+    });
+  }
+
+  createRamMemory(objetcNewDTO: RamMemoryNewDTO) {
+    this.ramMemoryService.create(objetcNewDTO).subscribe(res => {
+      this.successMessageAlert("Memória RAM criada com sucesso");
+      this.updateRamMemoriesList();
+      this.redirectToRootPage();
+    }, 
+    error => {
+      this.errorMessageAlert(error);
+    });
+  }
+
+  createStorageDevice(objetcNewDTO: ProcessorNewDTO) {
+    this.processorService.create(objetcNewDTO).subscribe(res => {
+      this.successMessageAlert("Dispositivo de armazenamento criado com sucesso");
+      this.updateStorageDevicesList();
+      this.redirectToRootPage();
+    }, 
+    error => {
+      this.errorMessageAlert(error);
+    });
+  }
+
+  updateProcessor(id: string, object: ProcessorNewDTO): void {
+    this.processorService.update(id, object).subscribe(res => {
+      this.successMessageAlert("Processador atualizado com sucesso");
+      this.updateProcessorsList();
+      this.redirectToRootPage();
+    }, 
+    error => {
+      this.errorMessageAlert(error);
+    });
+  }
+
+  updateRamMemory(id: string, object: RamMemoryNewDTO): void {
+    this.ramMemoryService.update(id, object).subscribe(res => {
+      this.successMessageAlert("Memória RAM atualizada com sucesso");
+      this.updateRamMemoriesList();
+      this.redirectToRootPage();
+    }, 
+    error => {
+      this.errorMessageAlert(error);
+    });
+  }
+
+  updateStorageDevice(id: string, object: StorageDeviceNewDTO): void {
+    this.storageDeviceService.update(id, object).subscribe(res => {
+      this.successMessageAlert("Dispositivo de armazenamento atualizado com sucesso");
+      this.updateStorageDevicesList();
+      this.redirectToRootPage();
+    }, 
+    error => {
+      this.errorMessageAlert(error);
+    });
+  }
+
+  deleteProcessor(id: string): void {
+    this.processorService.delete(id).subscribe(res => {
+      this.successMessageAlert("Processador excluído com sucesso");
+      this.updateProcessorsList();
+      this.redirectToRootPage();
+    }, 
+    error => {
+      this.errorMessageAlert(error);
+    });
+  }
+
+  deleteRamMemory(id: string): void {
+    this.ramMemoryService.delete(id).subscribe(res => {
+      this.successMessageAlert("Memória RAM excluída com sucesso");
+      this.updateRamMemoriesList();
+      this.redirectToRootPage();
+    }, 
+    error => {
+      this.errorMessageAlert(error);
+    });
+  }
+
+  deleteStorageDevice(id: string): void {
+    this.storageDeviceService.delete(id).subscribe(res => {
+      this.successMessageAlert("Dispositivo de armazenamento excluído com sucesso");
+      this.updateStorageDevicesList();
+      this.redirectToRootPage();
+    }, 
+    error => {
+      this.errorMessageAlert(error);
+    });
+  }
+
+  redirectToRootPage(): void {
+    this.router.navigate(['electronic-components']);
+  }
 
   async successMessageAlert(msg: string) {
     const alert = await this.alertController.create({

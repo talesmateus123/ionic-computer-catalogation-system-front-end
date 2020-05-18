@@ -1,3 +1,4 @@
+export * from './enums';
 export * from './processor.dto';
 export * from './processor_new.dto';
 export * from './ram_memory.dto';

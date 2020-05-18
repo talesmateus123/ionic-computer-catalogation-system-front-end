@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { ComputerDTO, MonitorDTO, EquipmentService, EquipmentControllerService } from '../shared';
 import { SectorDTO } from 'src/app/models/sector.dto';
+import { ProcessorDTO } from '../../electronic-components/shared';
 
 @Component({
   selector: 'app-info-equipment',
@@ -42,6 +43,7 @@ export class InfoEquipmentPage implements OnInit {
 
   availableComputers: ComputerDTO[];
   availableMonitors: MonitorDTO[];
+  availableProcessors: ProcessorDTO[];
 
   constructor(
     public controller: EquipmentControllerService,

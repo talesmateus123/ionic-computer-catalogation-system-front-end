@@ -4,6 +4,6 @@ export interface ProcessorNewDTO {
 	description: string;
 	itWorks: boolean;
 	processorName: string;
-	architecture: number;
-	computerId: number;
+	architecture: string;
+	computerId: string;
 }
