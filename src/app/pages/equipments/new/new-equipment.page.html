@@ -17,7 +17,7 @@
 </ion-header>
 
 
-<ion-content *ngIf="controller.sectors && controller.availableComputers && controller.availableMonitors">
+<ion-content *ngIf="controller.sectors && availableComputers || availableMonitors">
   <ion-item>
     <ion-label>Número de patrimônio:</ion-label>
     <ion-input type="text" [(ngModel)]="formPatrimonyId"></ion-input>
@@ -94,7 +94,7 @@
       <ion-label>Associado ao monitor:</ion-label>
       <ion-select [(ngModel)]="formMonitorId"  ok-text="Ok" cancel-text="Cancelar">
         <ion-select-option value="">Nenhum</ion-select-option>
-        <ion-select-option *ngFor="let monitor of controller.availableMonitors" value={{monitor.id}}>{{ monitor.patrimonyId }}</ion-select-option>
+        <ion-select-option *ngFor="let monitor of availableMonitors" value={{monitor.id}}>{{ monitor.patrimonyId }}</ion-select-option>
       </ion-select>
     </ion-item>
 
@@ -121,8 +121,8 @@
     </ion-item>
   </div>
 
+  <!--
   <div *ngIf="equipmentType === 'Monitor'">
-    <!--
     <ion-item>
       <ion-label>Associado ao computador:</ion-label>
       <ion-select [(ngModel)]="formComputerId"  ok-text="Ok" cancel-text="Cancelar">
@@ -130,8 +130,8 @@
         <ion-select-option *ngFor="let computer of controller.availableComputers" value={{computer.id}}>{{ computer.patrimonyId }}</ion-select-option>
       </ion-select>
     </ion-item>
-    -->
   </div>
+  -->
 
   <ion-item>
     <ion-label>Setor:</ion-label>

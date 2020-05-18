@@ -40,6 +40,9 @@ export class InfoEquipmentPage implements OnInit {
   computers: ComputerDTO[];
   monitors: MonitorDTO[];
 
+  availableComputers: ComputerDTO[];
+  availableMonitors: MonitorDTO[];
+
   constructor(
     public controller: EquipmentControllerService,
     private route: ActivatedRoute
@@ -47,16 +50,15 @@ export class InfoEquipmentPage implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id')
-    this.controller.populateSectors();
-    this.controller.populateAvailableComputers();
-    this.controller.populateAvailableMonitors();
+    this.controller.updateSectorsList();
     this.equipment = this.controller.findEquipment(this.id).subscribe(
       res => {
         let response = res;
-        this.equipmentType = response.equipmentType        
+        this.equipmentType = response.equipmentType
         if(this.equipmentType === "COMPUTER") {
           this.equipmentType = "Computador";
           this.equipment = response;
+          this.populateAvailableAvailableMonitors();
         }
         else if(this.equipmentType === "PRINTER") {
           this.equipmentType = "Impressora";
@@ -65,7 +67,8 @@ export class InfoEquipmentPage implements OnInit {
         else if(this.equipmentType === "MONITOR") {
           this.equipmentType = "Monitor";
           this.equipment = response;
-        }        
+          this.populateAvailableAvailableComputers();
+        }
         this.populateForm();
       },
       error => {
@@ -81,6 +84,28 @@ export class InfoEquipmentPage implements OnInit {
       this.editForm = false;
     else
       this.editForm = true;
+  }
+
+  populateAvailableAvailableComputers() {
+    this.controller.getAvailableComputers().subscribe(res => {
+      this.availableComputers = res;
+      if (this.equipment.monitor !== null) {
+        this.availableComputers.push(this.equipment.computer);
+      }
+    }, 
+    error => {
+    });
+  }
+
+  populateAvailableAvailableMonitors() {
+    this.controller.getAvailableMonitors().subscribe(res => {
+      this.availableMonitors = res;
+      if (this.equipment.monitor !== null) {
+        this.availableMonitors.push(this.equipment.monitor);
+      }
+    }, 
+    error => {
+    });
   }
 
   populateForm() {
@@ -100,7 +125,7 @@ export class InfoEquipmentPage implements OnInit {
       this.formOnTheDomain = this.equipment.onTheDomain;
       if (this.equipment.processor !== null)
         this.formProcessorId = this.equipment.processor.id;
-      if (this.equipment.monitor !== null)
+      if (this.equipment.monitor !== null)   
         this.formMonitorId = this.equipment.monitor.id;
       this.formSectorId = this.equipment.sector.id;
       /*

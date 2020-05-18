@@ -16,8 +16,6 @@ export class NewEquipmentPage implements OnInit {
   ];
   equipmentType = "Computador";
 
-  formSectors: number[];
-  formComputers: number[];
   formManufacturer: string;
   formModel: string;
   formDescription: string;
@@ -42,15 +40,34 @@ export class NewEquipmentPage implements OnInit {
   sectors: SectorDTO[];
   computers: ComputerDTO[];
   monitors: MonitorDTO[];
+
+  availableComputers: ComputerDTO[];
+  availableMonitors: MonitorDTO[];
   
   constructor(
     public controller: EquipmentControllerService,
   ) { }
 
   ngOnInit() {
-    this.controller.populateSectors();
-    this.controller.populateAvailableComputers();
-    this.controller.populateAvailableMonitors();
+    this.controller.updateSectorsList();
+    this.populateAvailableAvailableComputers();
+    this.populateAvailableAvailableMonitors();
+  }
+
+  populateAvailableAvailableComputers() {
+    this.controller.getAvailableComputers().subscribe(res => {
+      this.availableComputers = res;
+    }, 
+    error => {
+    });
+  }
+
+  populateAvailableAvailableMonitors() {
+    this.controller.getAvailableMonitors().subscribe(res => {
+      this.availableMonitors = res;
+    }, 
+    error => {
+    });
   }
 
   create() {

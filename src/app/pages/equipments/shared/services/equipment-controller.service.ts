@@ -21,10 +21,6 @@ export class EquipmentControllerService {
   public computers: ComputerDTO[];
   public monitors: MonitorDTO[];
   public printers: PrinterDTO[];
-  public availableComputers: ComputerDTO[];
-  public availableMonitors: MonitorDTO[];
-  public availableProcessors: ProcessorDTO[];
-  public availableRamMemories: RamMemoryDTO[];
 
   constructor(
     public alertController: AlertController, 
@@ -69,7 +65,7 @@ export class EquipmentControllerService {
       });
   }
 
-  populateSectors(): void {
+  updateSectorsList(): void {
     this.sectorService.findAll()
       .subscribe(response => {
         this.sectors = response;
@@ -79,24 +75,12 @@ export class EquipmentControllerService {
       });
   }
 
-  populateAvailableComputers(): void {
-    this.computerService.findAvailable()
-      .subscribe(response => {
-        this.availableComputers = response;
-      }, 
-      error => {
-        console.log(error);
-      });
+  getAvailableComputers(): Observable<ComputerDTO[]> {
+    return this.computerService.findAvailable();
   }
 
-  populateAvailableMonitors(): void {
-    this.monitorService.findAvailable()
-      .subscribe(response => {
-        this.availableMonitors = response;
-      }, 
-      error => {
-        console.log(error);
-      });
+  getAvailableMonitors(): Observable<MonitorDTO[]> {
+    return this.monitorService.findAvailable();
   }
 
   createComputer(objetcNewDTO: ComputerNewDTO) {

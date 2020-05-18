@@ -19,7 +19,7 @@ export class MonitorService {
   }
 
   findAvailable(): Observable<MonitorDTO[]> {
-    return this.http.get<MonitorDTO[]>(`${this.url}`);
+    return this.http.get<MonitorDTO[]>(`${this.url}/available`);
   }
 
   findById(id: string): Observable<MonitorNewDTO> {
