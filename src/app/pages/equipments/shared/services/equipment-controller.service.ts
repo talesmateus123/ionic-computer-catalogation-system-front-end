@@ -9,8 +9,6 @@ import { ComputerService } from './computer.service';
 import { MonitorService } from './monitor.service';
 import { PrinterService } from './printer.service';
 import { SectorService } from 'src/app/pages/sectors';
-import { ProcessorDTO } from 'src/app/pages/electronic-components/shared/models/processor.dto';
-import { RamMemoryDTO } from 'src/app/pages/electronic-components/shared/models/ram_memory.dto';
 import { Observable } from 'rxjs';
 
 @Injectable({

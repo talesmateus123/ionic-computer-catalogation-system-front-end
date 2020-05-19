@@ -7,7 +7,7 @@ import { API_CONFIG } from 'src/app/config';
 @Injectable({
   providedIn: 'root'
 })
-export class EquipmentService {
+export class ElectronicService {
   private url = `${API_CONFIG.baseUrl}${API_CONFIG.paths.electronics}`;
 
   constructor(public http: HttpClient) { }

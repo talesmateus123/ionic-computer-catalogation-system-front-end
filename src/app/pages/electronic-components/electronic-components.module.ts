@@ -9,7 +9,7 @@ import { ElectronicComponentsPageRoutingModule } from './electronic-components-r
 import { ElectronicComponentsPage } from './electronic-components.page';
 import { NewElectronicComponentPage } from './new';
 import { InfoElectronicComponentPage } from './info';
-import { ElectronicComponentControllerService, RamMemoryService, StorageDeviceService, ProcessorService } from './shared';
+import { ElectronicComponentControllerService, ElectronicService, RamMemoryService, StorageDeviceService, ProcessorService } from './shared';
 
 @NgModule({
   imports: [
@@ -27,6 +27,7 @@ import { ElectronicComponentControllerService, RamMemoryService, StorageDeviceSe
   ],
   providers: [
     ElectronicComponentControllerService,
+    ElectronicService,
     ProcessorService,
     RamMemoryService,
     StorageDeviceService

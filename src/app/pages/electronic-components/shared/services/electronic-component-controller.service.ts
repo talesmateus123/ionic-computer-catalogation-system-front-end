@@ -3,6 +3,7 @@ import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
+import { ElectronicService } from './electronic.service';
 import { RamMemoryService } from './ram-memory.service';
 import { StorageDeviceService } from './storage-device.service';
 import { RamMemoryDTO } from 'src/app/pages/electronic-components/shared/models/ram_memory.dto';
@@ -21,6 +22,7 @@ export class ElectronicComponentControllerService {
   constructor(
     public alertController: AlertController,
     private router: Router, 
+    private electronicComponentService: ElectronicService,
     private processorService: ProcessorService,
     private ramMemoryService: RamMemoryService,
     private storageDeviceService: StorageDeviceService
@@ -29,6 +31,11 @@ export class ElectronicComponentControllerService {
   findSector(id: string): Observable<ProcessorDTO> {
     return this.processorService.findById(id);
   }
+
+  findElectronic(id: string): Observable<any> {
+    return this.electronicComponentService.findById(id);
+  }
+  
 
   updateProcessorsList(): void {
     this.processorService.findAll().subscribe(
@@ -68,23 +75,26 @@ export class ElectronicComponentControllerService {
       this.redirectToRootPage();
     }, 
     error => {
+      console.log(error)
       this.errorMessageAlert(error);
     });
   }
 
   createRamMemory(objetcNewDTO: RamMemoryNewDTO) {
+    console.log(objetcNewDTO)
     this.ramMemoryService.create(objetcNewDTO).subscribe(res => {
       this.successMessageAlert("Memória RAM criada com sucesso");
       this.updateRamMemoriesList();
       this.redirectToRootPage();
     }, 
     error => {
+      console.log(error)
       this.errorMessageAlert(error);
     });
   }
 
-  createStorageDevice(objetcNewDTO: ProcessorNewDTO) {
-    this.processorService.create(objetcNewDTO).subscribe(res => {
+  createStorageDevice(objetcNewDTO: StorageDeviceNewDTO) {
+    this.storageDeviceService.create(objetcNewDTO).subscribe(res => {
       this.successMessageAlert("Dispositivo de armazenamento criado com sucesso");
       this.updateStorageDevicesList();
       this.redirectToRootPage();
@@ -162,6 +172,14 @@ export class ElectronicComponentControllerService {
 
   redirectToRootPage(): void {
     this.router.navigate(['electronic-components']);
+  }
+
+  convertToMB(sizeInGB: number): number {
+    return sizeInGB * 1024;
+  }
+
+  convertToGB(sizeInMB: number): number {
+    return sizeInMB / 1024;
   }
 
   async successMessageAlert(msg: string) {

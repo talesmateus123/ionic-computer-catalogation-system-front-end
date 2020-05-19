@@ -27,12 +27,29 @@
     <ion-input type="text" [(ngModel)]="formModel"></ion-input>    
   </ion-item>
 
+  <ion-item *ngIf="electronicComponentType === 'Processador'">
+    <ion-label>Nome do processador:</ion-label>
+    <ion-input type="text" [(ngModel)]="formProcessorName"></ion-input>    
+  </ion-item>
+
   <ion-item>
     <ion-label>Está funcionando?</ion-label>
     <ion-checkbox color="dark" [(ngModel)]="formItWorks"></ion-checkbox>
   </ion-item>
 
-  <ion-item *ngIf="electronicComponentType === 'Processador'" >
+  <ion-item *ngIf="electronicComponentType === 'Memória RAM' || electronicComponentType === 'Dispositivo de armazenamento'">
+    <ion-label>Quantidade de memória:</ion-label>
+    <ion-input type="number" [(ngModel)]="formSize"></ion-input>    
+  </ion-item>
+
+  <ion-item *ngIf="electronicComponentType === 'Processador'">
+    <ion-label>Arquitetura:</ion-label>
+    <ion-select [(ngModel)]="formProcessorArchitecture" ok-text="Ok" cancel-text="Cancelar">
+      <ion-select-option *ngFor="let architecture of keys(processorArchitectures)" [value]="architecture">{{processorArchitectures[architecture]}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  
+  <ion-item *ngIf="electronicComponentType === 'Memória RAM'" >
     <ion-label>Arquitetura:</ion-label>
     <ion-select [(ngModel)]="formRamMemoryArchitecture" ok-text="Ok" cancel-text="Cancelar">
       <ion-select-option *ngFor="let architecture of keys(ramMemoryArchitectures)" [value]="architecture">{{ramMemoryArchitectures[architecture]}}</ion-select-option>
@@ -46,7 +63,20 @@
     </ion-select>
   </ion-item>
 
+  <ion-item *ngIf="electronicComponentType === 'Dispositivo de armazenamento'" >
+    <ion-label>Tipo de dispositivo:</ion-label>
+      <ion-select [(ngModel)]="formStorageDeviceType" ok-text="Ok" cancel-text="Cancelar">
+        <ion-select-option *ngFor="let architecture of keys(storageDeviceTypes)" [value]="architecture">{{storageDeviceTypes[architecture]}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Descrição:</ion-label>
+    <ion-textarea [(ngModel)]="formDescription"></ion-textarea>
+  </ion-item>
+
 </ion-content>
+
 <ion-footer *ngIf="!editForm"> 
   <ion-toolbar>
     <ion-grid>

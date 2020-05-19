@@ -1,17 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ElectronicComponentControllerService } from '../shared';
-
-export enum RamMemoryArchitecture {
-  DDR1 = "DDR-1",
-  DDR2 = "DDR-2",
-  DDR3 = "DDR-3",
-  DDR4 = "DDR-4",
-}
-
-export enum StorageDeviceArchitecture {
-	SATA = "SATA",
-	IDE = "IDE"
-}
+import { ArchitectureType, RamMemoryArchitecture, StorageDeviceArchitecture, StorageDeviceType } from '../shared';
 
 @Component({
   selector: 'app-new-electronic-component',
@@ -27,17 +16,21 @@ export class NewElectronicComponentPage implements OnInit {
   electronicComponentType = "Processador";
 
   keys = Object.keys;
+  processorArchitectures = ArchitectureType;
   ramMemoryArchitectures = RamMemoryArchitecture;
-  storageDeviceArchitectures = RamMemoryArchitecture;
+  storageDeviceArchitectures = StorageDeviceArchitecture;
+  storageDeviceTypes = StorageDeviceType;
 
   formManufacturer: string;
   formModel: string;
   formDescription: string;
   formItWorks: boolean = true;
-  formSizeInMB: number;
-	formProcessorName: string;
+  formSize: number = 0;
+  formProcessorName: string;
+  formProcessorArchitecture: string = "AMD64";
   formRamMemoryArchitecture: string = "DDR3";
   formStorageDeviceArchitecture: string = "SATA";
+  formStorageDeviceType: string = "HD";
 	// computerId: number;
 
   constructor(public controller: ElectronicComponentControllerService) { }
@@ -54,7 +47,7 @@ export class NewElectronicComponentPage implements OnInit {
           description: this.formDescription,
           itWorks: this.formItWorks,
 	        processorName: this.formProcessorName,
-          architecture: this.formRamMemoryArchitecture,
+          architecture: this.formProcessorArchitecture,
           computerId: null
         }
       );
@@ -66,21 +59,22 @@ export class NewElectronicComponentPage implements OnInit {
           model: this.formModel,
           description: this.formDescription,
           itWorks: this.formItWorks,
-          sizeInMB: this.formSizeInMB,
-          architecture: this.formStorageDeviceArchitecture,
+          sizeInMB: this.controller.convertToMB(this.formSize),
+          architecture: this.formRamMemoryArchitecture,
           computerId: null
         }
       );
     }
     if(this.electronicComponentType === "Dispositivo de armazenamento"){
-      this.controller.createProcessor(
+      this.controller.createStorageDevice(
         {
           manufacturer: this.formManufacturer,
           model: this.formModel,
           description: this.formDescription,
           itWorks: this.formItWorks,
-	        processorName: this.formProcessorName,
-          architecture: this.formRamMemoryArchitecture,
+          sizeInMB: this.controller.convertToMB(this.formSize),
+          architecture: this.formStorageDeviceArchitecture,
+          type: this.formStorageDeviceType,
           computerId: null
         }
       );

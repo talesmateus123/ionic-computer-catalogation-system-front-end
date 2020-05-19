@@ -1,4 +1,4 @@
 export enum StorageDeviceType {
-    HD = "Hard Disk",
-    SSD = "Solid State Drive"
+    HD = "HD",
+    SSD = "SSD"
 }

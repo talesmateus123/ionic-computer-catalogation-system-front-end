@@ -1,9 +1,90 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Informações do componente eletrônico</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="electronic-components"></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="electronicComponentType === 'Processador'">Informações do processador</ion-title>
+    <ion-title *ngIf="electronicComponentType === 'Memória RAM'">Informações da memória RAM</ion-title>
+    <ion-title *ngIf="electronicComponentType === 'Dispositivo de armazenamento'">Informações do dispositivo de armazenamento</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="setEditForm()">
+        <ion-icon slot="icon-only" name="create"></ion-icon>          
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-item>
+    <ion-label>Fabricante:</ion-label>
+    <ion-input [disabled]="editForm" type="text" [(ngModel)]="formManufacturer"></ion-input>    
+  </ion-item>
 
+  <ion-item>
+    <ion-label>Modelo:</ion-label>
+    <ion-input [disabled]="editForm" type="text" [(ngModel)]="formModel"></ion-input>    
+  </ion-item>
+
+  <ion-item *ngIf="electronicComponentType === 'Processador'">
+    <ion-label>Nome do processador:</ion-label>
+    <ion-input [disabled]="editForm" type="text" [(ngModel)]="formProcessorName"></ion-input>    
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Está funcionando?</ion-label>
+    <ion-checkbox [disabled]="editForm" color="dark" [(ngModel)]="formItWorks"></ion-checkbox>
+  </ion-item>
+
+  <ion-item *ngIf="electronicComponentType === 'Memória RAM' || electronicComponentType === 'Dispositivo de armazenamento'">
+    <ion-label>Quantidade de memória:</ion-label>
+    <ion-input [disabled]="editForm" type="number" [(ngModel)]="formSize"></ion-input>   
+  </ion-item>
+
+  <ion-item *ngIf="electronicComponentType === 'Processador'">
+    <ion-label>Arquitetura:</ion-label>
+    <ion-select [disabled]="editForm" [(ngModel)]="formProcessorArchitecture" ok-text="Ok" cancel-text="Cancelar">
+      <ion-select-option *ngFor="let architecture of keys(processorArchitectures)" [value]="architecture">{{processorArchitectures[architecture]}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  
+  <ion-item *ngIf="electronicComponentType === 'Memória RAM'" >
+    <ion-label>Arquitetura:</ion-label>
+    <ion-select [disabled]="editForm" [(ngModel)]="formRamMemoryArchitecture" ok-text="Ok" cancel-text="Cancelar">
+      <ion-select-option *ngFor="let architecture of keys(ramMemoryArchitectures)" [value]="architecture">{{ramMemoryArchitectures[architecture]}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngIf="electronicComponentType === 'Dispositivo de armazenamento'" >
+    <ion-label>Arquitetura:</ion-label>
+      <ion-select [disabled]="editForm" [(ngModel)]="formStorageDeviceArchitecture" ok-text="Ok" cancel-text="Cancelar">
+        <ion-select-option *ngFor="let architecture of keys(storageDeviceArchitectures)" [value]="architecture">{{storageDeviceArchitectures[architecture]}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngIf="electronicComponentType === 'Dispositivo de armazenamento'" >
+    <ion-label>Tipo de dispositivo:</ion-label>
+      <ion-select [disabled]="editForm" [(ngModel)]="formStorageDeviceType" ok-text="Ok" cancel-text="Cancelar">
+        <ion-select-option *ngFor="let architecture of keys(storageDeviceTypes)" [value]="architecture">{{storageDeviceTypes[architecture]}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Descrição:</ion-label>
+    <ion-textarea [disabled]="editForm" [(ngModel)]="formDescription"></ion-textarea>
+  </ion-item>
 </ion-content>
+
+<ion-footer *ngIf="!editForm"> 
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="6" class="ion-text-center">            
+          <ion-button (click)="delete()" expand="block" fill="clear" color="dark">Excluir</ion-button>
+        </ion-col>
+        <ion-col size="6" class="ion-text-center">
+          <ion-button (click)="update()" expand="block" fill="clear" color="dark">Salvar</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>    
+</ion-footer>
