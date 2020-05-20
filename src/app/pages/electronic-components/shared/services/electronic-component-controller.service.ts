@@ -3,11 +3,11 @@ import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { ElectronicService } from './electronic.service';
+import { ElectronicService } from '../../../shared_resources';
 import { RamMemoryService } from './ram-memory.service';
 import { StorageDeviceService } from './storage-device.service';
-import { RamMemoryDTO } from 'src/app/pages/electronic-components/shared/models/ram_memory.dto';
-import { StorageDeviceDTO } from 'src/app/pages/electronic-components/shared/models/storage_device.dto';
+import { RamMemoryDTO } from 'src/app/pages/electronic-components/shared/';
+import { StorageDeviceDTO } from 'src/app/pages/electronic-components/shared/';
 import { ProcessorService } from './processor.service';
 import { ProcessorDTO, ProcessorNewDTO, RamMemoryNewDTO, StorageDeviceNewDTO } from '../models';
 
@@ -28,14 +28,14 @@ export class ElectronicComponentControllerService {
     private storageDeviceService: StorageDeviceService
   ) { }
 
-  findSector(id: string): Observable<ProcessorDTO> {
-    return this.processorService.findById(id);
-  }
 
   findElectronic(id: string): Observable<any> {
     return this.electronicComponentService.findById(id);
   }
-  
+
+  findSector(id: string): Observable<ProcessorDTO> {
+    return this.processorService.findById(id);
+  }
 
   updateProcessorsList(): void {
     this.processorService.findAll().subscribe(

@@ -10,7 +10,8 @@ import { EquipmentsPageRoutingModule } from './equipments-routing.module';
 import { EquipmentsPage } from './equipments.page';
 import { NewEquipmentPage } from './new/new-equipment.page';
 import { InfoEquipmentPage } from './info/info-equipment.page';
-import { ComputerService, MonitorService, PrinterService, EquipmentService, EquipmentControllerService,  } from './shared';
+import { ComputerService, MonitorService, PrinterService, EquipmentControllerService,  } from './shared';
+import { ElectronicService } from '../shared_resources';
 import { SectorService } from '../sectors';
 
 @NgModule({
@@ -29,7 +30,7 @@ import { SectorService } from '../sectors';
   ],
   providers: [
     EquipmentControllerService,
-    EquipmentService,
+    ElectronicService,
     ComputerService,
     MonitorService,
     PrinterService,

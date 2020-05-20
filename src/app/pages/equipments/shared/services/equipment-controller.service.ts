@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { ComputerDTO, PrinterDTO, MonitorDTO, ComputerNewDTO, PrinterNewDTO, MonitorNewDTO, EquipmentDTO } from '../models';
 import { SectorDTO } from 'src/app/models/sector.dto';
-import { EquipmentService } from './equipment.service';
+import { ElectronicService } from './../../../shared_resources';
 import { ComputerService } from './computer.service';
 import { MonitorService } from './monitor.service';
 import { PrinterService } from './printer.service';
@@ -23,14 +23,14 @@ export class EquipmentControllerService {
   constructor(
     public alertController: AlertController, 
     private router: Router, 
-    private equipmentService: EquipmentService, 
+    private electronicService: ElectronicService, 
     private computerService: ComputerService,
     private monitorService: MonitorService,
     private printerService: PrinterService, 
     private sectorService: SectorService) { }
 
-  findEquipment(id: string): Observable<EquipmentDTO> {
-    return this.equipmentService.findById(id);
+  findEquipment(id: string): Observable<any> {
+    return this.electronicService.findById(id);
   }
 
   updateComputersList(): void {

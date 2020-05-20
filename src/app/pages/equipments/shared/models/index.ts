@@ -1,1 +1,2 @@
-export * from './equipments';
+export * from './classes';
+export * from './enums';
