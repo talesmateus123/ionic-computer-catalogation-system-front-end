@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 
-import { SectorNewDTO } from 'src/app/models/sector_new.dto';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SectorService, SectorControllerService } from '../shared';
+import { SectorNewDTO, SectorService, SectorControllerService } from '../shared';
 
 @Component({
   selector: 'app-new-sector',

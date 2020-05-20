@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ComputerDTO, MonitorDTO, EquipmentControllerService, } from '../shared';
-import { SectorDTO } from 'src/app/models/sector.dto';
 import { ProcessorDTO } from '../../electronic-components/shared';
+import { SectorDTO } from '../../sectors';
 
 @Component({
   selector: 'app-new-equipment',

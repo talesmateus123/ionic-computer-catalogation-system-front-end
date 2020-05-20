@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
-import { SectorNewDTO } from 'src/app/models/sector_new.dto';
+import { SectorNewDTO } from '../shared/';
 import { SectorService, SectorControllerService } from '../shared';
 @Component({
   selector: 'app-info-sector',

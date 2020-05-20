@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { MonitorDTO, MonitorNewDTO } from '../models/equipments';
+import { MonitorDTO, MonitorNewDTO } from '../models';
 import { API_CONFIG } from 'src/app/config';
 
 @Injectable({

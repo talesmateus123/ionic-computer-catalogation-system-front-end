@@ -3,8 +3,7 @@ import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { SectorService } from './sector.service';
 import { Observable } from 'rxjs';
-import { SectorDTO } from 'src/app/models/sector.dto';
-import { SectorNewDTO } from 'src/app/models/sector_new.dto';
+import { SectorDTO, SectorNewDTO } from '../models';
 
 @Injectable({
   providedIn: 'root'

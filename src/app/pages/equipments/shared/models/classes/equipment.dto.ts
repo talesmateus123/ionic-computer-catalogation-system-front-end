@@ -1,5 +1,3 @@
-import { SectorDTO } from 'src/app/models/sector.dto';
-
 export abstract class EquipmentDTO {
     id: string;
 	createdDate: Date;

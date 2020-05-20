@@ -2,8 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { API_CONFIG } from 'src/app/config';
-import { SectorDTO } from 'src/app/models/sector.dto';
-import { SectorNewDTO } from 'src/app/models/sector_new.dto';
+import { SectorDTO, SectorNewDTO } from '../models';
 
 @Injectable()
 export class SectorService {

@@ -8,18 +8,6 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'home',
-    loadChildren: () => import('./pages/').then( m => m.HomePageModule)
-  },
-  {
-    path: 'login',
-    loadChildren: () => import('./pages/').then( m => m.LoginPageModule)
-  },
-  {
-    path: 'register',
-    loadChildren: () => import('./pages/').then( m => m.RegisterPageModule)
-  },
-  {
     path: 'sectors',
     loadChildren: () => import('./pages/').then( m => m.SectorsPageModule)
   },

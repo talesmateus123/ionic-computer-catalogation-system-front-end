@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
-import { ComputerDTO, PrinterDTO, MonitorDTO, ComputerNewDTO, PrinterNewDTO, MonitorNewDTO, EquipmentDTO } from '../models';
-import { SectorDTO } from 'src/app/models/sector.dto';
-import { ElectronicService } from './../../../shared_resources';
 import { ComputerService } from './computer.service';
 import { MonitorService } from './monitor.service';
 import { PrinterService } from './printer.service';
-import { SectorService } from 'src/app/pages/sectors';
-import { Observable } from 'rxjs';
+import { SectorService, SectorDTO } from 'src/app/pages/sectors';
+import { ComputerDTO, PrinterDTO, MonitorDTO, ComputerNewDTO, PrinterNewDTO, MonitorNewDTO, EquipmentDTO } from '../models';
+import { ElectronicService } from 'src/app/pages/shared-resources';
 
 @Injectable({
   providedIn: 'root'

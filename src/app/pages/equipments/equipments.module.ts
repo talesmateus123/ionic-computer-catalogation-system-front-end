@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -11,8 +10,8 @@ import { EquipmentsPage } from './equipments.page';
 import { NewEquipmentPage } from './new/new-equipment.page';
 import { InfoEquipmentPage } from './info/info-equipment.page';
 import { ComputerService, MonitorService, PrinterService, EquipmentControllerService,  } from './shared';
-import { ElectronicService } from '../shared_resources';
 import { SectorService } from '../sectors';
+import { ElectronicService } from '../shared-resources';
 
 @NgModule({
   imports: [

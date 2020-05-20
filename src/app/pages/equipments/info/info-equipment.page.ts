@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ComputerDTO, MonitorDTO, EquipmentControllerService } from '../shared';
-import { SectorDTO } from 'src/app/models/sector.dto';
+import { SectorDTO } from '../../sectors';
 import { ProcessorDTO } from '../../electronic-components/shared';
 
 @Component({

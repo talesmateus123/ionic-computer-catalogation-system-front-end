@@ -3,13 +3,11 @@ import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { ElectronicService } from '../../../shared_resources';
+import { ProcessorService } from './processor.service';
 import { RamMemoryService } from './ram-memory.service';
 import { StorageDeviceService } from './storage-device.service';
-import { RamMemoryDTO } from 'src/app/pages/electronic-components/shared/';
-import { StorageDeviceDTO } from 'src/app/pages/electronic-components/shared/';
-import { ProcessorService } from './processor.service';
-import { ProcessorDTO, ProcessorNewDTO, RamMemoryNewDTO, StorageDeviceNewDTO } from '../models';
+import { ProcessorDTO, RamMemoryDTO, StorageDeviceDTO, ProcessorNewDTO, RamMemoryNewDTO, StorageDeviceNewDTO } from '../models';
+import { ElectronicService } from 'src/app/pages/shared-resources';
 
 @Injectable({
   providedIn: 'root'
