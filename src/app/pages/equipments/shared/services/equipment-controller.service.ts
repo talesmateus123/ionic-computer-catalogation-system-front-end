@@ -17,6 +17,12 @@ import { ElectronicService } from 'src/app/pages/shared-resources';
   providedIn: 'root'
 })
 export class EquipmentControllerService {
+  public equipmentTypes: string[] =[
+    "Computador",
+    "Impressora",
+    "Monitor",
+  ];
+  
   public keys = Object.keys;
   
   public operatingSystemArchitectures = ArchitectureType;

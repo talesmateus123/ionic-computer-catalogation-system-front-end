@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { ComputerDTO, MonitorDTO, EquipmentControllerService, ArchitectureType, OperatingSystem, } from '../shared';
 import { ProcessorDTO } from '../../electronic-components/shared';
-import { SectorDTO } from '../../sectors';
 
 @Component({
   selector: 'app-new-equipment',
@@ -10,41 +9,32 @@ import { SectorDTO } from '../../sectors';
   styleUrls: ['./new-equipment.page.scss'],
 })
 export class NewEquipmentPage implements OnInit {
-  equipmentTypes: string[] =[
-    "Computador",
-    "Impressora",
-    "Monitor",
-  ];
-  equipmentType = "Computador";
+  public equipmentType = "Computador";
+  
+  public formManufacturer: string;
+  public formModel: string;
+  public formDescription: string;
+  public formItWorks: boolean = true;
+  public formPatrimonyId: string;
+  public formIpAddress: string;
+  public formHostName: string;
+  public formMotherBoardName: string;
+  public formHasCdBurner: boolean = true;
+  public formCabinetModel: string;
+  public formOperatingSystem: string = "NONE";
+  public formOperatingSystemArchitecture: string = "NONE";
+  public formOnTheDomain: boolean = false;
+  public formProcessorId: number;
+  public formMonitorId: number;
+  public formComputerId: number;
+  public formSectorId: number;
+  public formRamMemoriesId: number[];
+  public formStorageDevicesId: number[];
+  public formComputerUsersId: number[];
 
-  formManufacturer: string;
-  formModel: string;
-  formDescription: string;
-  formItWorks: boolean = true;
-  formPatrimonyId: string;
-  formIpAddress: string;
-  formHostName: string;
-  formMotherBoardName: string;
-  formHasCdBurner: boolean = true;
-  formCabinetModel: string;
-  formOperatingSystem: string = "NONE";
-  formOperatingSystemArchitecture: string = "NONE";
-  formOnTheDomain: boolean = false;
-  formProcessorId: number;
-  formMonitorId: number;
-  formComputerId: number;
-  formSectorId: number;
-  formRamMemoriesId: number[];
-  formStorageDevicesId: number[];
-  formComputerUsersId: number[];
-
-  sectors: SectorDTO[];
-  computers: ComputerDTO[];
-  monitors: MonitorDTO[];
-
-  availableComputers: ComputerDTO[];
-  availableMonitors: MonitorDTO[];
-  availableProcessors: ProcessorDTO[];
+  public availableComputers: ComputerDTO[];
+  public availableMonitors: MonitorDTO[];
+  public availableProcessors: ProcessorDTO[];
   
   constructor(
     public controller: EquipmentControllerService,

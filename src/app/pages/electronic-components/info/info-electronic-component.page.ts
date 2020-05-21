@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ElectronicComponentControllerService } from '../shared';
-import { ArchitectureType, RamMemoryArchitecture, StorageDeviceArchitecture, StorageDeviceType } from '../shared';
 
 @Component({
   selector: 'app-info-electronic-component',
@@ -10,29 +9,10 @@ import { ArchitectureType, RamMemoryArchitecture, StorageDeviceArchitecture, Sto
   styleUrls: ['./info-electronic-component.page.scss'],
 })
 export class InfoElectronicComponentPage implements OnInit {
-  id: string;
-  electronicComponentType: string;
-  editForm: boolean;
-
-  electronicComponentTypes: string[] =[
-    "Processador",
-    "Memória RAM",
-    "Dispositivo de armazenamento",
-  ];
-
-  formManufacturer: string;
-  formModel: string;
-  formDescription: string;
-  formItWorks: boolean;
-  formSize: number;
-  formProcessorNumber: string;
-  formProcessorArchitecture: string;
-  formRamMemoryArchitecture: string;
-  formStorageDeviceArchitecture: string;
-  formStorageDeviceType: string;
-  // computerId: number;
-  
-  electronicComponent: any;
+  private id: string;
+  public editForm: boolean = true;
+  public formSize: number;
+  public electronicComponent: any;
 
   constructor(
     public controller: ElectronicComponentControllerService,
@@ -43,17 +23,17 @@ export class InfoElectronicComponentPage implements OnInit {
     this.electronicComponent = this.controller.findElectronic(this.id).subscribe(
       res => {
         let response = res;
-        this.electronicComponentType = response.equipmentType
-        if(this.electronicComponentType === "PROCESSOR") {
-          this.electronicComponentType = "Processador";
+        this.controller.electronicComponentType = response.equipmentType
+        if(this.controller.electronicComponentType === "PROCESSOR") {
+          this.controller.electronicComponentType = "Processador";
           this.electronicComponent = response;
         }
-        else if(this.electronicComponentType === "RAM_MEMORY") {
-          this.electronicComponentType = "Memória RAM";
+        else if(this.controller.electronicComponentType === "RAM_MEMORY") {
+          this.controller.electronicComponentType = "Memória RAM";
           this.electronicComponent = response;
         }
-        else if(this.electronicComponentType === "STORAGE_DEVICE") {
-          this.electronicComponentType = "Dispositivo de armazenamento";
+        else if(this.controller.electronicComponentType === "STORAGE_DEVICE") {
+          this.controller.electronicComponentType = "Dispositivo de armazenamento";
           this.electronicComponent = response;
         }
         this.populateForm();
@@ -75,70 +55,51 @@ export class InfoElectronicComponentPage implements OnInit {
 
 
   populateForm() {
-    if(this.electronicComponentType === "Processador") {    
-      this.formManufacturer = this.electronicComponent.manufacturer;
-      this.formModel = this.electronicComponent.model;
-      this.formDescription = this.electronicComponent.description;
-      this.formItWorks = this.electronicComponent.itWorks;
-      this.formProcessorNumber = this.electronicComponent.processorName;
-      this.formProcessorArchitecture =  this.electronicComponent.architecture;
-    }
-    if(this.electronicComponentType === "Memória RAM"){
-      this.formManufacturer = this.electronicComponent.manufacturer;
-      this.formModel = this.electronicComponent.model;
-      this.formDescription = this.electronicComponent.description;
-      this.formItWorks = this.electronicComponent.itWorks;
+    if(this.controller.electronicComponentType === "Memória RAM"){
       this.formSize = this.controller.convertToGB(this.electronicComponent.sizeInMB);
-      this.formRamMemoryArchitecture = this.electronicComponent.architecture;
     }
-    if(this.electronicComponentType === "Dispositivo de armazenamento"){
-      this.formManufacturer = this.electronicComponent.manufacturer;
-      this.formModel = this.electronicComponent.model;
-      this.formDescription = this.electronicComponent.description;
-      this.formItWorks = this.electronicComponent.itWorks;
+    if(this.controller.electronicComponentType === "Dispositivo de armazenamento"){
       this.formSize = this.controller.convertToGB(this.electronicComponent.sizeInMB);
-      this.formStorageDeviceArchitecture = this.electronicComponent.architecture;
-      this.formStorageDeviceType = this.electronicComponent.type;
     }
   }
 
   update() {
-    if(this.electronicComponentType === "Processador"){
+    if(this.controller.electronicComponentType === "Processador"){
       this.controller.updateProcessor(this.id,
         {
-          manufacturer: this.formManufacturer,
-          model: this.formModel,
-          description: this.formDescription,
-          itWorks: this.formItWorks,
-	        processorName: this.formProcessorNumber,
-          architecture: this.formProcessorArchitecture,
+          manufacturer: this.electronicComponent.manufacturer,
+          model: this.electronicComponent.model,
+          description: this.electronicComponent.description,
+          itWorks: this.electronicComponent.itWorks,
+	        processorName: this.electronicComponent.processorName,
+          architecture: this.electronicComponent.architecture,
           computerId: null
         }
       );
     }
-    if(this.electronicComponentType === "Memória RAM"){
+    if(this.controller.electronicComponentType === "Memória RAM"){
       this.controller.updateRamMemory(this.id,
         {
-          manufacturer: this.formManufacturer,
-          model: this.formModel,
-          description: this.formDescription,
-          itWorks: this.formItWorks,
+          manufacturer: this.electronicComponent.manufacturer,
+          model: this.electronicComponent.model,
+          description: this.electronicComponent.description,
+          itWorks: this.electronicComponent.itWorks,
           sizeInMB: this.controller.convertToMB(this.formSize),
-          architecture: this.formRamMemoryArchitecture,
+          architecture: this.electronicComponent.architecture,
           computerId: null
         }
       );
     }
-    if(this.electronicComponentType === "Dispositivo de armazenamento"){
+    if(this.controller.electronicComponentType === "Dispositivo de armazenamento"){
       this.controller.updateStorageDevice(this.id,
         {
-          manufacturer: this.formManufacturer,
-          model: this.formModel,
-          description: this.formDescription,
-          itWorks: this.formItWorks,
+          manufacturer: this.electronicComponent.manufacturer,
+          model: this.electronicComponent.model,
+          description: this.electronicComponent.description,
+          itWorks: this.electronicComponent.itWorks,
           sizeInMB: this.controller.convertToMB(this.formSize),
-          architecture: this.formStorageDeviceArchitecture,
-          type: this.formStorageDeviceType,
+          architecture: this.electronicComponent.architecture,
+          type: this.electronicComponent.type,
           computerId: null
         }
       );
@@ -146,13 +107,13 @@ export class InfoElectronicComponentPage implements OnInit {
   }
 
   delete() {
-    if(this.electronicComponentType === "Processador"){
+    if(this.controller.electronicComponentType === "Processador"){
       this.controller.deleteProcessor(this.id);
     }
-    if(this.electronicComponentType === "Memória RAM"){
+    if(this.controller.electronicComponentType === "Memória RAM"){
       this.controller.deleteRamMemory(this.id);
     }
-    if(this.electronicComponentType === "Dispositivo de armazenamento"){
+    if(this.controller.electronicComponentType === "Dispositivo de armazenamento"){
       this.controller.deleteStorageDevice(this.id);
     }
   }

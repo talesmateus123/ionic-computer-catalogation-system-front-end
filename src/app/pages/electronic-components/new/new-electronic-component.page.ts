@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+
 import { ElectronicComponentControllerService } from '../shared';
-import { ArchitectureType, RamMemoryArchitecture, StorageDeviceArchitecture, StorageDeviceType } from '../shared';
 
 @Component({
   selector: 'app-new-electronic-component',
@@ -8,12 +8,6 @@ import { ArchitectureType, RamMemoryArchitecture, StorageDeviceArchitecture, Sto
   styleUrls: ['./new-electronic-component.page.scss'],
 })
 export class NewElectronicComponentPage implements OnInit {
-  electronicComponentTypes: string[] =[
-    "Processador",
-    "Memória RAM",
-    "Dispositivo de armazenamento",
-  ];
-  electronicComponentType = "Processador";
 
   formManufacturer: string;
   formModel: string;
@@ -33,7 +27,7 @@ export class NewElectronicComponentPage implements OnInit {
   }
 
   create() {
-    if(this.electronicComponentType === "Processador"){
+    if(this.controller.electronicComponentType === "Processador"){
       this.controller.createProcessor(
         {
           manufacturer: this.formManufacturer,
@@ -46,7 +40,7 @@ export class NewElectronicComponentPage implements OnInit {
         }
       );
     }
-    if(this.electronicComponentType === "Memória RAM"){
+    if(this.controller.electronicComponentType === "Memória RAM"){
       this.controller.createRamMemory(
         {
           manufacturer: this.formManufacturer,
@@ -59,7 +53,7 @@ export class NewElectronicComponentPage implements OnInit {
         }
       );
     }
-    if(this.electronicComponentType === "Dispositivo de armazenamento"){
+    if(this.controller.electronicComponentType === "Dispositivo de armazenamento"){
       this.controller.createStorageDevice(
         {
           manufacturer: this.formManufacturer,

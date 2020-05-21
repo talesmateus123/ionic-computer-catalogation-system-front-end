@@ -9,7 +9,7 @@
     <ion-buttons slot="end">
       <ion-button>
         <ion-select [(ngModel)]="equipmentType"  ok-text="Ok" cancel-text="Cancelar">
-          <ion-select-option *ngFor="let equipment of equipmentTypes">{{ equipment }}</ion-select-option>
+          <ion-select-option *ngFor="let equipment of controller.equipmentTypes">{{ equipment }}</ion-select-option>
         </ion-select>
       </ion-button>
     </ion-buttons>

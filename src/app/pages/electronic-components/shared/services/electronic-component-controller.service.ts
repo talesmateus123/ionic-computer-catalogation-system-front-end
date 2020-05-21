@@ -16,6 +16,13 @@ import { ElectronicService } from 'src/app/pages/shared-resources';
   providedIn: 'root'
 })
 export class ElectronicComponentControllerService {
+  public electronicComponentTypes: string[] =[
+    "Processador",
+    "Memória RAM",
+    "Dispositivo de armazenamento",
+  ];
+  public electronicComponentType = "Processador";
+
   public keys = Object.keys;
 
   public processorArchitectures = ArchitectureType;

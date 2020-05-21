@@ -11,39 +11,36 @@ import { ProcessorDTO } from '../../electronic-components/shared';
   styleUrls: ['./info-equipment.page.scss'],
 })
 export class InfoEquipmentPage implements OnInit {
-  id: string;
-  equipmentType: string;
-  editForm: boolean
+  public equipmentType: string;
 
-  formManufacturer: string;
-  formModel: string;
-  formDescription: string;
-  formItWorks: boolean
-  formPatrimonyId: string;
-  formIpAddress: string;
-  formHostName: string;
-  formMotherBoardName: string;
-  formHasCdBurner: boolean;
-  formCabinetModel: string;
-  formOperatingSystem: string;
-  formOperatingSystemArchitecture: string;
-  formOnTheDomain: boolean;
-  formProcessorId: number;
-  formMonitorId: number;
-  formSectorId: number;
-  formRamMemoriesId: number[];
-  formStorageDevicesId: number[];
-  formComputerUsersId: number[];
+  private id: string;
+  public editForm: boolean
 
-  equipment: any;
+  public formManufacturer: string;
+  public formModel: string;
+  public formDescription: string;
+  public formItWorks: boolean
+  public formPatrimonyId: string;
+  public formIpAddress: string;
+  public formHostName: string;
+  public formMotherBoardName: string;
+  public formHasCdBurner: boolean;
+  public formCabinetModel: string;
+  public formOperatingSystem: string;
+  public formOperatingSystemArchitecture: string;
+  public formOnTheDomain: boolean;
+  public formProcessorId: number;
+  public formMonitorId: number;
+  public formSectorId: number;
+  public formRamMemoriesId: number[];
+  public formStorageDevicesId: number[];
+  public formComputerUsersId: number[];
 
-  sectors: SectorDTO[];
-  computers: ComputerDTO[];
-  monitors: MonitorDTO[];
+  public availableComputers: ComputerDTO[];
+  public availableMonitors: MonitorDTO[];
+  public availableProcessors: ProcessorDTO[];
 
-  availableComputers: ComputerDTO[];
-  availableMonitors: MonitorDTO[];
-  availableProcessors: ProcessorDTO[];
+  private equipment: any;
 
   constructor(
     public controller: EquipmentControllerService,
