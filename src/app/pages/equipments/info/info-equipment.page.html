@@ -69,22 +69,15 @@
 
     <ion-item>
       <ion-label>Sistema operacional:</ion-label>
-      <ion-select [disabled]="editForm" [(ngModel)]="formOperatingSystem"  ok-text="Ok" cancel-text="Cancelar">
-        <ion-select-option value="NONE">Nenhum</ion-select-option>
-        <ion-select-option value="WINDOWS_XP">Windows XP</ion-select-option>
-        <ion-select-option value="WINDOWS_VISTA">Windows Vista</ion-select-option>
-        <ion-select-option value="WINDOWS_7">Windows 7</ion-select-option>
-        <ion-select-option value="WINDOWS_10">Windows 10</ion-select-option>
-        <ion-select-option value="LINUX_DISTRO">Distribuição linux</ion-select-option>
+      <ion-select [disabled]="editForm" [(ngModel)]="formOperatingSystem" ok-text="Ok" cancel-text="Cancelar">
+        <ion-select-option *ngFor="let operatingSystem of controller.keys(controller.operatingSystems)" [value]="operatingSystem">{{controller.operatingSystems[operatingSystem]}}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
       <ion-label>Arquitetura do sistema operacional:</ion-label>
-      <ion-select [disabled]="editForm" [(ngModel)]="formOperatingSystemArchitecture"  ok-text="Ok" cancel-text="Cancelar">
-        <ion-select-option value="NONE">Nenhum</ion-select-option>
-        <ion-select-option value="AMD64">64 bits</ion-select-option>
-        <ion-select-option value="I386">32 bits</ion-select-option>
+      <ion-select [disabled]="editForm" [(ngModel)]="formOperatingSystemArchitecture" ok-text="Ok" cancel-text="Cancelar">
+        <ion-select-option *ngFor="let operatingSystemArchitecture of controller.keys(controller.operatingSystemArchitectures)" [value]="operatingSystemArchitecture">{{controller.operatingSystemArchitectures[operatingSystemArchitecture]}}</ion-select-option>
       </ion-select>
     </ion-item>
 

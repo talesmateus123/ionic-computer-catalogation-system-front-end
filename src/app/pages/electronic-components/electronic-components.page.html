@@ -22,7 +22,7 @@
 <ion-content>
   <ion-list *ngIf="electronicComponentType === 'Processadores'">
     <ion-item *ngFor="let processor of controller.processors" routerLink="/electronic-components/info/{{processor.id}}">
-      <ion-icon slot="start" name="laptop"></ion-icon>
+      <ion-icon slot="start" name="hardware-chip"></ion-icon>
       <ion-label>
         <h2>{{ processor.model }} ({{ processor.processorName }})</h2>
         <h3>{{ processor.manufacturer }}</h3>
@@ -33,7 +33,7 @@
 
   <ion-list *ngIf="electronicComponentType === 'Memórias RAM'">
     <ion-item *ngFor="let ramMemory of controller.ramMemories" routerLink="/electronic-components/info/{{ramMemory.id}}">
-      <ion-icon slot="start" name="laptop"></ion-icon>
+      <ion-icon slot="start" name="git-compare"></ion-icon>
       <ion-label>
         <h2>{{ ramMemory.manufacturer }} | {{ ramMemory.model }}</h2>
         <h3>{{ ramMemory.architecture }}</h3>
@@ -44,10 +44,10 @@
 
   <ion-list *ngIf="electronicComponentType === 'Dispositivos de armazenamento'">
     <ion-item *ngFor="let storageDevice of controller.storageDevices" routerLink="/electronic-components/info/{{storageDevice.id}}">
-      <ion-icon slot="start" name="laptop"></ion-icon>
+      <ion-icon slot="start" name="disc"></ion-icon>
       <ion-label>
         <h2>{{ storageDevice.manufacturer }} | {{ storageDevice.model }}</h2>
-        <h3>{{ storageDevice.architecture }}</h3>
+        <h3>{{ storageDevice.type }} ({{ storageDevice.architecture }})</h3>
         <p>{{ controller.convertToGB(storageDevice.sizeInMB) }} GB</p>
       </ion-label>
     </ion-item>

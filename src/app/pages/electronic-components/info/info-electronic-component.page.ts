@@ -19,19 +19,13 @@ export class InfoElectronicComponentPage implements OnInit {
     "Memória RAM",
     "Dispositivo de armazenamento",
   ];
-  keys = Object.keys;
-
-  processorArchitectures = ArchitectureType;
-  ramMemoryArchitectures = RamMemoryArchitecture;
-  storageDeviceArchitectures = StorageDeviceArchitecture;
-  storageDeviceTypes = StorageDeviceType;
 
   formManufacturer: string;
   formModel: string;
   formDescription: string;
   formItWorks: boolean;
   formSize: number;
-  formProcessorName: string;
+  formProcessorNumber: string;
   formProcessorArchitecture: string;
   formRamMemoryArchitecture: string;
   formStorageDeviceArchitecture: string;
@@ -86,7 +80,7 @@ export class InfoElectronicComponentPage implements OnInit {
       this.formModel = this.electronicComponent.model;
       this.formDescription = this.electronicComponent.description;
       this.formItWorks = this.electronicComponent.itWorks;
-      this.formProcessorName = this.electronicComponent.processorName;
+      this.formProcessorNumber = this.electronicComponent.processorName;
       this.formProcessorArchitecture =  this.electronicComponent.architecture;
     }
     if(this.electronicComponentType === "Memória RAM"){
@@ -116,7 +110,7 @@ export class InfoElectronicComponentPage implements OnInit {
           model: this.formModel,
           description: this.formDescription,
           itWorks: this.formItWorks,
-	        processorName: this.formProcessorName,
+	        processorName: this.formProcessorNumber,
           architecture: this.formProcessorArchitecture,
           computerId: null
         }

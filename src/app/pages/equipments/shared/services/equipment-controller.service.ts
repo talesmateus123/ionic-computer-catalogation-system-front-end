@@ -7,13 +7,21 @@ import { ComputerService } from './computer.service';
 import { MonitorService } from './monitor.service';
 import { PrinterService } from './printer.service';
 import { SectorService, SectorDTO } from 'src/app/pages/sectors';
-import { ComputerDTO, PrinterDTO, MonitorDTO, ComputerNewDTO, PrinterNewDTO, MonitorNewDTO, EquipmentDTO } from '../models';
+import { 
+  ComputerDTO, PrinterDTO, MonitorDTO, ComputerNewDTO, PrinterNewDTO, 
+  MonitorNewDTO, ArchitectureType, OperatingSystem
+ } from '../models';
 import { ElectronicService } from 'src/app/pages/shared-resources';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EquipmentControllerService {
+  public keys = Object.keys;
+  
+  public operatingSystemArchitectures = ArchitectureType;
+  public operatingSystems = OperatingSystem;
+
   public sectors: SectorDTO[];
   public computers: ComputerDTO[];
   public monitors: MonitorDTO[];

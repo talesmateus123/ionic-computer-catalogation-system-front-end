@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ComputerDTO, MonitorDTO, EquipmentControllerService, } from '../shared';
+import { ComputerDTO, MonitorDTO, EquipmentControllerService, ArchitectureType, OperatingSystem, } from '../shared';
 import { ProcessorDTO } from '../../electronic-components/shared';
 import { SectorDTO } from '../../sectors';
 

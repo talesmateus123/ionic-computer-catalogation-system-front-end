@@ -15,18 +15,12 @@ export class NewElectronicComponentPage implements OnInit {
   ];
   electronicComponentType = "Processador";
 
-  keys = Object.keys;
-  processorArchitectures = ArchitectureType;
-  ramMemoryArchitectures = RamMemoryArchitecture;
-  storageDeviceArchitectures = StorageDeviceArchitecture;
-  storageDeviceTypes = StorageDeviceType;
-
   formManufacturer: string;
   formModel: string;
   formDescription: string;
   formItWorks: boolean = true;
   formSize: number = 0;
-  formProcessorName: string;
+  formProcessorNumber: string;
   formProcessorArchitecture: string = "AMD64";
   formRamMemoryArchitecture: string = "DDR3";
   formStorageDeviceArchitecture: string = "SATA";
@@ -46,7 +40,7 @@ export class NewElectronicComponentPage implements OnInit {
           model: this.formModel,
           description: this.formDescription,
           itWorks: this.formItWorks,
-	        processorName: this.formProcessorName,
+	        processorName: this.formProcessorNumber,
           architecture: this.formProcessorArchitecture,
           computerId: null
         }

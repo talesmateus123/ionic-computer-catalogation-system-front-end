@@ -6,13 +6,23 @@ import { Observable } from 'rxjs';
 import { ProcessorService } from './processor.service';
 import { RamMemoryService } from './ram-memory.service';
 import { StorageDeviceService } from './storage-device.service';
-import { ProcessorDTO, RamMemoryDTO, StorageDeviceDTO, ProcessorNewDTO, RamMemoryNewDTO, StorageDeviceNewDTO } from '../models';
+import { 
+  ProcessorDTO, RamMemoryDTO, StorageDeviceDTO, ProcessorNewDTO, 
+  RamMemoryNewDTO, StorageDeviceNewDTO, ArchitectureType, 
+  RamMemoryArchitecture, StorageDeviceArchitecture, StorageDeviceType } from '../models';
 import { ElectronicService } from 'src/app/pages/shared-resources';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ElectronicComponentControllerService {
+  public keys = Object.keys;
+
+  public processorArchitectures = ArchitectureType;
+  public ramMemoryArchitectures = RamMemoryArchitecture;
+  public storageDeviceArchitectures = StorageDeviceArchitecture;
+  public storageDeviceTypes = StorageDeviceType;
+
   public processors: ProcessorDTO[];
   public ramMemories: RamMemoryDTO[];
   public storageDevices: StorageDeviceDTO[];
@@ -65,7 +75,6 @@ export class ElectronicComponentControllerService {
       });
   }
 
-  // create update delete
   createProcessor(objetcNewDTO: ProcessorNewDTO) {
     this.processorService.create(objetcNewDTO).subscribe(res => {
       this.successMessageAlert("Processador criado com sucesso");
@@ -79,7 +88,6 @@ export class ElectronicComponentControllerService {
   }
 
   createRamMemory(objetcNewDTO: RamMemoryNewDTO) {
-    console.log(objetcNewDTO)
     this.ramMemoryService.create(objetcNewDTO).subscribe(res => {
       this.successMessageAlert("Memória RAM criada com sucesso");
       this.updateRamMemoriesList();
