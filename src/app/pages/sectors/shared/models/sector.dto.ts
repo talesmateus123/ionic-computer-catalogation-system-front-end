@@ -1,4 +1,4 @@
-export interface SectorDTO {
+export class SectorDTO {
     id: number;
 	name: string;
 }

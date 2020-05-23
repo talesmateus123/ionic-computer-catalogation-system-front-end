@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ComputerDTO, MonitorDTO, EquipmentControllerService, ArchitectureType, OperatingSystem, } from '../shared';
+import { ComputerDTO, MonitorDTO, EquipmentControllerService } from '../shared';
 import { ProcessorDTO } from '../../electronic-components/shared';
+import { SectorControllerService } from '../../sectors';
 
 @Component({
   selector: 'app-new-equipment',
@@ -38,10 +39,11 @@ export class NewEquipmentPage implements OnInit {
   
   constructor(
     public controller: EquipmentControllerService,
+    public sectorController: SectorControllerService,
   ) { }
 
   ngOnInit() {
-    this.controller.updateSectorsList();
+    this.sectorController.updateSectorsList();
     this.populateAvailableAvailableComputers();
     this.populateAvailableAvailableMonitors();
   }

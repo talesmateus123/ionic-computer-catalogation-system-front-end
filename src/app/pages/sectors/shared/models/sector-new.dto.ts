@@ -1,3 +1,3 @@
-export interface SectorNewDTO {
+export class SectorNewDTO {
 	name: string;
 }

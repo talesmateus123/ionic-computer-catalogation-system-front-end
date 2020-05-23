@@ -17,4 +17,38 @@
 
 <ion-content>
 
+  <ion-list *ngIf="controller.computerUsers">
+    <ion-item *ngFor="let computerUser of controller.computerUsers" routerLink="/computer-users/info/{{computerUser.id}}">
+      <ion-icon slot="start" name="person"></ion-icon>
+      <ion-label>
+        <h2>{{ computerUser.name }} {{ computerUser.lastName }}</h2>
+        <p>{{ computerUser.email }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Skeleton screen -->
+  <div *ngIf="!controller.computerUsers">
+    <ion-list>
+      <ion-item>
+        <ion-avatar slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label>
+          <h2><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></h2>
+          <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-avatar slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label>
+          <h2><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></h2>
+          <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
 </ion-content>

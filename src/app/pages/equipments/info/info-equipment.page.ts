@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ComputerDTO, MonitorDTO, EquipmentControllerService } from '../shared';
-import { SectorDTO } from '../../sectors';
 import { ProcessorDTO } from '../../electronic-components/shared';
+import { SectorControllerService } from '../../sectors';
 
 @Component({
   selector: 'app-info-equipment',
@@ -44,13 +44,14 @@ export class InfoEquipmentPage implements OnInit {
 
   constructor(
     public controller: EquipmentControllerService,
+    public sectorController: SectorControllerService,
     private route: ActivatedRoute
     ) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id')
-    this.controller.updateSectorsList();
-    this.equipment = this.controller.findEquipment(this.id).subscribe(
+    this.sectorController.updateSectorsList();
+    this.controller.findEquipment(this.id).subscribe(
       res => {
         let response = res;
         this.equipmentType = response.equipmentType
@@ -108,7 +109,7 @@ export class InfoEquipmentPage implements OnInit {
   }
 
   populateForm() {
-    if(this.equipmentType === "Computador"){
+    if(this.equipmentType === "Computador") {
       this.formManufacturer = this.equipment.manufacturer;
       this.formModel = this.equipment.model;
       this.formDescription = this.equipment.description;
@@ -155,8 +156,7 @@ export class InfoEquipmentPage implements OnInit {
   }
 
   update() {    
-    if(this.equipmentType === "Computador"){
-
+    if(this.equipmentType === "Computador") {
       this.controller.updateComputer(this.id, 
         {
           manufacturer: this.formManufacturer,
@@ -211,7 +211,7 @@ export class InfoEquipmentPage implements OnInit {
     }
   }
 
-  delete(){
+  delete() {
     if(this.equipmentType === "Computador")
       this.controller.deleteComputer(this.id);
     else if(this.equipmentType === "Impressora") 

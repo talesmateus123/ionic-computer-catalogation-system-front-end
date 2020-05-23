@@ -1,4 +1,4 @@
-export interface ComputerUserNewDTO {
+export class ComputerUserNewDTO {
 	name: string;
 	lastName: string;
 	email: string;

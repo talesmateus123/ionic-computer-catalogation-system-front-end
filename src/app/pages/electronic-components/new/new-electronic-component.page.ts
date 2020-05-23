@@ -21,7 +21,8 @@ export class NewElectronicComponentPage implements OnInit {
   formStorageDeviceType: string = "HD";
 	// computerId: number;
 
-  constructor(public controller: ElectronicComponentControllerService) { }
+  constructor(
+    public controller: ElectronicComponentControllerService) { }
 
   ngOnInit() {
   }

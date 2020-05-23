@@ -1,7 +1,6 @@
-export interface ComputerUserDTO {
+export class ComputerUserDTO {
     id: string;
 	name: string;
 	lastName: string;
-	email: string;
-	
+	email: string;	
 }

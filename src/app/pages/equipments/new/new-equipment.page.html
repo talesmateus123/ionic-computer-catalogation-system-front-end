@@ -126,10 +126,10 @@
   </div>
   -->
 
-  <ion-item *ngIf="controller.sectors">
+  <ion-item *ngIf="sectorController.sectors">
     <ion-label>Setor:</ion-label>
     <ion-select [(ngModel)]="formSectorId"  ok-text="Ok" cancel-text="Cancelar">
-      <ion-select-option *ngFor="let sector of controller.sectors" value={{sector.id}}>{{ sector.name }}</ion-select-option>
+      <ion-select-option *ngFor="let sector of sectorController.sectors" value={{sector.id}}>{{ sector.name }}</ion-select-option>
     </ion-select>
   </ion-item>
 
@@ -138,6 +138,7 @@
     <ion-textarea [(ngModel)]="formDescription"></ion-textarea>
   </ion-item>  
 </ion-content>
+
 <ion-footer *ngIf="!editForm"> 
   <ion-toolbar>
     <ion-grid>

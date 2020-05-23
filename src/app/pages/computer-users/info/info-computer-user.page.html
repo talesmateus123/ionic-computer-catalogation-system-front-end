@@ -1,9 +1,52 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="computer-users"></ion-back-button>
+    </ion-buttons>
     <ion-title>Informações do usuário</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="setEditForm()">
+        <ion-icon slot="icon-only" name="create"></ion-icon>          
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-item>
+    <ion-label>Nome:</ion-label>
+    <ion-input [disabled]="editForm" type="text" [(ngModel)]="formName"></ion-input>    
+  </ion-item>
 
+  <ion-item>
+    <ion-label>Sobrenome:</ion-label>
+    <ion-input [disabled]="editForm" type="text" [(ngModel)]="formLastName"></ion-input>    
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Email:</ion-label>
+    <ion-input [disabled]="editForm" type="email" [(ngModel)]="formEmail"></ion-input>    
+  </ion-item>
+
+  <ion-item *ngIf="sectorController.sectors">
+    <ion-label>Setor:</ion-label>
+    <ion-select [disabled]="editForm" [(ngModel)]="formSectorId"  ok-text="Ok" cancel-text="Cancelar">
+      <ion-select-option *ngFor="let sector of sectorController.sectors" [value]="sector.id" >{{ sector.name }}</ion-select-option>
+    </ion-select>
+  </ion-item>
 </ion-content>
+
+<ion-footer *ngIf="!editForm"> 
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="6" class="ion-text-center">            
+          <ion-button (click)="delete()" expand="block" fill="clear" color="dark">Excluir</ion-button>
+        </ion-col>
+        <ion-col size="6" class="ion-text-center">
+          <ion-button (click)="update()" expand="block" fill="clear" color="dark">Salvar</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>    
+</ion-footer>

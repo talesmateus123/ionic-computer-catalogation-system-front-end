@@ -9,6 +9,8 @@ import { ComputerUsersPageRoutingModule } from './computer-users-routing.module'
 import { ComputerUsersPage } from './computer-users.page';
 import { NewComputerUserPage } from './new';
 import { InfoComputerUserPage } from './info';
+import { ComputerUserControllerService, ComputerUserService } from './shared';
+import { SectorControllerService, SectorService } from '../sectors';
 
 @NgModule({
   imports: [
@@ -23,6 +25,12 @@ import { InfoComputerUserPage } from './info';
     ComputerUsersPage,
     NewComputerUserPage,
     InfoComputerUserPage  
-  ]
+  ],
+  providers: [
+    ComputerUserControllerService,
+    ComputerUserService,
+    SectorControllerService,
+    SectorService
+  ]  
 })
 export class ComputerUsersPageModule {}

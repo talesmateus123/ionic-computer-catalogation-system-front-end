@@ -76,16 +76,6 @@ export class EquipmentControllerService {
       });
   }
 
-  updateSectorsList(): void {
-    this.sectorService.findAll()
-      .subscribe(response => {
-        this.sectors = response;
-      }, 
-      error => {
-        console.log(error);
-      });
-  }
-
   getAvailableComputers(): Observable<ComputerDTO[]> {
     return this.computerService.findAvailable();
   }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ComputerUserControllerService } from './shared';
 
 @Component({
   selector: 'app-computer-users',
@@ -7,9 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ComputerUsersPage implements OnInit {
 
-  constructor() { }
+  constructor(public controller: ComputerUserControllerService) { }
 
   ngOnInit() {
+    this.controller.updateComputerUsersList();
   }
-
 }
