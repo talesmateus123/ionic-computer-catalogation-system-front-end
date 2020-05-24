@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -14,6 +14,7 @@ export class ComputerUserControllerService {
 
   constructor(
     public alertController: AlertController, 
+    public loadingController: LoadingController,
     private router: Router, 
     private computerUserService: ComputerUserService) { }
   
@@ -67,6 +68,20 @@ export class ComputerUserControllerService {
 
   redirectToRootPage(): void {
     this.router.navigate(['computer-users']);
+  }
+
+  async loadingPresent() {
+    await this.loadingController.create({
+      message: 'Carregando ...',
+      spinner: 'circles' ,
+      duration: 1500
+    }).then(a => {
+      a.present();
+    });
+  }
+
+  async loadingDismiss() {
+    await this.loadingController.dismiss();
   }
 
   async successMessageAlert(msg: string) {

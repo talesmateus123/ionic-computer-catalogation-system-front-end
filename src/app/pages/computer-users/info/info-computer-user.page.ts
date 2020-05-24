@@ -28,12 +28,14 @@ export class InfoComputerUserPage implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.controller.loadingPresent();
     this.id = this.route.snapshot.paramMap.get('id')
     this.sectorController.updateSectorsList();
     this.controller.findComputerUser(this.id).subscribe(
       res => {
         this.computerUser = res;
         this.populateForm();
+        this.controller.loadingDismiss();
       },
       error => {
         this.controller.errorMessageAlert(error);

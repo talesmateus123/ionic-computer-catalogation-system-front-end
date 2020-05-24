@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { SectorService } from './sector.service';
 import { Observable } from 'rxjs';
@@ -13,6 +13,7 @@ export class SectorControllerService {
 
   constructor(
     public alertController: AlertController, 
+    public loadingController: LoadingController,
     private router: Router,
     private sectorService: SectorService) { 
   }
@@ -72,6 +73,20 @@ export class SectorControllerService {
 
   redirectToRootPage(): void {
     this.router.navigate(['sectors']);
+  }
+
+  async loadingPresent() {
+    await this.loadingController.create({
+      message: 'Carregando ...',
+      spinner: 'circles' ,
+      duration: 1500
+    }).then(a => {
+      a.present();
+    });
+  }
+
+  async loadingDismiss() {
+    await this.loadingController.dismiss();
   }
 
   async successMessageAlert(msg: string) {

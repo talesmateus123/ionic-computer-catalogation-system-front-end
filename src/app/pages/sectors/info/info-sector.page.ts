@@ -21,10 +21,16 @@ export class InfoSectorPage implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.controller.loadingPresent();
     this.id = this.route.snapshot.paramMap.get('id')
     this.controller.findSector(this.id).subscribe(
       res => {
         this.sector = res
+        this.controller.loadingDismiss();
+      },
+      error => {
+        this.controller.errorMessageAlert(error);
+        this.controller.redirectToRootPage();
       }
     )
     this.editForm = true;

@@ -40,7 +40,7 @@ export class InfoEquipmentPage implements OnInit {
   public availableMonitors: MonitorDTO[];
   public availableProcessors: ProcessorDTO[];
 
-  private equipment: any;
+  public equipment: any;
 
   constructor(
     public controller: EquipmentControllerService,
@@ -49,6 +49,7 @@ export class InfoEquipmentPage implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.controller.loadingPresent();
     this.id = this.route.snapshot.paramMap.get('id')
     this.sectorController.updateSectorsList();
     this.controller.findEquipment(this.id).subscribe(
@@ -67,6 +68,7 @@ export class InfoEquipmentPage implements OnInit {
           this.populateAvailableAvailableComputers();
         }
         this.populateForm();
+        this.controller.loadingDismiss();
       },
       error => {
         this.controller.errorMessageAlert(error);

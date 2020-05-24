@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -35,6 +35,7 @@ export class ElectronicComponentControllerService {
 
   constructor(
     public alertController: AlertController,
+    public loadingController: LoadingController,
     private router: Router, 
     private electronicComponentService: ElectronicService,
     private processorService: ProcessorService,
@@ -184,6 +185,20 @@ export class ElectronicComponentControllerService {
 
   redirectToRootPage(): void {
     this.router.navigate(['electronic-components']);
+  }
+
+  async loadingPresent() {
+    await this.loadingController.create({
+      message: 'Carregando ...',
+      spinner: 'circles' ,
+      duration: 1500
+    }).then(a => {
+      a.present();
+    });
+  }
+
+  async loadingDismiss() {
+    await this.loadingController.dismiss();
   }
 
   async successMessageAlert(msg: string) {
