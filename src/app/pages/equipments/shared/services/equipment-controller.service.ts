@@ -18,9 +18,9 @@ import { ElectronicService } from 'src/app/pages/shared-resources';
 })
 export class EquipmentControllerService {
   public equipmentTypes: string[] =[
-    "Computador",
-    "Impressora",
-    "Monitor",
+    "COMPUTER",
+    "PRINTER",
+    "MONITOR",
   ];
   
   public keys = Object.keys;

@@ -10,8 +10,8 @@ import { ElectronicComponentControllerService } from '../shared';
 })
 export class InfoElectronicComponentPage implements OnInit {
   private id: string;
+  public electronicComponentType: string;
   public editForm: boolean = true;
-  public formSize: number;
   public electronicComponent: any;
 
   constructor(
@@ -23,20 +23,8 @@ export class InfoElectronicComponentPage implements OnInit {
     this.electronicComponent = this.controller.findElectronic(this.id).subscribe(
       res => {
         let response = res;
-        this.controller.electronicComponentType = response.equipmentType
-        if(this.controller.electronicComponentType === "PROCESSOR") {
-          this.controller.electronicComponentType = "Processador";
-          this.electronicComponent = response;
-        }
-        else if(this.controller.electronicComponentType === "RAM_MEMORY") {
-          this.controller.electronicComponentType = "Memória RAM";
-          this.electronicComponent = response;
-        }
-        else if(this.controller.electronicComponentType === "STORAGE_DEVICE") {
-          this.controller.electronicComponentType = "Dispositivo de armazenamento";
-          this.electronicComponent = response;
-        }
-        this.populateForm();
+        this.electronicComponentType = response.equipmentType;
+        this.electronicComponent = response;
       },
       error => {
         this.controller.errorMessageAlert(error);
@@ -53,18 +41,8 @@ export class InfoElectronicComponentPage implements OnInit {
       this.editForm = true;
   }
 
-
-  populateForm() {
-    if(this.controller.electronicComponentType === "Memória RAM"){
-      this.formSize = this.controller.convertToGB(this.electronicComponent.sizeInMB);
-    }
-    if(this.controller.electronicComponentType === "Dispositivo de armazenamento"){
-      this.formSize = this.controller.convertToGB(this.electronicComponent.sizeInMB);
-    }
-  }
-
   update() {
-    if(this.controller.electronicComponentType === "Processador"){
+    if(this.electronicComponentType === "PROCESSOR"){
       this.controller.updateProcessor(this.id,
         {
           manufacturer: this.electronicComponent.manufacturer,
@@ -77,27 +55,27 @@ export class InfoElectronicComponentPage implements OnInit {
         }
       );
     }
-    if(this.controller.electronicComponentType === "Memória RAM"){
+    if(this.electronicComponentType === "RAM_MEMORY"){
       this.controller.updateRamMemory(this.id,
         {
           manufacturer: this.electronicComponent.manufacturer,
           model: this.electronicComponent.model,
           description: this.electronicComponent.description,
           itWorks: this.electronicComponent.itWorks,
-          sizeInMB: this.controller.convertToMB(this.formSize),
+          sizeInGB: this.electronicComponent.sizeInGB,
           architecture: this.electronicComponent.architecture,
           computerId: null
         }
       );
     }
-    if(this.controller.electronicComponentType === "Dispositivo de armazenamento"){
+    if(this.electronicComponentType === "STORAGE_DEVICE"){
       this.controller.updateStorageDevice(this.id,
         {
           manufacturer: this.electronicComponent.manufacturer,
           model: this.electronicComponent.model,
           description: this.electronicComponent.description,
           itWorks: this.electronicComponent.itWorks,
-          sizeInMB: this.controller.convertToMB(this.formSize),
+          sizeInGB: this.electronicComponent.sizeInGB,
           architecture: this.electronicComponent.architecture,
           type: this.electronicComponent.type,
           computerId: null
@@ -107,13 +85,13 @@ export class InfoElectronicComponentPage implements OnInit {
   }
 
   delete() {
-    if(this.controller.electronicComponentType === "Processador"){
+    if(this.electronicComponentType === "PROCESSOR"){
       this.controller.deleteProcessor(this.id);
     }
-    if(this.controller.electronicComponentType === "Memória RAM"){
+    if(this.electronicComponentType === "RAM_MEMORY"){
       this.controller.deleteRamMemory(this.id);
     }
-    if(this.controller.electronicComponentType === "Dispositivo de armazenamento"){
+    if(this.electronicComponentType === "STORAGE_DEVICE"){
       this.controller.deleteStorageDevice(this.id);
     }
   }

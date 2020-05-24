@@ -17,11 +17,10 @@ import { ElectronicService } from 'src/app/pages/shared-resources';
 })
 export class ElectronicComponentControllerService {
   public electronicComponentTypes: string[] =[
-    "Processador",
-    "Memória RAM",
-    "Dispositivo de armazenamento",
+    "PROCESSOR",
+    "RAM_MEMORY",
+    "STORAGE_DEVICE",
   ];
-  public electronicComponentType = "Processador";
 
   public keys = Object.keys;
 
@@ -185,14 +184,6 @@ export class ElectronicComponentControllerService {
 
   redirectToRootPage(): void {
     this.router.navigate(['electronic-components']);
-  }
-
-  convertToMB(sizeInGB: number): number {
-    return sizeInGB * 1024;
-  }
-
-  convertToGB(sizeInMB: number): number {
-    return sizeInMB / 1024;
   }
 
   async successMessageAlert(msg: string) {

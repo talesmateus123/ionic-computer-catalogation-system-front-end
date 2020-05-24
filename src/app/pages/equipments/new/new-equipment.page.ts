@@ -10,7 +10,7 @@ import { SectorControllerService } from '../../sectors';
   styleUrls: ['./new-equipment.page.scss'],
 })
 export class NewEquipmentPage implements OnInit {
-  public equipmentType = "Computador";
+  public equipmentType = "COMPUTER";
   
   public formManufacturer: string;
   public formModel: string;
@@ -65,7 +65,7 @@ export class NewEquipmentPage implements OnInit {
   }
 
   create() {
-    if(this.equipmentType === "Computador"){
+    if(this.equipmentType === "COMPUTER"){
       this.controller.createComputer(
         {
           manufacturer: this.formManufacturer,
@@ -90,7 +90,7 @@ export class NewEquipmentPage implements OnInit {
         }
       );
     }
-    else if(this.equipmentType === "Impressora") {
+    else if(this.equipmentType === "PRINTER") {
       this.controller.createPrinter(
         {
           manufacturer: this.formManufacturer,
@@ -104,7 +104,7 @@ export class NewEquipmentPage implements OnInit {
         }
       );
     }
-    else if(this.equipmentType === "Monitor") {
+    else if(this.equipmentType === "MONITOR") {
       this.controller.createMonitor(
         {
           manufacturer: this.formManufacturer,

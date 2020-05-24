@@ -3,7 +3,7 @@ export interface RamMemoryNewDTO {
 	model: string;
 	description: string;
 	itWorks: boolean;
-	sizeInMB: number;
+	sizeInGB: number;
 	architecture: string;
 	computerId: number;
 }

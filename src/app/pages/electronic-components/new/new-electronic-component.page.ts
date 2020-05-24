@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ElectronicComponentControllerService } from '../shared';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-new-electronic-component',
@@ -8,7 +9,7 @@ import { ElectronicComponentControllerService } from '../shared';
   styleUrls: ['./new-electronic-component.page.scss'],
 })
 export class NewElectronicComponentPage implements OnInit {
-
+  public electronicComponentType: string = "PROCESSOR";
   formManufacturer: string;
   formModel: string;
   formDescription: string;
@@ -22,13 +23,19 @@ export class NewElectronicComponentPage implements OnInit {
 	// computerId: number;
 
   constructor(
+    private route: ActivatedRoute,
     public controller: ElectronicComponentControllerService) { }
 
   ngOnInit() {
+    this.route.queryParams
+      .subscribe(params => {
+        console.log(params);
+      });
+    
   }
 
   create() {
-    if(this.controller.electronicComponentType === "Processador"){
+    if(this.electronicComponentType === "PROCESSOR"){
       this.controller.createProcessor(
         {
           manufacturer: this.formManufacturer,
@@ -41,27 +48,27 @@ export class NewElectronicComponentPage implements OnInit {
         }
       );
     }
-    if(this.controller.electronicComponentType === "Memória RAM"){
+    if(this.electronicComponentType === "RAM_MEMORY"){
       this.controller.createRamMemory(
         {
           manufacturer: this.formManufacturer,
           model: this.formModel,
           description: this.formDescription,
           itWorks: this.formItWorks,
-          sizeInMB: this.controller.convertToMB(this.formSize),
+          sizeInGB: this.formSize,
           architecture: this.formRamMemoryArchitecture,
           computerId: null
         }
       );
     }
-    if(this.controller.electronicComponentType === "Dispositivo de armazenamento"){
+    if(this.electronicComponentType === "STORAGE_DEVICE"){
       this.controller.createStorageDevice(
         {
           manufacturer: this.formManufacturer,
           model: this.formModel,
           description: this.formDescription,
           itWorks: this.formItWorks,
-          sizeInMB: this.controller.convertToMB(this.formSize),
+          sizeInGB: this.formSize,
           architecture: this.formStorageDeviceArchitecture,
           type: this.formStorageDeviceType,
           computerId: null

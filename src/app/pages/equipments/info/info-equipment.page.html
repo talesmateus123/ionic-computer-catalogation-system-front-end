@@ -3,9 +3,9 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="equipments"></ion-back-button>
     </ion-buttons>
-    <ion-title *ngIf="equipmentType === 'Computador'">Informações do computador</ion-title>
-    <ion-title *ngIf="equipmentType === 'Impressora'">Informações da impressora</ion-title>
-    <ion-title *ngIf="equipmentType === 'Monitor'">Informações do monitor</ion-title>
+    <ion-title *ngIf="equipmentType === 'COMPUTER'">Informações do computador</ion-title>
+    <ion-title *ngIf="equipmentType === 'PRINTER'">Informações da impressora</ion-title>
+    <ion-title *ngIf="equipmentType === 'MONITOR'">Informações do monitor</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="setEditForm()">
         <ion-icon slot="icon-only" name="create"></ion-icon>          
@@ -36,7 +36,7 @@
     <ion-checkbox [disabled]="editForm" color="dark" [(ngModel)]="formItWorks"></ion-checkbox>
   </ion-item>
 
-  <div *ngIf="equipmentType === 'Computador'" >
+  <div *ngIf="equipmentType === 'COMPUTER'" >
     <ion-item>
       <ion-label>Está no domínio?</ion-label>
       <ion-checkbox [disabled]="editForm" color="dark" [(ngModel)]="formOnTheDomain"></ion-checkbox>    
@@ -98,7 +98,7 @@
     </ion-item>
   </div>
 
-  <div *ngIf="equipmentType === 'Impressora'">
+  <div *ngIf="equipmentType === 'PRINTER'">
     <ion-item>
       <ion-label>Endereço IP:</ion-label>
       <ion-input [disabled]="editForm" type="text" [(ngModel)]="formIpAddress"></ion-input>    
@@ -111,7 +111,7 @@
   </div>
 
   <!--
-  <div *ngIf="equipmentType === 'Monitor'">
+  <div *ngIf="equipmentType === 'MONITOR'">
     <ion-item>
       <ion-label>Associado ao computador:</ion-label>
       <ion-select [disabled]="editForm" [(ngModel)]="formComputerId"  ok-text="Ok" cancel-text="Cancelar">

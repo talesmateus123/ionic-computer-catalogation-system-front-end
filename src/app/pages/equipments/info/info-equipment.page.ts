@@ -56,16 +56,13 @@ export class InfoEquipmentPage implements OnInit {
         let response = res;
         this.equipmentType = response.equipmentType
         if(this.equipmentType === "COMPUTER") {
-          this.equipmentType = "Computador";
           this.equipment = response;
           this.populateAvailableAvailableMonitors();
         }
         else if(this.equipmentType === "PRINTER") {
-          this.equipmentType = "Impressora";
           this.equipment = response;
         }
         else if(this.equipmentType === "MONITOR") {
-          this.equipmentType = "Monitor";
           this.equipment = response;
           this.populateAvailableAvailableComputers();
         }
@@ -109,7 +106,7 @@ export class InfoEquipmentPage implements OnInit {
   }
 
   populateForm() {
-    if(this.equipmentType === "Computador") {
+    if(this.equipmentType === "COMPUTER") {
       this.formManufacturer = this.equipment.manufacturer;
       this.formModel = this.equipment.model;
       this.formDescription = this.equipment.description;
@@ -134,7 +131,7 @@ export class InfoEquipmentPage implements OnInit {
       this.formComputerUsersId = number[];
       */
     }
-    else if(this.equipmentType === "Impressora") {
+    else if(this.equipmentType === "PRINTER") {
       this.formManufacturer = this.equipment.manufacturer;
       this.formModel = this.equipment.model;
       this.formDescription = this.equipment.description;
@@ -144,7 +141,7 @@ export class InfoEquipmentPage implements OnInit {
       this.formHostName = this.equipment.hostName;
       this.formSectorId = this.equipment.sector.id;
     }
-    else if(this.equipmentType === "Monitor") {    
+    else if(this.equipmentType === "MONITOR") {    
       this.formManufacturer = this.equipment.manufacturer;
       this.formModel = this.equipment.model;
       this.formDescription = this.equipment.description;
@@ -156,7 +153,7 @@ export class InfoEquipmentPage implements OnInit {
   }
 
   update() {    
-    if(this.equipmentType === "Computador") {
+    if(this.equipmentType === "COMPUTER") {
       this.controller.updateComputer(this.id, 
         {
           manufacturer: this.formManufacturer,
@@ -181,7 +178,7 @@ export class InfoEquipmentPage implements OnInit {
         }
       );
     }
-    else if(this.equipmentType === "Impressora") {
+    else if(this.equipmentType === "PRINTER") {
       this.controller.updatePrinter(this.id, 
         {
           manufacturer: this.formManufacturer,
@@ -196,7 +193,7 @@ export class InfoEquipmentPage implements OnInit {
         }
       );
     }
-    else if(this.equipmentType === "Monitor") {      
+    else if(this.equipmentType === "MONITOR") {      
       this.controller.updateMonitor(this.id, 
         {
           manufacturer: this.formManufacturer,
@@ -212,11 +209,11 @@ export class InfoEquipmentPage implements OnInit {
   }
 
   delete() {
-    if(this.equipmentType === "Computador")
+    if(this.equipmentType === "COMPUTER")
       this.controller.deleteComputer(this.id);
-    else if(this.equipmentType === "Impressora") 
+    else if(this.equipmentType === "PRINTER") 
       this.controller.deletePrinter(this.id);
-    else if(this.equipmentType === "Monitor")   
+    else if(this.equipmentType === "MONITOR")   
       this.controller.deleteMonitor(this.id);
   }
 }

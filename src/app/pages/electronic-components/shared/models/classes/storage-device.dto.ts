@@ -7,7 +7,7 @@ export interface StorageDeviceDTO {
 	model: string;
 	description: string;
 	itWorks: boolean;
-	sizeInMB: number;
+	sizeInGB: number;
 	architecture: number;
 	type: number;
 	

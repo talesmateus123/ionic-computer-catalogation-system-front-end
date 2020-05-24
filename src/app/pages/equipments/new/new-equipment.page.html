@@ -3,13 +3,17 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="equipments"></ion-back-button>
     </ion-buttons>
-    <ion-title *ngIf="equipmentType === 'Computador'">Novo computador</ion-title>
-    <ion-title *ngIf="equipmentType === 'Impressora'">Nova impressora</ion-title>
-    <ion-title *ngIf="equipmentType === 'Monitor'">Novo monitor</ion-title>
+    <ion-title *ngIf="equipmentType === 'COMPUTER'">Novo computador</ion-title>
+    <ion-title *ngIf="equipmentType === 'PRINTER'">Nova impressora</ion-title>
+    <ion-title *ngIf="equipmentType === 'MONITOR'">Novo monitor</ion-title>
     <ion-buttons slot="end">
       <ion-button>
         <ion-select [(ngModel)]="equipmentType"  ok-text="Ok" cancel-text="Cancelar">
-          <ion-select-option *ngFor="let equipment of controller.equipmentTypes">{{ equipment }}</ion-select-option>
+          <ion-select-option *ngFor="let equipment of controller.equipmentTypes" [value]="equipment">
+            <p *ngIf="equipment === 'COMPUTER'">Computador</p>
+            <p *ngIf="equipment === 'PRINTER'">Impressora</p>
+            <p *ngIf="equipment === 'MONITOR'">Monitor</p>
+          </ion-select-option>
         </ion-select>
       </ion-button>
     </ion-buttons>
@@ -38,7 +42,7 @@
     <ion-checkbox color="dark" [(ngModel)]="formItWorks"></ion-checkbox>
   </ion-item>
 
-  <div *ngIf="equipmentType === 'Computador'">
+  <div *ngIf="equipmentType === 'COMPUTER'">
     <ion-item>
       <ion-label>Está no domínio?</ion-label>
       <ion-checkbox color="dark" [(ngModel)]="formOnTheDomain"></ion-checkbox>    
@@ -102,7 +106,7 @@
 
   </div>
 
-  <div *ngIf="equipmentType === 'Impressora'">
+  <div *ngIf="equipmentType === 'PRINTER'">
     <ion-item>
       <ion-label>Endereço IP:</ion-label>
       <ion-input type="text" [(ngModel)]="formIpAddress"></ion-input>    
@@ -115,7 +119,7 @@
   </div>
 
   <!--
-  <div *ngIf="equipmentType === 'Monitor'">
+  <div *ngIf="equipmentType === 'MONITOR'">
     <ion-item *ngIf="availableComputers">
       <ion-label>Associado ao computador:</ion-label>
       <ion-select [(ngModel)]="formComputerId"  ok-text="Ok" cancel-text="Cancelar">

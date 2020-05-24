@@ -3,7 +3,7 @@ export interface StorageDeviceNewDTO {
 	model: string;
 	description: string;
 	itWorks: boolean;
-	sizeInMB: number;
+	sizeInGB: number;
 	architecture: string;
 	type: string;
 	computerId: number;
