@@ -18,6 +18,10 @@ export class ProcessorService {
       return this.http.get<ProcessorDTO[]>(`${this.url}`);
   }
 
+  findAvailable(): Observable<ProcessorDTO[]> {
+    return this.http.get<ProcessorDTO[]>(`${this.url}/available`);
+  }
+
   findById(id: string): Observable<ProcessorDTO> {
       return this.http.get<ProcessorDTO>(`${this.url}/${id}`);
   }

@@ -18,6 +18,10 @@ export class StorageDeviceService {
       return this.http.get<StorageDeviceDTO[]>(`${this.url}`);
   }
 
+  findAvailable(): Observable<StorageDeviceDTO[]> {
+    return this.http.get<StorageDeviceDTO[]>(`${this.url}/available`);
+  }
+
   findById(id: string): Observable<StorageDeviceDTO> {
       return this.http.get<StorageDeviceDTO>(`${this.url}/${id}`);
   }

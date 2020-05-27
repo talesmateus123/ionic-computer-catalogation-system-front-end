@@ -183,6 +183,18 @@ export class ElectronicComponentControllerService {
     });
   }
 
+  getAvailableProcessors(): Observable<ProcessorDTO[]> {
+    return this.processorService.findAvailable();
+  }
+
+  getAvailableRamMemories(): Observable<RamMemoryDTO[]> {
+    return this.ramMemoryService.findAvailable();
+  }
+
+  getAvailableStorageDevices(): Observable<StorageDeviceDTO[]> {
+    return this.storageDeviceService.findAvailable();
+  }
+
   redirectToRootPage(): void {
     this.router.navigate(['electronic-components']);
   }

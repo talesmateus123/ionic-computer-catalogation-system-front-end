@@ -40,8 +40,7 @@ export class EquipmentControllerService {
     private electronicService: ElectronicService, 
     private computerService: ComputerService,
     private monitorService: MonitorService,
-    private printerService: PrinterService, 
-    private sectorService: SectorService) { }
+    private printerService: PrinterService) { }
 
   findEquipment(id: string): Observable<any> {
     return this.electronicService.findById(id);
@@ -75,14 +74,6 @@ export class EquipmentControllerService {
       error => {
         console.log(error);
       });
-  }
-
-  getAvailableComputers(): Observable<ComputerDTO[]> {
-    return this.computerService.findAvailable();
-  }
-
-  getAvailableMonitors(): Observable<MonitorDTO[]> {
-    return this.monitorService.findAvailable();
   }
 
   createComputer(objetcNewDTO: ComputerNewDTO) {
@@ -182,6 +173,14 @@ export class EquipmentControllerService {
     error => {
       this.errorMessageAlert(error);
     });
+  }
+
+  getAvailableComputers(): Observable<ComputerDTO[]> {
+    return this.computerService.findAvailable();
+  }
+
+  getAvailableMonitors(): Observable<MonitorDTO[]> {
+    return this.monitorService.findAvailable();
   }
 
   redirectToRootPage(): void {

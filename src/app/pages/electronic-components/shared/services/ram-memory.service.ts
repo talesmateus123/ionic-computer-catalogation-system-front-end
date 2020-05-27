@@ -18,6 +18,10 @@ export class RamMemoryService {
       return this.http.get<RamMemoryDTO[]>(`${this.url}`);
   }
 
+  findAvailable(): Observable<RamMemoryDTO[]> {
+    return this.http.get<RamMemoryDTO[]>(`${this.url}/available`);
+  }
+
   findById(id: string): Observable<RamMemoryDTO> {
       return this.http.get<RamMemoryDTO>(`${this.url}/${id}`);
   }

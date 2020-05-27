@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ComputerDTO, MonitorDTO, EquipmentControllerService } from '../shared';
-import { ProcessorDTO } from '../../electronic-components/shared';
+import { ProcessorDTO, ElectronicComponentControllerService, RamMemoryDTO, StorageDeviceDTO } from '../../electronic-components/shared';
 import { SectorControllerService } from '../../sectors';
 
 @Component({
@@ -38,13 +38,17 @@ export class InfoEquipmentPage implements OnInit {
 
   public availableComputers: ComputerDTO[];
   public availableMonitors: MonitorDTO[];
+
   public availableProcessors: ProcessorDTO[];
+  public availableRamMemories: RamMemoryDTO[];
+  public availableStorageDevices: StorageDeviceDTO[];
 
   public equipment: any;
 
   constructor(
     public controller: EquipmentControllerService,
     public sectorController: SectorControllerService,
+    public electronicComponentController: ElectronicComponentControllerService,
     private route: ActivatedRoute
     ) { }
 
@@ -59,6 +63,7 @@ export class InfoEquipmentPage implements OnInit {
         if(this.equipmentType === "COMPUTER") {
           this.equipment = response;
           this.populateAvailableAvailableMonitors();
+          //this.electronicComponentController
         }
         else if(this.equipmentType === "PRINTER") {
           this.equipment = response;
@@ -101,6 +106,39 @@ export class InfoEquipmentPage implements OnInit {
       this.availableMonitors = res;
       if (this.equipment.monitor !== null) {
         this.availableMonitors.push(this.equipment.monitor);
+      }
+    }, 
+    error => {
+    });
+  }
+
+  populateAvailableAvailableProcessors() {
+    this.electronicComponentController.getAvailableProcessors().subscribe(res => {
+      this.availableProcessors = res;
+      if (this.equipment.processor !== null) {
+        this.availableComputers.push(this.equipment.processor);
+      }
+    }, 
+    error => {
+    });
+  }
+
+  populateAvailableAvailableRamMemories() {
+    this.electronicComponentController.getAvailableRamMemories().subscribe(res => {
+      this.availableRamMemories = res;
+      if (this.equipment.ramMemoriesId !== null) {
+        this.availableRamMemories.push(this.equipment.ramMemoriesId);
+      }
+    }, 
+    error => {
+    });
+  }
+
+  populateAvailableAvailableStorageDevices() {
+    this.electronicComponentController.getAvailableStorageDevices().subscribe(res => {
+      this.availableStorageDevices = res;
+      if (this.equipment.storageDevicesId !== null) {
+        this.availableRamMemories.push(this.equipment.storageDevicesId);
       }
     }, 
     error => {

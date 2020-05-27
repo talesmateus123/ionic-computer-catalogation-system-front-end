@@ -12,6 +12,7 @@ import { InfoEquipmentPage } from './info/info-equipment.page';
 import { ComputerService, MonitorService, PrinterService, EquipmentControllerService } from './shared';
 import { ElectronicService } from '../shared-resources';
 import { SectorControllerService, SectorService } from '../sectors';
+import { ElectronicComponentControllerService, ProcessorService, RamMemoryService, StorageDeviceService } from '../electronic-components/shared';
 
 @NgModule({
   imports: [
@@ -34,7 +35,12 @@ import { SectorControllerService, SectorService } from '../sectors';
     MonitorService,
     PrinterService,
     SectorControllerService,
-    SectorService
+    SectorService,
+    ElectronicComponentControllerService,
+    ElectronicService,
+    ProcessorService,
+    RamMemoryService,
+    StorageDeviceService
   ]
 })
 export class EquipmentsPageModule {}
