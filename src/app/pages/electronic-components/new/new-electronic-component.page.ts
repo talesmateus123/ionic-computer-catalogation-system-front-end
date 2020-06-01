@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { ElectronicComponentControllerService } from '../shared';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-new-electronic-component',
@@ -29,7 +29,9 @@ export class NewElectronicComponentPage implements OnInit {
   ngOnInit() {
     this.route.queryParams
       .subscribe(params => {
-        console.log(params);
+        if (params.type !== undefined) {
+          this.electronicComponentType = params.type;
+        }
       });
     
   }

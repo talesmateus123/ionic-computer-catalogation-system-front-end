@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { ComputerService } from './computer.service';
 import { MonitorService } from './monitor.service';
 import { PrinterService } from './printer.service';
-import { SectorService, SectorDTO } from 'src/app/pages/sectors';
+import { SectorDTO } from 'src/app/pages/sectors';
 import { 
   ComputerDTO, PrinterDTO, MonitorDTO, ComputerNewDTO, PrinterNewDTO, 
   MonitorNewDTO, ArchitectureType, OperatingSystem
@@ -34,8 +34,8 @@ export class EquipmentControllerService {
   public printers: PrinterDTO[];
 
   constructor(
-    public alertController: AlertController, 
     public loadingController: LoadingController,
+    public toastController: ToastController,
     private router: Router, 
     private electronicService: ElectronicService, 
     private computerService: ComputerService,
@@ -188,7 +188,7 @@ export class EquipmentControllerService {
   }
 
   async loadingPresent() {
-    await this.loadingController.create({
+    this.loadingController.create({
       message: 'Carregando ...',
       spinner: 'circles' ,
       duration: 1500
@@ -198,17 +198,26 @@ export class EquipmentControllerService {
   }
 
   async loadingDismiss() {
-    await this.loadingController.dismiss();
+    this.loadingController.dismiss();
   }
 
   async successMessageAlert(msg: string) {
-    const alert = await this.alertController.create({
-      header: 'Sucesso!',
-      //subHeader: 'Subtitle',
+    const toast = await this.toastController.create({
+      header: 'Sucesso',
       message: msg,
-      buttons: ['OK']
+      position: 'bottom',
+      duration: 2500,
+      buttons: [
+        {
+          text: 'Ok',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
     });
-    await alert.present();
+    toast.present();
   }
 
   async errorMessageAlert(error: any) {
@@ -217,12 +226,21 @@ export class EquipmentControllerService {
       msg = "Erro desconhecido";
     else
       msg = error.error.error;
-    const alert = await this.alertController.create({
+    const toast = await this.toastController.create({
       header: 'Opps!',
-      //subHeader: 'Subtitle',
       message: 'Parece que ocorreu um erro: ' + msg,
-      buttons: ['OK']
+      position: 'bottom',
+      duration: 2500,
+      buttons: [
+        {
+          text: 'Ok',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
     });
-    await alert.present();
+    toast.present();
   }
 }

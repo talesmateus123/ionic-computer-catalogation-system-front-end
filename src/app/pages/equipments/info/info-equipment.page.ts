@@ -29,6 +29,7 @@ export class InfoEquipmentPage implements OnInit {
   public formOperatingSystem: string;
   public formOperatingSystemArchitecture: string;
   public formOnTheDomain: boolean;
+  public formIsLaptop: boolean;
   public formProcessorId: number;
   public formMonitorId: number;
   public formSectorId: number;
@@ -210,6 +211,7 @@ export class InfoEquipmentPage implements OnInit {
           operatingSystem: this.formOperatingSystem,
           operatingSystemArchitecture: this.formOperatingSystemArchitecture,
           onTheDomain: this.formOnTheDomain,
+          isLaptop: this.formIsLaptop,
           processorId: this.formProcessorId,
           monitorId: this.formMonitorId,
           ramMemoriesId: this.formRamMemoriesId,

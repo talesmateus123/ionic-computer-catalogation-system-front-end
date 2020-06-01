@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      <ion-select [(ngModel)]="equipmentType" ok-text="Ok" cancel-text="Cancelar">
+      <ion-select class="title" [(ngModel)]="equipmentType" ok-text="Ok" cancel-text="Cancelar">
         <ion-select-option *ngFor="let equipment of equipmentTypes">{{ equipment }}</ion-select-option>
       </ion-select>
     </ion-title>

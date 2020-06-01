@@ -36,8 +36,9 @@
   </ion-item>
 
   <ion-item *ngIf="electronicComponentType === 'RAM_MEMORY' || electronicComponentType === 'STORAGE_DEVICE'">
-    <ion-label>Quantidade de memória (GB):</ion-label>
+    <ion-label>Tamanho:</ion-label>
     <ion-input [disabled]="editForm" type="number" [(ngModel)]="electronicComponent.sizeInGB"></ion-input>   
+    <ion-note slot="end">GB</ion-note>
   </ion-item>
 
   <ion-item *ngIf="electronicComponentType === 'PROCESSOR'">

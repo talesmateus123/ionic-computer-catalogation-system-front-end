@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -13,8 +13,8 @@ export class ComputerUserControllerService {
   public computerUsers: ComputerUserDTO[];
 
   constructor(
-    public alertController: AlertController, 
     public loadingController: LoadingController,
+    public toastController: ToastController,
     private router: Router, 
     private computerUserService: ComputerUserService) { }
   
@@ -71,7 +71,7 @@ export class ComputerUserControllerService {
   }
 
   async loadingPresent() {
-    await this.loadingController.create({
+    this.loadingController.create({
       message: 'Carregando ...',
       spinner: 'circles' ,
       duration: 1500
@@ -81,17 +81,26 @@ export class ComputerUserControllerService {
   }
 
   async loadingDismiss() {
-    await this.loadingController.dismiss();
+    this.loadingController.dismiss();
   }
 
   async successMessageAlert(msg: string) {
-    const alert = await this.alertController.create({
-      header: 'Sucesso!',
-      //subHeader: 'Subtitle',
+    const toast = await this.toastController.create({
+      header: 'Sucesso',
       message: msg,
-      buttons: ['OK']
+      position: 'bottom',
+      duration: 2500,
+      buttons: [
+        {
+          text: 'Ok',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
     });
-    await alert.present();
+    toast.present();
   }
 
   async errorMessageAlert(error: any) {
@@ -100,12 +109,21 @@ export class ComputerUserControllerService {
       msg = "Erro desconhecido";
     else
       msg = error.error.error;
-    const alert = await this.alertController.create({
+    const toast = await this.toastController.create({
       header: 'Opps!',
-      //subHeader: 'Subtitle',
       message: 'Parece que ocorreu um erro: ' + msg,
-      buttons: ['OK']
+      position: 'bottom',
+      duration: 2500,
+      buttons: [
+        {
+          text: 'Ok',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
     });
-    await alert.present();
+    toast.present();
   }
 }

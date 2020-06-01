@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
       <ion-title>
-        <ion-select [(ngModel)]="electronicComponentType" ok-text="Ok" cancel-text="Cancelar">
+        <ion-select class="title" [(ngModel)]="electronicComponentType" ok-text="Ok" cancel-text="Cancelar">
           <ion-select-option *ngFor="let electronicComponent of electronicComponentTypes">{{ electronicComponent }}</ion-select-option>
         </ion-select>
       </ion-title>

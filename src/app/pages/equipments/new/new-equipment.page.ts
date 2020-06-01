@@ -11,6 +11,8 @@ import { SectorControllerService } from '../../sectors';
 })
 export class NewEquipmentPage implements OnInit {
   public equipmentType = "COMPUTER";
+
+  public detailForm: boolean = false;
   
   public formManufacturer: string;
   public formModel: string;
@@ -21,10 +23,13 @@ export class NewEquipmentPage implements OnInit {
   public formHostName: string;
   public formMotherBoardName: string;
   public formHasCdBurner: boolean = true;
+  public formRamMemorySize: number = 0;
+  public formStorageDeviceSize: number = 0;
   public formCabinetModel: string;
   public formOperatingSystem: string = "NONE";
   public formOperatingSystemArchitecture: string = "NONE";
   public formOnTheDomain: boolean = false;
+  public formIsLaptop: boolean = false;
   public formProcessorId: number;
   public formMonitorId: number;
   public formComputerId: number;
@@ -82,6 +87,7 @@ export class NewEquipmentPage implements OnInit {
           operatingSystem: this.formOperatingSystem,
           operatingSystemArchitecture: this.formOperatingSystemArchitecture,
           onTheDomain: this.formOnTheDomain,
+          isLaptop: this.formIsLaptop,
           processorId: this.formProcessorId,
           monitorId: this.formMonitorId,
           ramMemoriesId: this.formRamMemoriesId,

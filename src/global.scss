@@ -24,3 +24,15 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+ion-title, .title {
+    font-size: 17px;
+};
+ion-item {
+    font-size: 16px;
+};
+ion-select {
+    font-size: 13px;
+}
+
+
