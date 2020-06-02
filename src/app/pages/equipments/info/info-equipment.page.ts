@@ -30,6 +30,8 @@ export class InfoEquipmentPage implements OnInit {
   public formOperatingSystemArchitecture: string;
   public formOnTheDomain: boolean;
   public formIsLaptop: boolean;
+	public formTotalRamMemory: number;
+	public formTotalStorageMemory: number;
   public formProcessorId: number;
   public formMonitorId: number;
   public formSectorId: number;
@@ -161,6 +163,9 @@ export class InfoEquipmentPage implements OnInit {
       this.formOperatingSystem = this.equipment.operatingSystem;
       this.formOperatingSystemArchitecture = this.equipment.operatingSystemArchitecture;
       this.formOnTheDomain = this.equipment.onTheDomain;
+      this.formIsLaptop = this.equipment.isLaptop;
+      this.formTotalRamMemory = this.equipment.totalRamMemory;
+      this.formTotalStorageMemory = this.equipment.totalStorageMemory;
       if (this.equipment.processor !== null)
         this.formProcessorId = this.equipment.processor.id;
       if (this.equipment.monitor !== null)   
@@ -212,6 +217,8 @@ export class InfoEquipmentPage implements OnInit {
           operatingSystemArchitecture: this.formOperatingSystemArchitecture,
           onTheDomain: this.formOnTheDomain,
           isLaptop: this.formIsLaptop,
+          totalRamMemory: this.formTotalRamMemory,
+          totalStorageMemory: this.formTotalStorageMemory,
           processorId: this.formProcessorId,
           monitorId: this.formMonitorId,
           ramMemoriesId: this.formRamMemoriesId,

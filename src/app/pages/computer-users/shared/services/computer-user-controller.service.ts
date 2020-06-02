@@ -95,7 +95,6 @@ export class ComputerUserControllerService {
           text: 'Ok',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
           }
         }
       ]
@@ -119,7 +118,6 @@ export class ComputerUserControllerService {
           text: 'Ok',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
           }
         }
       ]

@@ -227,7 +227,6 @@ export class ElectronicComponentControllerService {
           text: 'Ok',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
           }
         }
       ]
@@ -251,7 +250,6 @@ export class ElectronicComponentControllerService {
           text: 'Ok',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
           }
         }
       ]

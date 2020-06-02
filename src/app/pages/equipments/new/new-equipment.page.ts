@@ -30,6 +30,8 @@ export class NewEquipmentPage implements OnInit {
   public formOperatingSystemArchitecture: string = "NONE";
   public formOnTheDomain: boolean = false;
   public formIsLaptop: boolean = false;
+	public formTotalRamMemory: number = 0;
+	public formTotalStorageMemory: number = 0;
   public formProcessorId: number;
   public formMonitorId: number;
   public formComputerId: number;
@@ -88,6 +90,8 @@ export class NewEquipmentPage implements OnInit {
           operatingSystemArchitecture: this.formOperatingSystemArchitecture,
           onTheDomain: this.formOnTheDomain,
           isLaptop: this.formIsLaptop,
+          totalRamMemory: this.formTotalRamMemory,
+          totalStorageMemory: this.formTotalStorageMemory,
           processorId: this.formProcessorId,
           monitorId: this.formMonitorId,
           ramMemoriesId: this.formRamMemoriesId,

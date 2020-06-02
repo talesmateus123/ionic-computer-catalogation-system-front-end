@@ -212,7 +212,6 @@ export class EquipmentControllerService {
           text: 'Ok',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
           }
         }
       ]
@@ -236,7 +235,6 @@ export class EquipmentControllerService {
           text: 'Ok',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
           }
         }
       ]

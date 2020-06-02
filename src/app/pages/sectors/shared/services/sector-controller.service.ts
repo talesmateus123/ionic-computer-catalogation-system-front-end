@@ -100,7 +100,6 @@ export class SectorControllerService {
           text: 'Ok',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
           }
         }
       ]
@@ -124,7 +123,6 @@ export class SectorControllerService {
           text: 'Ok',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
           }
         }
       ]

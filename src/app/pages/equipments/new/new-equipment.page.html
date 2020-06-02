@@ -21,11 +21,11 @@
 </ion-header>
 
 <ion-header>
-    <ion-item *ngIf="equipmentType === 'COMPUTER'">
-      <ion-label *ngIf="detailForm" style="text-size-adjust: 10px;">Detalhado</ion-label>
-      <ion-label *ngIf="!detailForm" style="text-size-adjust: 10px;">Não detalhado</ion-label>
-      <ion-toggle color="dark" slot="end" [(ngModel)]="detailForm"></ion-toggle>
-    </ion-item>
+  <ion-item *ngIf="equipmentType === 'COMPUTER'">
+    <ion-label *ngIf="detailForm" style="text-size-adjust: 10px;">Detalhado</ion-label>
+    <ion-label *ngIf="!detailForm" style="text-size-adjust: 10px;">Não detalhado</ion-label>
+    <ion-toggle color="dark" slot="end" [(ngModel)]="detailForm"></ion-toggle>
+  </ion-item>
 </ion-header>
 
 
@@ -119,7 +119,7 @@
             <ion-select [(ngModel)]="formProcessorId"  ok-text="Ok" cancel-text="Cancelar">
               <ion-select-option value="">Nenhum</ion-select-option>
               <ion-select-option *ngFor="let processor of availableProcessors" value={{processor.id}}>{{ processor.processorName }}</ion-select-option>
-            </ion-select>
+            </ion-select>          
           </ion-item>
         </ion-col>
           
@@ -140,8 +140,8 @@
               <ion-select-option value="">Nenhum</ion-select-option>
               <ion-select-option *ngFor="let processor of availableProcessors" value={{processor.id}}>{{ processor.processorName }}</ion-select-option>
             </ion-select>
-          </ion-item>    
-        </ion-col>        
+          </ion-item>
+        </ion-col>
 
         <ion-col size="2">
           <ion-buttons>

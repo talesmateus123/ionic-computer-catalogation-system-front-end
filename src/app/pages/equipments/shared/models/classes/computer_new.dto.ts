@@ -10,6 +10,8 @@ export class ComputerNewDTO extends EquipmentNewDTO {
 	operatingSystemArchitecture: string;
 	onTheDomain: boolean;
 	isLaptop: boolean;
+	totalRamMemory: number;
+	totalStorageMemory: number;
 	processorId: number;
 	monitorId: number;
 	sectorId: number;
