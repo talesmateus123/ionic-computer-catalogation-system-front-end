@@ -64,7 +64,7 @@
 
   <ion-item *ngIf="electronicComponentType === 'STORAGE_DEVICE'" >
     <ion-label>Tipo de dispositivo:</ion-label>
-      <ion-select [disabled]="editForm" [(ngModel)]="electronicComponent.storageDeviceType" ok-text="Ok" cancel-text="Cancelar">
+      <ion-select [disabled]="editForm" [(ngModel)]="electronicComponent.type" ok-text="Ok" cancel-text="Cancelar">
         <ion-select-option *ngFor="let storageDeviceType of controller.keys(controller.storageDeviceTypes)" [value]="storageDeviceType">{{controller.storageDeviceTypes[storageDeviceType]}}</ion-select-option>
     </ion-select>
   </ion-item>
