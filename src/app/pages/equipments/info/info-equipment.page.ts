@@ -66,7 +66,6 @@ export class InfoEquipmentPage implements OnInit {
         if(this.equipmentType === "COMPUTER") {
           this.equipment = response;
           this.populateAvailableAvailableMonitors();
-          //this.electronicComponentController
         }
         else if(this.equipmentType === "PRINTER") {
           this.equipment = response;

@@ -21,5 +21,4 @@ export class ElectronicComponentsPage implements OnInit {
     this.controller.updateRamMemoriesList();
     this.controller.updateStorageDevicesList();
   }
-
 }

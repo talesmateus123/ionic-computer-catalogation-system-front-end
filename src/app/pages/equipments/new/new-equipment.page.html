@@ -28,20 +28,7 @@
   </ion-item>
 </ion-header>
 
-
-
 <ion-content>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" edge>
-    <ion-fab-button color="primary">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-list side="start">
-      <ion-fab-button [routerLink]="['/electronic-components/new']" [queryParams]="{ type: 'PROCESSOR' }"><ion-icon name="hardware-chip"></ion-icon></ion-fab-button>
-      <ion-fab-button *ngIf="detailForm"  [routerLink]="['/electronic-components/new']" [queryParams]="{ type: 'RAM_MEMORY' }"><ion-icon name="git-compare"></ion-icon></ion-fab-button>
-      <ion-fab-button *ngIf="detailForm"  [routerLink]="['/electronic-components/new']" [queryParams]="{ type: 'STORAGE_DEVICE' }"><ion-icon name="disc"></ion-icon></ion-fab-button>
-    </ion-fab-list>
-  </ion-fab>
-
   <ion-list>
     <ion-list-header class="title" color="dark">Informações gerais</ion-list-header>
 
@@ -68,17 +55,17 @@
 
   <ion-list *ngIf="equipmentType === 'COMPUTER'">
     <ion-list-header class="title" color="dark">Informações do hardware</ion-list-header>
-      <ion-item *ngIf="detailForm">
+      <ion-item>
         <ion-label>Possui leitor de CD/DVD?</ion-label>
         <ion-checkbox color="dark" [(ngModel)]="formHasCdBurner"></ion-checkbox>    
       </ion-item>
 
-      <ion-item *ngIf="detailForm">
+      <ion-item>
         <ion-label>Nome da placa mãe:</ion-label>
         <ion-input type="text" [(ngModel)]="formMotherBoardName"></ion-input>    
       </ion-item>
 
-      <ion-item *ngIf="detailForm">
+      <ion-item>
         <ion-label>Modelo do gabinete:</ion-label>
         <ion-input type="text" [(ngModel)]="formCabinetModel"></ion-input>    
       </ion-item>
@@ -87,14 +74,14 @@
         <ion-label>Processador:</ion-label>
         <ion-select [(ngModel)]="formProcessorId"  ok-text="Ok" cancel-text="Cancelar">
           <ion-select-option value="">Nenhum</ion-select-option>
-          <ion-select-option *ngFor="let processor of availableProcessors" value={{processor.id}}>{{ processor.processorName }}</ion-select-option>
+          <ion-select-option *ngFor="let processor of availableProcessors" value={{processor.id}}> {{ processor.manufacturer }} {{ processor.model }} ({{ processor.processorName }})</ion-select-option>
         </ion-select>
       </ion-item>     
   </ion-list>
 
   <ion-list *ngIf="equipmentType === 'COMPUTER'">
     <ion-list-header class="title" color="dark">
-      Memórias RAM
+      Memória RAM
       <ion-buttons *ngIf="detailForm">
         <ion-button (click)="addRamMemory()">
           <ion-icon slot="icon-only" name="add"></ion-icon>
@@ -107,13 +94,12 @@
     </ion-list-header>
 
     <ion-item *ngIf="!detailForm">
-      <ion-range [(ngModel)]="formRamMemorySize" min="0" max="16" pin color="dark">
+      <ion-range [(ngModel)]="formTotalRamMemory" min="0" max="16" pin color="dark">
         <ion-icon slot="start" size="small" name="git-compare"></ion-icon>
         <ion-icon slot="end" name="git-compare"></ion-icon>
       </ion-range>
-      <ion-note slot="end">RAM: {{ formRamMemorySize }} GB</ion-note>
+      <ion-note slot="end">RAM: {{ formTotalRamMemory }} GB</ion-note>
     </ion-item>
-
 
     <ion-item  *ngIf="detailForm && ramMemoryQuantity == 0">
       <ion-label>Nenhuma memória RAM adicionada</ion-label>
@@ -121,34 +107,42 @@
 
     <ion-item *ngIf="detailForm && ramMemoryQuantity >= 1">
       <ion-label>Memória RAM 1:</ion-label>
-      <ion-select [(ngModel)]="formProcessorId"  ok-text="Ok" cancel-text="Cancelar">
+      <ion-select [(ngModel)]="formRamMemoriesId[1]"  ok-text="Ok" cancel-text="Cancelar">
         <ion-select-option value="">Nenhum</ion-select-option>
-        <ion-select-option *ngFor="let processor of availableProcessors" value={{processor.id}}>{{ processor.processorName }}</ion-select-option>
+        <ion-select-option *ngFor="let ramMemory of availableRamMemories" value={{ramMemory.id}}>
+          {{ ramMemory.sizeInGB }} GB - {{ ramMemory.manufacturer }} {{ ramMemory.model }}
+        </ion-select-option>
       </ion-select>          
     </ion-item>
 
     <ion-item *ngIf="detailForm && ramMemoryQuantity >= 2">
       <ion-label>Memória RAM 2:</ion-label>
-      <ion-select [(ngModel)]="formProcessorId"  ok-text="Ok" cancel-text="Cancelar">
+      <ion-select [(ngModel)]="formRamMemoriesId[2]"  ok-text="Ok" cancel-text="Cancelar">
         <ion-select-option value="">Nenhum</ion-select-option>
-        <ion-select-option *ngFor="let processor of availableProcessors" value={{processor.id}}>{{ processor.processorName }}</ion-select-option>
+        <ion-select-option *ngFor="let ramMemory of availableRamMemories" value={{ramMemory.id}}>
+          {{ ramMemory.sizeInGB }} GB - {{ ramMemory.manufacturer }} {{ ramMemory.model }}
+        </ion-select-option>
       </ion-select>          
     </ion-item>
 
     <ion-item *ngIf="detailForm && ramMemoryQuantity >= 3">
       <ion-label>Memória RAM 3:</ion-label>
-      <ion-select [(ngModel)]="formProcessorId"  ok-text="Ok" cancel-text="Cancelar">
+      <ion-select [(ngModel)]="formRamMemoriesId[3]"  ok-text="Ok" cancel-text="Cancelar">
         <ion-select-option value="">Nenhum</ion-select-option>
-        <ion-select-option *ngFor="let processor of availableProcessors" value={{processor.id}}>{{ processor.processorName }}</ion-select-option>
+        <ion-select-option *ngFor="let ramMemory of availableRamMemories" value={{ramMemory.id}}>
+          {{ ramMemory.sizeInGB }} GB - {{ ramMemory.manufacturer }} {{ ramMemory.model }}
+        </ion-select-option>
       </ion-select>          
     </ion-item>
 
     <ion-item *ngIf="detailForm && ramMemoryQuantity >= 4">
       <ion-label>Memória RAM 4:</ion-label>
-      <ion-select [(ngModel)]="formProcessorId"  ok-text="Ok" cancel-text="Cancelar">
+      <ion-select [(ngModel)]="formRamMemoriesId[4]"  ok-text="Ok" cancel-text="Cancelar">
         <ion-select-option value="">Nenhum</ion-select-option>
-        <ion-select-option *ngFor="let processor of availableProcessors" value={{processor.id}}>{{ processor.processorName }}</ion-select-option>
-      </ion-select>          
+        <ion-select-option *ngFor="let ramMemory of availableRamMemories" value={{ramMemory.id}}>
+          {{ ramMemory.sizeInGB }} GB - {{ ramMemory.manufacturer }} {{ ramMemory.model }}
+        </ion-select-option>
+      </ion-select>        
     </ion-item>
   </ion-list>
 
@@ -167,11 +161,11 @@
     </ion-list-header>
 
     <ion-item *ngIf="!detailForm">
-      <ion-range [(ngModel)]="formStorageDeviceSize" min="0" max="2000" step="20" pin color="dark">
+      <ion-range [(ngModel)]="formTotalStorageMemory" min="0" max="2000" step="20" pin color="dark">
         <ion-icon slot="start" size="small" name="disc"></ion-icon>
         <ion-icon slot="end" name="disc"></ion-icon>
       </ion-range>
-      <ion-note slot="end">HD: {{ formStorageDeviceSize }} GB</ion-note>
+      <ion-note slot="end">HD: {{ formTotalStorageMemory }} GB</ion-note>
     </ion-item>
     
     <ion-item  *ngIf="detailForm && storageDeviceQuantity == 0">
@@ -180,33 +174,41 @@
 
     <ion-item *ngIf="detailForm && storageDeviceQuantity >= 1">
       <ion-label>Armazenamento 1:</ion-label>
-      <ion-select [(ngModel)]="formProcessorId"  ok-text="Ok" cancel-text="Cancelar">
+      <ion-select [(ngModel)]="formStorageDevicesId[1]"  ok-text="Ok" cancel-text="Cancelar">
         <ion-select-option value="">Nenhum</ion-select-option>
-        <ion-select-option *ngFor="let processor of availableProcessors" value={{processor.id}}>{{ processor.processorName }}</ion-select-option>
+        <ion-select-option *ngFor="let storageDevice of availableStorageDevices" value={{storageDevice.id}}>
+          {{ storageDevice.sizeInGB }} GB - {{ storageDevice.manufacturer }} {{ storageDevice.model }}
+        </ion-select-option>
       </ion-select>
     </ion-item>
           
     <ion-item  *ngIf="detailForm && storageDeviceQuantity >= 2">
       <ion-label>Armazenamento 2:</ion-label>
-      <ion-select [(ngModel)]="formProcessorId"  ok-text="Ok" cancel-text="Cancelar">
+      <ion-select [(ngModel)]="formStorageDevicesId[2]"  ok-text="Ok" cancel-text="Cancelar">
         <ion-select-option value="">Nenhum</ion-select-option>
-        <ion-select-option *ngFor="let processor of availableProcessors" value={{processor.id}}>{{ processor.processorName }}</ion-select-option>
+        <ion-select-option *ngFor="let storageDevice of availableStorageDevices" value={{storageDevice.id}}>
+          {{ storageDevice.sizeInGB }} GB - {{ storageDevice.manufacturer }} {{ storageDevice.model }}
+        </ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item  *ngIf="detailForm && storageDeviceQuantity >= 3">
       <ion-label>Armazenamento 3:</ion-label>
-      <ion-select [(ngModel)]="formProcessorId"  ok-text="Ok" cancel-text="Cancelar">
+      <ion-select [(ngModel)]="formStorageDevicesId[3]"  ok-text="Ok" cancel-text="Cancelar">
         <ion-select-option value="">Nenhum</ion-select-option>
-        <ion-select-option *ngFor="let processor of availableProcessors" value={{processor.id}}>{{ processor.processorName }}</ion-select-option>
+        <ion-select-option *ngFor="let storageDevice of availableStorageDevices" value={{storageDevice.id}}>
+          {{ storageDevice.sizeInGB }} GB - {{ storageDevice.manufacturer }} {{ storageDevice.model }}
+        </ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item  *ngIf="detailForm && storageDeviceQuantity >= 4">
       <ion-label>Armazenamento 4:</ion-label>
-      <ion-select [(ngModel)]="formProcessorId"  ok-text="Ok" cancel-text="Cancelar">
+      <ion-select [(ngModel)]="formStorageDevicesId[4]"  ok-text="Ok" cancel-text="Cancelar">
         <ion-select-option value="">Nenhum</ion-select-option>
-        <ion-select-option *ngFor="let processor of availableProcessors" value={{processor.id}}>{{ processor.processorName }}</ion-select-option>
+        <ion-select-option *ngFor="let storageDevice of availableStorageDevices" value={{storageDevice.id}}>
+          {{ storageDevice.sizeInGB }} GB - {{ storageDevice.manufacturer }} {{ storageDevice.model }}
+        </ion-select-option>
       </ion-select>
     </ion-item>
   </ion-list>
@@ -214,7 +216,7 @@
   <ion-list>
     <ion-list-header class="title" color="dark">Informações do sistema</ion-list-header>
     <div *ngIf="equipmentType === 'COMPUTER'">      
-      <ion-item *ngIf="detailForm">
+      <ion-item>
         <ion-label>Está no domínio?</ion-label>
         <ion-checkbox color="dark" [(ngModel)]="formOnTheDomain"></ion-checkbox>    
       </ion-item>
@@ -236,7 +238,7 @@
         </ion-select>
       </ion-item>
 
-      <ion-item *ngIf="detailForm">
+      <ion-item>
         <ion-label>Arquitetura do sistema operacional:</ion-label>
         <ion-select [(ngModel)]="formOperatingSystemArchitecture"  ok-text="Ok" cancel-text="Cancelar">
           <ion-select-option *ngFor="let operatingSystemArchitecture of controller.keys(controller.operatingSystemArchitectures)" [value]="operatingSystemArchitecture">{{controller.operatingSystemArchitectures[operatingSystemArchitecture]}}</ion-select-option>
@@ -285,8 +287,8 @@
 
     <ion-item *ngIf="sectorController.sectors">
       <ion-label>Setor:</ion-label>
-      <ion-select [(ngModel)]="formSectorId"  ok-text="Ok" cancel-text="Cancelar">
-        <ion-select-option *ngFor="let sector of sectorController.sectors" value={{sector.id}}>{{ sector.name }}</ion-select-option>
+      <ion-select [disabled]="editForm" [(ngModel)]="formSectorId"  ok-text="Ok" cancel-text="Cancelar">
+        <ion-select-option *ngFor="let sector of sectorController.sectors" [value]="sector.id">{{ sector.name }}</ion-select-option>
       </ion-select>
     </ion-item>
   </ion-list>

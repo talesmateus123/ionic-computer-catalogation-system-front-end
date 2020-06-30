@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -15,22 +15,22 @@ export class AppComponent implements OnInit {
   public appPages = [
     {
       title: 'Equipamentos',
-      url: '/equipments',
+      url: 'equipments',
       icon: 'desktop'
     },
     {
       title: 'Componentes',
-      url: '/electronic-components',
-      icon: 'git-network'
-    },    
+      url: 'electronic-components',
+      icon: 'hardware-chip'
+    },
     {
       title: 'Usuários',
-      url: '/computer-users',
+      url: 'computer-users',
       icon: 'people'
     },
     {
       title: 'Setores',
-      url: '/sectors',
+      url: 'sectors',
       icon: 'albums'
     }
   ];

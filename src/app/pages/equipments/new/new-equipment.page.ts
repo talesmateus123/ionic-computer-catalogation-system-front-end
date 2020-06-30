@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ComputerDTO, MonitorDTO, EquipmentControllerService } from '../shared';
-import { ProcessorDTO, ElectronicComponentControllerService } from '../../electronic-components/shared';
+import { ProcessorDTO, ElectronicComponentControllerService, StorageDeviceDTO, RamMemoryDTO } from '../../electronic-components/shared';
 import { SectorControllerService } from '../../sectors';
 
 @Component({
@@ -12,7 +12,7 @@ import { SectorControllerService } from '../../sectors';
 export class NewEquipmentPage implements OnInit {
   public equipmentType = "COMPUTER";
 
-  public detailForm: boolean = false;
+  // public detailForm: boolean = false;
   public ramMemoryQuantity: number = 0;
   public storageDeviceQuantity: number = 0;
   
@@ -38,17 +38,9 @@ export class NewEquipmentPage implements OnInit {
   public formMonitorId: number;
   public formComputerId: number;
   public formSectorId: number;
-  public formRamMemoriesId: number[];
-  public formStorageDevicesId: number[];
-  public formComputerUsersId: number[];
-
-  // Processor attributes
-  public processor_manufacturer: string;
-	public processor_model: string;
-	public processor_description: string;
-	public processor_itWorks: boolean;
-	public processor_name: string;
-	public processor_architecture: string;
+  public formRamMemoriesId: number[] = [];
+  public formStorageDevicesId: number[] = [];
+  public formComputerUsersId: number[] = [];
 
   // Ram memories attributes
   public ramMemory1_manufacturer: string;
@@ -120,6 +112,8 @@ export class NewEquipmentPage implements OnInit {
   public availableComputers: ComputerDTO[];
   public availableMonitors: MonitorDTO[];
   public availableProcessors: ProcessorDTO[];
+  public availableRamMemories: RamMemoryDTO[];
+  public availableStorageDevices: StorageDeviceDTO[];
   
   constructor(
     public controller: EquipmentControllerService,
@@ -129,6 +123,9 @@ export class NewEquipmentPage implements OnInit {
 
   ngOnInit() {
     this.sectorController.updateSectorsList();
+    this.populateAvailableProcessors();
+    this.populateAvailableRamMemories();
+    this.populateAvailableStorageDevices();
     this.populateAvailableAvailableComputers();
     this.populateAvailableAvailableMonitors();
   }
@@ -153,7 +150,35 @@ export class NewEquipmentPage implements OnInit {
       this.storageDeviceQuantity--;
   }
 
-  populateAvailableAvailableComputers() {
+  private populateAvailableProcessors() {
+    this.electronicComponentControllerService.getAvailableProcessors().subscribe(res => {
+      this.availableProcessors = res;
+    }, 
+    error => {
+    });
+  }
+
+  private populateAvailableRamMemories() {
+    this.electronicComponentControllerService.getAvailableRamMemories().subscribe(res => {
+      this.availableRamMemories = res;
+    }, 
+    error => {
+    });
+  }
+
+  public addAvailableRamMemory(ramMemory: RamMemoryDTO) {
+
+  }
+  
+  private populateAvailableStorageDevices() {
+    this.electronicComponentControllerService.getAvailableStorageDevices().subscribe(res => {
+      this.availableStorageDevices = res;
+    }, 
+    error => {
+    });
+  }
+
+  private populateAvailableAvailableComputers() {
     this.controller.getAvailableComputers().subscribe(res => {
       this.availableComputers = res;
     }, 
@@ -161,7 +186,7 @@ export class NewEquipmentPage implements OnInit {
     });
   }
 
-  populateAvailableAvailableMonitors() {
+  private populateAvailableAvailableMonitors() {
     this.controller.getAvailableMonitors().subscribe(res => {
       this.availableMonitors = res;
     }, 
@@ -169,7 +194,7 @@ export class NewEquipmentPage implements OnInit {
     });
   }
 
-  create() {
+  public create() {
     if(this.equipmentType === "COMPUTER"){
       this.controller.createComputer(
         {
@@ -180,7 +205,7 @@ export class NewEquipmentPage implements OnInit {
           patrimonyId: this.formPatrimonyId,
           ipAddress: this.formIpAddress,
           hostName: this.formHostName,
-          sectorId: this.formSectorId,      
+          sectorId: this.formSectorId,
           motherBoardName: this.formMotherBoardName,
           hasCdBurner: this.formHasCdBurner,
           cabinetModel: this.formCabinetModel,
