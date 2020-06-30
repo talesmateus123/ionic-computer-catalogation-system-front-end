@@ -17,7 +17,11 @@ const routes: Routes = [
   {
     path: 'info/:id',
     component: InfoEquipmentPage
-  }
+  },
+  {
+    path: 'electronic-components',
+    loadChildren: () => import('./electronic-components').then( m => m.ElectronicComponentsPageModule)
+  },
 ];
 
 @NgModule({

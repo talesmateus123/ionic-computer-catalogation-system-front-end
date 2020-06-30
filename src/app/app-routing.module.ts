@@ -16,10 +16,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/').then( m => m.EquipmentsPageModule)
   },
   {
-    path: 'electronic-components',
-    loadChildren: () => import('./pages/').then( m => m.ElectronicComponentsPageModule)
-  },
-  {
     path: 'computer-users',
     loadChildren: () => import('./pages/').then( m => m.ComputerUsersPageModule)
   }

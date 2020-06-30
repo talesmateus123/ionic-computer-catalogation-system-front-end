@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
     },
     {
       title: 'Componentes',
-      url: 'electronic-components',
+      url: 'equipments/electronic-components',
       icon: 'hardware-chip'
     },
     {

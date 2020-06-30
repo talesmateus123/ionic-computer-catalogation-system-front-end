@@ -12,7 +12,7 @@
       <ion-button >
         <ion-icon slot="icon-only" name="search"></ion-icon>          
       </ion-button>
-      <ion-button [routerLink]="['/electronic-components/new']">
+      <ion-button [routerLink]="['/equipments/electronic-components/new']">
         <ion-icon slot="icon-only" name="add"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -21,7 +21,7 @@
 
 <ion-content>
   <ion-list *ngIf="electronicComponentType === 'Processadores'">
-    <ion-item *ngFor="let processor of controller.processors" routerLink="/electronic-components/info/{{processor.id}}">
+    <ion-item *ngFor="let processor of controller.processors" routerLink="/equipments/electronic-components/info/{{processor.id}}">
       <ion-icon slot="start" name="hardware-chip"></ion-icon>
       <ion-label>
         <h2>{{ processor.model }} ({{ processor.processorName }})</h2>
@@ -32,7 +32,7 @@
   </ion-list>
 
   <ion-list *ngIf="electronicComponentType === 'Memórias RAM'">
-    <ion-item *ngFor="let ramMemory of controller.ramMemories" routerLink="/electronic-components/info/{{ramMemory.id}}">
+    <ion-item *ngFor="let ramMemory of controller.ramMemories" routerLink="/equipments/electronic-components/info/{{ramMemory.id}}">
       <ion-icon slot="start" name="ram-memory"></ion-icon>
       <ion-label>
         <h2>{{ ramMemory.manufacturer }} | {{ ramMemory.model }}</h2>
@@ -43,7 +43,7 @@
   </ion-list>
 
   <ion-list *ngIf="electronicComponentType === 'Dispositivos de armazenamento'">
-    <ion-item *ngFor="let storageDevice of controller.storageDevices" routerLink="/electronic-components/info/{{storageDevice.id}}">
+    <ion-item *ngFor="let storageDevice of controller.storageDevices" routerLink="/equipments/electronic-components/info/{{storageDevice.id}}">
       <ion-icon slot="start" name="server"></ion-icon>
       <ion-label>
         <h2>{{ storageDevice.manufacturer }} | {{ storageDevice.model }}</h2>
