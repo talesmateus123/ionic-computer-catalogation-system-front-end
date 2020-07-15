@@ -13,7 +13,7 @@ import { ComputerService, MonitorService, PrinterService, EquipmentControllerSer
 import { ElectronicService } from '../shared-resources';
 import { SectorControllerService, SectorService } from '../sectors';
 import { ElectronicComponentControllerService, ProcessorService, RamMemoryService, StorageDeviceService } from './electronic-components/shared';
-import { ElectronicComponentsPage } from './electronic-components';
+import { SearchEquipmentPage } from './search/search-equipment.page';
 
 @NgModule({
   imports: [
@@ -27,7 +27,8 @@ import { ElectronicComponentsPage } from './electronic-components';
   declarations: [
     EquipmentsPage,
     NewEquipmentPage,
-    InfoEquipmentPage
+    InfoEquipmentPage,
+    SearchEquipmentPage
   ],
   providers: [
     EquipmentControllerService,

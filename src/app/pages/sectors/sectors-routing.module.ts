@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SectorsPage } from './sectors.page';
 import { NewSectorPage } from './new';
 import { InfoSectorPage } from './info';
+import { SearchSectorPage } from './search';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'info/:id',
     component: InfoSectorPage
+  },
+  {
+    path: 'search',
+    component: SearchSectorPage
   }
 ];
 

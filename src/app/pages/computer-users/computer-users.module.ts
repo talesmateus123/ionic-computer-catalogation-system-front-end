@@ -11,6 +11,7 @@ import { NewComputerUserPage } from './new';
 import { InfoComputerUserPage } from './info';
 import { ComputerUserControllerService, ComputerUserService } from './shared';
 import { SectorControllerService, SectorService } from '../sectors';
+import { SearchComputerUserPage } from './search';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { SectorControllerService, SectorService } from '../sectors';
   declarations: [
     ComputerUsersPage,
     NewComputerUserPage,
-    InfoComputerUserPage  
+    InfoComputerUserPage,
+    SearchComputerUserPage
   ],
   providers: [
     ComputerUserControllerService,

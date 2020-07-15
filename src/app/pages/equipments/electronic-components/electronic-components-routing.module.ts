@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ElectronicComponentsPage } from './electronic-components.page';
 import { NewElectronicComponentPage } from './new';
 import { InfoElectronicComponentPage } from './info';
+import { SearchElectronicComponentPage } from './search/search-electronic-component.page';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'info/:id',
     component: InfoElectronicComponentPage
+  },
+  {
+    path: 'search',
+    component: SearchElectronicComponentPage
   }
 ];
 

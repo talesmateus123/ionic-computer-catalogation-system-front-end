@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ComputerUsersPage } from './computer-users.page';
 import { NewComputerUserPage } from './new';
 import { InfoComputerUserPage } from './info';
+import { SearchComputerUserPage } from './search';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'info/:id',
     component: InfoComputerUserPage
+  },
+  {
+    path: 'search',
+    component: SearchComputerUserPage
   }
 ];
 

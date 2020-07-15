@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { EquipmentsPage } from './equipments.page';
 import { InfoEquipmentPage } from './info/info-equipment.page';
 import { NewEquipmentPage } from './new/new-equipment.page';
+import { SearchEquipmentPage } from './search/search-equipment.page';
 
 const routes: Routes = [
   {
@@ -19,9 +20,13 @@ const routes: Routes = [
     component: InfoEquipmentPage
   },
   {
+    path: 'search',
+    component: SearchEquipmentPage
+  },
+  {
     path: 'electronic-components',
     loadChildren: () => import('./electronic-components').then( m => m.ElectronicComponentsPageModule)
-  },
+  }
 ];
 
 @NgModule({
