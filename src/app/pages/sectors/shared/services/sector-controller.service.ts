@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController, ToastController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { SectorService } from './sector.service';
 import { Observable } from 'rxjs';
 import { SectorDTO, SectorNewDTO } from '../models';
+import { SearchSectorPage } from '../../search';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class SectorControllerService {
   constructor(
     public loadingController: LoadingController,
     public toastController: ToastController,
+    public modalController: ModalController,
     private router: Router,
     private sectorService: SectorService) { 
   }
@@ -22,6 +24,17 @@ export class SectorControllerService {
     return this.sectorService.findById(id);
   }
   
+  searchSector(searchTerm: string, direction: string, orderBy: string) {
+    this.sectorService.search(searchTerm, direction, orderBy)
+      .subscribe(response => {
+        console.log(response.body.content)
+        this.sectors = response.body.content;
+      },
+      error => {
+        console.log(error);
+      });
+  }
+
   updateSectorsList() {
     this.sectorService.findAll()
       .subscribe(response => {
@@ -73,6 +86,23 @@ export class SectorControllerService {
 
   redirectToRootPage(): void {
     this.router.navigate(['sectors']);
+  }
+
+  async modalPresent(controller: SectorControllerService) {
+    const modal = await this.modalController.create({
+      component: SearchSectorPage,
+      componentProps: {
+        controller: controller,
+     }
+    });
+
+    modal.onDidDismiss().then((dataReturned) => {
+      if (dataReturned !== null || dataReturned !== undefined) {
+        //console.log(dataReturned.data);
+        this.searchSector(dataReturned.data.searchTerm, dataReturned.data.direction, dataReturned.data.orderBy);
+      }
+    });
+    return await modal.present();
   }
 
   async loadingPresent() {

@@ -19,6 +19,17 @@ export class SectorService {
         return this.http.get<SectorDTO>(`${this.url}/${id}`);
     }
 
+    search(searchTerm: string, direction: string, orderBy: string): Observable<any> {
+        return this.http.get(`${this.url}/search`, {
+            params: {
+                searchTerm: searchTerm,
+                direction: direction,
+                orderBy: orderBy
+            },
+            observe: 'response'
+          })
+    }
+
     create(object: SectorNewDTO): Observable<any> {
         return this.http.post<SectorNewDTO>(`${this.url}`, object);
     }

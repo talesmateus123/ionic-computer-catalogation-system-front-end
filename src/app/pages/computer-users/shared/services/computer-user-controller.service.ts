@@ -21,6 +21,16 @@ export class ComputerUserControllerService {
   findComputerUser(id: string): Observable<any> {
     return this.computerUserService.findById(id);
   }
+  
+  searchComputerUser(searchTerm: string, direction: string) {
+    this.computerUserService.search(searchTerm, direction)
+      .subscribe(response => {
+        this.computerUsers = response;
+      },
+      error => {
+        console.log(error);
+      });
+  }
 
   updateComputerUsersList(): void {
     this.computerUserService.findAll()
