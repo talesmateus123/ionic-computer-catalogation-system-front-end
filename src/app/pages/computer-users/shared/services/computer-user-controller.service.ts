@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController, ToastController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { ComputerUserService } from './computer-user.service';
 import { ComputerUserDTO, ComputerUserNewDTO } from '../models';
+import { SearchComputerUserPage } from '../../search';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,9 @@ export class ComputerUserControllerService {
   public computerUsers: ComputerUserDTO[];
 
   constructor(
-    public loadingController: LoadingController,
-    public toastController: ToastController,
+    private loadingController: LoadingController,
+    private toastController: ToastController,
+    private modalController: ModalController,
     private router: Router, 
     private computerUserService: ComputerUserService) { }
   
@@ -22,10 +24,11 @@ export class ComputerUserControllerService {
     return this.computerUserService.findById(id);
   }
   
-  searchComputerUser(searchTerm: string, direction: string) {
-    this.computerUserService.search(searchTerm, direction)
+  searchComputerUser(searchTerm: string, direction: string, orderBy: string) {
+    this.computerUsers = undefined;
+    this.computerUserService.search(searchTerm, direction, orderBy)
       .subscribe(response => {
-        this.computerUsers = response;
+        this.computerUsers = response.body.content;
       },
       error => {
         console.log(error);
@@ -33,6 +36,7 @@ export class ComputerUserControllerService {
   }
 
   updateComputerUsersList(): void {
+    this.computerUsers = undefined;
     this.computerUserService.findAll()
       .subscribe(response => {
         this.computerUsers = response;
@@ -75,9 +79,20 @@ export class ComputerUserControllerService {
     });
   }
 
-
   redirectToRootPage(): void {
     this.router.navigate(['computer-users']);
+  }
+
+  async modalPresent() {
+    const modal = await this.modalController.create({
+      component: SearchComputerUserPage
+    });
+
+    modal.onDidDismiss().then((dataReturned) => {
+      if (dataReturned.data !== undefined)
+        this.searchComputerUser(dataReturned.data.searchTerm, dataReturned.data.direction, dataReturned.data.orderBy);
+    });
+    return await modal.present();
   }
 
   async loadingPresent() {

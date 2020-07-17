@@ -4,12 +4,15 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      <ion-select class="title" [(ngModel)]="equipmentType" ok-text="Ok" cancel-text="Cancelar">
+      <ion-select class="title" [(ngModel)]="controller.equipmentType" ok-text="Ok" cancel-text="Cancelar">
         <ion-select-option *ngFor="let equipment of equipmentTypes">{{ equipment }}</ion-select-option>
       </ion-select>
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button >
+      <ion-button (click)="updateAllLists()">
+        <ion-icon slot="icon-only" name="reload"></ion-icon>          
+      </ion-button>
+      <ion-button (click)="controller.modalPresent()">
         <ion-icon slot="icon-only" name="search"></ion-icon>          
       </ion-button>
       <ion-button [routerLink]="['/equipments/new']">
@@ -20,7 +23,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-list *ngIf="equipmentType === 'Computadores'">
+  <ion-list *ngIf="controller.equipmentType === 'Computadores'">
     <ion-item *ngFor="let computer of controller.computers" routerLink="/equipments/info/{{computer.id}}">
       <ion-icon slot="start" name="laptop"></ion-icon>
       <ion-label>
@@ -31,7 +34,7 @@
     </ion-item>
   </ion-list>
 
-  <ion-list *ngIf="equipmentType === 'Impressoras'">
+  <ion-list *ngIf="controller.equipmentType === 'Impressoras'">
     <ion-item *ngFor="let printer of controller.printers" routerLink="/equipments/info/{{printer.id}}">
       <ion-icon slot="start" name="print"></ion-icon>
       <ion-label>
@@ -42,7 +45,7 @@
     </ion-item>
   </ion-list>
 
-  <ion-list *ngIf="equipmentType === 'Monitores'">
+  <ion-list *ngIf="controller.equipmentType === 'Monitores'">
     <ion-item *ngFor="let monitor of controller.monitors" routerLink="/equipments/info/{{monitor.id}}">
       <ion-icon slot="start" name="desktop"></ion-icon>
       <ion-label>

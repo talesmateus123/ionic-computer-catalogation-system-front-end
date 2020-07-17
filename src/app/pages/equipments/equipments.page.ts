@@ -13,15 +13,19 @@ export class EquipmentsPage implements OnInit {
     "Impressoras",
     "Monitores",
   ];
-  equipmentType = "Computadores";
 
   constructor(
     public controller: EquipmentControllerService
   ) { }
 
   ngOnInit() {
+    this.updateAllLists();
+  }
+
+  updateAllLists() {
     this.controller.updateComputersList();
     this.controller.updatePrintersList();
     this.controller.updateMonitorsList();
   }
+  
 }

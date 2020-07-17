@@ -1,6 +1,6 @@
 <ion-header translucent>
   <ion-toolbar>
-    <ion-title>Pesquisa</ion-title>
+    <ion-title>Filtrar setores</ion-title>
     <ion-buttons slot="end">      
       <ion-button (click)="dismiss()">
         <ion-icon slot="icon-only" name="close"></ion-icon>
@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-header>
+<ion-header translucent>
   <ion-item>
     <ion-label *ngIf="asc" style="text-size-adjust: 10px;">Ascendente</ion-label>
     <ion-label *ngIf="!asc" style="text-size-adjust: 10px;">Descedente</ion-label>
@@ -19,6 +19,7 @@
 
 <ion-content fullscreen>
   <ion-item>
+    <ion-label>Termo de filtro:</ion-label>
     <ion-input type="text" [(ngModel)]="searchTerm" ></ion-input>
   </ion-item>
 </ion-content>
@@ -28,7 +29,7 @@
     <ion-grid>
       <ion-row class="ion-align-items-center">
         <ion-col size="12" class="ion-text-center">
-          <ion-button (click)="search()" expand="block" fill="clear" color="dark">Pesquisar</ion-button>
+          <ion-button (click)="search()" expand="block" fill="clear" color="dark">Ok</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>

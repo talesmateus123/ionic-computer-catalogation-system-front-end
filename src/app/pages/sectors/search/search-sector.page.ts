@@ -7,7 +7,7 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./search-sector.page.scss'],
 })
 export class SearchSectorPage implements OnInit {
-  public searchTerm: string;
+  public searchTerm: string = "";
   public asc: boolean = true;
   public orderBy: string = "name"
   

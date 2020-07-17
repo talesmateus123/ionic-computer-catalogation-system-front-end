@@ -1,9 +1,46 @@
-<ion-header>
+<ion-header translucent>
   <ion-toolbar>
-    <ion-title>search-computer-user</ion-title>
+    <ion-title>Filtrar usuários</ion-title>
+    <ion-buttons slot="end">      
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-header translucent>
+  <ion-item>
+    <ion-label style="text-size-adjust: 10px;">Ordenar por</ion-label>
+    <ion-select class="title" [(ngModel)]="orderBy" ok-text="Ok" cancel-text="Cancelar">
+      <ion-select-option value="name">Nome</ion-select-option>
+      <ion-select-option value="lastName">Sobrenome</ion-select-option>
+      <ion-select-option value="email">E-mail</ion-select-option>
+    </ion-select>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label *ngIf="asc" style="text-size-adjust: 10px;">Ascendente</ion-label>
+    <ion-label *ngIf="!asc" style="text-size-adjust: 10px;">Descedente</ion-label>
+    <ion-toggle color="dark" slot="end" [(ngModel)]="asc"></ion-toggle>
+  </ion-item>
+</ion-header>
 
+<ion-content fullscreen>
+  <ion-item>
+    <ion-label>Termo de filtro:</ion-label>
+    <ion-input type="text" [(ngModel)]="searchTerm" ></ion-input>
+  </ion-item>
 </ion-content>
+
+<ion-footer > 
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="12" class="ion-text-center">
+          <ion-button (click)="search()" expand="block" fill="clear" color="dark">Ok</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>    
+</ion-footer>

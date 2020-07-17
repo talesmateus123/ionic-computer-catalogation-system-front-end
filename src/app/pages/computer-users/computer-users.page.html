@@ -5,7 +5,10 @@
     </ion-buttons>
       <ion-title>Usuários</ion-title>
     <ion-buttons slot="end">
-      <ion-button >
+      <ion-button (click)="controller.updateComputerUsersList()">
+        <ion-icon slot="icon-only" name="reload"></ion-icon>          
+      </ion-button>
+      <ion-button (click)="controller.modalPresent()">
         <ion-icon slot="icon-only" name="search"></ion-icon>          
       </ion-button>
       <ion-button [routerLink]="['/computer-users/new']">

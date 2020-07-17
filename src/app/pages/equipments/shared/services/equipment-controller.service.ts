@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController, ToastController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -12,6 +12,7 @@ import {
   MonitorNewDTO, ArchitectureType, OperatingSystem
  } from '../models';
 import { ElectronicService } from 'src/app/pages/shared-resources';
+import { SearchEquipmentPage } from '../../search';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,8 @@ export class EquipmentControllerService {
   ];
   
   public keys = Object.keys;
+
+  equipmentType: string = "Computadores";
   
   public operatingSystemArchitectures = ArchitectureType;
   public operatingSystems = OperatingSystem;
@@ -34,8 +37,9 @@ export class EquipmentControllerService {
   public printers: PrinterDTO[];
 
   constructor(
-    public loadingController: LoadingController,
-    public toastController: ToastController,
+    private loadingController: LoadingController,
+    private toastController: ToastController,
+    private modalController: ModalController,
     private router: Router, 
     private electronicService: ElectronicService, 
     private computerService: ComputerService,
@@ -46,7 +50,41 @@ export class EquipmentControllerService {
     return this.electronicService.findById(id);
   }
 
+  searchComputer(searchTerm: string, direction: string, orderBy: string) {
+    this.computers = undefined;
+    this.computerService.search(searchTerm, direction, orderBy)
+      .subscribe(response => {
+        this.computers = response.body.content;
+      },
+      error => {
+        console.log(error);
+      });
+  }
+
+  searchPrinter(searchTerm: string, direction: string, orderBy: string) {
+    this.printers = undefined;
+    this.printerService.search(searchTerm, direction, orderBy)
+      .subscribe(response => {
+        this.printers = response.body.content;
+      },
+      error => {
+        console.log(error);
+      });
+  }
+
+  searchMonitor(searchTerm: string, direction: string, orderBy: string) {
+    this.monitors = undefined;
+    this.monitorService.search(searchTerm, direction, orderBy)
+      .subscribe(response => {
+        this.monitors = response.body.content;
+      },
+      error => {
+        console.log(error);
+      });
+  }
+
   updateComputersList(): void {
+    this.computers = undefined;
     this.computerService.findAll()
       .subscribe(response => {
         this.computers = response;
@@ -57,6 +95,7 @@ export class EquipmentControllerService {
   }
 
   updatePrintersList(): void {
+    this.printers = undefined;
     this.printerService.findAll()
       .subscribe(response => {
         this.printers = response;
@@ -67,6 +106,7 @@ export class EquipmentControllerService {
   }
 
   updateMonitorsList(): void {
+    this.monitors = undefined;
     this.monitorService.findAll()
       .subscribe(response => {
         this.monitors = response;
@@ -185,6 +225,24 @@ export class EquipmentControllerService {
 
   redirectToRootPage(): void {
     this.router.navigate(['equipments']);
+  }
+
+  async modalPresent() {
+    const modal = await this.modalController.create({
+      component: SearchEquipmentPage
+    });
+
+    modal.onDidDismiss().then((dataReturned) => {
+      if (dataReturned.data !== undefined) {
+        if (this.equipmentType === 'Computadores')
+          this.searchComputer(dataReturned.data.searchTerm, dataReturned.data.direction, dataReturned.data.orderBy);
+        else if (this.equipmentType === 'Impressoras')
+          this.searchPrinter(dataReturned.data.searchTerm, dataReturned.data.direction, dataReturned.data.orderBy);
+        else if (this.equipmentType === 'Monitores')
+          this.searchMonitor(dataReturned.data.searchTerm, dataReturned.data.direction, dataReturned.data.orderBy);
+      }
+    });
+    return await modal.present();
   }
 
   async loadingPresent() {

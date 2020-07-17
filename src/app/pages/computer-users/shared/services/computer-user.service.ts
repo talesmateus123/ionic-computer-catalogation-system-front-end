@@ -25,15 +25,16 @@ export class ComputerUserService {
   findById(id: string): Observable<ComputerUserDTO> {
       return this.http.get<ComputerUserDTO>(`${this.url}/${id}`);
   }
-
-  search(searchTerm: string, direction: string): Observable<any> {
+  
+  search(searchTerm: string, direction: string, orderBy: string): Observable<any> {
     return this.http.get(`${this.url}/search`, {
-        params: {
-            searchTerm: searchTerm,
-            direction: direction
-        },
-        observe: 'response'
-      })
+      params: {
+          searchTerm: searchTerm,
+          direction: direction,
+          orderBy: orderBy
+      },
+      observe: 'response'
+    })
   }
 
   create(object: ComputerUserNewDTO): Observable<any> {

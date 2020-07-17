@@ -5,7 +5,10 @@
     </ion-buttons>
     <ion-title>Setores</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="controller.modalPresent(controller)">
+      <ion-button (click)="controller.updateSectorsList()">
+        <ion-icon slot="icon-only" name="reload"></ion-icon>          
+      </ion-button>
+      <ion-button (click)="controller.modalPresent()">
         <ion-icon slot="icon-only" name="search"></ion-icon>          
       </ion-button>
       <ion-button [routerLink]="['/sectors/new']">

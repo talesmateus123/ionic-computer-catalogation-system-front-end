@@ -36,8 +36,8 @@ export class ElectronicComponentControllerService {
 
   constructor(
     private _location: Location,
-    public loadingController: LoadingController,
-    public toastController: ToastController,
+    private loadingController: LoadingController,
+    private toastController: ToastController,
     private router: Router, 
     private electronicComponentService: ElectronicService,
     private processorService: ProcessorService,

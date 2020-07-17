@@ -13,9 +13,9 @@ export class SectorControllerService {
   public sectors: SectorDTO[];
 
   constructor(
-    public loadingController: LoadingController,
-    public toastController: ToastController,
-    public modalController: ModalController,
+    private loadingController: LoadingController,
+    private toastController: ToastController,
+    private modalController: ModalController,
     private router: Router,
     private sectorService: SectorService) { 
   }
@@ -25,9 +25,9 @@ export class SectorControllerService {
   }
   
   searchSector(searchTerm: string, direction: string, orderBy: string) {
+    this.sectors = undefined;
     this.sectorService.search(searchTerm, direction, orderBy)
       .subscribe(response => {
-        console.log(response.body.content)
         this.sectors = response.body.content;
       },
       error => {
@@ -36,6 +36,7 @@ export class SectorControllerService {
   }
 
   updateSectorsList() {
+    this.sectors = undefined;
     this.sectorService.findAll()
       .subscribe(response => {
         this.sectors = response;
@@ -88,19 +89,14 @@ export class SectorControllerService {
     this.router.navigate(['sectors']);
   }
 
-  async modalPresent(controller: SectorControllerService) {
+  async modalPresent() {
     const modal = await this.modalController.create({
-      component: SearchSectorPage,
-      componentProps: {
-        controller: controller,
-     }
+      component: SearchSectorPage
     });
 
     modal.onDidDismiss().then((dataReturned) => {
-      if (dataReturned !== null || dataReturned !== undefined) {
-        //console.log(dataReturned.data);
+      if (dataReturned.data !== undefined)
         this.searchSector(dataReturned.data.searchTerm, dataReturned.data.direction, dataReturned.data.orderBy);
-      }
     });
     return await modal.present();
   }

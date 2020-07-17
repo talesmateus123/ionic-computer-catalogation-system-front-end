@@ -22,6 +22,17 @@ export class PrinterService {
       return this.http.get<PrinterNewDTO>(`${this.url}/${id}`);
   }
 
+  search(searchTerm: string, direction: string, orderBy: string): Observable<any> {
+    return this.http.get(`${this.url}/search`, {
+      params: {
+          searchTerm: searchTerm,
+          direction: direction,
+          orderBy: orderBy
+      },
+      observe: 'response'
+    })
+  }
+
   create(object: PrinterNewDTO): Observable<any> {
       return this.http.post<PrinterNewDTO>(`${this.url}`, object);
   }
