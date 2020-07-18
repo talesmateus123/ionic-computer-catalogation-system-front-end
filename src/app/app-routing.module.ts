@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'computer-users',
     loadChildren: () => import('./pages/').then( m => m.ComputerUsersPageModule)
+  },
+  {
+    path: 'reports',
+    loadChildren: () => import('./pages').then( m => m.ReportsPageModule)
   }
 ];
 

@@ -32,7 +32,12 @@ export class AppComponent implements OnInit {
       title: 'Setores',
       url: 'sectors',
       icon: 'albums'
-    }
+    },
+    {
+      title: 'Relatórios',
+      url: 'reports',
+      icon: 'document-text'
+    }    
   ];
   public labels = ['Family', 'Friends'];
   public isTheHomePage: boolean;
