@@ -10,6 +10,10 @@ import { SearchSectorPage } from '../../search';
   providedIn: 'root'
 })
 export class SectorControllerService {
+  public searchTerm: string = "";
+  public asc: boolean = true;
+  public orderBy: string = "name";
+
   public sectors: SectorDTO[];
 
   constructor(
@@ -91,12 +95,22 @@ export class SectorControllerService {
 
   async modalPresent() {
     const modal = await this.modalController.create({
-      component: SearchSectorPage
+      component: SearchSectorPage,
+      componentProps: { 
+        searchTerm: this.searchTerm,
+        asc: this.asc,
+        orderBy: this.orderBy
+      }
     });
 
     modal.onDidDismiss().then((dataReturned) => {
-      if (dataReturned.data !== undefined)
-        this.searchSector(dataReturned.data.searchTerm, dataReturned.data.direction, dataReturned.data.orderBy);
+      if (dataReturned.data !== undefined) {
+        this.searchTerm = dataReturned.data.searchTerm;
+        this.asc = dataReturned.data.asc;
+        this.orderBy = dataReturned.data.orderBy;
+
+        this.searchSector(dataReturned.data.searchTerm, dataReturned.data.asc ? "ASC" : "DESC", dataReturned.data.orderBy);
+      }
     });
     return await modal.present();
   }

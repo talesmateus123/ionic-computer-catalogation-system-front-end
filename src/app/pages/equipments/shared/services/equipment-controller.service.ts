@@ -26,7 +26,10 @@ export class EquipmentControllerService {
   
   public keys = Object.keys;
 
-  equipmentType: string = "Computadores";
+  public searchTerm: string= "";
+  public asc: boolean = true;
+  public orderBy: string = "patrimonyId";
+  public equipmentType: string = "Computadores";
   
   public operatingSystemArchitectures = ArchitectureType;
   public operatingSystems = OperatingSystem;
@@ -229,17 +232,27 @@ export class EquipmentControllerService {
 
   async modalPresent() {
     const modal = await this.modalController.create({
-      component: SearchEquipmentPage
+      component: SearchEquipmentPage,
+      componentProps: { 
+        searchTerm: this.searchTerm,
+        asc: this.asc,
+        orderBy: this.orderBy,
+        equipmentType: this.equipmentType
+      }
     });
 
     modal.onDidDismiss().then((dataReturned) => {
       if (dataReturned.data !== undefined) {
+        this.searchTerm = dataReturned.data.searchTerm;
+        this.asc = dataReturned.data.asc;
+        this.orderBy = dataReturned.data.orderBy;
+        
         if (this.equipmentType === 'Computadores')
-          this.searchComputer(dataReturned.data.searchTerm, dataReturned.data.direction, dataReturned.data.orderBy);
+          this.searchComputer(dataReturned.data.searchTerm, dataReturned.data.asc ? "ASC" : "DESC", dataReturned.data.orderBy);
         else if (this.equipmentType === 'Impressoras')
-          this.searchPrinter(dataReturned.data.searchTerm, dataReturned.data.direction, dataReturned.data.orderBy);
+          this.searchPrinter(dataReturned.data.searchTerm, dataReturned.data.asc ? "ASC" : "DESC", dataReturned.data.orderBy);
         else if (this.equipmentType === 'Monitores')
-          this.searchMonitor(dataReturned.data.searchTerm, dataReturned.data.direction, dataReturned.data.orderBy);
+          this.searchMonitor(dataReturned.data.searchTerm, dataReturned.data.asc ? "ASC" : "DESC", dataReturned.data.orderBy);
       }
     });
     return await modal.present();

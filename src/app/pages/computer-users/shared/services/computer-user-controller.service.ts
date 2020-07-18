@@ -11,6 +11,10 @@ import { SearchComputerUserPage } from '../../search';
   providedIn: 'root'
 })
 export class ComputerUserControllerService {
+  public searchTerm: string = "";
+  public asc: boolean = true;
+  public orderBy: string = "name";
+
   public computerUsers: ComputerUserDTO[];
 
   constructor(
@@ -85,12 +89,22 @@ export class ComputerUserControllerService {
 
   async modalPresent() {
     const modal = await this.modalController.create({
-      component: SearchComputerUserPage
+      component: SearchComputerUserPage,
+      componentProps: { 
+        searchTerm: this.searchTerm,
+        asc: this.asc,
+        orderBy: this.orderBy
+      }
     });
 
     modal.onDidDismiss().then((dataReturned) => {
-      if (dataReturned.data !== undefined)
-        this.searchComputerUser(dataReturned.data.searchTerm, dataReturned.data.direction, dataReturned.data.orderBy);
+      if (dataReturned.data !== undefined) {
+        this.searchTerm = dataReturned.data.searchTerm;
+        this.asc = dataReturned.data.asc;
+        this.orderBy = dataReturned.data.orderBy;
+
+        this.searchComputerUser(dataReturned.data.searchTerm, dataReturned.data.asc ? "ASC" : "DESC", dataReturned.data.orderBy);
+      }
     });
     return await modal.present();
   }

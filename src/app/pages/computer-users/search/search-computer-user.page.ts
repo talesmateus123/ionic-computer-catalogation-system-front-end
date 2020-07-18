@@ -7,9 +7,9 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./search-computer-user.page.scss'],
 })
 export class SearchComputerUserPage implements OnInit {
-  public searchTerm: string= "";
-  public asc: boolean = true;
-  public orderBy: string = "name"
+  public searchTerm: string;
+  public asc: boolean;
+  public orderBy: string;
   
   constructor(
     private modalController: ModalController
@@ -22,7 +22,7 @@ export class SearchComputerUserPage implements OnInit {
     await this.modalController.dismiss(
       {
         searchTerm: this.searchTerm, 
-        direction: this.asc ? "ASC" : "DESC",
+        asc: this.asc,
         orderBy: this.orderBy
       }
      );

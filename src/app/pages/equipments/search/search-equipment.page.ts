@@ -7,22 +7,25 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./search-equipment.page.scss'],
 })
 export class SearchEquipmentPage implements OnInit {
-  public searchTerm: string= "";
-  public asc: boolean = true;
-  public orderBy: string = "patrimonyId"
+  public searchTerm: string;
+  public asc: boolean;
+  public orderBy: string;
+  public equipmentType: string;
   
   constructor(
     private modalController: ModalController
   ) { }
 
   ngOnInit() {
+    if (this.equipmentType !== "Computadores")
+      this.orderBy = "patrimonyId"
   }
 
   async search() {
     await this.modalController.dismiss(
       {
         searchTerm: this.searchTerm, 
-        direction: this.asc ? "ASC" : "DESC",
+        asc: this.asc,
         orderBy: this.orderBy
       }
      );
