@@ -87,7 +87,7 @@ export class ComputerUserControllerService {
     this.router.navigate(['computer-users']);
   }
 
-  async modalPresent() {
+  async searchModalPresent() {
     const modal = await this.modalController.create({
       component: SearchComputerUserPage,
       componentProps: { 

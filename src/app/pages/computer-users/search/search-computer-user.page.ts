@@ -18,8 +18,8 @@ export class SearchComputerUserPage implements OnInit {
   ngOnInit() {
   }
 
-  async search() {
-    await this.modalController.dismiss(
+  returnDataAndDismiss() {
+    this.modalController.dismiss(
       {
         searchTerm: this.searchTerm, 
         asc: this.asc,

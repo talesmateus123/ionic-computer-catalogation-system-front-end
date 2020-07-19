@@ -10,9 +10,9 @@ import { SearchSectorPage } from '../../search';
   providedIn: 'root'
 })
 export class SectorControllerService {
-  public searchTerm: string = "";
-  public asc: boolean = true;
-  public orderBy: string = "name";
+  private searchTerm: string = "";
+  private asc: boolean = true;
+  private orderBy: string = "name";
 
   public sectors: SectorDTO[];
 
@@ -93,7 +93,7 @@ export class SectorControllerService {
     this.router.navigate(['sectors']);
   }
 
-  async modalPresent() {
+  async searchModalPresent() {
     const modal = await this.modalController.create({
       component: SearchSectorPage,
       componentProps: { 

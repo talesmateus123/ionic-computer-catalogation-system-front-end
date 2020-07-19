@@ -230,7 +230,7 @@ export class EquipmentControllerService {
     this.router.navigate(['equipments']);
   }
 
-  async modalPresent() {
+  async searchModalPresent() {
     const modal = await this.modalController.create({
       component: SearchEquipmentPage,
       componentProps: { 
