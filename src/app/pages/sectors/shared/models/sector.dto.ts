@@ -1,4 +1,5 @@
 export class SectorDTO {
     id: number;
-	name: string;
+    name: string;
+    phone: string
 }

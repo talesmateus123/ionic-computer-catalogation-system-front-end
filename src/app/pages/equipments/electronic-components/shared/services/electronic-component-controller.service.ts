@@ -60,7 +60,7 @@ export class ElectronicComponentControllerService {
         this.processors = response;
       },
       error => {
-        console.log(error);
+        this.errorMessageAlert(error);
       });
   }
 
@@ -70,7 +70,7 @@ export class ElectronicComponentControllerService {
         this.ramMemories = response;
       },
       error => {
-        console.log(error);
+        this.errorMessageAlert(error);
       });
   }
 
@@ -80,7 +80,7 @@ export class ElectronicComponentControllerService {
         this.storageDevices = response;
       },
       error => {
-        console.log(error);
+        this.errorMessageAlert(error);
       });
   }
 
@@ -91,7 +91,6 @@ export class ElectronicComponentControllerService {
       this.redirectToRootPage();
     }, 
     error => {
-      console.log(error)
       this.errorMessageAlert(error);
     });
   }
@@ -103,7 +102,6 @@ export class ElectronicComponentControllerService {
       this.redirectToRootPage();
     }, 
     error => {
-      console.log(error)
       this.errorMessageAlert(error);
     });
   }

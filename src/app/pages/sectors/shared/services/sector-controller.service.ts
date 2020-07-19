@@ -35,7 +35,7 @@ export class SectorControllerService {
         this.sectors = response.body.content;
       },
       error => {
-        console.log(error);
+        this.errorMessageAlert(error);
       });
   }
 
@@ -46,7 +46,7 @@ export class SectorControllerService {
         this.sectors = response;
       },
       error => {
-        console.log(error);
+        this.errorMessageAlert(error);
       });
   }
 

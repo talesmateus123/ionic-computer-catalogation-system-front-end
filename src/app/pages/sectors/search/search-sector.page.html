@@ -11,6 +11,14 @@
 
 <ion-header translucent>
   <ion-item>
+    <ion-label style="text-size-adjust: 10px;">Ordenar por</ion-label>
+    <ion-select class="title" [(ngModel)]="orderBy" ok-text="Ok" cancel-text="Cancelar">
+      <ion-select-option value="name">Nome</ion-select-option>
+      <ion-select-option value="phone">Telefone</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
     <ion-label *ngIf="asc" style="text-size-adjust: 10px;">Ascendente</ion-label>
     <ion-label *ngIf="!asc" style="text-size-adjust: 10px;">Descedente</ion-label>
     <ion-toggle color="dark" slot="end" [(ngModel)]="asc"></ion-toggle>

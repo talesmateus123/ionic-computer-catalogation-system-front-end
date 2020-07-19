@@ -35,7 +35,7 @@ export class ComputerUserControllerService {
         this.computerUsers = response.body.content;
       },
       error => {
-        console.log(error);
+        this.errorMessageAlert(error);
       });
   }
 
@@ -46,7 +46,7 @@ export class ComputerUserControllerService {
         this.computerUsers = response;
       }, 
       error => {
-        console.log(error);
+        this.errorMessageAlert(error);
       });
   }
 

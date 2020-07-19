@@ -60,7 +60,7 @@ export class EquipmentControllerService {
         this.computers = response.body.content;
       },
       error => {
-        console.log(error);
+        this.errorMessageAlert(error);
       });
   }
 
@@ -71,7 +71,7 @@ export class EquipmentControllerService {
         this.printers = response.body.content;
       },
       error => {
-        console.log(error);
+        this.errorMessageAlert(error);
       });
   }
 
@@ -82,7 +82,7 @@ export class EquipmentControllerService {
         this.monitors = response.body.content;
       },
       error => {
-        console.log(error);
+        this.errorMessageAlert(error);
       });
   }
 
@@ -93,7 +93,7 @@ export class EquipmentControllerService {
         this.computers = response;
       }, 
       error => {
-        console.log(error);
+        this.errorMessageAlert(error);
       });
   }
 
@@ -104,7 +104,7 @@ export class EquipmentControllerService {
         this.printers = response;
       }, 
       error => {
-        console.log(error);
+        this.errorMessageAlert(error);
       });
   }
 
@@ -115,7 +115,7 @@ export class EquipmentControllerService {
         this.monitors = response;
       }, 
       error => {
-        console.log(error);
+        this.errorMessageAlert(error);
       });
   }
 

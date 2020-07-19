@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
       icon: 'albums'
     },
     {
-      title: 'Relatórios',
+      title: 'Gerar relatórios',
       url: 'reports',
       icon: 'document-text'
     }    
