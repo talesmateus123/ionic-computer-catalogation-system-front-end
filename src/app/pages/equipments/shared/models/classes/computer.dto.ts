@@ -9,7 +9,6 @@ export class ComputerDTO extends EquipmentDTO {
 	operatingSystem: string;
 	operatingSystemArchitecture: string;
 	onTheDomain: boolean;
-	isLaptop: boolean;
 	monitor: any;
 	processor: any;
 	ramMemories: any[];

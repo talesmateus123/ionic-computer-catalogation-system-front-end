@@ -83,7 +83,7 @@
     <ion-list-header class="title" color="dark">
       Memória RAM
       <ion-buttons *ngIf="detailForm">
-        <ion-button (click)="addRamMemory()">
+        <ion-button (click)="controller.newElectronicComponentModalPresent('PROCESSOR')">
           <ion-icon slot="icon-only" name="add"></ion-icon>
         </ion-button>
 
@@ -225,6 +225,11 @@
         <ion-label>Endereço IP:</ion-label>
         <ion-input type="text" [(ngModel)]="formIpAddress"></ion-input>    
       </ion-item>
+
+      <ion-item>
+        <ion-label>Endereço MAC:</ion-label>
+        <ion-input type="text" [(ngModel)]="formMacAddress"></ion-input>    
+      </ion-item>
       
       <ion-item>
         <ion-label>Nome do computador:</ion-label>
@@ -250,6 +255,11 @@
       <ion-item>
         <ion-label>Endereço IP:</ion-label>
         <ion-input type="text" [(ngModel)]="formIpAddress"></ion-input>    
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Endereço MAC:</ion-label>
+        <ion-input type="text" [(ngModel)]="formMacAddress"></ion-input>    
       </ion-item>
 
       <ion-item>

@@ -23,10 +23,12 @@ const routes: Routes = [
     path: 'search',
     component: SearchEquipmentPage
   },
+  /*
   {
     path: 'electronic-components',
     loadChildren: () => import('./electronic-components').then( m => m.ElectronicComponentsPageModule)
   }
+  */
 ];
 
 @NgModule({

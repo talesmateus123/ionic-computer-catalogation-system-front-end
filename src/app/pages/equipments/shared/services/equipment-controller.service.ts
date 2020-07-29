@@ -13,6 +13,7 @@ import {
  } from '../models';
 import { ElectronicService } from 'src/app/pages/shared-resources';
 import { SearchEquipmentPage } from '../../search';
+import { NewElectronicComponentModalPage } from '../../electronic-components/new';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,12 @@ export class EquipmentControllerService {
     "COMPUTER",
     "PRINTER",
     "MONITOR",
+  ];
+
+  public electronicComponentTypes: string[] =[
+    "PROCESSOR",
+    "RAM_MEMORY",
+    "STORAGE_DEVICE",
   ];
   
   public keys = Object.keys;
@@ -39,6 +46,10 @@ export class EquipmentControllerService {
   public monitors: MonitorDTO[];
   public printers: PrinterDTO[];
 
+  public currentProcessor: any;
+  public currentRamMemory: any[];
+  public currentStorageDevice: any[];
+
   constructor(
     private loadingController: LoadingController,
     private toastController: ToastController,
@@ -47,7 +58,8 @@ export class EquipmentControllerService {
     private electronicService: ElectronicService, 
     private computerService: ComputerService,
     private monitorService: MonitorService,
-    private printerService: PrinterService) { }
+    private printerService: PrinterService
+  ) { }
 
   findEquipment(id: string): Observable<any> {
     return this.electronicService.findById(id);
@@ -153,6 +165,12 @@ export class EquipmentControllerService {
   }
 
   updateComputer(id: string, object: ComputerNewDTO): void {
+    if(object.ipAddress === "")
+      object.ipAddress = null;
+    if(object.macAddress === "")
+      object.macAddress = null;
+    if(object.hostName === "")
+      object.hostName = null;
     this.computerService.update(id, object).subscribe(res => {
       this.successMessageAlert("Computador atualizado com sucesso");
       this.updateComputersList();
@@ -164,6 +182,12 @@ export class EquipmentControllerService {
   }
   
   updatePrinter(id: string, object: PrinterNewDTO): void {
+    if(object.ipAddress === "")
+      object.ipAddress = null;
+    if(object.macAddress === "")
+      object.macAddress = null;
+    if(object.hostName === "")
+      object.hostName = null;
     this.printerService.update(id, object).subscribe(res => {
       this.successMessageAlert("Impressora atualizada com sucesso");
       this.updatePrintersList();
@@ -228,6 +252,25 @@ export class EquipmentControllerService {
 
   redirectToRootPage(): void {
     this.router.navigate(['equipments']);
+  }
+
+  async newElectronicComponentModalPresent(electronicComponentType: string) {
+    const modal = await this.modalController.create({
+      component: NewElectronicComponentModalPage,
+      componentProps: {
+        electronicComponentType: electronicComponentType
+      }
+    });
+
+    modal.onDidDismiss().then((dataReturned) => {
+      if (dataReturned.data !== undefined) {
+        if(dataReturned.data.ews === "") {
+          this.currentProcessor = dataReturned.data.electronicComponent;
+        }
+        
+      }
+    });
+    return await modal.present();
   }
 
   async searchModalPresent() {

@@ -1,38 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { ElectronicComponentControllerService } from '../shared';
-
 @Component({
-  selector: 'app-info-electronic-component',
-  templateUrl: './info-electronic-component.page.html',
-  styleUrls: ['./info-electronic-component.page.scss'],
+  selector: 'app-info-electronic-component-modal',
+  templateUrl: './info-electronic-component-modal.page.html',
+  styleUrls: ['./info-electronic-component-modal.page.scss'],
 })
-export class InfoElectronicComponentPage implements OnInit {
+export class InfoElectronicComponentModalPage implements OnInit {
   private id: string;
   public electronicComponentType: string;
   public editForm: boolean = true;
   public electronicComponent: any;
 
   constructor(
-    public controller: ElectronicComponentControllerService,
-    private route: ActivatedRoute) {  }
+    private route: ActivatedRoute
+    ) {  }
 
   ngOnInit() {
-    this.controller.loadingPresent();
-    this.id = this.route.snapshot.paramMap.get('id');
-    this.electronicComponent = this.controller.findElectronic(this.id).subscribe(
-      res => {
-        let response = res;
-        this.electronicComponentType = response.equipmentType;
-        this.electronicComponent = response;
-        this.controller.loadingDismiss();
-      },
-      error => {
-        this.controller.errorMessageAlert(error);
-        this.controller.redirectToRootPage();
-      }
-    );
     this.editForm = true;
   }
 
@@ -44,6 +28,7 @@ export class InfoElectronicComponentPage implements OnInit {
   }
 
   update() {
+    /*
     if(this.electronicComponentType === "PROCESSOR"){
       this.controller.updateProcessor(this.id,
         {
@@ -84,9 +69,11 @@ export class InfoElectronicComponentPage implements OnInit {
         }
       );
     }
+    */
   }
 
   delete() {
+    /*
     if(this.electronicComponentType === "PROCESSOR"){
       this.controller.deleteProcessor(this.id);
     }
@@ -96,5 +83,6 @@ export class InfoElectronicComponentPage implements OnInit {
     if(this.electronicComponentType === "STORAGE_DEVICE"){
       this.controller.deleteStorageDevice(this.id);
     }
+    */
   }
 }

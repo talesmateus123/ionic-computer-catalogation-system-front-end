@@ -12,8 +12,8 @@ import { InfoEquipmentPage } from './info/info-equipment.page';
 import { ComputerService, MonitorService, PrinterService, EquipmentControllerService } from './shared';
 import { ElectronicService } from '../shared-resources';
 import { SectorControllerService, SectorService } from '../sectors';
-import { ElectronicComponentControllerService, ProcessorService, RamMemoryService, StorageDeviceService } from './electronic-components/shared';
 import { SearchEquipmentPage } from './search/search-equipment.page';
+import { NewElectronicComponentModalPage } from './electronic-components/new';
 
 @NgModule({
   imports: [
@@ -28,7 +28,11 @@ import { SearchEquipmentPage } from './search/search-equipment.page';
     EquipmentsPage,
     NewEquipmentPage,
     InfoEquipmentPage,
-    SearchEquipmentPage
+    SearchEquipmentPage,
+    NewElectronicComponentModalPage
+  ],
+  entryComponents: [
+    NewElectronicComponentModalPage  
   ],
   providers: [
     EquipmentControllerService,
@@ -37,11 +41,7 @@ import { SearchEquipmentPage } from './search/search-equipment.page';
     MonitorService,
     PrinterService,
     SectorControllerService,
-    SectorService,
-    ElectronicComponentControllerService,
-    ProcessorService,
-    RamMemoryService,
-    StorageDeviceService
+    SectorService
   ]
 })
 export class EquipmentsPageModule {}

@@ -51,6 +51,8 @@ export class SectorControllerService {
   }
 
   createSector(sector: SectorNewDTO){
+    if(sector.phone === "")
+      sector.phone = null;
     this.sectorService.create(sector).subscribe(
       res => {
         this.successMessageAlert("Setor criado com sucesso");
@@ -64,6 +66,8 @@ export class SectorControllerService {
   }
 
   updateSector(id: string, sector: SectorNewDTO){
+    if(sector.phone === "")
+      sector.phone = null;
     this.sectorService.update(id, sector).subscribe(
       res => {
         this.successMessageAlert("Setor salvo com sucesso");

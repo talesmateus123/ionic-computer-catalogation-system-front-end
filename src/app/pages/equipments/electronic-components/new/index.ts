@@ -1,1 +1,1 @@
-export * from './new-electronic-component.page';
+export * from './new-electronic-component-modal.page';

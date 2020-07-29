@@ -1,1 +1,1 @@
-export * from './info-electronic-component.page';
+export * from './info-electronic-component-modal.page';

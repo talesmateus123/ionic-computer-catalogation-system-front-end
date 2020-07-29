@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { InfoElectronicComponentPage } from './info-electronic-component.page';
+import { InfoElectronicComponentModalPage } from './info-electronic-component-modal.page';
 
-describe('InfoElectronicComponentPage', () => {
-  let component: InfoElectronicComponentPage;
-  let fixture: ComponentFixture<InfoElectronicComponentPage>;
+describe('InfoElectronicComponentModalPage', () => {
+  let component: InfoElectronicComponentModalPage;
+  let fixture: ComponentFixture<InfoElectronicComponentModalPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InfoElectronicComponentPage ],
+      declarations: [ InfoElectronicComponentModalPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(InfoElectronicComponentPage);
+    fixture = TestBed.createComponent(InfoElectronicComponentModalPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

@@ -1,20 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="electronic-components"></ion-back-button>
+    <ion-buttons slot="start">      
     </ion-buttons>
     <ion-title *ngIf="electronicComponentType === 'PROCESSOR'">Novo processador</ion-title>
     <ion-title *ngIf="electronicComponentType === 'RAM_MEMORY'">Nova memória RAM</ion-title>
     <ion-title *ngIf="electronicComponentType === 'STORAGE_DEVICE'">Novo dispositivo de armazenamento</ion-title>
     <ion-buttons slot="end">
-      <ion-button>
-        <ion-select [(ngModel)]="electronicComponentType"  ok-text="Ok" cancel-text="Cancelar">
-          <ion-select-option *ngFor="let electronicComponentType of controller.electronicComponentTypes" [value]="electronicComponentType">
-            <p *ngIf="electronicComponentType === 'PROCESSOR'">Processador</p>
-            <p *ngIf="electronicComponentType === 'RAM_MEMORY'">Memória RAM</p>
-            <p *ngIf="electronicComponentType === 'STORAGE_DEVICE'">Dispositivo de armazenamento</p>
-          </ion-select-option>
-        </ion-select>
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -87,7 +80,7 @@
     <ion-grid>
       <ion-row class="ion-align-items-center">
         <ion-col size="12" class="ion-text-center">
-          <ion-button (click)="create()" expand="block" fill="clear" color="dark">Salvar</ion-button>
+          <ion-button (click)="returnDataAndDismiss()" expand="block" fill="clear" color="dark">Salvar</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
