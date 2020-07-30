@@ -20,6 +20,7 @@
   </ion-toolbar>  
 </ion-header>
 
+<!--
 <ion-header>
   <ion-item *ngIf="equipmentType === 'COMPUTER'">
     <ion-label *ngIf="detailForm" style="text-size-adjust: 10px;">Detalhado</ion-label>
@@ -27,6 +28,7 @@
     <ion-toggle color="dark" slot="end" [(ngModel)]="detailForm"></ion-toggle>
   </ion-item>
 </ion-header>
+-->
 
 <ion-content>
   <ion-list>
@@ -60,30 +62,51 @@
         <ion-checkbox color="dark" [(ngModel)]="formHasCdBurner"></ion-checkbox>    
       </ion-item>
 
-      <ion-item>
+      <ion-item *ngIf="detailForm">
         <ion-label>Nome da placa mãe:</ion-label>
         <ion-input type="text" [(ngModel)]="formMotherBoardName"></ion-input>    
       </ion-item>
 
-      <ion-item>
+      <ion-item *ngIf="detailForm">
         <ion-label>Modelo do gabinete:</ion-label>
         <ion-input type="text" [(ngModel)]="formCabinetModel"></ion-input>    
       </ion-item>
-
-      <ion-item>
-        <ion-label>Processador:</ion-label>
-        <ion-select [(ngModel)]="formProcessorId"  ok-text="Ok" cancel-text="Cancelar">
-          <ion-select-option value="">Nenhum</ion-select-option>
-          <ion-select-option *ngFor="let processor of availableProcessors" value={{processor.id}}> {{ processor.manufacturer }} {{ processor.model }} ({{ processor.processorName }})</ion-select-option>
-        </ion-select>
-      </ion-item>     
   </ion-list>
 
   <ion-list *ngIf="equipmentType === 'COMPUTER'">
     <ion-list-header class="title" color="dark">
+      Processador
+      <ion-buttons>
+        <ion-button (click)="addProcessor()">
+          <ion-icon slot="icon-only" name="add"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-list-header>
+
+    <ion-item  *ngIf="processorQuantity == 0">
+      <ion-label>Nenhum processador adicionado</ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="processorQuantity >= 1" (click)="electronicComponentModalPresent('PROCESSOR')">
+      <ion-icon slot="start" name="hardware-chip"></ion-icon>
+      <ion-label>
+        <h2 *ngIf="formProcessor_manufacturer === undefined && formProcessor_model === undefined && formProcessor_processorName === undefined && formProcessor_architecture === undefined">Clique para gerenciar o processador</h2>
+        <h2>{{ formProcessor_manufacturer }}</h2>
+        <h3>{{ formProcessor_model }} <a *ngIf="formProcessor_model && formProcessor_processorName">|</a> {{ formProcessor_processorName }}</h3>
+        <p>{{ formProcessor_architecture }}</p>
+      </ion-label>
+
+      <ion-buttons>
+        <ion-button (click)="deleteProcessor()">
+          <ion-icon slot="icon-only" name="remove"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    </ion-item>
+
+    <ion-list-header class="title" color="dark">
       Memória RAM
       <ion-buttons *ngIf="detailForm">
-        <ion-button (click)="controller.newElectronicComponentModalPresent('PROCESSOR')">
+        <ion-button (click)="addRamMemory()">
           <ion-icon slot="icon-only" name="add"></ion-icon>
         </ion-button>
 
@@ -214,7 +237,7 @@
   </ion-list>
 
   <ion-list>
-    <ion-list-header class="title" color="dark">Informações do sistema</ion-list-header>
+    <ion-list-header *ngIf="equipmentType === 'COMPUTER' || equipmentType === 'PRINTER'" class="title" color="dark">Informações de rede</ion-list-header>
     <div *ngIf="equipmentType === 'COMPUTER'">      
       <ion-item>
         <ion-label>Está no domínio?</ion-label>
@@ -236,6 +259,7 @@
         <ion-input type="text" [(ngModel)]="formHostName"></ion-input>    
       </ion-item>
 
+      <ion-list-header class="title" color="dark">Informações do sistema</ion-list-header>
       <ion-item>
         <ion-label>Sistema operacional:</ion-label>
         <ion-select [(ngModel)]="formOperatingSystem"  ok-text="Ok" cancel-text="Cancelar">

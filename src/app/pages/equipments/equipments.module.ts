@@ -7,13 +7,13 @@ import { IonicModule } from '@ionic/angular';
 
 import { EquipmentsPageRoutingModule } from './equipments-routing.module';
 import { EquipmentsPage } from './equipments.page';
-import { NewEquipmentPage } from './new/new-equipment.page';
-import { InfoEquipmentPage } from './info/info-equipment.page';
+import { NewEquipmentPage } from './new';
+import { InfoEquipmentPage } from './info';
 import { ComputerService, MonitorService, PrinterService, EquipmentControllerService } from './shared';
 import { ElectronicService } from '../shared-resources';
 import { SectorControllerService, SectorService } from '../sectors';
-import { SearchEquipmentPage } from './search/search-equipment.page';
-import { NewElectronicComponentModalPage } from './electronic-components/new';
+import { SearchEquipmentPage } from './search';
+import { InfoElectronicComponentModalPage } from './electronic-components';
 
 @NgModule({
   imports: [
@@ -29,10 +29,10 @@ import { NewElectronicComponentModalPage } from './electronic-components/new';
     NewEquipmentPage,
     InfoEquipmentPage,
     SearchEquipmentPage,
-    NewElectronicComponentModalPage
+    InfoElectronicComponentModalPage
   ],
   entryComponents: [
-    NewElectronicComponentModalPage  
+    InfoElectronicComponentModalPage  
   ],
   providers: [
     EquipmentControllerService,

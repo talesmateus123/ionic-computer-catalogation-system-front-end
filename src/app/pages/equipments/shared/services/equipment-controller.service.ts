@@ -13,7 +13,6 @@ import {
  } from '../models';
 import { ElectronicService } from 'src/app/pages/shared-resources';
 import { SearchEquipmentPage } from '../../search';
-import { NewElectronicComponentModalPage } from '../../electronic-components/new';
 
 @Injectable({
   providedIn: 'root'
@@ -45,10 +44,6 @@ export class EquipmentControllerService {
   public computers: ComputerDTO[];
   public monitors: MonitorDTO[];
   public printers: PrinterDTO[];
-
-  public currentProcessor: any;
-  public currentRamMemory: any[];
-  public currentStorageDevice: any[];
 
   constructor(
     private loadingController: LoadingController,
@@ -252,25 +247,6 @@ export class EquipmentControllerService {
 
   redirectToRootPage(): void {
     this.router.navigate(['equipments']);
-  }
-
-  async newElectronicComponentModalPresent(electronicComponentType: string) {
-    const modal = await this.modalController.create({
-      component: NewElectronicComponentModalPage,
-      componentProps: {
-        electronicComponentType: electronicComponentType
-      }
-    });
-
-    modal.onDidDismiss().then((dataReturned) => {
-      if (dataReturned.data !== undefined) {
-        if(dataReturned.data.ews === "") {
-          this.currentProcessor = dataReturned.data.electronicComponent;
-        }
-        
-      }
-    });
-    return await modal.present();
   }
 
   async searchModalPresent() {

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { ComputerDTO, MonitorDTO, EquipmentControllerService } from '../shared';
 import { SectorControllerService } from '../../sectors';
+import { ModalController } from '@ionic/angular';
+import { InfoElectronicComponentModalPage } from '../electronic-components';
 
 @Component({
   selector: 'app-new-equipment',
@@ -12,6 +14,7 @@ export class NewEquipmentPage implements OnInit {
   public equipmentType = "COMPUTER";
 
   // public detailForm: boolean = false;
+  public processorQuantity: number = 0;
   public ramMemoryQuantity: number = 0;
   public storageDeviceQuantity: number = 0;
   
@@ -37,6 +40,9 @@ export class NewEquipmentPage implements OnInit {
 	public formMonitorId: number;
 	public formSectorId: number;
 	public formComputerUsersId: number[] = [];
+
+  public availableComputers: ComputerDTO[];
+  public availableMonitors: MonitorDTO[];
 
   public formProcessor_id: number;
 	public formProcessor_manufacturer: string;
@@ -186,7 +192,8 @@ export class NewEquipmentPage implements OnInit {
   
   constructor(
     public controller: EquipmentControllerService,
-    public sectorController: SectorControllerService
+    public sectorController: SectorControllerService,
+    private modalController: ModalController
   ) { }
 
   ngOnInit() {
@@ -195,9 +202,13 @@ export class NewEquipmentPage implements OnInit {
     this.populateAvailableProcessors();
     this.populateAvailableRamMemories();
     this.populateAvailableStorageDevices();
-    this.populateAvailableAvailableComputers();
-    this.populateAvailableAvailableMonitors();
     */
+    this.populateAvailableAvailableMonitors();
+  }
+
+  public addProcessor() {
+    if(this.processorQuantity < 1)
+    this.processorQuantity++;
   }
 
   public addRamMemory() {
@@ -210,14 +221,35 @@ export class NewEquipmentPage implements OnInit {
       this.storageDeviceQuantity++;
   }
 
-  public deleteRamMemory() {
-    if(this.ramMemoryQuantity > 0)
-    this.ramMemoryQuantity--;
+  public deleteProcessor() {
+    if(this.processorQuantity > 0) {
+      this.processorQuantity--;
+      this.formProcessor_id = undefined;
+      this.formProcessor_manufacturer = undefined;
+      this.formProcessor_model = undefined;
+      this.formProcessor_description = undefined;
+      this.formProcessor_itWorks = undefined;
+      this.formProcessor_processorName = undefined;
+      this.formProcessor_architecture = undefined;
+    }
   }
 
-  public deleteStorageDevice() {
+  public deleteRamMemory(number: number) {
+    if(this.ramMemoryQuantity > 0)
+      this.ramMemoryQuantity--;
+  }
+
+  public deleteStorageDevice(number: number) {
     if(this.storageDeviceQuantity > 0)
       this.storageDeviceQuantity--;
+  }
+
+  populateAvailableAvailableMonitors() {
+    this.controller.getAvailableMonitors().subscribe(res => {
+      this.availableMonitors = res;
+    }, 
+    error => {
+    });
   }
 
   public create() {
@@ -419,5 +451,49 @@ export class NewEquipmentPage implements OnInit {
         }
       );
     }
+  }
+
+  async electronicComponentModalPresent(electronicComponentType: string) {
+    const modal = await this.modalController.create({
+      component: InfoElectronicComponentModalPage,
+      componentProps: {
+        electronicComponentType: electronicComponentType,
+        editForm: false
+      }
+    });
+
+    modal.onDidDismiss().then((dataReturned) => {
+      if (dataReturned.data !== undefined) {
+        if(dataReturned.data.electronicComponentType === "PROCESSOR") {
+          this.formProcessor_id = dataReturned.data.id;
+          this.formProcessor_manufacturer = dataReturned.data.manufacturer;
+          this.formProcessor_model = dataReturned.data.model;
+          this.formProcessor_description = dataReturned.data.description;
+          this.formProcessor_itWorks = dataReturned.data.itWorks;
+          this.formProcessor_processorName = dataReturned.data.processorName;
+          this.formProcessor_architecture = dataReturned.data.architecture;
+        }
+        else if(dataReturned.data.electronicComponentType === "RAM_MEMORY") {
+          this.formProcessor_id = dataReturned.data.id;
+          this.formProcessor_manufacturer = dataReturned.data.manufacturer;
+          this.formProcessor_model = dataReturned.data.model;
+          this.formProcessor_description = dataReturned.data.description;
+          this.formProcessor_itWorks = dataReturned.data.itWorks;
+          this.formProcessor_processorName = dataReturned.data.processorName;
+          this.formProcessor_architecture = dataReturned.data.architecture;
+        }
+        else if(dataReturned.data.electronicComponentType === "STORAGE_DEVICE") {
+          this.formProcessor_id = dataReturned.data.id;
+          this.formProcessor_manufacturer = dataReturned.data.manufacturer;
+          this.formProcessor_model = dataReturned.data.model;
+          this.formProcessor_description = dataReturned.data.description;
+          this.formProcessor_itWorks = dataReturned.data.itWorks;
+          this.formProcessor_processorName = dataReturned.data.processorName;
+          this.formProcessor_architecture = dataReturned.data.architecture;
+        }
+        console.log(dataReturned.data);
+      }
+    });
+    return await modal.present();
   }
 }
