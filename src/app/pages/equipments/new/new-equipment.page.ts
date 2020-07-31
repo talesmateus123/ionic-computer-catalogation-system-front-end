@@ -13,10 +13,13 @@ import { InfoElectronicComponentModalPage } from '../electronic-components';
 export class NewEquipmentPage implements OnInit {
   public equipmentType = "COMPUTER";
 
-  // public detailForm: boolean = false;
+  public detailForm: boolean = false;
   public processorQuantity: number = 0;
   public ramMemoryQuantity: number = 0;
   public storageDeviceQuantity: number = 0;
+
+  public ramMemories: any[] = [];
+  public storageDevices: any[] = [];
   
   public formRamMemorySize: number = 0;
   public formStorageDeviceSize: number = 0;
@@ -35,6 +38,7 @@ export class NewEquipmentPage implements OnInit {
 	public formOperatingSystem: string = "NONE";
 	public formOperatingSystemArchitecture: string = "NONE";
 	public formOnTheDomain: boolean = false;
+	public formPersonalComputer: boolean = false;
 	public formTotalRamMemory: number = 0;
 	public formTotalStorageMemory: number = 0;
 	public formMonitorId: number;
@@ -253,6 +257,13 @@ export class NewEquipmentPage implements OnInit {
   }
 
   public create() {
+    if(this.detailForm){
+      this.formModel = undefined;
+      this.formMotherBoardName = undefined;
+      this.formCabinetModel = undefined;
+      // Ram memories and storage devices is missing
+    }
+
     if(this.equipmentType === "COMPUTER"){
       this.controller.createComputer(
         {
@@ -270,6 +281,7 @@ export class NewEquipmentPage implements OnInit {
           operatingSystem: this.formOperatingSystem,
           operatingSystemArchitecture: this.formOperatingSystemArchitecture,
           onTheDomain: this.formOnTheDomain,
+          personalComputer: this.formPersonalComputer,
           totalRamMemory: this.formTotalRamMemory,
           totalStorageMemory: this.formTotalStorageMemory,
           monitorId: this.formMonitorId,

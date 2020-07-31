@@ -16,6 +16,7 @@ export class InfoEquipmentPage implements OnInit {
 
   public equipmentType: string;
 
+  public detailForm: boolean = false;
   public processorQuantity: number = 0;
   public ramMemoryQuantity: number = 0;
   public storageDeviceQuantity: number = 0;
@@ -39,6 +40,7 @@ export class InfoEquipmentPage implements OnInit {
 	public formOperatingSystem: string = "NONE";
 	public formOperatingSystemArchitecture: string = "NONE";
 	public formOnTheDomain: boolean = false;
+	public formPersonalComputer: boolean = false;
 	public formTotalRamMemory: number = 0;
 	public formTotalStorageMemory: number = 0;
 	public formMonitorId: number;
@@ -344,7 +346,13 @@ export class InfoEquipmentPage implements OnInit {
     }
   }
 
-  update() {    
+  update() {
+    if(this.detailForm){
+      this.formModel = undefined;
+      this.formMotherBoardName = undefined;
+      this.formCabinetModel = undefined;
+      // Ram memories and storage devices is missing
+    }
     if(this.equipmentType === "COMPUTER") {
       this.controller.updateComputer(this.id, 
         {
@@ -362,6 +370,7 @@ export class InfoEquipmentPage implements OnInit {
           operatingSystem: this.formOperatingSystem,
           operatingSystemArchitecture: this.formOperatingSystemArchitecture,
           onTheDomain: this.formOnTheDomain,
+          personalComputer: this.formPersonalComputer,
           totalRamMemory: this.formTotalRamMemory,
           totalStorageMemory: this.formTotalStorageMemory,
           monitorId: this.formMonitorId,
@@ -546,13 +555,17 @@ export class InfoEquipmentPage implements OnInit {
     }
   }
 
-  delete() {
-    if(this.equipmentType === "COMPUTER")
-      this.controller.deleteComputer(this.id);
-    else if(this.equipmentType === "PRINTER") 
-      this.controller.deletePrinter(this.id);
-    else if(this.equipmentType === "MONITOR")   
-      this.controller.deleteMonitor(this.id);
+  toDischarge() {
+    this.formItWorks = false;
+    this.update();
+    /*
+      if(this.equipmentType === "COMPUTER")
+        this.controller.deleteComputer(this.id);
+      else if(this.equipmentType === "PRINTER")
+        this.controller.deletePrinter(this.id);
+      else if(this.equipmentType === "MONITOR")
+        this.controller.deleteMonitor(this.id);
+    */
   }
 
   async electronicComponentModalPresent(electronicComponentType: string) {

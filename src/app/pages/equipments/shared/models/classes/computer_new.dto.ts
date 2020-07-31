@@ -15,6 +15,7 @@ export class ComputerNewDTO extends EquipmentNewDTO {
 	operatingSystem: string;
 	operatingSystemArchitecture: string;
 	onTheDomain: boolean;
+	personalComputer: boolean;
 	totalRamMemory: number;
 	totalStorageMemory: number;
 	monitorId: number;

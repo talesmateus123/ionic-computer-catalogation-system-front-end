@@ -14,7 +14,7 @@
     <ion-label style="text-size-adjust: 10px;">Ordenar por</ion-label>
     <ion-select class="title" [(ngModel)]="orderBy" ok-text="Ok" cancel-text="Cancelar">
       <ion-select-option value="patrimonyId">Número de patrimônio</ion-select-option>
-      <ion-select-option *ngIf="equipmentType === 'Computadores'" value="ipAddress">Endereço IP</ion-select-option>
+      <ion-select-option *ngIf="equipmentType === 'Computadores' || equipmentType === 'Impressoras'" value="ipAddress">Endereço IP</ion-select-option>
       <ion-select-option *ngIf="equipmentType === 'Computadores'" value="motherBoardName">Nome da placa máe</ion-select-option>
       <ion-select-option *ngIf="equipmentType === 'Computadores'" value="cabinetModel">Modelo do gabinete</ion-select-option>
     </ion-select>

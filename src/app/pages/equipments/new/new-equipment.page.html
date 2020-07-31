@@ -20,60 +20,55 @@
   </ion-toolbar>  
 </ion-header>
 
-<!--
-<ion-header>
+<ion-header *ngIf="!formPersonalComputer">
   <ion-item *ngIf="equipmentType === 'COMPUTER'">
     <ion-label *ngIf="detailForm" style="text-size-adjust: 10px;">Detalhado</ion-label>
     <ion-label *ngIf="!detailForm" style="text-size-adjust: 10px;">Não detalhado</ion-label>
     <ion-toggle color="dark" slot="end" [(ngModel)]="detailForm"></ion-toggle>
   </ion-item>
 </ion-header>
--->
 
 <ion-content>
   <ion-list>
     <ion-list-header class="title" color="dark">Informações gerais</ion-list-header>
+    <ion-item *ngIf="equipmentType === 'COMPUTER'">
+      <ion-label style="text-size-adjust: 10px;">Computador pessoal</ion-label>
+      <ion-toggle color="dark" slot="end" [(ngModel)]="formPersonalComputer"></ion-toggle>
+    </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="!formPersonalComputer">
       <ion-label>Número de patrimônio:</ion-label>
       <ion-input type="text" [(ngModel)]="formPatrimonyId"></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="!formPersonalComputer">
       <ion-label>Fabricante:</ion-label>
       <ion-input type="text" [(ngModel)]="formManufacturer"></ion-input>    
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="!formPersonalComputer && detailForm">
       <ion-label>Modelo:</ion-label>
       <ion-input type="text" [(ngModel)]="formModel"></ion-input>    
     </ion-item>
-
-    <ion-item>
-      <ion-label>Está funcionando?</ion-label>
-      <ion-checkbox color="dark" [(ngModel)]="formItWorks"></ion-checkbox>
-    </ion-item>
   </ion-list>
 
-  <ion-list *ngIf="equipmentType === 'COMPUTER'">
+  <ion-list *ngIf="equipmentType === 'COMPUTER' &&  !formPersonalComputer">
     <ion-list-header class="title" color="dark">Informações do hardware</ion-list-header>
-      <ion-item>
-        <ion-label>Possui leitor de CD/DVD?</ion-label>
-        <ion-checkbox color="dark" [(ngModel)]="formHasCdBurner"></ion-checkbox>    
-      </ion-item>
+    <ion-item>
+      <ion-label>Possui leitor de CD/DVD?</ion-label>
+      <ion-checkbox color="dark" [(ngModel)]="formHasCdBurner"></ion-checkbox>    
+    </ion-item>
 
-      <ion-item *ngIf="detailForm">
-        <ion-label>Nome da placa mãe:</ion-label>
-        <ion-input type="text" [(ngModel)]="formMotherBoardName"></ion-input>    
-      </ion-item>
+    <ion-item *ngIf="detailForm">
+      <ion-label>Nome da placa mãe:</ion-label>
+      <ion-input type="text" [(ngModel)]="formMotherBoardName"></ion-input>    
+    </ion-item>
 
-      <ion-item *ngIf="detailForm">
-        <ion-label>Modelo do gabinete:</ion-label>
-        <ion-input type="text" [(ngModel)]="formCabinetModel"></ion-input>    
-      </ion-item>
-  </ion-list>
+    <ion-item *ngIf="detailForm">
+      <ion-label>Modelo do gabinete:</ion-label>
+      <ion-input type="text" [(ngModel)]="formCabinetModel"></ion-input>    
+    </ion-item>
 
-  <ion-list *ngIf="equipmentType === 'COMPUTER'">
     <ion-list-header class="title" color="dark">
       Processador
       <ion-buttons>
@@ -100,7 +95,7 @@
         <ion-button (click)="deleteProcessor()">
           <ion-icon slot="icon-only" name="remove"></ion-icon>
         </ion-button>
-    </ion-buttons>
+      </ion-buttons>
     </ion-item>
 
     <ion-list-header class="title" color="dark">
@@ -167,9 +162,7 @@
         </ion-select-option>
       </ion-select>        
     </ion-item>
-  </ion-list>
 
-  <ion-list *ngIf="equipmentType === 'COMPUTER'">
     <ion-list-header class="title" color="dark">
       Armazenamento
       <ion-buttons *ngIf="detailForm">
@@ -235,31 +228,39 @@
       </ion-select>
     </ion-item>
   </ion-list>
+  
 
-  <ion-list>
-    <ion-list-header *ngIf="equipmentType === 'COMPUTER' || equipmentType === 'PRINTER'" class="title" color="dark">Informações de rede</ion-list-header>
-    <div *ngIf="equipmentType === 'COMPUTER'">      
-      <ion-item>
-        <ion-label>Está no domínio?</ion-label>
-        <ion-checkbox color="dark" [(ngModel)]="formOnTheDomain"></ion-checkbox>    
-      </ion-item>
+  <ion-list *ngIf="equipmentType === 'COMPUTER' || equipmentType === 'PRINTER'">
+    <ion-list-header class="title" color="dark">Informações de rede</ion-list-header>
+    <ion-item>
+      <ion-label>Está no domínio?</ion-label>
+      <ion-checkbox color="dark" [(ngModel)]="formOnTheDomain"></ion-checkbox>    
+    </ion-item>
 
-      <ion-item>
-        <ion-label>Endereço IP:</ion-label>
-        <ion-input type="text" [(ngModel)]="formIpAddress"></ion-input>    
-      </ion-item>
+    <ion-item>
+      <ion-label>Endereço IP:</ion-label>
+      <ion-input type="text" [(ngModel)]="formIpAddress"></ion-input>    
+    </ion-item>
 
-      <ion-item>
-        <ion-label>Endereço MAC:</ion-label>
-        <ion-input type="text" [(ngModel)]="formMacAddress"></ion-input>    
-      </ion-item>
-      
-      <ion-item>
-        <ion-label>Nome do computador:</ion-label>
-        <ion-input type="text" [(ngModel)]="formHostName"></ion-input>    
-      </ion-item>
+    <ion-item>
+      <ion-label>Endereço MAC:</ion-label>
+      <ion-input type="text" [(ngModel)]="formMacAddress"></ion-input>    
+    </ion-item>
+    
+    <ion-item *ngIf="equipmentType === 'COMPUTER'">
+      <ion-label>Nome do computador:</ion-label>
+      <ion-input type="text" [(ngModel)]="formHostName"></ion-input>    
+    </ion-item>
 
-      <ion-list-header class="title" color="dark">Informações do sistema</ion-list-header>
+    <ion-item *ngIf="equipmentType === 'PRINTER'">
+      <ion-label>Nome da impressora:</ion-label>
+      <ion-input type="text" [(ngModel)]="formHostName"></ion-input>    
+    </ion-item>
+  </ion-list>
+    
+  <ion-list *ngIf="equipmentType === 'COMPUTER' && !formPersonalComputer">
+    <ion-list-header class="title" color="dark">Informações do sistema</ion-list-header>
+    <div *ngIf="equipmentType === 'COMPUTER'">     
       <ion-item>
         <ion-label>Sistema operacional:</ion-label>
         <ion-select [(ngModel)]="formOperatingSystem"  ok-text="Ok" cancel-text="Cancelar">
@@ -274,30 +275,12 @@
         </ion-select>
       </ion-item>
     </div>
-
-    <div *ngIf="equipmentType === 'PRINTER'">
-      <ion-item>
-        <ion-label>Endereço IP:</ion-label>
-        <ion-input type="text" [(ngModel)]="formIpAddress"></ion-input>    
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Endereço MAC:</ion-label>
-        <ion-input type="text" [(ngModel)]="formMacAddress"></ion-input>    
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Nome da impressora:</ion-label>
-        <ion-input type="text" [(ngModel)]="formHostName"></ion-input>    
-      </ion-item>
-    </div>
   </ion-list>
-
 
   <ion-list>
     <ion-list-header class="title" color="dark">Outros</ion-list-header>
 
-    <div *ngIf="equipmentType === 'COMPUTER'">
+    <div *ngIf="equipmentType === 'COMPUTER' && !formPersonalComputer">
       <ion-item *ngIf="availableMonitors">
         <ion-label>Associar a um monitor:</ion-label>
         <ion-select [(ngModel)]="formMonitorId"  ok-text="Ok" cancel-text="Cancelar">

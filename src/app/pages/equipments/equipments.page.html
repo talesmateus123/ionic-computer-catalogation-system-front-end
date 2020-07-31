@@ -21,7 +21,7 @@
 
 <ion-content>
   <ion-list *ngIf="controller.equipmentType === 'Computadores'">
-    <ion-item *ngFor="let computer of controller.computers" routerLink="/equipments/info/{{computer.id}}">
+    <ion-item *ngFor="let computer of controller.computers" routerLink="/equipments/info/{{computer.id}}" [ngClass]="{'online_equipment': computer.online}">
       <ion-icon slot="start" name="laptop"></ion-icon>
       <ion-label>
         <h2>{{ computer.patrimonyId }}</h2>
@@ -32,7 +32,7 @@
   </ion-list>
 
   <ion-list *ngIf="controller.equipmentType === 'Impressoras'">
-    <ion-item *ngFor="let printer of controller.printers" routerLink="/equipments/info/{{printer.id}}">
+    <ion-item *ngFor="let printer of controller.printers" routerLink="/equipments/info/{{printer.id}}" [ngClass]="{'online_equipment': printer.online}">
       <ion-icon slot="start" name="print"></ion-icon>
       <ion-label>
         <h2>{{ printer.patrimonyId }}</h2>
