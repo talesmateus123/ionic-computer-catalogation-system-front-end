@@ -5,6 +5,8 @@ import { SectorControllerService } from '../../sectors';
 import { ModalController } from '@ionic/angular';
 import { InfoElectronicComponentModalPage } from '../modals/electronic-components';
 import { ActivatedRoute } from '@angular/router';
+import { ComputerUserDTO } from '../../computer-users';
+import { ComputerUsersModalPage } from '../modals';
 
 @Component({
   selector: 'app-info-equipment',
@@ -14,23 +16,26 @@ import { ActivatedRoute } from '@angular/router';
 export class InfoEquipmentPage implements OnInit {
   private id: string;
 
+  public detailForm: boolean = false;
+  public editForm: boolean = false;
+
+  public equipment: any;
   public equipmentType: string;
 
-  public detailForm: boolean = false;
   public processorQuantity: number = 0;
   public ramMemoryQuantity: number = 0;
   public storageDeviceQuantity: number = 0;
   
   public formRamMemorySize: number = 0;
   public formStorageDeviceSize: number = 0;
-  
-  public editForm: boolean = false;
+
+  public computerUsers: ComputerUserDTO[] = [];
+  public availableMonitors: MonitorDTO[];
 
   public formPatrimonyId: string;
 	public formManufacturer: string;
 	public formModel: string;
 	public formDescription: string;
-	public formItWorks: boolean = true;
 	public formIpAddress: string;
 	public formMacAddress: string;
 	public formHostName: string;
@@ -46,9 +51,6 @@ export class InfoEquipmentPage implements OnInit {
 	public formTotalStorageMemory: number = 0;
 	public formMonitorId: number;
 	public formSectorId: number;
-	public formComputerUsersId: number[] = [];
-
-  public availableMonitors: MonitorDTO[];
 
   public formProcessor_id: number;
 	public formProcessor_manufacturer: string;
@@ -195,8 +197,6 @@ export class InfoEquipmentPage implements OnInit {
 	public formStorageDevice8_sizeInGB: number;
 	public formStorageDevice8_architecture: string;
 	public formStorageDevice8_type: string;
-
-  public equipment: any;
   
   constructor(
     public controller: EquipmentControllerService,
@@ -252,6 +252,11 @@ export class InfoEquipmentPage implements OnInit {
       this.storageDeviceQuantity++;
   }
 
+  public addUser() {
+    if(this.computerUsers.length < 5)
+      this.computerUsers.push(new ComputerUserDTO);
+  }
+
   public deleteProcessor() {
     if(this.processorQuantity > 0) {
       this.processorQuantity--;
@@ -273,6 +278,10 @@ export class InfoEquipmentPage implements OnInit {
   public deleteStorageDevice(number: number) {
     if(this.storageDeviceQuantity > 0)
       this.storageDeviceQuantity--;
+  }
+
+  public deleteUser(index: number) {
+    this.computerUsers.splice(index, 1);
   }
 
   setEditForm() {
@@ -298,7 +307,6 @@ export class InfoEquipmentPage implements OnInit {
       this.formManufacturer = this.equipment.manufacturer;
       this.formModel = this.equipment.model;
       this.formDescription = this.equipment.description;
-      this.formItWorks = this.equipment.itWorks;
       this.formPatrimonyId = this.equipment.patrimonyId;
       this.formIpAddress = this.equipment.ipAddress;
       this.formMacAddress = this.equipment.macAddress;
@@ -328,13 +336,12 @@ export class InfoEquipmentPage implements OnInit {
       }
       //this.formRamMemoriesId = this.equipment.ramMemories;
       //this.formStorageDevicesId = this.equipment.storageDevices;
-      this.formComputerUsersId = this.equipment.computerUsers;
+      this.computerUsers = this.equipment.computerUsers;
     }
     else if(this.equipmentType === "PRINTER" || this.equipmentType === "NETWORK_DEVICE") {
       this.formManufacturer = this.equipment.manufacturer;
       this.formModel = this.equipment.model;
       this.formDescription = this.equipment.description;
-      this.formItWorks = this.equipment.itWorks;
       this.formPatrimonyId = this.equipment.patrimonyId;
       this.formIpAddress = this.equipment.ipAddress;
       this.formMacAddress = this.equipment.macAddress;
@@ -345,7 +352,6 @@ export class InfoEquipmentPage implements OnInit {
       this.formManufacturer = this.equipment.manufacturer;
       this.formModel = this.equipment.model;
       this.formDescription = this.equipment.description;
-      this.formItWorks = this.equipment.itWorks;
       this.formPatrimonyId = this.equipment.patrimonyId;
       // this.formComputerId = this.monitor.computer;
       this.formSectorId = this.equipment.sector.id;
@@ -359,13 +365,16 @@ export class InfoEquipmentPage implements OnInit {
       // Ram memories and storage devices is missing
     }
     if(this.equipmentType === "COMPUTER") {
+      let computerUsersId: string[] = [];
+      for(let computerUser in this.computerUsers) {
+       computerUsersId.push(this.computerUsers[computerUser].id);
+      }
       this.controller.updateComputer(this.id, 
         {
           patrimonyId: this.formPatrimonyId,
           manufacturer: this.formManufacturer,
           model: this.formModel,
           description: this.formDescription,
-          itWorks: this.formItWorks,
           ipAddress: this.formIpAddress,
           macAddress: this.formMacAddress,
           hostName: this.formHostName,
@@ -381,7 +390,7 @@ export class InfoEquipmentPage implements OnInit {
           totalStorageMemory: this.formTotalStorageMemory,
           monitorId: this.formMonitorId,
           sectorId: this.formSectorId,
-          computerUsersId: this.formComputerUsersId,
+          computerUsersId: computerUsersId,
         
           processor_id: this.formProcessor_id,
           processor_manufacturer: this.formProcessor_manufacturer,
@@ -536,7 +545,6 @@ export class InfoEquipmentPage implements OnInit {
           manufacturer: this.formManufacturer,
           model: this.formModel,
           description: this.formDescription,
-          itWorks: this.formItWorks,
           patrimonyId: this.formPatrimonyId,
           ipAddress: this.formIpAddress,
           macAddress: this.formMacAddress,
@@ -552,7 +560,6 @@ export class InfoEquipmentPage implements OnInit {
           manufacturer: this.formManufacturer,
           model: this.formModel,
           description: this.formDescription,
-          itWorks: this.formItWorks,
           patrimonyId: this.formPatrimonyId,
           ipAddress: this.formIpAddress,
           macAddress: this.formMacAddress,
@@ -568,7 +575,6 @@ export class InfoEquipmentPage implements OnInit {
           manufacturer: this.formManufacturer,
           model: this.formModel,
           description: this.formDescription,
-          itWorks: this.formItWorks,
           patrimonyId: this.formPatrimonyId,
           sectorId: this.formSectorId,
           computerId: null
@@ -631,6 +637,22 @@ export class InfoEquipmentPage implements OnInit {
           this.formProcessor_architecture = dataReturned.data.architecture;
         }
       }
+    });
+    return await modal.present();
+  }
+
+  async computerUsersModalPagePresent(index: number) {
+    const modal = await this.modalController.create({
+      component: ComputerUsersModalPage,
+      componentProps: {
+        index: index,
+        computerUsersAlreadyEntered: this.computerUsers
+      }
+    });
+
+    modal.onDidDismiss().then((dataReturned) => {
+      if (dataReturned.data !== undefined)
+        this.computerUsers.splice(dataReturned.data.index, 1, dataReturned.data.computerUser);
     });
     return await modal.present();
   }

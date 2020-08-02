@@ -89,12 +89,18 @@
 
       <ion-item *ngIf="processorQuantity >= 1" [disabled]="editForm" (click)="electronicComponentModalPresent('PROCESSOR')">
         <ion-icon slot="start" name="hardware-chip"></ion-icon>
-        <ion-label>
-          <h2 *ngIf="formProcessor_manufacturer === undefined && formProcessor_model === undefined && formProcessor_processorName === undefined && formProcessor_architecture === undefined">Clique para gerenciar o processador</h2>
-          <h2>{{ formProcessor_manufacturer }}</h2>
-          <h3>{{ formProcessor_model }} <a *ngIf="formProcessor_model && formProcessor_processorName">|</a> {{ formProcessor_processorName }}</h3>
-          <p>{{ formProcessor_architecture }}</p>
+        <ion-label *ngIf="formProcessor_manufacturer === undefined && formProcessor_model === undefined && formProcessor_processorName === undefined && formProcessor_architecture === undefined; else notEmpty">
+          <h2>Clique para gerenciar o processador</h2>
         </ion-label>
+
+        <ng-template #notEmpty>
+          <ion-label>
+            <h2>{{ formProcessor_manufacturer }}</h2>
+            <h3>{{ formProcessor_model }} <a *ngIf="formProcessor_model && formProcessor_processorName">|</a> {{ formProcessor_processorName }}</h3>
+            <p>{{ formProcessor_architecture }}</p>
+          </ion-label>
+        </ng-template>
+        
         
         <ion-buttons *ngIf="!editForm">
           <ion-button (click)="deleteProcessor()">
@@ -261,13 +267,8 @@
         <ion-input [disabled]="editForm" type="text" [(ngModel)]="formMacAddress"></ion-input>    
       </ion-item>
       
-      <ion-item *ngIf="equipmentType === 'COMPUTER'">
+      <ion-item>
         <ion-label>Nome do computador:</ion-label>
-        <ion-input [disabled]="editForm" type="text" [(ngModel)]="formHostName"></ion-input>    
-      </ion-item>
-
-      <ion-item *ngIf="equipmentType === 'PRINTER'">
-        <ion-label>Nome da impressora:</ion-label>
         <ion-input [disabled]="editForm" type="text" [(ngModel)]="formHostName"></ion-input>    
       </ion-item>
     </ion-list>
@@ -290,6 +291,43 @@
         </ion-item>
       </div>
     </ion-list>
+
+    <ion-list>
+      <ion-list-header class="title" color="dark">
+        Usuários
+        <ion-buttons *ngIf="!editForm && this.computerUsers.length != 5">
+          <ion-button (click)="addUser()">
+            <ion-icon slot="icon-only" name="add"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-list-header>
+
+      <ion-item [disabled]="editForm" *ngIf="computerUsers.length === 0">
+        <ion-label>Nenhum usuário adicionado</ion-label>
+      </ion-item>
+
+      <ion-item [disabled]="editForm" *ngFor="let computerUser of computerUsers" (click)="computerUsersModalPagePresent(computerUsers.indexOf(computerUser))">
+        <ion-icon slot="start" name="person"></ion-icon>
+        <ion-label *ngIf="computerUser.name === undefined; else notEmpty">
+          <h2>Clique para selecionar um usuário</h2>
+        </ion-label>
+
+        <ng-template #notEmpty>
+          <ion-label>
+            <h2>{{ computerUser.name }} {{ computerUser.lastName }}</h2>
+            <!--<p>{{ computerUser.sector.name }}</p>-->
+          </ion-label>
+        </ng-template>
+        
+        <ion-buttons *ngIf="!editForm">
+          <ion-button (click)="deleteUser(computerUsers.indexOf(computerUser))">
+            <ion-icon slot="icon-only" name="remove"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+
+    </ion-list>
+
 
     <ion-list>
       <ion-list-header class="title" color="dark">Outros</ion-list-header>

@@ -1,1 +1,1 @@
-export * from './search-computer-user.page';
+export * from './search-computer-user-modal.page';

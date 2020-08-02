@@ -13,7 +13,8 @@ import { ComputerService, MonitorService, PrinterService, NetworkDeviceService, 
 import { ElectronicService } from '../shared-resources';
 import { SectorControllerService, SectorService } from '../sectors';
 import { SearchEquipmentPage } from './search';
-import { InfoElectronicComponentModalPage } from './modals';
+import { InfoElectronicComponentModalPage, ComputerUsersModalPage, SearchComputerUserModalPage } from './modals';
+import { ComputerUserControllerService, ComputerUserService } from '../computer-users';
 
 @NgModule({
   imports: [
@@ -29,10 +30,14 @@ import { InfoElectronicComponentModalPage } from './modals';
     NewEquipmentPage,
     InfoEquipmentPage,
     SearchEquipmentPage,
-    InfoElectronicComponentModalPage
+    InfoElectronicComponentModalPage,
+    ComputerUsersModalPage,
+    SearchComputerUserModalPage
   ],
   entryComponents: [
-    InfoElectronicComponentModalPage  
+    InfoElectronicComponentModalPage,
+    ComputerUsersModalPage,
+    SearchComputerUserModalPage
   ],
   providers: [
     EquipmentControllerService,
@@ -42,7 +47,9 @@ import { InfoElectronicComponentModalPage } from './modals';
     PrinterService,
     NetworkDeviceService,
     SectorControllerService,
-    SectorService
+    SectorService,
+    ComputerUserControllerService,
+    ComputerUserService,
   ]
 })
 export class EquipmentsPageModule {}

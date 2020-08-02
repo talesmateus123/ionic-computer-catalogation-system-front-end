@@ -1,3 +1,2 @@
-export * from './computer-users.page';
+export * from './computer-users.page-modal';
 export * from './search';
-export * from './shared';

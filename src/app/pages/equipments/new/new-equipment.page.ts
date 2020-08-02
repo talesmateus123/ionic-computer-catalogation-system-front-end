@@ -28,7 +28,6 @@ export class NewEquipmentPage implements OnInit {
 	public formManufacturer: string;
 	public formModel: string;
 	public formDescription: string;
-	public formItWorks: boolean = true;
 	public formIpAddress: string;
 	public formMacAddress: string;
 	public formHostName: string;
@@ -285,7 +284,6 @@ export class NewEquipmentPage implements OnInit {
           manufacturer: this.formManufacturer,
           model: this.formModel,
           description: this.formDescription,
-          itWorks: this.formItWorks,
           ipAddress: this.formIpAddress,
           macAddress: this.formMacAddress,
           hostName: this.formHostName,
@@ -301,7 +299,7 @@ export class NewEquipmentPage implements OnInit {
           totalStorageMemory: this.formTotalStorageMemory,
           monitorId: this.formMonitorId,
           sectorId: this.formSectorId,
-          computerUsersId: this.formComputerUsersId,
+          computerUsersId: null,
         
           processor_id: this.formProcessor_id,
           processor_manufacturer: this.formProcessor_manufacturer,
@@ -456,7 +454,6 @@ export class NewEquipmentPage implements OnInit {
           manufacturer: this.formManufacturer,
           model: this.formModel,
           description: this.formDescription,
-          itWorks: this.formItWorks,
           patrimonyId: this.formPatrimonyId,
           ipAddress: this.formIpAddress,
           macAddress: this.formMacAddress,
@@ -471,7 +468,6 @@ export class NewEquipmentPage implements OnInit {
           manufacturer: this.formManufacturer,
           model: this.formModel,
           description: this.formDescription,
-          itWorks: this.formItWorks,
           patrimonyId: this.formPatrimonyId,
           ipAddress: this.formIpAddress,
           macAddress: this.formMacAddress,
@@ -486,7 +482,6 @@ export class NewEquipmentPage implements OnInit {
           manufacturer: this.formManufacturer,
           model: this.formModel,
           description: this.formDescription,
-          itWorks: this.formItWorks,
           patrimonyId: this.formPatrimonyId,
           sectorId: this.formSectorId,
           computerId: null

@@ -267,13 +267,8 @@
         <ion-input type="text" [(ngModel)]="formMacAddress"></ion-input>    
       </ion-item>
       
-      <ion-item *ngIf="equipmentType === 'COMPUTER'">
+      <ion-item>
         <ion-label>Nome do computador:</ion-label>
-        <ion-input type="text" [(ngModel)]="formHostName"></ion-input>    
-      </ion-item>
-
-      <ion-item *ngIf="equipmentType === 'PRINTER'">
-        <ion-label>Nome da impressora:</ion-label>
         <ion-input type="text" [(ngModel)]="formHostName"></ion-input>    
       </ion-item>
     </ion-list>

@@ -5,7 +5,6 @@ export class ComputerNewDTO extends EquipmentNewDTO {
 	manufacturer: string;
 	model: string;
 	description: string;
-	itWorks: boolean;
 	ipAddress: string;
 	macAddress: string;
 	hostName: string;
@@ -21,7 +20,7 @@ export class ComputerNewDTO extends EquipmentNewDTO {
 	totalStorageMemory: number;
 	monitorId: number;
 	sectorId: number;
-	computerUsersId: number[];
+	computerUsersId: string[];
 
 	processor_id: number;
 	processor_manufacturer: string;

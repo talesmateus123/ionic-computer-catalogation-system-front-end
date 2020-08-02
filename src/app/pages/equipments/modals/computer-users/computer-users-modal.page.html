@@ -1,15 +1,15 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      
     </ion-buttons>
-      <ion-title>Usuários</ion-title>
+      <ion-title>Selecionar usuário</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="controller.searchModalPresent()">
+      <ion-button (click)="searchModalPresent()">
         <ion-icon slot="icon-only" name="search"></ion-icon>          
       </ion-button>
-      <ion-button [routerLink]="['/computer-users/new']">
-        <ion-icon slot="icon-only" name="add"></ion-icon>
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -17,8 +17,8 @@
 
 <ion-content>
 
-  <ion-list *ngIf="controller.computerUsers">
-    <ion-item *ngFor="let computerUser of controller.computerUsers" routerLink="/computer-users/info/{{computerUser.id}}">
+  <ion-list *ngIf="computerUsers">
+    <ion-item *ngFor="let computerUser of computerUsers" (click)="returnDataAndDismiss(computerUser)">
       <ion-icon slot="start" name="person"></ion-icon>
       <ion-label>
         <h2>{{ computerUser.name }} {{ computerUser.lastName }}</h2>
@@ -28,7 +28,7 @@
   </ion-list>
 
   <!-- Skeleton screen -->
-  <div *ngIf="!controller.computerUsers">
+  <div *ngIf="!computerUsers">
     <ion-list>
       <ion-item>
         <ion-avatar slot="start">
