@@ -23,8 +23,8 @@
   <ion-list *ngIf="controller.equipmentType === 'Computadores'">
     <ion-item *ngFor="let computer of controller.computers" routerLink="/equipments/info/{{computer.id}}" [ngClass]="{'online_equipment': computer.online}">
       <ion-icon *ngIf="computer.computerType === 'DESKTOP'" slot="start" name="computer"></ion-icon>
-      <ion-icon *ngIf="computer.computerType === 'LAPTOP'" slot="start" name="laptop"></ion-icon>
-      <ion-icon *ngIf="computer.computerType === 'MOBILE'" slot="start" name="tablet-3"></ion-icon>
+      <ion-icon *ngIf="computer.computerType === 'LAPTOP'" slot="start" name="laptop-1"></ion-icon>
+      <ion-icon *ngIf="computer.computerType === 'MOBILE'" slot="start" name="mobile-1"></ion-icon>
       
       <ion-label *ngIf="computer.patrimonyId || computer.manufacturer;else templateName">
         <h2>{{ computer.patrimonyId }}</h2>
