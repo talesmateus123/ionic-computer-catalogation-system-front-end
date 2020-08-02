@@ -9,10 +9,11 @@ import { PrinterService } from './printer.service';
 import { SectorDTO } from 'src/app/pages/sectors';
 import { 
   ComputerDTO, PrinterDTO, MonitorDTO, ComputerNewDTO, PrinterNewDTO, 
-  MonitorNewDTO, ArchitectureType, OperatingSystem
+  MonitorNewDTO, ArchitectureType, OperatingSystem, ComputerType, NetworkDeviceDTO, NetworkDeviceNewDTO
  } from '../models';
 import { ElectronicService } from 'src/app/pages/shared-resources';
 import { SearchEquipmentPage } from '../../search';
+import { NetworkDeviceService } from './network-device.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,7 @@ export class EquipmentControllerService {
   public equipmentTypes: string[] =[
     "COMPUTER",
     "PRINTER",
+    "NETWORK_DEVICE",
     "MONITOR",
   ];
 
@@ -39,11 +41,13 @@ export class EquipmentControllerService {
   
   public operatingSystemArchitectures = ArchitectureType;
   public operatingSystems = OperatingSystem;
+  public computerTypes = ComputerType;
 
   public sectors: SectorDTO[];
   public computers: ComputerDTO[];
   public monitors: MonitorDTO[];
   public printers: PrinterDTO[];
+  public networkDevices: NetworkDeviceDTO[];
 
   constructor(
     private loadingController: LoadingController,
@@ -53,7 +57,8 @@ export class EquipmentControllerService {
     private electronicService: ElectronicService, 
     private computerService: ComputerService,
     private monitorService: MonitorService,
-    private printerService: PrinterService
+    private printerService: PrinterService,
+    private networkDeviceService: NetworkDeviceService
   ) { }
 
   findEquipment(id: string): Observable<any> {
@@ -76,6 +81,17 @@ export class EquipmentControllerService {
     this.printerService.search(searchTerm, direction, orderBy)
       .subscribe(response => {
         this.printers = response.body.content;
+      },
+      error => {
+        this.errorMessageAlert(error);
+      });
+  }
+
+  searchNetworkDevice(searchTerm: string, direction: string, orderBy: string) {
+    this.networkDevices = undefined;
+    this.networkDeviceService.search(searchTerm, direction, orderBy)
+      .subscribe(response => {
+        this.networkDevices = response.body.content;
       },
       error => {
         this.errorMessageAlert(error);
@@ -115,6 +131,17 @@ export class EquipmentControllerService {
       });
   }
 
+  updateNetworkDevicesList(): void {
+    this.networkDevices = undefined;
+    this.networkDeviceService.findAll()
+      .subscribe(response => {
+        this.networkDevices = response;
+      }, 
+      error => {
+        this.errorMessageAlert(error);
+      });
+  }
+
   updateMonitorsList(): void {
     this.monitors = undefined;
     this.monitorService.findAll()
@@ -148,6 +175,17 @@ export class EquipmentControllerService {
     });
   }
 
+  createNetworkDevice(objetcNewDTO: NetworkDeviceNewDTO) {
+    this.networkDeviceService.create(objetcNewDTO).subscribe(res => {
+      this.successMessageAlert("Dispositivo de rede criado com sucesso");
+      this.updatePrintersList();
+      this.redirectToRootPage();
+    }, 
+    error => {
+      this.errorMessageAlert(error);
+    });
+  }
+
   createMonitor(objetcNewDTO: MonitorNewDTO) {
     this.monitorService.create(objetcNewDTO).subscribe(res => {
       this.successMessageAlert("Monitor criado com sucesso");
@@ -160,12 +198,6 @@ export class EquipmentControllerService {
   }
 
   updateComputer(id: string, object: ComputerNewDTO): void {
-    if(object.ipAddress === "")
-      object.ipAddress = null;
-    if(object.macAddress === "")
-      object.macAddress = null;
-    if(object.hostName === "")
-      object.hostName = null;
     this.computerService.update(id, object).subscribe(res => {
       this.successMessageAlert("Computador atualizado com sucesso");
       this.updateComputersList();
@@ -177,12 +209,6 @@ export class EquipmentControllerService {
   }
   
   updatePrinter(id: string, object: PrinterNewDTO): void {
-    if(object.ipAddress === "")
-      object.ipAddress = null;
-    if(object.macAddress === "")
-      object.macAddress = null;
-    if(object.hostName === "")
-      object.hostName = null;
     this.printerService.update(id, object).subscribe(res => {
       this.successMessageAlert("Impressora atualizada com sucesso");
       this.updatePrintersList();
@@ -192,10 +218,21 @@ export class EquipmentControllerService {
       this.errorMessageAlert(error);
     });
   }
+  
+  updateNetworkDevice(id: string, object: NetworkDeviceNewDTO): void {
+    this.networkDeviceService.update(id, object).subscribe(res => {
+      this.successMessageAlert("Dispositivo de rede atualizado com sucesso");
+      this.updateNetworkDevicesList();
+      this.redirectToRootPage();
+    }, 
+    error => {
+      this.errorMessageAlert(error);
+    });
+  }
 
   updateMonitor(id: string, object: MonitorNewDTO): void {
     this.monitorService.update(id, object).subscribe(res => {
-      this.successMessageAlert("Monitor atualizada com sucesso");
+      this.successMessageAlert("Monitor atualizado com sucesso");
       this.updateMonitorsList();
       this.redirectToRootPage();
     }, 
@@ -219,6 +256,17 @@ export class EquipmentControllerService {
     this.printerService.delete(id).subscribe(res => {
       this.successMessageAlert("Impressora excluída com sucesso");
       this.updatePrintersList();
+      this.redirectToRootPage();
+    }, 
+    error => {
+      this.errorMessageAlert(error);
+    });
+  }
+
+  deleteNetworkDevice(id: string): void {
+    this.networkDeviceService.delete(id).subscribe(res => {
+      this.successMessageAlert("Dispositivo de rede excluído com sucesso");
+      this.updateNetworkDevicesList();
       this.redirectToRootPage();
     }, 
     error => {
@@ -270,6 +318,8 @@ export class EquipmentControllerService {
           this.searchComputer(dataReturned.data.searchTerm, dataReturned.data.asc ? "ASC" : "DESC", dataReturned.data.orderBy);
         else if (this.equipmentType === 'Impressoras')
           this.searchPrinter(dataReturned.data.searchTerm, dataReturned.data.asc ? "ASC" : "DESC", dataReturned.data.orderBy);
+          else if (this.equipmentType === 'Dispositivos de rede')
+            this.searchNetworkDevice(dataReturned.data.searchTerm, dataReturned.data.asc ? "ASC" : "DESC", dataReturned.data.orderBy);
         else if (this.equipmentType === 'Monitores')
           this.searchMonitor(dataReturned.data.searchTerm, dataReturned.data.asc ? "ASC" : "DESC", dataReturned.data.orderBy);
       }

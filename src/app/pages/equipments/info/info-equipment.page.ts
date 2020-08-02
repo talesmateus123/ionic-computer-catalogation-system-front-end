@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
 import { ComputerDTO, MonitorDTO, EquipmentControllerService } from '../shared';
 import { SectorControllerService } from '../../sectors';
-import { InfoElectronicComponentModalPage } from '../electronic-components';
 import { ModalController } from '@ionic/angular';
+import { InfoElectronicComponentModalPage } from '../modals/electronic-components';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-info-equipment',
@@ -24,7 +24,7 @@ export class InfoEquipmentPage implements OnInit {
   public formRamMemorySize: number = 0;
   public formStorageDeviceSize: number = 0;
   
-  public editForm: boolean
+  public editForm: boolean = false;
 
   public formPatrimonyId: string;
 	public formManufacturer: string;
@@ -39,6 +39,7 @@ export class InfoEquipmentPage implements OnInit {
 	public formCabinetModel: string;
 	public formOperatingSystem: string = "NONE";
 	public formOperatingSystemArchitecture: string = "NONE";
+	public formComputerType: string = "DESKTOP";
 	public formOnTheDomain: boolean = false;
 	public formPersonalComputer: boolean = false;
 	public formTotalRamMemory: number = 0;
@@ -196,13 +197,13 @@ export class InfoEquipmentPage implements OnInit {
 	public formStorageDevice8_type: string;
 
   public equipment: any;
-
+  
   constructor(
     public controller: EquipmentControllerService,
     public sectorController: SectorControllerService,
     private route: ActivatedRoute,
     private modalController: ModalController
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.controller.loadingPresent();
@@ -214,6 +215,9 @@ export class InfoEquipmentPage implements OnInit {
         this.equipmentType = response.equipmentType
         if(this.equipmentType === "COMPUTER") {
           this.equipment = response;
+          if(this.equipment.model != undefined || this.equipment.ramMemories.length > 0) {
+            this.detailForm = true;
+          }
           this.populateAvailableAvailableMonitors();
         }
         else if(this.equipmentType === "PRINTER") {
@@ -230,7 +234,7 @@ export class InfoEquipmentPage implements OnInit {
         this.controller.redirectToRootPage();
       }
     );
-    this.editForm = true;
+    this.editForm = true;    
   }
 
   public addProcessor() {
@@ -304,7 +308,9 @@ export class InfoEquipmentPage implements OnInit {
       this.formCabinetModel = this.equipment.cabinetModel;
       this.formOperatingSystem = this.equipment.operatingSystem;
       this.formOperatingSystemArchitecture = this.equipment.operatingSystemArchitecture;
+      this.formComputerType = this.equipment.computerType;
       this.formOnTheDomain = this.equipment.onTheDomain;
+      this.formPersonalComputer = this.equipment.personalComputer;
       this.formTotalRamMemory = this.equipment.totalRamMemory;
       this.formTotalStorageMemory = this.equipment.totalStorageMemory;
       if (this.equipment.monitor !== null)   
@@ -347,7 +353,7 @@ export class InfoEquipmentPage implements OnInit {
   }
 
   update() {
-    if(this.detailForm){
+    if(!this.detailForm){
       this.formModel = undefined;
       this.formMotherBoardName = undefined;
       this.formCabinetModel = undefined;
@@ -369,6 +375,7 @@ export class InfoEquipmentPage implements OnInit {
           cabinetModel: this.formCabinetModel,
           operatingSystem: this.formOperatingSystem,
           operatingSystemArchitecture: this.formOperatingSystemArchitecture,
+          computerType: this.formComputerType,
           onTheDomain: this.formOnTheDomain,
           personalComputer: this.formPersonalComputer,
           totalRamMemory: this.formTotalRamMemory,
@@ -555,17 +562,13 @@ export class InfoEquipmentPage implements OnInit {
     }
   }
 
-  toDischarge() {
-    this.formItWorks = false;
-    this.update();
-    /*
-      if(this.equipmentType === "COMPUTER")
-        this.controller.deleteComputer(this.id);
-      else if(this.equipmentType === "PRINTER")
-        this.controller.deletePrinter(this.id);
-      else if(this.equipmentType === "MONITOR")
-        this.controller.deleteMonitor(this.id);
-    */
+  delete() {
+    if(this.equipmentType === "COMPUTER")
+      this.controller.deleteComputer(this.id);
+    else if(this.equipmentType === "PRINTER")
+      this.controller.deletePrinter(this.id);
+    else if(this.equipmentType === "MONITOR")
+      this.controller.deleteMonitor(this.id);
   }
 
   async electronicComponentModalPresent(electronicComponentType: string) {
@@ -573,18 +576,13 @@ export class InfoEquipmentPage implements OnInit {
       component: InfoElectronicComponentModalPage,
       componentProps: {
         electronicComponentType: electronicComponentType,
-        editForm: this.editForm,
+        editForm: false,
         formId: this.formProcessor_id,
         formManufacturer: this.formProcessor_manufacturer,
         formModel: this.formProcessor_model,
         formDescription: this.formProcessor_description,
-        formItWorks: this.formProcessor_itWorks,
         formProcessorNumber: this.formProcessor_processorName,
-        formProcessorArchitecture: this.formProcessor_architecture,
-        formSize: null,
-        formRamMemoryArchitecture: null,
-        formStorageDeviceArchitecture: null,
-        formStorageDeviceType: null,
+        formProcessorArchitecture: this.formProcessor_architecture
       }
     });
 
@@ -617,7 +615,6 @@ export class InfoEquipmentPage implements OnInit {
           this.formProcessor_processorName = dataReturned.data.processorName;
           this.formProcessor_architecture = dataReturned.data.architecture;
         }
-        console.log(dataReturned.data);
       }
     });
     return await modal.present();

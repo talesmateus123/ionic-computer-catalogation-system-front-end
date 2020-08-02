@@ -9,6 +9,7 @@ export class ComputerDTO extends EquipmentDTO {
 	cabinetModel: string;
 	operatingSystem: string;
 	operatingSystemArchitecture: string;
+	computerType: string;
 	onTheDomain: boolean;
 	personalComputer: boolean;
 	monitor: any;

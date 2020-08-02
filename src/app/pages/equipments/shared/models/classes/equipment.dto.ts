@@ -9,5 +9,5 @@ export abstract class EquipmentDTO {
 	itWorks: boolean;
 	itComposed: boolean;
 	patrimonyId: string;
-	sector: any;
+	sectorName: string;
 }

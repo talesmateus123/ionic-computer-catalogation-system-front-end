@@ -14,6 +14,7 @@ export class ComputerNewDTO extends EquipmentNewDTO {
 	cabinetModel: string;
 	operatingSystem: string;
 	operatingSystemArchitecture: string;
+	computerType: string;
 	onTheDomain: boolean;
 	personalComputer: boolean;
 	totalRamMemory: number;

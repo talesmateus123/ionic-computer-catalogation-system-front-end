@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ComputerDTO, MonitorDTO, EquipmentControllerService } from '../shared';
 import { SectorControllerService } from '../../sectors';
 import { ModalController } from '@ionic/angular';
-import { InfoElectronicComponentModalPage } from '../electronic-components';
+import { InfoElectronicComponentModalPage } from '../modals/electronic-components';
 
 @Component({
   selector: 'app-new-equipment',
@@ -37,6 +37,7 @@ export class NewEquipmentPage implements OnInit {
 	public formCabinetModel: string;
 	public formOperatingSystem: string = "NONE";
 	public formOperatingSystemArchitecture: string = "NONE";
+	public formComputerType: string = "DESKTOP";
 	public formOnTheDomain: boolean = false;
 	public formPersonalComputer: boolean = false;
 	public formTotalRamMemory: number = 0;
@@ -202,12 +203,13 @@ export class NewEquipmentPage implements OnInit {
 
   ngOnInit() {
     this.sectorController.updateSectorsList();
+    this.populateAvailableAvailableMonitors();
     /*
     this.populateAvailableProcessors();
     this.populateAvailableRamMemories();
     this.populateAvailableStorageDevices();
     */
-    this.populateAvailableAvailableMonitors();
+    
   }
 
   public addProcessor() {
@@ -280,6 +282,7 @@ export class NewEquipmentPage implements OnInit {
           cabinetModel: this.formCabinetModel,
           operatingSystem: this.formOperatingSystem,
           operatingSystemArchitecture: this.formOperatingSystemArchitecture,
+          computerType: this.formComputerType,
           onTheDomain: this.formOnTheDomain,
           personalComputer: this.formPersonalComputer,
           totalRamMemory: this.formTotalRamMemory,
@@ -437,6 +440,21 @@ export class NewEquipmentPage implements OnInit {
     }
     else if(this.equipmentType === "PRINTER") {
       this.controller.createPrinter(
+        {
+          manufacturer: this.formManufacturer,
+          model: this.formModel,
+          description: this.formDescription,
+          itWorks: this.formItWorks,
+          patrimonyId: this.formPatrimonyId,
+          ipAddress: this.formIpAddress,
+          macAddress: this.formMacAddress,
+          hostName: this.formHostName,
+          sectorId: this.formSectorId,          
+        }
+      );
+    }
+    else if(this.equipmentType === "NETWORK_DEVICE") {
+      this.controller.createNetworkDevice(
         {
           manufacturer: this.formManufacturer,
           model: this.formModel,

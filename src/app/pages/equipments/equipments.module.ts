@@ -9,11 +9,11 @@ import { EquipmentsPageRoutingModule } from './equipments-routing.module';
 import { EquipmentsPage } from './equipments.page';
 import { NewEquipmentPage } from './new';
 import { InfoEquipmentPage } from './info';
-import { ComputerService, MonitorService, PrinterService, EquipmentControllerService } from './shared';
+import { ComputerService, MonitorService, PrinterService, NetworkDeviceService, EquipmentControllerService } from './shared';
 import { ElectronicService } from '../shared-resources';
 import { SectorControllerService, SectorService } from '../sectors';
 import { SearchEquipmentPage } from './search';
-import { InfoElectronicComponentModalPage } from './electronic-components';
+import { InfoElectronicComponentModalPage } from './modals';
 
 @NgModule({
   imports: [
@@ -40,6 +40,7 @@ import { InfoElectronicComponentModalPage } from './electronic-components';
     ComputerService,
     MonitorService,
     PrinterService,
+    NetworkDeviceService,
     SectorControllerService,
     SectorService
   ]

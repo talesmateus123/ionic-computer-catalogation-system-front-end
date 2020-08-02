@@ -23,14 +23,12 @@ export class InfoElectronicComponentModalPage implements OnInit {
   public storageDeviceArchitectures = StorageDeviceArchitecture;
   public storageDeviceTypes = StorageDeviceType;
 
-  public electronicComponentType: string;;
-  public editForm: boolean;
+  public electronicComponentType: string;
 
   public formId: string;
   public formManufacturer: string;
   public formModel: string;
   public formDescription: string;
-  public formItWorks: boolean = true;
   public formSize: number = 0;
   public formProcessorNumber: string;
   public formProcessorArchitecture: string = "AMD64";
@@ -53,7 +51,6 @@ export class InfoElectronicComponentModalPage implements OnInit {
         manufacturer: this.formManufacturer,
         model: this.formModel,
         description: this.formDescription,
-        itWorks: this.formItWorks,
         sizeInGB: this.formSize,
         processorName: this.formProcessorNumber,
         architecture: this.formProcessorArchitecture,

@@ -14,61 +14,56 @@
 <ion-content>
   <ion-item>
     <ion-label>Fabricante:</ion-label>
-    <ion-input [disabled]="editForm" type="text" [(ngModel)]="formManufacturer"></ion-input>    
+    <ion-input type="text" [(ngModel)]="formManufacturer"></ion-input>    
   </ion-item>
 
   <ion-item>
     <ion-label>Modelo:</ion-label>
-    <ion-input [disabled]="editForm" type="text" [(ngModel)]="formModel"></ion-input>    
+    <ion-input type="text" [(ngModel)]="formModel"></ion-input>    
   </ion-item>
 
   <ion-item *ngIf="electronicComponentType === 'PROCESSOR'">
     <ion-label>Número do processador:</ion-label>
-    <ion-input [disabled]="editForm" type="text" [(ngModel)]="formProcessorNumber"></ion-input>    
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Está funcionando?</ion-label>
-    <ion-checkbox [disabled]="editForm" color="dark" [(ngModel)]="formItWorks"></ion-checkbox>
+    <ion-input type="text" [(ngModel)]="formProcessorNumber"></ion-input>    
   </ion-item>
 
   <ion-item *ngIf="electronicComponentType === 'RAM_MEMORY' || electronicComponentType === 'STORAGE_DEVICE'">
     <ion-label>Tamanho:</ion-label>
-    <ion-input [disabled]="editForm" type="number" [(ngModel)]="formSize"></ion-input>   
+    <ion-input type="number" [(ngModel)]="formSize"></ion-input>   
     <ion-note slot="end">GB</ion-note>
   </ion-item>
 
   <ion-item *ngIf="electronicComponentType === 'PROCESSOR'">
     <ion-label>Arquitetura:</ion-label>
-    <ion-select [disabled]="editForm" [(ngModel)]="formProcessorArchitecture" ok-text="Ok" cancel-text="Cancelar">
+    <ion-select [(ngModel)]="formProcessorArchitecture" ok-text="Ok" cancel-text="Cancelar">
       <ion-select-option *ngFor="let architecture of keys(processorArchitectures)" [value]="architecture">{{processorArchitectures[architecture]}}</ion-select-option>
     </ion-select>
   </ion-item>
   
   <ion-item *ngIf="electronicComponentType === 'RAM_MEMORY'" >
     <ion-label>Arquitetura:</ion-label>
-    <ion-select [disabled]="editForm" [(ngModel)]="formProcessorArchitecture" ok-text="Ok" cancel-text="Cancelar">
+    <ion-select [(ngModel)]="formProcessorArchitecture" ok-text="Ok" cancel-text="Cancelar">
       <ion-select-option *ngFor="let architecture of keys(ramMemoryArchitectures)" [value]="architecture">{{ramMemoryArchitectures[architecture]}}</ion-select-option>
     </ion-select>
   </ion-item>
 
   <ion-item *ngIf="electronicComponentType === 'STORAGE_DEVICE'" >
     <ion-label>Arquitetura:</ion-label>
-      <ion-select [disabled]="editForm" [(ngModel)]="formStorageDeviceArchitecture" ok-text="Ok" cancel-text="Cancelar">
+      <ion-select [(ngModel)]="formStorageDeviceArchitecture" ok-text="Ok" cancel-text="Cancelar">
         <ion-select-option *ngFor="let architecture of keys(storageDeviceArchitectures)" [value]="architecture">{{storageDeviceArchitectures[architecture]}}</ion-select-option>
     </ion-select>
   </ion-item>
 
   <ion-item *ngIf="electronicComponentType === 'STORAGE_DEVICE'" >
     <ion-label>Tipo de dispositivo:</ion-label>
-      <ion-select [disabled]="editForm" [(ngModel)]="formStorageDeviceType" ok-text="Ok" cancel-text="Cancelar">
+      <ion-select [(ngModel)]="formStorageDeviceType" ok-text="Ok" cancel-text="Cancelar">
         <ion-select-option *ngFor="let storageDeviceType of keys(storageDeviceTypes)" [value]="storageDeviceType">{{storageDeviceTypes[storageDeviceType]}}</ion-select-option>
     </ion-select>
   </ion-item>
 
   <ion-item>
     <ion-label position="floating">Descrição:</ion-label>
-    <ion-textarea [disabled]="editForm" [(ngModel)]="formDescription"></ion-textarea>
+    <ion-textarea [(ngModel)]="formDescription"></ion-textarea>
   </ion-item>
 </ion-content>
 

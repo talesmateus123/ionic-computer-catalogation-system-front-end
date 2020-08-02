@@ -11,6 +11,7 @@ export class EquipmentsPage implements OnInit {
   equipmentTypes: string[] =[
     "Computadores",
     "Impressoras",
+    "Dispositivos de rede",
     "Monitores",
   ];
 
@@ -25,6 +26,7 @@ export class EquipmentsPage implements OnInit {
   updateAllLists() {
     this.controller.updateComputersList();
     this.controller.updatePrintersList();
+    this.controller.updateNetworkDevicesList();
     this.controller.updateMonitorsList();
   }
   
