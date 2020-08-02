@@ -220,7 +220,7 @@ export class InfoEquipmentPage implements OnInit {
           }
           this.populateAvailableAvailableMonitors();
         }
-        else if(this.equipmentType === "PRINTER") {
+        else if(this.equipmentType === "PRINTER" || this.equipmentType === "NETWORK_DEVICE") {
           this.equipment = response;
         }
         else if(this.equipmentType === "MONITOR") {
@@ -330,7 +330,7 @@ export class InfoEquipmentPage implements OnInit {
       //this.formStorageDevicesId = this.equipment.storageDevices;
       this.formComputerUsersId = this.equipment.computerUsers;
     }
-    else if(this.equipmentType === "PRINTER") {
+    else if(this.equipmentType === "PRINTER" || this.equipmentType === "NETWORK_DEVICE") {
       this.formManufacturer = this.equipment.manufacturer;
       this.formModel = this.equipment.model;
       this.formDescription = this.equipment.description;
