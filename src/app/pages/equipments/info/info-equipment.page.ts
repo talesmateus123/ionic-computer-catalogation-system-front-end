@@ -354,7 +354,6 @@ export class InfoEquipmentPage implements OnInit {
 
   update() {
     if(!this.detailForm){
-      this.formModel = undefined;
       this.formMotherBoardName = undefined;
       this.formCabinetModel = undefined;
       // Ram memories and storage devices is missing
@@ -547,6 +546,22 @@ export class InfoEquipmentPage implements OnInit {
         }
       );
     }
+    else if(this.equipmentType === "NETWORK_DEVICE") {
+      this.controller.updateNetworkDevice(this.id, 
+        {
+          manufacturer: this.formManufacturer,
+          model: this.formModel,
+          description: this.formDescription,
+          itWorks: this.formItWorks,
+          patrimonyId: this.formPatrimonyId,
+          ipAddress: this.formIpAddress,
+          macAddress: this.formMacAddress,
+          hostName: this.formHostName,
+          sectorId: this.formSectorId,
+          
+        }
+      );
+    }
     else if(this.equipmentType === "MONITOR") {      
       this.controller.updateMonitor(this.id, 
         {
@@ -618,5 +633,10 @@ export class InfoEquipmentPage implements OnInit {
       }
     });
     return await modal.present();
+  }
+
+  eventHandler($keyCode) {
+    if ($keyCode === 13)
+      this.update();
   }
 }

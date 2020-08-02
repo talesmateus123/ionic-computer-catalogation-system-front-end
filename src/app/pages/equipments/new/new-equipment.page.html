@@ -30,7 +30,7 @@
   </ion-item>
 </ion-header>
 
-<ion-content>
+<ion-content (keypress)="eventHandler($event.keyCode)">
 
   <ion-list *ngIf="equipmentType === 'COMPUTER'">
     <ion-list>
@@ -57,7 +57,7 @@
         <ion-input type="text" [(ngModel)]="formManufacturer"></ion-input>    
       </ion-item>
 
-      <ion-item *ngIf="!formPersonalComputer && detailForm">
+      <ion-item *ngIf="!formPersonalComputer">
         <ion-label>Modelo:</ion-label>
         <ion-input type="text" [(ngModel)]="formModel"></ion-input>
       </ion-item>

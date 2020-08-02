@@ -23,7 +23,7 @@
   </ion-item>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="equipment" (keypress)="eventHandler($event.keyCode)">
 
   <ion-list *ngIf="equipmentType === 'COMPUTER'">
     <ion-list>
@@ -50,7 +50,7 @@
         <ion-input type="text" [(ngModel)]="formManufacturer"></ion-input>    
       </ion-item>
 
-      <ion-item *ngIf="!formPersonalComputer && detailForm" [disabled]="editForm">
+      <ion-item *ngIf="!formPersonalComputer" [disabled]="editForm">
         <ion-label>Modelo:</ion-label>
         <ion-input type="text" [(ngModel)]="formModel"></ion-input>
       </ion-item>
@@ -393,7 +393,6 @@
       <ion-textarea [disabled]="editForm" [(ngModel)]="formDescription" rows="4"></ion-textarea>
     </ion-item>  
   </ion-list>
-
 
 
   <ion-list *ngIf="equipmentType === 'MONITOR'">

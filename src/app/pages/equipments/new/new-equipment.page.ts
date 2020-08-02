@@ -204,6 +204,18 @@ export class NewEquipmentPage implements OnInit {
   ngOnInit() {
     this.sectorController.updateSectorsList();
     this.populateAvailableAvailableMonitors();
+    if(this.controller.equipmentType === "Computadores") {
+      this.equipmentType ="COMPUTER";
+    }
+    else if(this.controller.equipmentType === "Impressoras") {
+      this.equipmentType = "PRINTER";
+    }
+    else if(this.controller.equipmentType === "Dispositivos de rede") {
+      this.equipmentType = "NETWORK_DEVICE";
+    }
+    else if(this.controller.equipmentType === "Monitores") {
+      this.equipmentType = "MONITOR";
+    }
     /*
     this.populateAvailableProcessors();
     this.populateAvailableRamMemories();
@@ -525,5 +537,10 @@ export class NewEquipmentPage implements OnInit {
       }
     });
     return await modal.present();
+  }
+
+  eventHandler($keyCode) {
+    if ($keyCode === 13)
+      this.create();
   }
 }

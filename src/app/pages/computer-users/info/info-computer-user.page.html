@@ -12,7 +12,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="computerUser" (keypress)="eventHandler($event.keyCode)">
   <ion-item>
     <ion-label>Nome:</ion-label>
     <ion-input [disabled]="editForm" type="text" [(ngModel)]="formName"></ion-input>    

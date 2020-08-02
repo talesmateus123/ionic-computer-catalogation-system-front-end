@@ -35,4 +35,9 @@ export class NewComputerUserPage implements OnInit {
       }
     );
   }
+
+  eventHandler($keyCode) {
+    if ($keyCode === 13)
+      this.create();
+  }
 }

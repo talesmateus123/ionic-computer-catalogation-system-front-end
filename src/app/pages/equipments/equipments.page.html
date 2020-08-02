@@ -28,7 +28,8 @@
       
       <ion-label *ngIf="computer.patrimonyId || computer.manufacturer;else templateName">
         <h2>{{ computer.patrimonyId }}</h2>
-        <h3>{{ computer.manufacturer }} <a *ngIf="computer.manufacturer && computer.model">|</a> {{ computer.model }}</h3>
+        <h3 *ngIf="!computer.model">{{ computer.manufacturer }}</h3>
+        <h3 *ngIf="computer.model">{{ computer.manufacturer }} | {{ computer.model }}</h3>
         <p>{{ computer.ipAddress }}</p>
       </ion-label>
 
@@ -38,8 +39,8 @@
         </ion-label>
       </ng-template>
 
-      <ion-label slot="end">
-        <p>{{ computer.sectorName }}</p>
+      <ion-label slot="end" class="ion-text-end ion-margin-end">
+        <p class="ion-text-uppercase">{{ computer.sectorName }}</p>
       </ion-label>
     </ion-item>
   </ion-list>
@@ -49,7 +50,8 @@
       <ion-icon slot="start" name="print"></ion-icon>
       <ion-label>
         <h2>{{ printer.patrimonyId }}</h2>
-        <h3>{{ printer.manufacturer }} <a *ngIf="printer.manufacturer && printer.model">|</a> {{ printer.model }}</h3>
+        <h3 *ngIf="!printer.model">{{ printer.manufacturer }}</h3>
+        <h3 *ngIf="printer.model">{{ printer.manufacturer }} | {{ printer.model }}</h3>
         <p>{{ printer.ipAddress }}</p>
       </ion-label>
     </ion-item>
@@ -60,7 +62,8 @@
       <ion-icon slot="start" name="wifi"></ion-icon>
       <ion-label>
         <h2>{{ networkDevice.patrimonyId }}</h2>
-        <h3>{{ networkDevice.manufacturer }} <a *ngIf="networkDevice.manufacturer && networkDevice.model">|</a> {{ networkDevice.model }}</h3>
+        <h3 *ngIf="!networkDevice.model">{{ networkDevice.manufacturer }}</h3>
+        <h3 *ngIf="networkDevice.model">{{ networkDevice.manufacturer }} | {{ networkDevice.model }}</h3>
         <p>{{ networkDevice.ipAddress }}</p>
       </ion-label>
 
@@ -72,7 +75,8 @@
       <ion-icon slot="start" name="desktop"></ion-icon>
       <ion-label>
         <h2>{{ monitor.patrimonyId }}</h2>
-        <h3>{{ monitor.manufacturer }} <a *ngIf="monitor.manufacturer && monitor.model">|</a> {{ monitor.model }}</h3>
+        <h3 *ngIf="!monitor.model">{{ monitor.manufacturer }}</h3>
+        <h3 *ngIf="monitor.model">{{ monitor.manufacturer }} | {{ monitor.model }}</h3>
       </ion-label>
     </ion-item>
   </ion-list>

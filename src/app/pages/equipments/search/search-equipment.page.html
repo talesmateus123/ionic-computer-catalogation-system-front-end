@@ -27,7 +27,7 @@
   </ion-item>
 </ion-header>
 
-<ion-content fullscreen>
+<ion-content fullscreen (keypress)="eventHandler($event.keyCode)">
   <ion-item>
     <ion-label>Termo de filtro:</ion-label>
     <ion-input type="text" [(ngModel)]="searchTerm" ></ion-input>

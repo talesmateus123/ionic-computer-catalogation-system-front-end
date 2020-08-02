@@ -11,7 +11,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content (keypress)="eventHandler($event.keyCode)">
   <ion-item>
     <ion-label>Fabricante:</ion-label>
     <ion-input type="text" [(ngModel)]="formManufacturer"></ion-input>    

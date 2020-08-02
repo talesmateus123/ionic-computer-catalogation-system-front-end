@@ -76,4 +76,8 @@ export class InfoComputerUserPage implements OnInit {
       this.controller.deleteComputerUser(this.id);
   }
 
+  eventHandler($keyCode) {
+    if ($keyCode === 13)
+      this.update();
+  }
 }

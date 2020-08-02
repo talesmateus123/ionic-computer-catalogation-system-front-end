@@ -50,4 +50,9 @@ export class InfoSectorPage implements OnInit {
   delete(){
     this.controller.deleteSector(this.id);
   }
+
+  eventHandler($keyCode) {
+    if ($keyCode === 13)
+      this.update();
+  }
 }

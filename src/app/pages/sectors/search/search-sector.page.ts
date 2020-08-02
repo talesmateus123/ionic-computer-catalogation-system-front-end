@@ -31,5 +31,9 @@ export class SearchSectorPage implements OnInit {
   dismiss() {
     this.modalController.dismiss();
   }
-  
+
+  eventHandler($keyCode) {
+    if ($keyCode === 13)
+      this.returnDataAndDismiss();
+  }
 }

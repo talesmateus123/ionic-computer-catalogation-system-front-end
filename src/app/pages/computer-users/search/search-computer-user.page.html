@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-header translucent>
+<ion-header translucent (keypress)="eventHandler($event.keyCode)">
   <ion-item>
     <ion-label style="text-size-adjust: 10px;">Ordenar por</ion-label>
     <ion-select class="title" [(ngModel)]="orderBy" ok-text="Ok" cancel-text="Cancelar">
@@ -26,7 +26,7 @@
   </ion-item>
 </ion-header>
 
-<ion-content fullscreen>
+<ion-content fullscreen (keypress)="eventHandler($event.keyCode)">
   <ion-item>
     <ion-label>Termo de filtro:</ion-label>
     <ion-input type="text" [(ngModel)]="searchTerm" ></ion-input>

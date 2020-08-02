@@ -12,7 +12,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="sector">
+<ion-content *ngIf="sector" (keypress)="eventHandler($event.keyCode)">
   <ion-item>
     <ion-label>Nome:</ion-label>
     <ion-input [disabled]="editForm" type="text" [(ngModel)]="sector.name" ></ion-input>

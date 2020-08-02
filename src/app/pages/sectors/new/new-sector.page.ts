@@ -23,4 +23,9 @@ export class NewSectorPage implements OnInit {
   create(){
     this.controller.createSector(this.sector);
   }
+
+  eventHandler($keyCode) {
+    if ($keyCode === 13)
+      this.create();
+  }
 }

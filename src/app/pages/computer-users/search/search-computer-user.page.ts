@@ -32,4 +32,8 @@ export class SearchComputerUserPage implements OnInit {
     this.modalController.dismiss();
   }
 
+  eventHandler($keyCode) {
+    if ($keyCode === 13)
+      this.returnDataAndDismiss();
+  }
 }

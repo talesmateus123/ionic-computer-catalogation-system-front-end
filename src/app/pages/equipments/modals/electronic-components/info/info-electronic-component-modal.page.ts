@@ -76,4 +76,9 @@ export class InfoElectronicComponentModalPage implements OnInit {
     }
     */
   }
+
+  eventHandler($keyCode) {
+    if ($keyCode === 13)
+      this.returnDataAndDismiss();
+  }
 }
