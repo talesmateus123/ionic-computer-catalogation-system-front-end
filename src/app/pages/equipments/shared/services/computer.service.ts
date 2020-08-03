@@ -27,7 +27,62 @@ export class ComputerService {
   }
 
   search(searchTerm: string, direction: string, orderBy: string): Observable<any> {
-    return this.http.get(`${this.url}/search`, {
+    return this.http.get(`${this.url}/${API_CONFIG.standardSearchMethod.search}`, {
+      params: {
+          searchTerm: searchTerm,
+          direction: direction,
+          orderBy: orderBy
+      },
+      observe: 'response'
+    })
+  }
+
+  searchComputerProcessor(searchTerm: string, direction: string, orderBy: string): Observable<any> {
+    return this.http.get(`${this.url}/${API_CONFIG.computerSearchMethods.searchComputerProcessor}`, {
+      params: {
+          searchTerm: searchTerm,
+          direction: direction,
+          orderBy: orderBy
+      },
+      observe: 'response'
+    })
+  }
+
+  searchComputerComputerUser(searchTerm: string, direction: string, orderBy: string): Observable<any> {
+    return this.http.get(`${this.url}/${API_CONFIG.computerSearchMethods.searchComputerComputerUser}`, {
+      params: {
+          searchTerm: searchTerm,
+          direction: direction,
+          orderBy: orderBy
+      },
+      observe: 'response'
+    })
+  }
+
+  searchComputerOnline(searchTerm: string, direction: string, orderBy: string): Observable<any> {
+    return this.http.get(`${this.url}/${API_CONFIG.computerSearchMethods.searchComputerOnline}`, {
+      params: {
+          searchTerm: searchTerm,
+          direction: direction,
+          orderBy: orderBy
+      },
+      observe: 'response'
+    })
+  }
+
+  searchComputerOnTheDomain(searchTerm: string, direction: string, orderBy: string): Observable<any> {
+    return this.http.get(`${this.url}/${API_CONFIG.computerSearchMethods.searchComputerOnTheDomain}`, {
+      params: {
+          searchTerm: searchTerm,
+          direction: direction,
+          orderBy: orderBy
+      },
+      observe: 'response'
+    })
+  }
+
+  searchComputerPersonalComputer(searchTerm: string, direction: string, orderBy: string): Observable<any> {
+    return this.http.get(`${this.url}/${API_CONFIG.computerSearchMethods.searchComputerPersonalComputer}`, {
       params: {
           searchTerm: searchTerm,
           direction: direction,

@@ -8,8 +8,10 @@ import { ModalController } from '@ionic/angular';
 })
 export class SearchEquipmentPage implements OnInit {
   public searchTerm: string;
+  public booleanSearchTerm: string;
   public asc: boolean;
   public orderBy: string;
+  public searchType: string;
   public equipmentType: string;
   
   constructor(
@@ -25,8 +27,10 @@ export class SearchEquipmentPage implements OnInit {
     this.modalController.dismiss(
       {
         searchTerm: this.searchTerm, 
+        booleanSearchTerm: this.booleanSearchTerm,
         asc: this.asc,
-        orderBy: this.orderBy
+        orderBy: this.orderBy,
+        searchType: this.searchType
       }
      );
   }

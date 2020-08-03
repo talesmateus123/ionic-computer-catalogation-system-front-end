@@ -35,9 +35,11 @@ export class EquipmentControllerService {
   public keys = Object.keys;
 
   public searchTerm: string= "";
+  public booleanSearchTerm: boolean = true;
   public asc: boolean = true;
   public orderBy: string = "patrimonyId";
   public equipmentType: string = "Computadores";
+  public searchType: string = "DEFAULT";
   
   public operatingSystemArchitectures = ArchitectureType;
   public operatingSystems = OperatingSystem;
@@ -68,6 +70,61 @@ export class EquipmentControllerService {
   searchComputer(searchTerm: string, direction: string, orderBy: string) {
     this.computers = undefined;
     this.computerService.search(searchTerm, direction, orderBy)
+      .subscribe(response => {
+        this.computers = response.body.content;
+      },
+      error => {
+        this.errorMessageAlert(error);
+      });
+  }
+
+  searchComputerProcessor(searchTerm: string, direction: string, orderBy: string) {
+    this.computers = undefined;
+    this.computerService.searchComputerProcessor(searchTerm, direction, orderBy)
+      .subscribe(response => {
+        this.computers = response.body.content;
+      },
+      error => {
+        this.errorMessageAlert(error);
+      });
+  }
+
+  searchComputerComputerUser(searchTerm: string, direction: string, orderBy: string) {
+    this.computers = undefined;
+    this.computerService.searchComputerComputerUser(searchTerm, direction, orderBy)
+      .subscribe(response => {
+        this.computers = response.body.content;
+      },
+      error => {
+        this.errorMessageAlert(error);
+      });
+  }
+
+  searchComputerOnline(searchTerm: string, direction: string, orderBy: string) {
+    this.computers = undefined;
+    this.computerService.searchComputerOnline(searchTerm, direction, orderBy)
+      .subscribe(response => {
+        this.computers = response.body.content;
+      },
+      error => {
+        this.errorMessageAlert(error);
+      });
+  }
+
+  searchComputerOnTheDomain(searchTerm: string, direction: string, orderBy: string) {
+    this.computers = undefined;
+    this.computerService.searchComputerOnTheDomain(searchTerm, direction, orderBy)
+      .subscribe(response => {
+        this.computers = response.body.content;
+      },
+      error => {
+        this.errorMessageAlert(error);
+      });
+  }
+
+  searchComputerPersonalComputer(searchTerm: string, direction: string, orderBy: string) {
+    this.computers = undefined;
+    this.computerService.searchComputerPersonalComputer(searchTerm, direction, orderBy)
       .subscribe(response => {
         this.computers = response.body.content;
       },
@@ -302,8 +359,10 @@ export class EquipmentControllerService {
       component: SearchEquipmentPage,
       componentProps: { 
         searchTerm: this.searchTerm,
+        booleanSearchTerm: this.booleanSearchTerm,
         asc: this.asc,
         orderBy: this.orderBy,
+        searchType: this.searchType,
         equipmentType: this.equipmentType
       }
     });
@@ -311,11 +370,25 @@ export class EquipmentControllerService {
     modal.onDidDismiss().then((dataReturned) => {
       if (dataReturned.data !== undefined) {
         this.searchTerm = dataReturned.data.searchTerm;
+        this.booleanSearchTerm = dataReturned.data.booleanSearchTerm;
         this.asc = dataReturned.data.asc;
         this.orderBy = dataReturned.data.orderBy;
-        
-        if (this.equipmentType === 'Computadores')
-          this.searchComputer(dataReturned.data.searchTerm, dataReturned.data.asc ? "ASC" : "DESC", dataReturned.data.orderBy);
+        this.searchType = dataReturned.data.searchType;
+
+        if (this.equipmentType === 'Computadores') {
+          if(this.searchType === "DEFAULT")
+            this.searchComputer(dataReturned.data.searchTerm, dataReturned.data.asc ? "ASC" : "DESC", dataReturned.data.orderBy);
+          else if(this.searchType === "COMPUTER_PROCESSOR")
+            this.searchComputerProcessor(dataReturned.data.searchTerm, dataReturned.data.asc ? "ASC" : "DESC", dataReturned.data.orderBy);
+          else if(this.searchType === "COMPUTER_COMPUTER_USER")
+            this.searchComputerComputerUser(dataReturned.data.searchTerm, dataReturned.data.asc ? "ASC" : "DESC", dataReturned.data.orderBy);
+          else if(this.searchType === "COMPUTER_ONLINE")
+            this.searchComputerOnline(dataReturned.data.booleanSearchTerm, dataReturned.data.asc ? "ASC" : "DESC", dataReturned.data.orderBy);
+          else if(this.searchType === "COMPUTER_ON_THE_DOMAIN")
+            this.searchComputerOnTheDomain(dataReturned.data.booleanSearchTerm, dataReturned.data.asc ? "ASC" : "DESC", dataReturned.data.orderBy);
+          else if(this.searchType === "COMPUTER_PERSONAL_COMPUTER")
+            this.searchComputerPersonalComputer(dataReturned.data.booleanSearchTerm, dataReturned.data.asc ? "ASC" : "DESC", dataReturned.data.orderBy);
+        }
         else if (this.equipmentType === 'Impressoras')
           this.searchPrinter(dataReturned.data.searchTerm, dataReturned.data.asc ? "ASC" : "DESC", dataReturned.data.orderBy);
           else if (this.equipmentType === 'Dispositivos de rede')

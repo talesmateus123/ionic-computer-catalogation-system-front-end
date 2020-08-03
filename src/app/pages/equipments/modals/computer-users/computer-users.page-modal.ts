@@ -42,26 +42,24 @@ export class ComputerUsersModalPage implements OnInit {
   updateComputerUsersList(): void {
     this.computerUserService.findAll()
       .subscribe(response => {
-        for(let index in response) { 
-          //this.computerUsers = response;
-          for(let computerUser in this.computerUsersAlreadyEntered) {
-              if(this.computerUsersAlreadyEntered[computerUser] === response[index]){
-                console.log("inserted: " + this.computerUsersAlreadyEntered[computerUser]);
-                //this.computerUsers.slice(response[index]);
-                this.computerUsers.push(response[index]);
-              }
-              else if(this.computerUsersAlreadyEntered[computerUser].id === undefined){
-                console.log("inserted: " + this.computerUsersAlreadyEntered[computerUser]);
-                //this.computerUsers.slice(response[index]);
-                this.computerUsers.push(response[index]);
-              }
-          }
-            console.log("all " + response[index]);  // output: Apple Orange Banana
+        for(let index in response) {
+          if(!this.contains(this.computerUsersAlreadyEntered, response[index]))
+            this.computerUsers.push(response[index]);
         }
       }, 
       error => {
         this.errorMessageAlert(error);
       });
+  }
+
+  contains(a: ComputerUserDTO[], obj: ComputerUserDTO) {
+    var i = a.length;
+    while (i--) {
+      if (a[i].id === obj.id) {
+        return true;
+      }
+    }
+    return false;
   }
 
   searchComputerUser(searchTerm: string, direction: string, orderBy: string) {

@@ -9,6 +9,16 @@ export const API_CONFIG = {
         "network_devices": "api/network_devices",
         "monitors": "api/monitors",
         "computer_users": "api/computer_users",
-        "electronics": "api/electronics"
+        "electronics": "api/electronics",
+    },
+    standardSearchMethod: {
+        "search": "search",
+    },
+    computerSearchMethods: {
+        "searchComputerProcessor": "search/processor_terms",
+        "searchComputerComputerUser": "search/computer_user_terms",
+        "searchComputerOnline": "search/online",
+        "searchComputerOnTheDomain": "search/on_the_domain",
+        "searchComputerPersonalComputer": "search/personal_computer"
     }
 }
