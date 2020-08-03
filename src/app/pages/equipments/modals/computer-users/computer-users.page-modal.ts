@@ -11,7 +11,7 @@ import { SearchComputerUserModalPage } from './search';
 export class ComputerUsersModalPage implements OnInit {
   public index: number
   public computerUsersAlreadyEntered: ComputerUserDTO[];
-  public computerUsers: ComputerUserDTO[] = [];
+  public computerUsers: ComputerUserDTO[];
   public searchTerm: string = "";
   public asc: boolean = true;
   public orderBy: string = "name";
@@ -40,8 +40,10 @@ export class ComputerUsersModalPage implements OnInit {
   }
   
   updateComputerUsersList(): void {
+    this.computerUsers = undefined;
     this.computerUserService.findAll()
       .subscribe(response => {
+        this.computerUsers = [];
         for(let index in response) {
           if(!this.contains(this.computerUsersAlreadyEntered, response[index]))
             this.computerUsers.push(response[index]);
@@ -63,9 +65,10 @@ export class ComputerUsersModalPage implements OnInit {
   }
 
   private searchComputerUser(searchTerm: string, direction: string, orderBy: string) {
+    this.computerUsers = undefined;
     this.computerUserService.search(searchTerm, direction, orderBy)
       .subscribe(response => {
-        //this.computerUsers = response.body.content;
+        this.computerUsers = [];
         for(let index in response.body.content) {
           if(!this.contains(this.computerUsersAlreadyEntered, response.body.content[index]))
             this.computerUsers.push(response.body.content[index]);
