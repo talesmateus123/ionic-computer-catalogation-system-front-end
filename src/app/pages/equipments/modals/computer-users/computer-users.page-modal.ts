@@ -52,7 +52,7 @@ export class ComputerUsersModalPage implements OnInit {
       });
   }
 
-  contains(a: ComputerUserDTO[], obj: ComputerUserDTO) {
+  private contains(a: ComputerUserDTO[], obj: ComputerUserDTO) {
     var i = a.length;
     while (i--) {
       if (a[i].id === obj.id) {
@@ -62,10 +62,14 @@ export class ComputerUsersModalPage implements OnInit {
     return false;
   }
 
-  searchComputerUser(searchTerm: string, direction: string, orderBy: string) {
+  private searchComputerUser(searchTerm: string, direction: string, orderBy: string) {
     this.computerUserService.search(searchTerm, direction, orderBy)
       .subscribe(response => {
-        this.computerUsers = response.body.content;
+        //this.computerUsers = response.body.content;
+        for(let index in response.body.content) {
+          if(!this.contains(this.computerUsersAlreadyEntered, response.body.content[index]))
+            this.computerUsers.push(response.body.content[index]);
+        }
       },
       error => {
         this.errorMessageAlert(error);
