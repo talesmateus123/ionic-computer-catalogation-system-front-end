@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { EquipmentsPage } from './equipments.page';
-import { InfoEquipmentPage } from './info/info-equipment.page';
-import { NewEquipmentPage } from './new/new-equipment.page';
-import { SearchEquipmentPage } from './search/search-equipment.page';
+import { InfoEquipmentPage } from './pages/info/info-equipment.page';
+import { NewEquipmentPage } from './pages/new/new-equipment.page';
+import { SearchEquipmentModalPage } from './modals/search/search-equipment-modal.page';
 
 const routes: Routes = [
   {
@@ -21,14 +21,12 @@ const routes: Routes = [
   },
   {
     path: 'search',
-    component: SearchEquipmentPage
+    component: SearchEquipmentModalPage
   },
-  /*
   {
     path: 'electronic-components',
-    loadChildren: () => import('./electronic-components').then( m => m.ElectronicComponentsPageModule)
+    loadChildren: () => import('./pages/electronic-components').then( m => m.ElectronicComponentsPageModule)
   }
-  */
 ];
 
 @NgModule({

@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-search-equipment',
-  templateUrl: './search-equipment.page.html',
-  styleUrls: ['./search-equipment.page.scss'],
+  selector: 'app-search-equipment-modal',
+  templateUrl: './search-equipment-modal.page.html',
+  styleUrls: ['./search-equipment-modal.page.scss'],
 })
-export class SearchEquipmentPage implements OnInit {
+export class SearchEquipmentModalPage implements OnInit {
   public searchTerm: string;
   public booleanSearchTerm: string;
   public asc: boolean;

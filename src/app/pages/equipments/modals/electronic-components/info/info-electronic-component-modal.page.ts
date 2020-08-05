@@ -8,8 +8,7 @@ import { ArchitectureType, RamMemoryArchitecture, StorageDeviceArchitecture, Sto
   templateUrl: './info-electronic-component-modal.page.html',
   styleUrls: ['./info-electronic-component-modal.page.scss'],
 })
-export class InfoElectronicComponentModalPage implements OnInit {
-  
+export class InfoElectronicComponentModalPage implements OnInit {  
   public electronicComponentTypes: string[] =[
     "PROCESSOR",
     "RAM_MEMORY",
@@ -23,18 +22,8 @@ export class InfoElectronicComponentModalPage implements OnInit {
   public storageDeviceArchitectures = StorageDeviceArchitecture;
   public storageDeviceTypes = StorageDeviceType;
 
+  public electronicComponent: any;
   public electronicComponentType: string;
-
-  public formId: string;
-  public formManufacturer: string;
-  public formModel: string;
-  public formDescription: string;
-  public formSize: number = 0;
-  public formProcessorNumber: string;
-  public formProcessorArchitecture: string = "AMD64";
-  public formRamMemoryArchitecture: string = "DDR3";
-  public formStorageDeviceArchitecture: string = "SATA";
-  public formStorageDeviceType: string = "HD";
   
   constructor(
     private modalController: ModalController,
@@ -43,42 +32,12 @@ export class InfoElectronicComponentModalPage implements OnInit {
   ngOnInit() {
   }
 
-  returnDataAndDismiss() {
-    this.modalController.dismiss(
-      {
-        electronicComponentType: this.electronicComponentType,
-        id: this.formId,
-        manufacturer: this.formManufacturer,
-        model: this.formModel,
-        description: this.formDescription,
-        sizeInGB: this.formSize,
-        processorName: this.formProcessorNumber,
-        architecture: this.formProcessorArchitecture,
-        type: this.formStorageDeviceType
-      }
-     );
-  }
-
   dismiss() {
     this.modalController.dismiss();
   }  
 
-  delete() {
-    /*
-    if(this.electronicComponentType === "PROCESSOR"){
-      this.controller.deleteProcessor(this.id);
-    }
-    if(this.electronicComponentType === "RAM_MEMORY"){
-      this.controller.deleteRamMemory(this.id);
-    }
-    if(this.electronicComponentType === "STORAGE_DEVICE"){
-      this.controller.deleteStorageDevice(this.id);
-    }
-    */
-  }
-
   eventHandler($keyCode) {
     if ($keyCode === 13)
-      this.returnDataAndDismiss();
+      this.dismiss();
   }
 }

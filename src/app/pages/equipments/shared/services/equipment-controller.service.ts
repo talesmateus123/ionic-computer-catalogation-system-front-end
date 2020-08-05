@@ -12,7 +12,7 @@ import {
   MonitorNewDTO, ArchitectureType, OperatingSystem, ComputerType, NetworkDeviceDTO, NetworkDeviceNewDTO
  } from '../models';
 import { ElectronicService } from 'src/app/pages/shared-resources';
-import { SearchEquipmentPage } from '../../search';
+import { SearchEquipmentModalPage } from '../../modals/search';
 import { NetworkDeviceService } from './network-device.service';
 
 @Injectable({
@@ -356,7 +356,7 @@ export class EquipmentControllerService {
 
   async searchModalPresent() {
     const modal = await this.modalController.create({
-      component: SearchEquipmentPage,
+      component: SearchEquipmentModalPage,
       componentProps: { 
         searchTerm: this.searchTerm,
         booleanSearchTerm: this.booleanSearchTerm,

@@ -9,7 +9,10 @@ export const API_CONFIG = {
         "network_devices": "api/network_devices",
         "monitors": "api/monitors",
         "computer_users": "api/computer_users",
-        "electronics": "api/electronics",
+        "processors": "api/processors",
+        "storage_devices": "api/storage_devices",
+        "ram_memories": "api/ram_memories",
+        "electronics": "api/electronics"
     },
     standardSearchMethod: {
         "search": "search",

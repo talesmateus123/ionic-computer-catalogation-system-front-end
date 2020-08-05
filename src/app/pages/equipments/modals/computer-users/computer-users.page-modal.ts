@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ComputerUserControllerService, ComputerUserDTO, ComputerUserService } from '../../../computer-users';
+import { ComputerUserDTO, ComputerUserService } from '../../../computer-users';
 import { ModalController, ToastController } from '@ionic/angular';
 import { SearchComputerUserModalPage } from './search';
 
@@ -57,8 +57,10 @@ export class ComputerUsersModalPage implements OnInit {
   private contains(a: ComputerUserDTO[], obj: ComputerUserDTO) {
     var i = a.length;
     while (i--) {
-      if (a[i].id === obj.id) {
-        return true;
+      if(a[i] != undefined) {
+        if (a[i].id === obj.id) {
+          return true;
+        }
       }
     }
     return false;

@@ -1,69 +1,65 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title *ngIf="electronicComponentType === 'PROCESSOR'">Informações do processador</ion-title>
-    <ion-title *ngIf="electronicComponentType === 'RAM_MEMORY'">Informações da memória RAM</ion-title>
-    <ion-title *ngIf="electronicComponentType === 'STORAGE_DEVICE'">Informações do dispositivo de armazenamento</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="dismiss()">
-        <ion-icon slot="icon-only" name="close"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+    <ion-title *ngIf="electronicComponent.equipmentType === 'PROCESSOR'">Informações do processador</ion-title>
+    <ion-title *ngIf="electronicComponent.equipmentType === 'RAM_MEMORY'">Informações da memória RAM</ion-title>
+    <ion-title *ngIf="electronicComponent.equipmentType === 'STORAGE_DEVICE'">Informações do dispositivo de armazenamento</ion-title>
+    
   </ion-toolbar>
 </ion-header>
 
 <ion-content (keypress)="eventHandler($event.keyCode)">
   <ion-item>
     <ion-label>Fabricante:</ion-label>
-    <ion-input type="text" [(ngModel)]="formManufacturer"></ion-input>    
+    <ion-input type="text" [(ngModel)]="electronicComponent.manufacturer"></ion-input>    
   </ion-item>
 
   <ion-item>
     <ion-label>Modelo:</ion-label>
-    <ion-input type="text" [(ngModel)]="formModel"></ion-input>    
+    <ion-input type="text" [(ngModel)]="electronicComponent.model"></ion-input>    
   </ion-item>
 
-  <ion-item *ngIf="electronicComponentType === 'PROCESSOR'">
+  <ion-item *ngIf="electronicComponent.equipmentType === 'PROCESSOR'" required>
     <ion-label>Número do processador:</ion-label>
-    <ion-input type="text" [(ngModel)]="formProcessorNumber"></ion-input>    
+    <ion-input type="text" [(ngModel)]="electronicComponent.processorName"></ion-input>    
   </ion-item>
 
-  <ion-item *ngIf="electronicComponentType === 'RAM_MEMORY' || electronicComponentType === 'STORAGE_DEVICE'">
+  <ion-item *ngIf="electronicComponent.equipmentType === 'RAM_MEMORY' || electronicComponent.equipmentType  === 'STORAGE_DEVICE'">
     <ion-label>Tamanho:</ion-label>
-    <ion-input type="number" [(ngModel)]="formSize"></ion-input>   
+    <ion-input type="number" [(ngModel)]="electronicComponent.sizeInGB" required></ion-input>   
     <ion-note slot="end">GB</ion-note>
   </ion-item>
 
-  <ion-item *ngIf="electronicComponentType === 'PROCESSOR'">
+  <ion-item *ngIf="electronicComponent.equipmentType === 'PROCESSOR'">
     <ion-label>Arquitetura:</ion-label>
-    <ion-select [(ngModel)]="formProcessorArchitecture" ok-text="Ok" cancel-text="Cancelar">
+    <ion-select [(ngModel)]="electronicComponent.architecture" ok-text="Ok" cancel-text="Cancelar">
       <ion-select-option *ngFor="let architecture of keys(processorArchitectures)" [value]="architecture">{{processorArchitectures[architecture]}}</ion-select-option>
     </ion-select>
   </ion-item>
   
-  <ion-item *ngIf="electronicComponentType === 'RAM_MEMORY'" >
+  <ion-item *ngIf="electronicComponent.equipmentType === 'RAM_MEMORY'" >
     <ion-label>Arquitetura:</ion-label>
-    <ion-select [(ngModel)]="formProcessorArchitecture" ok-text="Ok" cancel-text="Cancelar">
+    <ion-select [(ngModel)]="electronicComponent.architecture" ok-text="Ok" cancel-text="Cancelar" required>
       <ion-select-option *ngFor="let architecture of keys(ramMemoryArchitectures)" [value]="architecture">{{ramMemoryArchitectures[architecture]}}</ion-select-option>
     </ion-select>
   </ion-item>
 
-  <ion-item *ngIf="electronicComponentType === 'STORAGE_DEVICE'" >
+  <ion-item *ngIf="electronicComponent.equipmentType === 'STORAGE_DEVICE'" >
     <ion-label>Arquitetura:</ion-label>
-      <ion-select [(ngModel)]="formStorageDeviceArchitecture" ok-text="Ok" cancel-text="Cancelar">
+      <ion-select [(ngModel)]="electronicComponent.architecture" ok-text="Ok" cancel-text="Cancelar" required>
         <ion-select-option *ngFor="let architecture of keys(storageDeviceArchitectures)" [value]="architecture">{{storageDeviceArchitectures[architecture]}}</ion-select-option>
     </ion-select>
   </ion-item>
 
-  <ion-item *ngIf="electronicComponentType === 'STORAGE_DEVICE'" >
+  <ion-item *ngIf="electronicComponent.equipmentType === 'STORAGE_DEVICE'" >
     <ion-label>Tipo de dispositivo:</ion-label>
-      <ion-select [(ngModel)]="formStorageDeviceType" ok-text="Ok" cancel-text="Cancelar">
+      <ion-select [(ngModel)]="electronicComponent.type" ok-text="Ok" cancel-text="Cancelar" required>
         <ion-select-option *ngFor="let storageDeviceType of keys(storageDeviceTypes)" [value]="storageDeviceType">{{storageDeviceTypes[storageDeviceType]}}</ion-select-option>
     </ion-select>
   </ion-item>
 
   <ion-item>
     <ion-label position="floating">Descrição:</ion-label>
-    <ion-textarea [(ngModel)]="formDescription"></ion-textarea>
+    <ion-textarea [(ngModel)]="electronicComponent.description"></ion-textarea>
   </ion-item>
 </ion-content>
 
@@ -72,7 +68,7 @@
     <ion-grid>
       <ion-row class="ion-align-items-center">
         <ion-col size="12" class="ion-text-center">
-          <ion-button (click)="returnDataAndDismiss()" expand="block" fill="clear" color="dark">Salvar</ion-button>
+          <ion-button (click)="dismiss()" expand="block" fill="clear" color="dark">Ok</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>

@@ -7,14 +7,12 @@ import { IonicModule } from '@ionic/angular';
 
 import { EquipmentsPageRoutingModule } from './equipments-routing.module';
 import { EquipmentsPage } from './equipments.page';
-import { NewEquipmentPage } from './new';
-import { InfoEquipmentPage } from './info';
+import { NewEquipmentPage, InfoEquipmentPage, ElectronicComponentControllerService, ProcessorService, RamMemoryService, StorageDeviceService } from './pages';
 import { ComputerService, MonitorService, PrinterService, NetworkDeviceService, EquipmentControllerService } from './shared';
 import { ElectronicService } from '../shared-resources';
 import { SectorControllerService, SectorService } from '../sectors';
-import { SearchEquipmentPage } from './search';
-import { InfoElectronicComponentModalPage, ComputerUsersModalPage, SearchComputerUserModalPage } from './modals';
-import { ComputerUserControllerService, ComputerUserService } from '../computer-users';
+import { SearchEquipmentModalPage, InfoElectronicComponentModalPage, ComputerUsersModalPage, SearchComputerUserModalPage  } from './modals';
+import { ComputerUserService } from '../computer-users';
 
 @NgModule({
   imports: [
@@ -29,7 +27,7 @@ import { ComputerUserControllerService, ComputerUserService } from '../computer-
     EquipmentsPage,
     NewEquipmentPage,
     InfoEquipmentPage,
-    SearchEquipmentPage,
+    SearchEquipmentModalPage,
     InfoElectronicComponentModalPage,
     ComputerUsersModalPage,
     SearchComputerUserModalPage
@@ -48,7 +46,10 @@ import { ComputerUserControllerService, ComputerUserService } from '../computer-
     NetworkDeviceService,
     SectorControllerService,
     SectorService,
-    ComputerUserControllerService,
+    ElectronicComponentControllerService,
+    ProcessorService,
+    RamMemoryService,
+    StorageDeviceService,
     ComputerUserService,
   ]
 })
