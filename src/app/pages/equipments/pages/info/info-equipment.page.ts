@@ -17,7 +17,7 @@ import { RamMemoryDTO, StorageDeviceDTO, ProcessorDTO } from '../electronic-comp
   styleUrls: ['./info-equipment.page.scss'],
 })
 export class InfoEquipmentPage implements OnInit {
-  @ViewChild('formEquipment', { static: false }) formEquipment: NgForm;
+  @ViewChild('formEquipment') formEquipment: NgForm;
   private id: string;
 
   public detailForm: boolean = false;
