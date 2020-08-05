@@ -28,7 +28,7 @@ export class ComputerUserControllerService {
     return this.computerUserService.findById(id);
   }
   
-  searchComputerUser(searchTerm: string, direction: string, orderBy: string) {
+  searchComputerUser(searchTerm: string, direction: string, orderBy: string): void {
     this.computerUsers = undefined;
     this.computerUserService.search(searchTerm, direction, orderBy)
       .subscribe(response => {
@@ -50,7 +50,12 @@ export class ComputerUserControllerService {
       });
   }
 
-  createComputerUser(objetcNewDTO: ComputerUserNewDTO) {
+  createComputerUser(objetcNewDTO: ComputerUserNewDTO): void {
+    if(objetcNewDTO.lastName === "")
+      objetcNewDTO.lastName = null;
+    if(objetcNewDTO.email === "")
+      objetcNewDTO.email = null;
+
     this.computerUserService.create(objetcNewDTO).subscribe(res => {
       this.successMessageAlert("Usuário criado com sucesso");
       this.updateComputerUsersList();
@@ -61,8 +66,13 @@ export class ComputerUserControllerService {
     });
   }
 
-  updateComputerUser(id: string, object: ComputerUserNewDTO): void {
-    this.computerUserService.update(id, object).subscribe(res => {
+  updateComputerUser(id: string, objetcNewDTO: ComputerUserNewDTO): void {
+    if(objetcNewDTO.lastName === "")
+      objetcNewDTO.lastName = null;
+    if(objetcNewDTO.email === "")
+      objetcNewDTO.email = null;
+
+    this.computerUserService.update(id, objetcNewDTO).subscribe(res => {
       this.successMessageAlert("Usuário atualizado com sucesso");
       this.updateComputerUsersList();
       this.redirectToRootPage();

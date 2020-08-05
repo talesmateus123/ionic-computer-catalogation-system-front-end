@@ -211,6 +211,10 @@ export class EquipmentControllerService {
   }
 
   createComputer(objetcNewDTO: ComputerNewDTO) {
+    if(objetcNewDTO.ipAddress === "")
+      objetcNewDTO.ipAddress = null;
+    if(objetcNewDTO.macAddress === "")
+      objetcNewDTO.macAddress = null;
     this.computerService.create(objetcNewDTO).subscribe(res => {
       this.successMessageAlert("Computador criado com sucesso");
       this.updateComputersList();
@@ -222,6 +226,10 @@ export class EquipmentControllerService {
   }
 
   createPrinter(objetcNewDTO: PrinterNewDTO) {
+    if(objetcNewDTO.ipAddress === "")
+      objetcNewDTO.ipAddress = null;
+    if(objetcNewDTO.macAddress === "")
+      objetcNewDTO.macAddress = null;
     this.printerService.create(objetcNewDTO).subscribe(res => {
       this.successMessageAlert("Impressora criada com sucesso");
       this.updatePrintersList();
@@ -233,6 +241,10 @@ export class EquipmentControllerService {
   }
 
   createNetworkDevice(objetcNewDTO: NetworkDeviceNewDTO) {
+    if(objetcNewDTO.ipAddress === "")
+      objetcNewDTO.ipAddress = null;
+    if(objetcNewDTO.macAddress === "")
+      objetcNewDTO.macAddress = null;
     this.networkDeviceService.create(objetcNewDTO).subscribe(res => {
       this.successMessageAlert("Dispositivo de rede criado com sucesso");
       this.updatePrintersList();
@@ -254,8 +266,12 @@ export class EquipmentControllerService {
     });
   }
 
-  updateComputer(id: string, object: ComputerNewDTO): void {
-    this.computerService.update(id, object).subscribe(res => {
+  updateComputer(id: string, objetcNewDTO: ComputerNewDTO): void {
+    if(objetcNewDTO.ipAddress === "")
+      objetcNewDTO.ipAddress = null;
+    if(objetcNewDTO.macAddress === "")
+      objetcNewDTO.macAddress = null;
+    this.computerService.update(id, objetcNewDTO).subscribe(res => {
       this.successMessageAlert("Computador atualizado com sucesso");
       this.updateComputersList();
       this.redirectToRootPage();
@@ -265,8 +281,12 @@ export class EquipmentControllerService {
     });
   }
   
-  updatePrinter(id: string, object: PrinterNewDTO): void {
-    this.printerService.update(id, object).subscribe(res => {
+  updatePrinter(id: string, objetcNewDTO: PrinterNewDTO): void {
+    if(objetcNewDTO.ipAddress === "")
+      objetcNewDTO.ipAddress = null;
+    if(objetcNewDTO.macAddress === "")
+      objetcNewDTO.macAddress = null;
+    this.printerService.update(id, objetcNewDTO).subscribe(res => {
       this.successMessageAlert("Impressora atualizada com sucesso");
       this.updatePrintersList();
       this.redirectToRootPage();
@@ -276,8 +296,12 @@ export class EquipmentControllerService {
     });
   }
   
-  updateNetworkDevice(id: string, object: NetworkDeviceNewDTO): void {
-    this.networkDeviceService.update(id, object).subscribe(res => {
+  updateNetworkDevice(id: string, objetcNewDTO: NetworkDeviceNewDTO): void {
+    if(objetcNewDTO.ipAddress === "")
+      objetcNewDTO.ipAddress = null;
+    if(objetcNewDTO.macAddress === "")
+      objetcNewDTO.macAddress = null;
+    this.networkDeviceService.update(id, objetcNewDTO).subscribe(res => {
       this.successMessageAlert("Dispositivo de rede atualizado com sucesso");
       this.updateNetworkDevicesList();
       this.redirectToRootPage();
@@ -287,8 +311,8 @@ export class EquipmentControllerService {
     });
   }
 
-  updateMonitor(id: string, object: MonitorNewDTO): void {
-    this.monitorService.update(id, object).subscribe(res => {
+  updateMonitor(id: string, objetcNewDTO: MonitorNewDTO): void {
+    this.monitorService.update(id, objetcNewDTO).subscribe(res => {
       this.successMessageAlert("Monitor atualizado com sucesso");
       this.updateMonitorsList();
       this.redirectToRootPage();

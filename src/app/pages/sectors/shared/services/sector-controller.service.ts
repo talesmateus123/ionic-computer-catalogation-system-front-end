@@ -28,7 +28,7 @@ export class SectorControllerService {
     return this.sectorService.findById(id);
   }
   
-  searchSector(searchTerm: string, direction: string, orderBy: string) {
+  searchSector(searchTerm: string, direction: string, orderBy: string): void {
     this.sectors = undefined;
     this.sectorService.search(searchTerm, direction, orderBy)
       .subscribe(response => {
@@ -39,7 +39,7 @@ export class SectorControllerService {
       });
   }
 
-  updateSectorsList() {
+  updateSectorsList(): void {
     this.sectors = undefined;
     this.sectorService.findAll()
       .subscribe(response => {
@@ -50,10 +50,10 @@ export class SectorControllerService {
       });
   }
 
-  createSector(sector: SectorNewDTO){
-    if(sector.phone === "")
-      sector.phone = null;
-    this.sectorService.create(sector).subscribe(
+  createSector(objetcNewDTO: SectorNewDTO): void {
+    if(objetcNewDTO.phone === "")
+    objetcNewDTO.phone = null;
+    this.sectorService.create(objetcNewDTO).subscribe(
       res => {
         this.successMessageAlert("Setor criado com sucesso");
         this.updateSectorsList();
@@ -65,10 +65,10 @@ export class SectorControllerService {
     );
   }
 
-  updateSector(id: string, sector: SectorNewDTO){
-    if(sector.phone === "")
-      sector.phone = null;
-    this.sectorService.update(id, sector).subscribe(
+  updateSector(id: string, objetcNewDTO: SectorNewDTO): void {
+    if(objetcNewDTO.phone === "")
+    objetcNewDTO.phone = null;
+    this.sectorService.update(id, objetcNewDTO).subscribe(
       res => {
         this.successMessageAlert("Setor salvo com sucesso");
         this.updateSectorsList();
@@ -80,7 +80,7 @@ export class SectorControllerService {
     );
   }
 
-  deleteSector(id: string){
+  deleteSector(id: string): void {
     this.sectorService.delete(id).subscribe(
       res => {
         this.successMessageAlert("Setor excluído com sucesso");

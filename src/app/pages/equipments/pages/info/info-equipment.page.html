@@ -17,8 +17,8 @@
 
 <ion-header *ngIf="!formPersonalComputer && !editForm">
   <ion-item *ngIf="equipmentType === 'COMPUTER'">
-    <ion-label *ngIf="detailForm" style="text-size-adjust: 10px;">Avançado</ion-label>
-    <ion-label *ngIf="!detailForm" style="text-size-adjust: 10px;">Simples</ion-label>
+    <ion-label *ngIf="detailForm" style="text-size-adjust: 10px;">Detalhado</ion-label>
+    <ion-label *ngIf="!detailForm" style="text-size-adjust: 10px;">Não detalhado</ion-label>
     <ion-toggle color="dark" slot="end" [(ngModel)]="detailForm"></ion-toggle>
   </ion-item>
 </ion-header>
@@ -76,7 +76,7 @@
 
       <ion-list-header class="title" color="dark">
         Processador
-        <ion-buttons  *ngIf="!editForm">
+        <ion-buttons  *ngIf="!editForm && processors.length === 0">
           <ion-button (click)="addProcessor()">
             <ion-icon slot="icon-only" name="add"></ion-icon>
           </ion-button>
@@ -331,7 +331,7 @@
           <ion-label>Associar a um monitor:</ion-label>
           <ion-select [disabled]="editForm" [(ngModel)]="formMonitorId"  ok-text="Ok" cancel-text="Cancelar">
             <ion-select-option value="">Nenhum</ion-select-option>
-            <ion-select-option *ngFor="let monitor of availableMonitors" value={{monitor.id}}>{{ monitor.patrimonyId }}</ion-select-option>
+            <ion-select-option *ngFor="let monitor of availableMonitors" value={{monitor.id}}>{{ monitor.patrimonyId }} {{ monitor.manufacturer }} </ion-select-option>
           </ion-select>
         </ion-item>        
       </div>

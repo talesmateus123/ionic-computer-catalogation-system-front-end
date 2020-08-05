@@ -84,7 +84,9 @@ export class ElectronicComponentControllerService {
       });
   }
 
-  createProcessor(objetcNewDTO: ProcessorNewDTO) {
+  createProcessor(objetcNewDTO: ProcessorNewDTO): void {
+    if(objetcNewDTO.processorName === "")
+      objetcNewDTO.processorName = null;
     this.processorService.create(objetcNewDTO).subscribe(res => {
       this.successMessageAlert("Processador criado com sucesso");
       this.updateProcessorsList();
@@ -96,7 +98,7 @@ export class ElectronicComponentControllerService {
     });
   }
 
-  createRamMemory(objetcNewDTO: RamMemoryNewDTO) {
+  createRamMemory(objetcNewDTO: RamMemoryNewDTO): void {
     this.ramMemoryService.create(objetcNewDTO).subscribe(res => {
       this.successMessageAlert("Memória RAM criada com sucesso");
       this.updateRamMemoriesList();
@@ -108,7 +110,7 @@ export class ElectronicComponentControllerService {
     });
   }
 
-  createStorageDevice(objetcNewDTO: StorageDeviceNewDTO) {
+  createStorageDevice(objetcNewDTO: StorageDeviceNewDTO): void {
     this.storageDeviceService.create(objetcNewDTO).subscribe(res => {
       this.successMessageAlert("Dispositivo de armazenamento criado com sucesso");
       this.updateStorageDevicesList();
@@ -119,8 +121,10 @@ export class ElectronicComponentControllerService {
     });
   }
 
-  updateProcessor(id: string, object: ProcessorNewDTO): void {
-    this.processorService.update(id, object).subscribe(res => {
+  updateProcessor(id: string, objetcNewDTO: ProcessorNewDTO): void {
+    if(objetcNewDTO.processorName === "")
+      objetcNewDTO.processorName = null;
+    this.processorService.update(id, objetcNewDTO).subscribe(res => {
       this.successMessageAlert("Processador atualizado com sucesso");
       this.updateProcessorsList();
       this.redirectToRootPage();
@@ -130,8 +134,8 @@ export class ElectronicComponentControllerService {
     });
   }
 
-  updateRamMemory(id: string, object: RamMemoryNewDTO): void {
-    this.ramMemoryService.update(id, object).subscribe(res => {
+  updateRamMemory(id: string, objetcNewDTO: RamMemoryNewDTO): void {
+    this.ramMemoryService.update(id, objetcNewDTO).subscribe(res => {
       this.successMessageAlert("Memória RAM atualizada com sucesso");
       this.updateRamMemoriesList();
       this.redirectToRootPage();
@@ -141,8 +145,8 @@ export class ElectronicComponentControllerService {
     });
   }
 
-  updateStorageDevice(id: string, object: StorageDeviceNewDTO): void {
-    this.storageDeviceService.update(id, object).subscribe(res => {
+  updateStorageDevice(id: string, objetcNewDTO: StorageDeviceNewDTO): void {
+    this.storageDeviceService.update(id, objetcNewDTO).subscribe(res => {
       this.successMessageAlert("Dispositivo de armazenamento atualizado com sucesso");
       this.updateStorageDevicesList();
       this.redirectToRootPage();
