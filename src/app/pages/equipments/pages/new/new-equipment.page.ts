@@ -6,6 +6,7 @@ import { ModalController } from '@ionic/angular';
 import { InfoElectronicComponentModalPage } from '../../modals/electronic-components';
 import { ProcessorDTO, RamMemoryDTO, StorageDeviceDTO } from '../electronic-components';
 import { ComputerUserDTO } from 'src/app/pages/computer-users';
+import { ComputerUsersModalPage } from '../../modals';
 
 @Component({
   selector: 'app-new-equipment',
@@ -364,6 +365,22 @@ export class NewEquipmentPage implements OnInit {
         editForm: false,        
       }
     });    
+    return await modal.present();
+  }
+
+  async computerUsersModalPagePresent(index: number) {
+    const modal = await this.modalController.create({
+      component: ComputerUsersModalPage,
+      componentProps: {
+        index: index,
+        computerUsersAlreadyEntered: this.computerUsers
+      }
+    });
+
+    modal.onDidDismiss().then((dataReturned) => {
+      if (dataReturned.data !== undefined)
+        this.computerUsers.splice(dataReturned.data.index, 1, dataReturned.data.computerUser);
+    });
     return await modal.present();
   }
 

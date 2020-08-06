@@ -22,20 +22,20 @@
 <ion-content>
   <ion-list *ngIf="controller.equipmentType === 'Computadores'">
     <ion-item *ngFor="let computer of controller.computers" routerLink="/equipments/info/{{computer.id}}" [ngClass]="{'online_equipment': computer.online}">
-      <ion-icon *ngIf="computer.computerType === 'DESKTOP'" slot="start" name="computer"></ion-icon>
-      <ion-icon *ngIf="computer.computerType === 'LAPTOP'" slot="start" name="laptop-1"></ion-icon>
-      <ion-icon *ngIf="computer.computerType === 'MOBILE'" slot="start" name="mobile-1"></ion-icon>
-      
-      <ion-label *ngIf="computer.patrimonyId || computer.manufacturer;else templateName">
+      <ion-icon slot="start" size="large" name="computer"></ion-icon>      
+      <ion-label *ngIf="computer.patrimonyId; else computerWithoutInformation">
         <h2>{{ computer.patrimonyId }}</h2>
         <h3 *ngIf="!computer.model">{{ computer.manufacturer }}</h3>
         <h3 *ngIf="computer.model">{{ computer.manufacturer }} | {{ computer.model }}</h3>
         <p>{{ computer.ipAddress }}</p>
       </ion-label>
 
-      <ng-template #templateName>
+      <ng-template #computerWithoutInformation>
         <ion-label>
-          <h2>{{ computer.ipAddress }}</h2>
+          <h2>Sem patrimônio</h2>
+          <h3 *ngIf="!computer.model">{{ computer.manufacturer }}</h3>
+          <h3 *ngIf="computer.model">{{ computer.manufacturer }} | {{ computer.model }}</h3>
+          <p>{{ computer.ipAddress }}</p>
         </ion-label>
       </ng-template>
     </ion-item>
@@ -43,37 +43,62 @@
 
   <ion-list *ngIf="controller.equipmentType === 'Impressoras'">
     <ion-item *ngFor="let printer of controller.printers" routerLink="/equipments/info/{{printer.id}}" [ngClass]="{'online_equipment': printer.online}">
-      <ion-icon slot="start" name="print"></ion-icon>
-      <ion-label>
+      <ion-icon slot="start" size="large" name="print"></ion-icon>
+      <ion-label *ngIf="printer.patrimonyId; else printerWithoutInformation">
         <h2>{{ printer.patrimonyId }}</h2>
         <h3 *ngIf="!printer.model">{{ printer.manufacturer }}</h3>
         <h3 *ngIf="printer.model">{{ printer.manufacturer }} | {{ printer.model }}</h3>
         <p>{{ printer.ipAddress }}</p>
       </ion-label>
+
+      <ng-template #printerWithoutInformation>
+        <ion-label>
+          <h2>Sem patrimônio</h2>
+          <h3 *ngIf="!printer.model">{{ printer.manufacturer }}</h3>
+          <h3 *ngIf="printer.model">{{ printer.manufacturer }} | {{ printer.model }}</h3>
+          <p>{{ printer.ipAddress }}</p>
+        </ion-label>
+      </ng-template>
     </ion-item>
   </ion-list>
 
   <ion-list *ngIf="controller.equipmentType === 'Dispositivos de rede'">
     <ion-item *ngFor="let networkDevice of controller.networkDevices" routerLink="/equipments/info/{{networkDevice.id}}" [ngClass]="{'online_equipment': networkDevice.online}">
-      <ion-icon slot="start" name="wifi"></ion-icon>
-      <ion-label>
+      <ion-icon slot="start" size="large" name="wifi"></ion-icon>
+      <ion-label *ngIf="networkDevice.patrimonyId; else networkDeviceWithoutInformation">
         <h2>{{ networkDevice.patrimonyId }}</h2>
         <h3 *ngIf="!networkDevice.model">{{ networkDevice.manufacturer }}</h3>
         <h3 *ngIf="networkDevice.model">{{ networkDevice.manufacturer }} | {{ networkDevice.model }}</h3>
         <p>{{ networkDevice.ipAddress }}</p>
       </ion-label>
 
+      <ng-template #networkDeviceWithoutInformation>
+        <ion-label>
+          <h2>Sem patrimônio</h2>
+          <h3 *ngIf="!networkDevice.model">{{ networkDevice.manufacturer }}</h3>
+          <h3 *ngIf="networkDevice.model">{{ networkDevice.manufacturer }} | {{ networkDevice.model }}</h3>
+          <p>{{ networkDevice.ipAddress }}</p>
+        </ion-label>
+      </ng-template>
     </ion-item>
   </ion-list>
 
   <ion-list *ngIf="controller.equipmentType === 'Monitores'">
     <ion-item *ngFor="let monitor of controller.monitors" routerLink="/equipments/info/{{monitor.id}}">
-      <ion-icon slot="start" name="desktop"></ion-icon>
-      <ion-label>
+      <ion-icon slot="start" size="large" name="desktop"></ion-icon>
+      <ion-label *ngIf="monitor.patrimonyId; else monitorWithoutInformation">
         <h2>{{ monitor.patrimonyId }}</h2>
         <h3 *ngIf="!monitor.model">{{ monitor.manufacturer }}</h3>
         <h3 *ngIf="monitor.model">{{ monitor.manufacturer }} | {{ monitor.model }}</h3>
       </ion-label>
+
+      <ng-template #monitorWithoutInformation>
+        <ion-label>
+          <h2>Sem patrimônio</h2>
+          <h3 *ngIf="!monitor.model">{{ monitor.manufacturer }}</h3>
+          <h3 *ngIf="monitor.model">{{ monitor.manufacturer }} | {{ monitor.model }}</h3>
+        </ion-label>
+      </ng-template>
     </ion-item>
   </ion-list>
 

@@ -89,8 +89,8 @@
 
       <ng-template #processorAdded >
         <ion-item [disabled]="editForm" (click)="electronicComponentModalPresent(processors[0])">
-          <ion-icon slot="start" name="hardware-chip"></ion-icon>
-          <ion-label *ngIf="processors[0] === undefined; else processorNotEmpty">
+          <ion-icon slot="start" size="large" name="hardware-chip"></ion-icon>
+          <ion-label *ngIf="processors[0].manufacturer === '' && processors[0].model === '' && processors[0].processorName === ''; else processorNotEmpty">
             <h2>Clique para gerenciar o processador</h2>
           </ion-label>
   
@@ -98,13 +98,15 @@
             <ion-label *ngIf="processors[0].processorName === undefined; else processorNameUndefined">
               <h2>{{ processors[0].manufacturer }}</h2>
               <h3>{{ processors[0].model }} | {{ processors[0].processorName }}</h3>
-              <p>{{ processors[0].architecture }}</p>
+              <p *ngIf="processors[0].architecture === 'AMD64'">64 bits</p>
+              <p *ngIf="processors[0].architecture === 'I386'">32 bits</p>
             </ion-label>
             <ng-template #processorNameUndefined>
               <ion-label>
                 <h2>{{ processors[0].manufacturer }}</h2>
                 <h3>{{ processors[0].model }}</h3>
-                <p>{{ processors[0].architecture }}</p>
+                <p *ngIf="processors[0].architecture === 'AMD64'">64 bits</p>
+                <p *ngIf="processors[0].architecture === 'I386'">32 bits</p>
               </ion-label>
             </ng-template>
           </ng-template>
@@ -116,6 +118,7 @@
           </ion-buttons>
         </ion-item>
       </ng-template>    
+      
     </ion-list>  
 
 
@@ -126,8 +129,8 @@
 
       <ion-item [disabled]="editForm">
         <ion-range [(ngModel)]="formTotalRamMemory" min="0" max="16" pin color="dark">
-          <ion-icon slot="start" size="small" name="git-compare"></ion-icon>
-          <ion-icon slot="end" name="git-compare"></ion-icon>
+          <ion-icon slot="start" size="small" name="ram-memory"></ion-icon>
+          <ion-icon slot="end" size="large" name="ram-memory"></ion-icon>
         </ion-range>
         <ion-note slot="end">RAM: {{ formTotalRamMemory }} GB</ion-note>
       </ion-item>
@@ -150,13 +153,13 @@
         </ion-item>
   
         <ion-item [disabled]="editForm" *ngFor="let ramMemory of ramMemories" (click)="electronicComponentModalPresent(ramMemory)">
-          <ion-icon slot="start" name="ram-memory"></ion-icon>
-          <ion-label *ngIf="ramMemory.manufacturer === '' && ramMemory.model === '' && ramMemory.sizeInGB === 0; else notEmpty">
+          <ion-icon slot="start" size="large" name="ram-memory"></ion-icon>
+          <ion-label *ngIf="ramMemory.manufacturer === '' && ramMemory.model === '' && ramMemory.sizeInGB === 0; else ramMemoryNotEmpty">
             <h2>Clique para gerenciar a memória RAM</h2>
           </ion-label>
-  
-          <ng-template #notEmpty>
-            <ion-label *ngIf="processors[0].processorName === undefined; else ramMemoryModelUndefined">
+          
+          <ng-template #ramMemoryNotEmpty>
+            <ion-label *ngIf="ramMemory.model === undefined; else ramMemoryModelUndefined">
               <h2>{{ ramMemory.manufacturer }} | {{ ramMemory.model }}</h2>
               <h3>{{ ramMemory.architecture }}</h3>
               <p>{{ ramMemory.sizeInGB }} GB</p>
@@ -189,8 +192,8 @@
 
       <ion-item [disabled]="editForm">
         <ion-range [(ngModel)]="formTotalStorageMemory" min="0" max="2000" step="20" pin color="dark">
-          <ion-icon slot="start" size="small" name="disc"></ion-icon>
-          <ion-icon slot="end" name="disc"></ion-icon>
+          <ion-icon slot="start" size="small" name="server"></ion-icon>
+          <ion-icon slot="end" size="large" name="server"></ion-icon>
         </ion-range>
         <ion-note slot="end">HD: {{ formTotalStorageMemory }} GB</ion-note>
       </ion-item>
@@ -214,12 +217,12 @@
   
         <ion-item [disabled]="editForm" *ngFor="let storageDevice of storageDevices" (click)="electronicComponentModalPresent(storageDevice)">
           <ion-icon slot="start" name="server"></ion-icon>
-          <ion-label *ngIf="storageDevice.manufacturer === '' && storageDevice.model === '' && storageDevice.sizeInGB === 0; else notEmpty">
+          <ion-label *ngIf="storageDevice.manufacturer === '' && storageDevice.model === '' && storageDevice.sizeInGB === 0; else storageDeviceNotEmpty">
             <h2>Clique para gerenciar o armazenamento</h2>
           </ion-label>
-  
-          <ng-template #notEmpty>
-            <ion-label *ngIf="processors[0].processorName === undefined; else storageDeviceModelUndefined">
+          
+          <ng-template #storageDeviceNotEmpty>
+            <ion-label *ngIf="storageDevice.model === undefined; else storageDeviceModelUndefined">
               <h2>{{ storageDevice.manufacturer }} | {{ storageDevice.model }}</h2>
               <h3>{{ storageDevice.type }} ({{ storageDevice.architecture }})</h3>
               <p>{{ storageDevice.sizeInGB }} GB</p>
@@ -301,7 +304,7 @@
       </ion-item>
 
       <ion-item [disabled]="editForm" *ngFor="let computerUser of computerUsers" (click)="computerUsersModalPagePresent(computerUsers.indexOf(computerUser))">
-        <ion-icon slot="start" name="person"></ion-icon>
+        <ion-icon slot="start" size="large" name="person"></ion-icon>
         <ion-label *ngIf="computerUser === undefined; else notEmpty">
           <h2>Clique para selecionar um usuário</h2>
         </ion-label>
@@ -452,7 +455,7 @@
 
       <ion-item *ngIf="sectorController.sectors">
         <ion-label>Setor:</ion-label>
-        <ion-select [disabled]="editForm" [(ngModel)]="formSectorId"  ok-text="Ok" cancel-text="Cancelar">
+        <ion-select [disabled]="editForm" [(ngModel)]="formSectorId"  ok-text="Ok" cancel-text="Cancelar" required>
           <ion-select-option *ngFor="let sector of sectorController.sectors" [value]="sector.id">{{ sector.name }}</ion-select-option>
         </ion-select>
       </ion-item>

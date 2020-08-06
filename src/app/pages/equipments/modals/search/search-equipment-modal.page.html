@@ -25,7 +25,9 @@
     <ion-select class="title" [(ngModel)]="searchType" ok-text="Ok" cancel-text="Cancelar">
       <ion-select-option *ngIf="equipmentType === 'Computadores'" value="DEFAULT">Generalizada</ion-select-option>
       <ion-select-option *ngIf="equipmentType === 'Computadores'" value="COMPUTER_PROCESSOR">Por processador</ion-select-option>
+      <!--
       <ion-select-option *ngIf="equipmentType === 'Computadores'" value="COMPUTER_COMPUTER_USER">Por usuário</ion-select-option>
+      -->
       <ion-select-option *ngIf="equipmentType === 'Computadores'" value="COMPUTER_ONLINE">Online</ion-select-option>
       <ion-select-option *ngIf="equipmentType === 'Computadores'" value="COMPUTER_ON_THE_DOMAIN">No domínio</ion-select-option>
       <ion-select-option *ngIf="equipmentType === 'Computadores'" value="COMPUTER_PERSONAL_COMPUTER">Computador pessoal</ion-select-option>
@@ -44,7 +46,7 @@
 <ion-content fullscreen (keypress)="eventHandler($event.keyCode)">
   <ion-item *ngIf="searchType ==='DEFAULT' || searchType ==='COMPUTER_PROCESSOR' || searchType ==='COMPUTER_COMPUTER_USER'; else booleanValue">
     <ion-label>Termo de filtro:</ion-label>
-    <ion-input type="text" [(ngModel)]="searchTerm" ></ion-input>
+    <ion-input type="text" [(ngModel)]="searchTerm"></ion-input>
   </ion-item>
 
   <ng-template #booleanValue>

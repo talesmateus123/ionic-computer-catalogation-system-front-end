@@ -18,7 +18,7 @@
 <ion-content>
   <ion-list>
     <ion-item *ngFor="let sector of controller.sectors" routerLink="/sectors/info/{{sector.id}}">      
-      <ion-icon slot="start" name="albums"></ion-icon>
+      <ion-icon slot="start" size="large" name="albums"></ion-icon>
       <ion-label>
         <h2>{{ sector.name }}</h2>
         <p>{{ sector.phone }}</p>
