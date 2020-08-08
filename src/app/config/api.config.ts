@@ -1,5 +1,6 @@
 export const API_CONFIG = {
     //baseUrl: "http://10.1.1.11:8080/",
+    //baseUrl: "http://54.232.163.104:8080/",
     baseUrl: "http://localhost:8080/",
     paths: {
         "login": "login",

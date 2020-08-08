@@ -18,11 +18,13 @@ export class AppComponent implements OnInit {
       url: 'equipments',
       icon: 'desktop'
     },
+    /*
     {
       title: 'Componentes eletrônicos',
       url: 'equipments/electronic-components',
       icon: 'hardware-chip'
     },
+    */
     {
       title: 'Usuários',
       url: 'computer-users',
