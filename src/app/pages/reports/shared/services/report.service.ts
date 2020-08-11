@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Observable } from 'rxjs';
+
 import { API_CONFIG } from 'src/app/config';
+import { SessionManagerService } from 'src/app/pages/shared-resources';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +11,14 @@ import { API_CONFIG } from 'src/app/config';
 export class ReportService {
   private url = `${API_CONFIG.baseUrl}`;
 
-  constructor(public http: HttpClient) { }
+  constructor(
+    public http: HttpClient,
+    private sessionManagerService: SessionManagerService) { }
 
   getComputersReport(): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.set('Accept', 'application/pdf');
+    headers.set('Authorization', this.sessionManagerService.getSessionToken());
     
     return this.http.get(
       `${this.url}${API_CONFIG.paths.computers}/pdfreport`, 
@@ -24,6 +29,7 @@ export class ReportService {
   getPrintersReport(): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.set('Accept', 'application/pdf');
+    headers.set('Authorization', this.sessionManagerService.getSessionToken());
     
     return this.http.get(
       `${this.url}${API_CONFIG.paths.printers}/pdfreport`, 

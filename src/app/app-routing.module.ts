@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path: 'reports',
     loadChildren: () => import('./pages').then( m => m.ReportsPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/authentication').then( m => m.LoginPageModule)
   }
 ];
 

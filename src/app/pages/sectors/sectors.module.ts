@@ -12,6 +12,7 @@ import { NewSectorPage } from './new';
 import { InfoSectorPage } from './info';
 import { SearchSectorPage } from './search';
 import { SectorService, SectorControllerService } from './shared';
+import { SessionManagerService } from '../shared-resources';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { SectorService, SectorControllerService } from './shared';
     SearchSectorPage
   ],
   providers: [
+    SessionManagerService,
     SectorControllerService,
     SectorService
   ]
