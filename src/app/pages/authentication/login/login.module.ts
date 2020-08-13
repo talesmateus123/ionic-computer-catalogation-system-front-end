@@ -11,6 +11,7 @@ import { LoginPageRoutingModule } from './login-routing.module';
 import { LoginPage } from './login.page';
 import { AuthenticationService, AuthenticationControllerService} from './shared';
 import { SessionManagerService } from 'src/app/pages/shared-resources';
+import { ErrorInterceptorProvider } from 'src/app/interceptors';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { SessionManagerService } from 'src/app/pages/shared-resources';
     FormBuilder,
     SessionManagerService,
     AuthenticationService,
-    AuthenticationControllerService
+    AuthenticationControllerService,
+    ErrorInterceptorProvider
   ]
 })
 export class LoginPageModule {}

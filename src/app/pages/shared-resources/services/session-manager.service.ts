@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from 'src/app/pages/authentication/login/shared';
-import { HttpHeaders } from '@angular/common/http';
+import * as jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -9,20 +9,20 @@ export class SessionManagerService {
 
   constructor() { }
 
-  public getSessionUser(){
-    return localStorage['user'];
+  public getSessionUserEmail(){
+    return localStorage['user-email'];
   }
 
-  public setSessionUser(user: User){
-    localStorage['user'] = user;
+  public setSessionUserEmail(user: User){
+    localStorage['user-email'] = user;
   }
 
-  public getSessionToken() {
-    return localStorage['token'];
+  public getSessionAuthorizationToken() {
+    return localStorage['authorization-token'];
   }
 
   public setSessionToken(token: string) {
-    localStorage['token'] = token;
+    localStorage['authorization-token'] = token;
   }
 
   public getTokenExpirationDate() {
@@ -30,7 +30,18 @@ export class SessionManagerService {
   }
 
   public setTokenExpirationDate(token: string) {
-    localStorage['token-expiration'] = token;
+    localStorage['token-expiration'] = token.substring(7);
+  }
+
+  successfulLogin(authorizationValue: string) {
+    let tok = authorizationValue.substring(7);
+    this.setSessionUserEmail(jwt_decode(tok).sub);
+    this.setSessionToken(tok);
+  }
+
+  public logout() {
+    this.setSessionUserEmail(null);
+    this.setSessionToken(null);
   }
   
 }

@@ -13,6 +13,7 @@ import { InfoSectorPage } from './info';
 import { SearchSectorPage } from './search';
 import { SectorService, SectorControllerService } from './shared';
 import { SessionManagerService } from '../shared-resources';
+import { AuthInterceptorProvider, ErrorInterceptorProvider } from 'src/app/interceptors';
 
 @NgModule({
   imports: [
@@ -33,7 +34,9 @@ import { SessionManagerService } from '../shared-resources';
   providers: [
     SessionManagerService,
     SectorControllerService,
-    SectorService
+    SectorService,
+    AuthInterceptorProvider,
+    ErrorInterceptorProvider
   ]
 })
 export class SectorsPageModule {}

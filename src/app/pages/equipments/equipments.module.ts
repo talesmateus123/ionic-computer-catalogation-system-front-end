@@ -13,6 +13,7 @@ import { ElectronicService } from '../shared-resources';
 import { SectorControllerService, SectorService } from '../sectors';
 import { SearchEquipmentModalPage, InfoElectronicComponentModalPage, ComputerUsersModalPage, SearchComputerUserModalPage  } from './modals';
 import { ComputerUserService } from '../computer-users';
+import { AuthInterceptorProvider, ErrorInterceptorProvider } from 'src/app/interceptors';
 
 @NgModule({
   imports: [
@@ -51,6 +52,8 @@ import { ComputerUserService } from '../computer-users';
     RamMemoryService,
     StorageDeviceService,
     ComputerUserService,
+    AuthInterceptorProvider,
+    ErrorInterceptorProvider
   ]
 })
 export class EquipmentsPageModule {}

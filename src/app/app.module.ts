@@ -8,7 +8,6 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { LoginPageModule, LoginPageRoutingModule } from './pages/authentication';
 
 @NgModule({
   declarations: [
@@ -18,9 +17,7 @@ import { LoginPageModule, LoginPageRoutingModule } from './pages/authentication'
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    AppRoutingModule,
-    LoginPageModule,
-    LoginPageRoutingModule
+    AppRoutingModule
   ],
   providers: [
     StatusBar,

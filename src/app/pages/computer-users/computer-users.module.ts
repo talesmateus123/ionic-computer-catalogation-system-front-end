@@ -12,6 +12,7 @@ import { InfoComputerUserPage } from './info';
 import { ComputerUserControllerService, ComputerUserService } from './shared';
 import { SectorControllerService, SectorService } from '../sectors';
 import { SearchComputerUserPage } from './search';
+import { AuthInterceptorProvider, ErrorInterceptorProvider } from 'src/app/interceptors';
 
 @NgModule({
   imports: [
@@ -32,7 +33,9 @@ import { SearchComputerUserPage } from './search';
     ComputerUserControllerService,
     ComputerUserService,
     SectorControllerService,
-    SectorService
+    SectorService,
+    AuthInterceptorProvider,
+    ErrorInterceptorProvider
   ]  
 })
 export class ComputerUsersPageModule {}

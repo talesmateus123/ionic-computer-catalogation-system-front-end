@@ -23,17 +23,20 @@ export class AuthenticationControllerService {
   login(login: Login) {
     this.service.login(login).subscribe(
       res => {
-        this.sessionManagerService.setSessionToken(res.headers.get('Authorization'));
-        console.log(res.headers.get('token-expiration'))
         this.sessionManagerService.setTokenExpirationDate(res.headers.get('token-expiration'));
-        this.successMessageAlert("Logado com sucesso");
-        //this.redirectToMainPage();
+        this.sessionManagerService.successfulLogin(res.headers.get('Authorization'));
+        this.successMessageAlert(null);
+        this.redirectToMainPage();
       },
       error => {
         console.log(error)
         this.errorMessageAlert(error);
       }
     );
+  }
+
+  logout() {
+    this.sessionManagerService.logout();
   }
 
   redirectToMainPage(): void {

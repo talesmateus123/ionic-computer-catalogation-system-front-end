@@ -17,6 +17,7 @@ export class AuthenticationService {
   }
 
   login(object: Login): Observable<any> {
-    return this.http.post<User>(`${this.url}`, object, {observe: "response"});
+    return this.http.post<User>(`${this.url}`, object, { observe: "response" });
   }
+  
 }

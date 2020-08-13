@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 
 import { ComputerUserControllerService } from '../shared';
 import { SectorControllerService } from '../../sectors';
-import { ComputerNewDTO } from '../../equipments/shared';
 
 @Component({
   selector: 'app-info-computer-user',

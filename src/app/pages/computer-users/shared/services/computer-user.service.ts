@@ -13,32 +13,24 @@ export class ComputerUserService {
   private url = `${API_CONFIG.baseUrl}${API_CONFIG.paths.computer_users}`;
 
   constructor(
-    public http: HttpClient,
-    private sessionManagerService: SessionManagerService
+    public http: HttpClient
     ) {
   }
 
   findAll(): Observable<ComputerUserDTO[]> {
-      return this.http.get<ComputerUserDTO[]>(`${this.url}`, { 
-        headers: new HttpHeaders().set('Authorization', this.sessionManagerService.getSessionToken()) 
-    });
+      return this.http.get<ComputerUserDTO[]>(`${this.url}`);
   }
   
   findAvailable(): Observable<ComputerUserDTO[]> {
-    return this.http.get<ComputerUserDTO[]>(`${this.url}/available`, { 
-      headers: new HttpHeaders().set('Authorization', this.sessionManagerService.getSessionToken()) 
-  });
+    return this.http.get<ComputerUserDTO[]>(`${this.url}/available`);
   }
 
   findById(id: string): Observable<ComputerUserDTO> {
-      return this.http.get<ComputerUserDTO>(`${this.url}/${id}`, { 
-        headers: new HttpHeaders().set('Authorization', this.sessionManagerService.getSessionToken()) 
-    });
+      return this.http.get<ComputerUserDTO>(`${this.url}/${id}`);
   }
   
   search(searchTerm: string, direction: string, orderBy: string): Observable<any> {
     return this.http.get(`${this.url}/search`, {
-      headers: new HttpHeaders().set('Authorization', this.sessionManagerService.getSessionToken()),
       params: {
           searchTerm: searchTerm,
           direction: direction,
@@ -49,20 +41,14 @@ export class ComputerUserService {
   }
 
   create(object: ComputerUserNewDTO): Observable<any> {
-      return this.http.post<ComputerUserNewDTO>(`${this.url}`, object, { 
-        headers: new HttpHeaders().set('Authorization', this.sessionManagerService.getSessionToken()) 
-    });
+      return this.http.post<ComputerUserNewDTO>(`${this.url}`, object);
   }
 
   update(id: string, object: ComputerUserNewDTO): Observable<any> {
-      return this.http.put<ComputerUserNewDTO>(`${this.url}/${id}`, object, { 
-        headers: new HttpHeaders().set('Authorization', this.sessionManagerService.getSessionToken()) 
-    });
+      return this.http.put<ComputerUserNewDTO>(`${this.url}/${id}`, object);
   }
 
   delete(id: string): Observable<any> {
-      return this.http.delete<ComputerUserNewDTO>(`${this.url}/${id}`, { 
-        headers: new HttpHeaders().set('Authorization', this.sessionManagerService.getSessionToken()) 
-    });
+      return this.http.delete<ComputerUserNewDTO>(`${this.url}/${id}`);
   }
 }

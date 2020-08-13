@@ -13,32 +13,24 @@ export class MonitorService {
   private url = `${API_CONFIG.baseUrl}${API_CONFIG.paths.monitors}`;
 
   constructor(
-    public http: HttpClient,
-    private sessionManagerService: SessionManagerService
+    public http: HttpClient
     ) {
   }
 
   findAll(): Observable<MonitorDTO[]> {
-      return this.http.get<MonitorDTO[]>(`${this.url}`, { 
-        headers: new HttpHeaders().set('Authorization', this.sessionManagerService.getSessionToken()) 
-    });
+      return this.http.get<MonitorDTO[]>(`${this.url}`);
   }
 
   findAvailable(): Observable<MonitorDTO[]> {
-    return this.http.get<MonitorDTO[]>(`${this.url}/available`, { 
-      headers: new HttpHeaders().set('Authorization', this.sessionManagerService.getSessionToken()) 
-  });
+    return this.http.get<MonitorDTO[]>(`${this.url}/available`);
   }
 
   findById(id: string): Observable<MonitorNewDTO> {
-      return this.http.get<MonitorNewDTO>(`${this.url}/${id}`, { 
-        headers: new HttpHeaders().set('Authorization', this.sessionManagerService.getSessionToken()) 
-    });
+      return this.http.get<MonitorNewDTO>(`${this.url}/${id}`);
   }
 
   search(searchTerm: string, direction: string, orderBy: string): Observable<any> {
     return this.http.get(`${this.url}/search`, {
-      headers: new HttpHeaders().set('Authorization', this.sessionManagerService.getSessionToken()),
       params: {
           searchTerm: searchTerm,
           direction: direction,

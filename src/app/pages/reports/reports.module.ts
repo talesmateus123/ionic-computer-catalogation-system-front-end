@@ -9,6 +9,7 @@ import { ReportsPageRoutingModule } from './reports-routing.module';
 import { ReportsPage } from './reports.page';
 import { ReportControllerService, ReportService } from './shared';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthInterceptorProvider, ErrorInterceptorProvider } from 'src/app/interceptors';
 
 @NgModule({
   imports: [
@@ -23,7 +24,9 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [
     ReportControllerService,
-    ReportService
+    ReportService,
+    AuthInterceptorProvider,
+    ErrorInterceptorProvider
   ]
 })
 export class ReportsPageModule {}
