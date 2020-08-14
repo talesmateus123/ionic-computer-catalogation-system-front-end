@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { LoadingController, ToastController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { ComputerUserService } from './computer-user.service';
 import { ComputerUserDTO, ComputerUserNewDTO } from '../models';
 import { SearchComputerUserPage } from '../../search';
+import { ToastMessageControllerService } from 'src/app/shared-resources';
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +19,9 @@ export class ComputerUserControllerService {
   public computerUsers: ComputerUserDTO[];
 
   constructor(
-    private loadingController: LoadingController,
-    private toastController: ToastController,
     private modalController: ModalController,
     private router: Router, 
+    private toastMessageControllerService: ToastMessageControllerService,
     private computerUserService: ComputerUserService) { }
   
   findComputerUser(id: string): Observable<any> {
@@ -35,7 +35,7 @@ export class ComputerUserControllerService {
         this.computerUsers = response.body.content;
       },
       error => {
-        this.errorMessageAlert(error);
+        //this.toastMessageControllerService.errorMessageAlert(error);
       });
   }
 
@@ -46,7 +46,7 @@ export class ComputerUserControllerService {
         this.computerUsers = response;
       }, 
       error => {
-        this.errorMessageAlert(error);
+        //this.toastMessageControllerService.errorMessageAlert(error);
       });
   }
 
@@ -57,12 +57,12 @@ export class ComputerUserControllerService {
       objetcNewDTO.email = null;
 
     this.computerUserService.create(objetcNewDTO).subscribe(res => {
-      this.successMessageAlert("Usuário criado com sucesso");
+      this.toastMessageControllerService.successMessageAlert("Usuário criado com sucesso");
       this.updateComputerUsersList();
       this.redirectToRootPage();
     }, 
     error => {
-      this.errorMessageAlert(error);
+      //this.toastMessageControllerService.errorMessageAlert(error);
     });
   }
 
@@ -73,23 +73,23 @@ export class ComputerUserControllerService {
       objetcNewDTO.email = null;
 
     this.computerUserService.update(id, objetcNewDTO).subscribe(res => {
-      this.successMessageAlert("Usuário atualizado com sucesso");
+      this.toastMessageControllerService.successMessageAlert("Usuário atualizado com sucesso");
       this.updateComputerUsersList();
       this.redirectToRootPage();
     }, 
     error => {
-      this.errorMessageAlert(error);
+      //this.toastMessageControllerService.errorMessageAlert(error);
     });
   }
   
   deleteComputerUser(id: string): void {
     this.computerUserService.delete(id).subscribe(res => {
-      this.successMessageAlert("Usuário excluído com sucesso");
+      this.toastMessageControllerService.successMessageAlert("Usuário excluído com sucesso");
       this.updateComputerUsersList();
       this.redirectToRootPage();
     }, 
     error => {
-      this.errorMessageAlert(error);
+      //this.toastMessageControllerService.errorMessageAlert(error);
     });
   }
 
@@ -119,58 +119,4 @@ export class ComputerUserControllerService {
     return await modal.present();
   }
 
-  async loadingPresent() {
-    this.loadingController.create({
-      message: 'Carregando ...',
-      spinner: 'circles' ,
-      duration: 1500
-    }).then(a => {
-      a.present();
-    });
-  }
-
-  async loadingDismiss() {
-    this.loadingController.dismiss();
-  }
-
-  async successMessageAlert(msg: string) {
-    const toast = await this.toastController.create({
-      header: 'Sucesso',
-      message: msg,
-      position: 'bottom',
-      duration: 2500,
-      buttons: [
-        {
-          text: 'Ok',
-          role: 'cancel',
-          handler: () => {
-          }
-        }
-      ]
-    });
-    toast.present();
-  }
-
-  async errorMessageAlert(error: any) {
-    let msg: any;
-    if (error.error.error === undefined)
-      msg = "Erro desconhecido";
-    else
-      msg = error.error.error;
-    const toast = await this.toastController.create({
-      header: 'Opps!',
-      message: 'Parece que ocorreu um erro: ' + msg,
-      position: 'bottom',
-      duration: 2500,
-      buttons: [
-        {
-          text: 'Ok',
-          role: 'cancel',
-          handler: () => {
-          }
-        }
-      ]
-    });
-    toast.present();
-  }
 }

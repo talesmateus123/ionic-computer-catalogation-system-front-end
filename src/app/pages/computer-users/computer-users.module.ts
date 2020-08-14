@@ -12,7 +12,8 @@ import { InfoComputerUserPage } from './info';
 import { ComputerUserControllerService, ComputerUserService } from './shared';
 import { SectorControllerService, SectorService } from '../sectors';
 import { SearchComputerUserPage } from './search';
-import { AuthInterceptorProvider, ErrorInterceptorProvider } from 'src/app/interceptors';
+import { AuthInterceptorProvider } from 'src/app/interceptors/auth-interceptor';
+import { ErrorInterceptorProvider } from 'src/app/interceptors/error-interceptor';
 
 @NgModule({
   imports: [

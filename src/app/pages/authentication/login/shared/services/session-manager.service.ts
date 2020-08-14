@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { User } from 'src/app/pages/authentication/login/shared';
 import * as jwt_decode from 'jwt-decode';
 
 @Injectable({
@@ -13,8 +12,8 @@ export class SessionManagerService {
     return localStorage['user-email'];
   }
 
-  public setSessionUserEmail(user: User){
-    localStorage['user-email'] = user;
+  public setSessionUserEmail(userMail: String){
+    localStorage['user-email'] = userMail;
   }
 
   public getSessionAuthorizationToken() {

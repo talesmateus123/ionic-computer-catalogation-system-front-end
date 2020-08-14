@@ -3,7 +3,7 @@ import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
-import { SessionManagerService } from 'src/app/pages';
+import { SessionManagerService } from '../services/session-manager.service';
 import { AuthenticationService } from './authentication.service';
 import { Login } from '../models';
 

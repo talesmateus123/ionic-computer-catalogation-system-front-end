@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { ComputerUserControllerService } from '../shared';
 import { SectorControllerService } from '../../sectors';
+import { LoadingModalControllerService } from 'src/app/shared-resources';
 
 @Component({
   selector: 'app-info-computer-user',
@@ -24,20 +25,21 @@ export class InfoComputerUserPage implements OnInit {
   constructor(
     public controller: ComputerUserControllerService,
     public sectorController: SectorControllerService,
+    private loadingModalControllerService: LoadingModalControllerService,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.controller.loadingPresent();
+    this.loadingModalControllerService.loadingPresent();
     this.id = this.route.snapshot.paramMap.get('id')
     this.sectorController.updateSectorsList();
     this.controller.findComputerUser(this.id).subscribe(
       res => {
         this.computerUser = res;
         this.populateForm();
-        this.controller.loadingDismiss();
+        this.loadingModalControllerService.loadingDismiss();
       },
       error => {
-        this.controller.errorMessageAlert(error);
+        //this.controller.errorMessageAlert(error);
         this.controller.redirectToRootPage();
       }
     );

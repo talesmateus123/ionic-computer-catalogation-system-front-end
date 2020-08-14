@@ -9,7 +9,8 @@ import { ReportsPageRoutingModule } from './reports-routing.module';
 import { ReportsPage } from './reports.page';
 import { ReportControllerService, ReportService } from './shared';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthInterceptorProvider, ErrorInterceptorProvider } from 'src/app/interceptors';
+import { AuthInterceptorProvider } from 'src/app/interceptors/auth-interceptor';
+import { ErrorInterceptorProvider } from 'src/app/interceptors/error-interceptor';
 
 @NgModule({
   imports: [

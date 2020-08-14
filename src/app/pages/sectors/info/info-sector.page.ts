@@ -1,11 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 
 import { SectorNewDTO } from '../shared/';
-import { SectorService, SectorControllerService } from '../shared';
+import { SectorControllerService } from '../shared';
+import { LoadingModalControllerService } from 'src/app/shared-resources';
 @Component({
   selector: 'app-info-sector',
   templateUrl: './info-sector.page.html',
@@ -18,18 +16,19 @@ export class InfoSectorPage implements OnInit {
 
   constructor(
     public controller: SectorControllerService,
+    private loadingModalControllerService: LoadingModalControllerService,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.controller.loadingPresent();
+    this.loadingModalControllerService.loadingPresent();
     this.id = this.route.snapshot.paramMap.get('id')
     this.controller.findSector(this.id).subscribe(
       res => {
         this.sector = res
-        this.controller.loadingDismiss();
+        this.loadingModalControllerService.loadingDismiss();
       },
       error => {
-        this.controller.errorMessageAlert(error);
+        //this.controller.errorMessageAlert(error);
         this.controller.redirectToRootPage();
       }
     )

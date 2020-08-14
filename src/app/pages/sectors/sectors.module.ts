@@ -12,8 +12,8 @@ import { NewSectorPage } from './new';
 import { InfoSectorPage } from './info';
 import { SearchSectorPage } from './search';
 import { SectorService, SectorControllerService } from './shared';
-import { SessionManagerService } from '../shared-resources';
-import { AuthInterceptorProvider, ErrorInterceptorProvider } from 'src/app/interceptors';
+import { AuthInterceptorProvider } from 'src/app/interceptors/auth-interceptor';
+import { ErrorInterceptorProvider } from 'src/app/interceptors/error-interceptor';
 
 @NgModule({
   imports: [
@@ -32,7 +32,6 @@ import { AuthInterceptorProvider, ErrorInterceptorProvider } from 'src/app/inter
     SearchSectorPage
   ],
   providers: [
-    SessionManagerService,
     SectorControllerService,
     SectorService,
     AuthInterceptorProvider,

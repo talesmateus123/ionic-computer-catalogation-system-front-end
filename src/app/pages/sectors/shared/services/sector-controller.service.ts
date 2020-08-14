@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { LoadingController, ToastController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { SectorService } from './sector.service';
 import { Observable } from 'rxjs';
 import { SectorDTO, SectorNewDTO } from '../models';
 import { SearchSectorPage } from '../../search';
+import { ToastMessageControllerService } from 'src/app/shared-resources';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +18,9 @@ export class SectorControllerService {
   public sectors: SectorDTO[];
 
   constructor(
-    private loadingController: LoadingController,
-    private toastController: ToastController,
     private modalController: ModalController,
     private router: Router,
+    private toastMessageControllerService: ToastMessageControllerService,
     private sectorService: SectorService) { 
   }
 
@@ -35,7 +35,7 @@ export class SectorControllerService {
         this.sectors = response.body.content;
       },
       error => {
-        this.errorMessageAlert(error);
+        //this.toastMessageControllerService.errorMessageAlert(error);
       });
   }
 
@@ -46,7 +46,7 @@ export class SectorControllerService {
         this.sectors = response;
       },
       error => {
-        this.errorMessageAlert(error);
+        //this.toastMessageControllerService.errorMessageAlert(error);
       });
   }
 
@@ -55,12 +55,12 @@ export class SectorControllerService {
     objetcNewDTO.phone = null;
     this.sectorService.create(objetcNewDTO).subscribe(
       res => {
-        this.successMessageAlert("Setor criado com sucesso");
+        this.toastMessageControllerService.successMessageAlert("Setor criado com sucesso");
         this.updateSectorsList();
         this.redirectToRootPage();
       },
       error => {
-        this.errorMessageAlert(error);
+        //this.toastMessageControllerService.errorMessageAlert(error);
       }
     );
   }
@@ -70,12 +70,12 @@ export class SectorControllerService {
     objetcNewDTO.phone = null;
     this.sectorService.update(id, objetcNewDTO).subscribe(
       res => {
-        this.successMessageAlert("Setor salvo com sucesso");
+        this.toastMessageControllerService.successMessageAlert("Setor salvo com sucesso");
         this.updateSectorsList();
         this.redirectToRootPage();
       },
       error => {
-        this.errorMessageAlert(error);
+        //this.toastMessageControllerService.errorMessageAlert(error);
       }
     );
   }
@@ -83,12 +83,12 @@ export class SectorControllerService {
   deleteSector(id: string): void {
     this.sectorService.delete(id).subscribe(
       res => {
-        this.successMessageAlert("Setor excluído com sucesso");
+        this.toastMessageControllerService.successMessageAlert("Setor excluído com sucesso");
         this.updateSectorsList();
         this.redirectToRootPage();
       },
       error => {
-        this.errorMessageAlert(error);
+        //this.toastMessageControllerService.errorMessageAlert(error);
       }
     );
   }
@@ -119,58 +119,4 @@ export class SectorControllerService {
     return await modal.present();
   }
 
-  async loadingPresent() {
-    this.loadingController.create({
-      message: 'Carregando ...',
-      spinner: 'circles' ,
-      duration: 1500
-    }).then(a => {
-      a.present();
-    });
-  }
-
-  async loadingDismiss() {
-    this.loadingController.dismiss();
-  }
-
-  async successMessageAlert(msg: string) {
-    const toast = await this.toastController.create({
-      header: 'Sucesso',
-      message: msg,
-      position: 'bottom',
-      duration: 2500,
-      buttons: [
-        {
-          text: 'Ok',
-          role: 'cancel',
-          handler: () => {
-          }
-        }
-      ]
-    });
-    toast.present();
-  }
-
-  async errorMessageAlert(error: any) {
-    let msg: any;
-    if (error.error.error === undefined)
-      msg = "Erro desconhecido";
-    else
-      msg = error.error.error;
-    const toast = await this.toastController.create({
-      header: 'Opps!',
-      message: 'Parece que ocorreu um erro: ' + msg,
-      position: 'bottom',
-      duration: 2500,
-      buttons: [
-        {
-          text: 'Ok',
-          role: 'cancel',
-          handler: () => {
-          }
-        }
-      ]
-    });
-    toast.present();
-  }
 }

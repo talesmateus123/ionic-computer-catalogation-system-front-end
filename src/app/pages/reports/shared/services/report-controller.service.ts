@@ -14,7 +14,7 @@ export class ReportControllerService {
         this.savePdf(response, "Relatório dos computadores");
       },
       error => {
-        console.log(error);
+        //console.log(error);
       });
   }
 
@@ -24,7 +24,7 @@ export class ReportControllerService {
         this.savePdf(response, "Relatório das impressoras");
       },
       error => {
-        console.log(error);
+        //console.log(error);
       });
   }
 
@@ -34,7 +34,7 @@ export class ReportControllerService {
         this.savePdf(response, "Relatório dos monitores");
       },
       error => {
-        console.log(error);
+        //console.log(error);
       });
   }
 
@@ -44,7 +44,7 @@ export class ReportControllerService {
         this.savePdf(response, "Relatório dos usuários");
       },
       error => {
-        console.log(error);
+        //console.log(error);
       });
   }
 
@@ -54,7 +54,7 @@ export class ReportControllerService {
         this.savePdf(response, "Relatório dos setores");
       },
       error => {
-        console.log(error);
+        //console.log(error);
       });
   }
 

@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { ComputerUserDTO, ComputerUserNewDTO } from '../models';
 import { API_CONFIG } from 'src/app/config';
-import { SessionManagerService } from 'src/app/pages/shared-resources';
 
 @Injectable({
   providedIn: 'root'

@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 
 import { MonitorDTO, MonitorNewDTO } from '../models';
 import { API_CONFIG } from 'src/app/config';
-import { SessionManagerService } from 'src/app/pages/shared-resources';
 
 @Injectable({
   providedIn: 'root'

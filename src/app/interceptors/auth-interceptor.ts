@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { SessionManagerService } from '../pages';
+import { SessionManagerService } from '../pages/authentication/login/shared/services/session-manager.service';
 
 @Injectable({ providedIn: 'root' })
 

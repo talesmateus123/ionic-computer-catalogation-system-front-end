@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 
 import { MonitorDTO, EquipmentControllerService, ComputerNewDTO } from '../../shared';
 import { SectorControllerService } from '../../../sectors';
@@ -10,6 +9,7 @@ import { ComputerUserDTO } from '../../../computer-users';
 import { ComputerUsersModalPage } from '../../modals';
 
 import { RamMemoryDTO, StorageDeviceDTO, ProcessorDTO } from '../electronic-components'
+import { LoadingModalControllerService } from 'src/app/shared-resources';
 
 @Component({
   selector: 'app-info-equipment',
@@ -54,13 +54,14 @@ export class InfoEquipmentPage implements OnInit {
 
   constructor(
     public controller: EquipmentControllerService,
+    public loadingModalControllerService: LoadingModalControllerService,
     public sectorController: SectorControllerService,
     private route: ActivatedRoute,
     private modalController: ModalController
   ) { }
 
   ngOnInit() {
-    this.controller.loadingPresent();
+    this.loadingModalControllerService.loadingPresent();
     this.id = this.route.snapshot.paramMap.get('id')
     this.sectorController.updateSectorsList();
     this.controller.findEquipment(this.id).subscribe(
@@ -81,10 +82,10 @@ export class InfoEquipmentPage implements OnInit {
           this.equipment = response;
         }
         this.populateForm();
-        this.controller.loadingDismiss();
+        this.loadingModalControllerService.loadingDismiss();
       },
       error => {
-        this.controller.errorMessageAlert(error);
+        //this.controller.errorMessageAlert(error);
         this.controller.redirectToRootPage();
       }
     );
@@ -198,7 +199,8 @@ export class InfoEquipmentPage implements OnInit {
       if (this.equipment.monitor !== null)   
         this.formMonitorId = this.equipment.monitor.id;
       this.formSectorId = this.equipment.sector.id;
-      this.processors[0] = this.equipment.processor;
+      if( this.equipment.processor != null)
+        this.processors[0] =  this.equipment.processor;
       this.ramMemories = this.equipment.ramMemories
       this.storageDevices = this.equipment.storageDevices;
       this.computerUsers = this.equipment.computerUsers;

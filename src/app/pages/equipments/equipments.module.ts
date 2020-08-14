@@ -13,7 +13,8 @@ import { ElectronicService } from '../shared-resources';
 import { SectorControllerService, SectorService } from '../sectors';
 import { SearchEquipmentModalPage, InfoElectronicComponentModalPage, ComputerUsersModalPage, SearchComputerUserModalPage  } from './modals';
 import { ComputerUserService } from '../computer-users';
-import { AuthInterceptorProvider, ErrorInterceptorProvider } from 'src/app/interceptors';
+import { AuthInterceptorProvider } from 'src/app/interceptors/auth-interceptor';
+import { ErrorInterceptorProvider } from 'src/app/interceptors/error-interceptor';
 
 @NgModule({
   imports: [
