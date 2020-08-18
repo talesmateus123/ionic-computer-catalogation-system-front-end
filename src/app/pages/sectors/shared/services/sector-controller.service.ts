@@ -39,6 +39,10 @@ export class SectorControllerService {
       });
   }
 
+  findAllSectors(): Observable<SectorDTO[]> {
+    return this.sectorService.findAll()
+  }
+
   updateSectorsList(): void {
     this.sectors = undefined;
     this.sectorService.findAll()
@@ -52,7 +56,7 @@ export class SectorControllerService {
 
   createSector(objetcNewDTO: SectorNewDTO): void {
     if(objetcNewDTO.phone === "")
-    objetcNewDTO.phone = null;
+      objetcNewDTO.phone = null;
     this.sectorService.create(objetcNewDTO).subscribe(
       res => {
         this.toastMessageControllerService.successMessageAlert("Setor criado com sucesso");

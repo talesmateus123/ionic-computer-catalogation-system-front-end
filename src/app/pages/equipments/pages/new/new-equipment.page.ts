@@ -7,6 +7,7 @@ import { InfoElectronicComponentModalPage } from '../../modals/electronic-compon
 import { ProcessorDTO, RamMemoryDTO, StorageDeviceDTO } from '../electronic-components';
 import { ComputerUserDTO } from 'src/app/pages/computer-users';
 import { ComputerUsersModalPage } from '../../modals';
+import { LoadingModalControllerService } from 'src/app/shared-resources';
 
 @Component({
   selector: 'app-new-equipment',
@@ -14,6 +15,9 @@ import { ComputerUsersModalPage } from '../../modals';
   styleUrls: ['./new-equipment.page.scss'],
 })
 export class NewEquipmentPage implements OnInit {
+
+  public filledValues: boolean = false;
+  
   public detailForm: boolean = false;
   public editForm: boolean = false;
 
@@ -50,12 +54,11 @@ export class NewEquipmentPage implements OnInit {
   constructor(
     public controller: EquipmentControllerService,
     public sectorController: SectorControllerService,
+    private loadingModalControllerService: LoadingModalControllerService,
     private modalController: ModalController
   ) { }
 
   ngOnInit() {
-    this.sectorController.updateSectorsList();
-    this.populateAvailableAvailableMonitors();
     if(this.controller.equipmentType === "Computadores") {
       this.equipmentType ="COMPUTER";
     }
@@ -68,12 +71,21 @@ export class NewEquipmentPage implements OnInit {
     else if(this.controller.equipmentType === "Monitores") {
       this.equipmentType = "MONITOR";
     }
-    /*
-    this.populateAvailableProcessors();
-    this.populateAvailableRamMemories();
-    this.populateAvailableStorageDevices();
-    */
+
+    this.initValues();
+  }
+
+  async initValues() {
+    await this.loadingModalControllerService.loadingPresent();
     
+    await this.sectorController.findAllSectors().toPromise().then((res) => {
+      this.sectorController.sectors = res;
+    });
+
+    await this.populateAvailableAvailableMonitors();
+
+    this.filledValues = true;
+    this.loadingModalControllerService.loadingDismiss();
   }
 
   public addProcessor() {

@@ -34,4 +34,10 @@ export class LoginPage implements OnInit {
       const login: Login = this.form.value;
     this.controller.login(login);
   }
+
+  eventHandler($keyCode) {
+    if ($keyCode === 13)
+      this.login();
+  }
+
 }

@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content (keypress)="eventHandler($event.keyCode)">
   <form [formGroup]="form" novalidate>
     <ion-item>
       <ion-label>Email:</ion-label>

@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ComputerUserControllerService } from '../shared';
 import { SectorControllerService } from '../../sectors';
 import { LoadingModalControllerService } from 'src/app/shared-resources';
+import { concat } from 'rxjs';
 
 @Component({
   selector: 'app-info-computer-user',
@@ -13,6 +14,8 @@ import { LoadingModalControllerService } from 'src/app/shared-resources';
 export class InfoComputerUserPage implements OnInit {
   private id: string;
   public editForm: boolean
+
+  public filledValues: boolean = false;
 
   public formName: string;
 	public formLastName: string;
@@ -36,11 +39,15 @@ export class InfoComputerUserPage implements OnInit {
 
   async initValues() {
     await this.loadingModalControllerService.loadingPresent();
-    await this.sectorController.updateSectorsList();
+    await this.sectorController.findAllSectors().toPromise().then((res) => {
+      this.sectorController.sectors = res;
+    });
+
     this.controller.findComputerUser(this.id).subscribe(
       res => {
         this.computerUser = res;
         this.populateForm();
+        this.filledValues = true;
         this.loadingModalControllerService.loadingDismiss();
       },
       error => {

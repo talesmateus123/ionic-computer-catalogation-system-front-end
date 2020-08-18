@@ -23,13 +23,43 @@ export class InfoElectronicComponentModalPage implements OnInit {
   public storageDeviceTypes = StorageDeviceType;
 
   public electronicComponent: any;
-  public electronicComponentType: string;
+
+  formManufacturer: string;
+  formModel: string;
+  formDescription: string;
+  formProcessorName: string;
+  formArchitecture: string
+  formSizeInGB: number;
+  formType: string;
   
   constructor(
     private modalController: ModalController,
     ) { }
 
   ngOnInit() {
+    this.formManufacturer = this.electronicComponent.manufacturer
+    this.formModel = this.electronicComponent.model;
+    this.formDescription = this.electronicComponent.description;
+    this.formProcessorName = this.electronicComponent.processorName;
+    this.formArchitecture = this.electronicComponent.architecture;
+    this.formSizeInGB = this.electronicComponent.sizeInGB;
+    this.formType = this.electronicComponent.type;
+  }
+
+  returnDataAndDismiss() {
+    this.electronicComponent.manufacturer = this.formManufacturer;
+    this.electronicComponent.model = this.formModel;
+    this.electronicComponent.description = this.formDescription;
+    this.electronicComponent.processorName = this.formProcessorName;
+    this.electronicComponent.architecture = this.formArchitecture;
+    this.electronicComponent.sizeInGB = this.formSizeInGB;
+    this.electronicComponent.type = this.formType;
+
+    this.modalController.dismiss(
+      {
+        electronicComponent: this.electronicComponent
+      }
+     );
   }
 
   dismiss() {
@@ -38,6 +68,7 @@ export class InfoElectronicComponentModalPage implements OnInit {
 
   eventHandler($keyCode) {
     if ($keyCode === 13)
-      this.dismiss();
+      this.returnDataAndDismiss();
   }
+  
 }

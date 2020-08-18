@@ -11,6 +11,9 @@ import { LoadingModalControllerService } from 'src/app/shared-resources';
 })
 export class InfoSectorPage implements OnInit {
   id: string;
+
+  public filledValues: boolean = false;
+  
   sector: SectorNewDTO;
   editForm: boolean
 
@@ -30,6 +33,7 @@ export class InfoSectorPage implements OnInit {
     this.controller.findSector(this.id).subscribe(
       res => {
         this.sector = res
+        this.filledValues = true;
         this.loadingModalControllerService.loadingDismiss();
       },
       error => {

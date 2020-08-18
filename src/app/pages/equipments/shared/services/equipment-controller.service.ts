@@ -247,7 +247,7 @@ export class EquipmentControllerService {
       objetcNewDTO.macAddress = null;
     this.networkDeviceService.create(objetcNewDTO).subscribe(res => {
       this.toastMessageControllerService.successMessageAlert("Dispositivo de rede criado com sucesso");
-      this.updatePrintersList();
+      this.updateNetworkDevicesList();
       this.redirectToRootPage();
     }, 
     error => {

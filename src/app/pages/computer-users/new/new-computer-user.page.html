@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header *ngIf="filledValues">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="equipments"></ion-back-button>
@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content (keypress)="eventHandler($event.keyCode)">
+<ion-content *ngIf="filledValues" (keypress)="eventHandler($event.keyCode)">
   <ion-item>
     <ion-label>Nome:</ion-label>
     <ion-input type="text" [(ngModel)]="formName"></ion-input>    
@@ -31,7 +31,7 @@
   </ion-item>  
 </ion-content>
 
-<ion-footer> 
+<ion-footer *ngIf="filledValues"> 
   <ion-toolbar>
     <ion-grid>
       <ion-row class="ion-align-items-center">

@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header *ngIf="filledValues">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="equipments"></ion-back-button>
@@ -12,7 +12,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="sector" (keypress)="eventHandler($event.keyCode)">
+<ion-content *ngIf="filledValues" (keypress)="eventHandler($event.keyCode)">
   <ion-item>
     <ion-label>Nome:</ion-label>
     <ion-input [disabled]="editForm" type="text" [(ngModel)]="sector.name" ></ion-input>

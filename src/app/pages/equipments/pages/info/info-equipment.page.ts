@@ -19,11 +19,12 @@ import { LoadingModalControllerService } from 'src/app/shared-resources';
 export class InfoEquipmentPage implements OnInit {
   private id: string;
 
+  public filledValues: boolean = false;
+
   public detailForm: boolean = false;
   public editForm: boolean = false;
 
   public equipment: any;
-  public equipmentType: string;
 
   public formPatrimonyId: string;
 	public formManufacturer: string;
@@ -54,8 +55,8 @@ export class InfoEquipmentPage implements OnInit {
 
   constructor(
     public controller: EquipmentControllerService,
-    public loadingModalControllerService: LoadingModalControllerService,
     public sectorController: SectorControllerService,
+    private loadingModalControllerService: LoadingModalControllerService,
     private route: ActivatedRoute,
     private modalController: ModalController
   ) { }
@@ -68,25 +69,23 @@ export class InfoEquipmentPage implements OnInit {
 
   async initValues() {
     await this.loadingModalControllerService.loadingPresent();
-    await this.sectorController.updateSectorsList();
+    
+    await this.sectorController.findAllSectors().toPromise().then((res) => {
+      this.sectorController.sectors = res;
+    });
+    
     this.controller.findEquipment(this.id).subscribe(
-      res => {
-        let response = res;
-        this.equipmentType = response.equipmentType
-        if(this.equipmentType === "COMPUTER") {
-          this.equipment = response;
-          if(this.equipment.ramMemories.length > 0 || this.equipment.storageDevices.length > 0) {
+      async res => {
+        if(res.equipmentType === "COMPUTER") {
+          this.equipment = res;
+          if(this.equipment.ramMemories.length > 0 || this.equipment.storageDevices.length > 0)
             this.detailForm = true;
-          }
-          this.populateAvailableAvailableMonitors();
+          await this.populateAvailableAvailableMonitors();
         }
-        else if(this.equipmentType === "PRINTER" || this.equipmentType === "NETWORK_DEVICE") {
-          this.equipment = response;
-        }
-        else if(this.equipmentType === "MONITOR") {
-          this.equipment = response;
-        }
+        else if(res.equipmentType === "PRINTER" || res.equipmentType === "NETWORK_DEVICE" || res.equipmentType === "MONITOR")
+          this.equipment = res;
         this.populateForm();
+        this.filledValues = true;
         this.loadingModalControllerService.loadingDismiss();
       },
       error => {
@@ -171,19 +170,17 @@ export class InfoEquipmentPage implements OnInit {
       this.editForm = true;
   }
 
-  populateAvailableAvailableMonitors() {
-    this.controller.getAvailableMonitors().subscribe(res => {
+  async populateAvailableAvailableMonitors() {
+    this.controller.getAvailableMonitors().toPromise().then((res) => {
       this.availableMonitors = res;
       if (this.equipment.monitor !== null) {
         this.availableMonitors.push(this.equipment.monitor);
       }
-    }, 
-    error => {
     });
   }
 
   async populateForm() {
-    if(this.equipmentType === "COMPUTER") {
+    if(this.equipment.equipmentType === "COMPUTER") {
       this.formManufacturer = this.equipment.manufacturer;
       this.formModel = this.equipment.model;
       this.formDescription = this.equipment.description;
@@ -210,7 +207,7 @@ export class InfoEquipmentPage implements OnInit {
       this.storageDevices = this.equipment.storageDevices;
       this.computerUsers = this.equipment.computerUsers;
     }
-    else if(this.equipmentType === "PRINTER" || this.equipmentType === "NETWORK_DEVICE") {
+    else if(this.equipment.equipmentType === "PRINTER" || this.equipment.equipmentType === "NETWORK_DEVICE") {
       this.formManufacturer = this.equipment.manufacturer;
       this.formModel = this.equipment.model;
       this.formDescription = this.equipment.description;
@@ -220,7 +217,7 @@ export class InfoEquipmentPage implements OnInit {
       this.formHostName = this.equipment.hostName;
       this.formSectorId = this.equipment.sector.id;
     }
-    else if(this.equipmentType === "MONITOR") {    
+    else if(this.equipment.equipmentType === "MONITOR") {    
       this.formManufacturer = this.equipment.manufacturer;
       this.formModel = this.equipment.model;
       this.formDescription = this.equipment.description;
@@ -231,7 +228,7 @@ export class InfoEquipmentPage implements OnInit {
   }
 
   update() {    
-    if(this.equipmentType === "COMPUTER") {
+    if(this.equipment.equipmentType === "COMPUTER") {
       if(!this.detailForm){
         this.formMotherBoardName = undefined;
         this.formCabinetModel = undefined;
@@ -394,7 +391,7 @@ export class InfoEquipmentPage implements OnInit {
 
       this.controller.updateComputer(this.id, equipment);
     }
-    else if(this.equipmentType === "PRINTER") {
+    else if(this.equipment.equipmentType === "PRINTER") {
       this.controller.updatePrinter(this.id, 
         {
           manufacturer: this.formManufacturer,
@@ -409,7 +406,7 @@ export class InfoEquipmentPage implements OnInit {
         }
       );
     }
-    else if(this.equipmentType === "NETWORK_DEVICE") {
+    else if(this.equipment.equipmentType === "NETWORK_DEVICE") {
       this.controller.updateNetworkDevice(this.id, 
         {
           manufacturer: this.formManufacturer,
@@ -424,7 +421,7 @@ export class InfoEquipmentPage implements OnInit {
         }
       );
     }
-    else if(this.equipmentType === "MONITOR") {      
+    else if(this.equipment.equipmentType === "MONITOR") {      
       this.controller.updateMonitor(this.id, 
         {
           manufacturer: this.formManufacturer,
@@ -439,11 +436,13 @@ export class InfoEquipmentPage implements OnInit {
   }
 
   delete() {
-    if(this.equipmentType === "COMPUTER")
+    if(this.equipment.equipmentType === "COMPUTER")
       this.controller.deleteComputer(this.id);
-    else if(this.equipmentType === "PRINTER")
+    else if(this.equipment.equipmentType === "PRINTER")
       this.controller.deletePrinter(this.id);
-    else if(this.equipmentType === "MONITOR")
+    else if(this.equipment.equipmentType === "NETWORK_DEVICE")
+      this.controller.deleteNetworkDevice(this.id);
+    else if(this.equipment.equipmentType === "MONITOR")
       this.controller.deleteMonitor(this.id);
   }
 
@@ -452,9 +451,14 @@ export class InfoEquipmentPage implements OnInit {
       component: InfoElectronicComponentModalPage,
       componentProps: {
         electronicComponent: electronicComponent,
-        editForm: false,        
+        editForm: false,
       }
     });    
+
+    modal.onDidDismiss().then((dataReturned) => {
+      if (dataReturned.data !== undefined)
+        console.log(dataReturned.data);
+    });
     return await modal.present();
   }
 

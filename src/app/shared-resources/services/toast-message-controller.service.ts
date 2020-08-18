@@ -31,7 +31,7 @@ export class ToastMessageControllerService {
       header: title,
       message: msg,
       position: 'bottom',
-      duration: 2500,
+      duration: 3500,
       buttons: [
         {
           text: 'Ok',

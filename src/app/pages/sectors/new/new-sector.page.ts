@@ -9,7 +9,7 @@ import { SectorNewDTO, SectorService, SectorControllerService } from '../shared'
   templateUrl: './new-sector.page.html',
   styleUrls: ['./new-sector.page.scss'],
 })
-export class NewSectorPage implements OnInit {
+export class NewSectorPage implements OnInit {  
   sector: SectorNewDTO = {
     name: "",
     phone: ""

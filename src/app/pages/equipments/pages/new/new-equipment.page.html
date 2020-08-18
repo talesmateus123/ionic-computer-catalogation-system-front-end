@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header *ngIf="filledValues">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="equipments"></ion-back-button>
@@ -22,7 +22,7 @@
   </ion-toolbar>  
 </ion-header>
 
-<ion-header *ngIf="!formPersonalComputer">
+<ion-header *ngIf="filledValues && !formPersonalComputer">
   <ion-item *ngIf="equipmentType === 'COMPUTER'">
     <ion-label *ngIf="detailForm" style="text-size-adjust: 10px;">Detalhado</ion-label>
     <ion-label *ngIf="!detailForm" style="text-size-adjust: 10px;">Não detalhado</ion-label>
@@ -30,8 +30,7 @@
   </ion-item>
 </ion-header>
 
-<ion-content (keypress)="eventHandler($event.keyCode)">
-
+<ion-content *ngIf="filledValues" (keypress)="eventHandler($event.keyCode)">
   <ion-list *ngIf="equipmentType === 'COMPUTER'">
     <ion-list>
       <ion-list-header class="title" color="dark">Informações gerais</ion-list-header>
@@ -92,7 +91,6 @@
       <ion-item *ngIf="processors.length === 0; else processorAdded">
         <ion-label>Nenhum processador adicionado</ion-label>
       </ion-item>
-
 
       <ng-template #processorAdded >
         <ion-item (click)="electronicComponentModalPresent(processors[0])">
@@ -221,7 +219,7 @@
         </ion-item>
   
         <ion-item *ngFor="let storageDevice of storageDevices" (click)="electronicComponentModalPresent(storageDevice)">
-          <ion-icon slot="start" name="server"></ion-icon>
+          <ion-icon slot="start" size="large" name="server"></ion-icon>
           <ion-label *ngIf="storageDevice.manufacturer === '' && storageDevice.model === '' && storageDevice.sizeInGB === 0; else storageDeviceNotEmpty">
             <h2>Clique para gerenciar o armazenamento</h2>
           </ion-label>
@@ -476,7 +474,7 @@
 
 </ion-content>
 
-<ion-footer> 
+<ion-footer *ngIf="filledValues"> 
   <ion-toolbar>
     <ion-grid>
       <ion-row class="ion-align-items-center">

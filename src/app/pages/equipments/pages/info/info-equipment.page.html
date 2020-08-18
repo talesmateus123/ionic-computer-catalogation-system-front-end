@@ -1,12 +1,12 @@
-<ion-header>
+<ion-header *ngIf="filledValues">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="equipments"></ion-back-button>
     </ion-buttons>
-    <ion-title *ngIf="equipmentType === 'COMPUTER'">Informações do computador</ion-title>
-    <ion-title *ngIf="equipmentType === 'PRINTER'">Informações da impressora</ion-title>
-    <ion-title *ngIf="equipmentType === 'NETWORK_DEVICE'">Informações do dispositivo de rede</ion-title>
-    <ion-title *ngIf="equipmentType === 'MONITOR'">Informações do monitor</ion-title>
+    <ion-title *ngIf="equipment.equipmentType === 'COMPUTER'">Informações do computador</ion-title>
+    <ion-title *ngIf="equipment.equipmentType === 'PRINTER'">Informações da impressora</ion-title>
+    <ion-title *ngIf="equipment.equipmentType === 'NETWORK_DEVICE'">Informações do dispositivo de rede</ion-title>
+    <ion-title *ngIf="equipment.equipmentType === 'MONITOR'">Informações do monitor</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="setEditForm()">
         <ion-icon slot="icon-only" name="create"></ion-icon>          
@@ -15,17 +15,16 @@
   </ion-toolbar>  
 </ion-header>
 
-<ion-header *ngIf="!formPersonalComputer && !editForm">
-  <ion-item *ngIf="equipmentType === 'COMPUTER'">
+<ion-header *ngIf="filledValues && !formPersonalComputer && !editForm">
+  <ion-item *ngIf="equipment.equipmentType === 'COMPUTER'">
     <ion-label *ngIf="detailForm" style="text-size-adjust: 10px;">Detalhado</ion-label>
     <ion-label *ngIf="!detailForm" style="text-size-adjust: 10px;">Não detalhado</ion-label>
     <ion-toggle color="dark" slot="end" [(ngModel)]="detailForm"></ion-toggle>
   </ion-item>
 </ion-header>
 
-<ion-content *ngIf="equipment" (keypress)="eventHandler($event.keyCode)">
-  
-  <ion-list *ngIf="equipmentType === 'COMPUTER'">
+<ion-content *ngIf="filledValues" (keypress)="eventHandler($event.keyCode)">  
+  <ion-list *ngIf="equipment.equipmentType === 'COMPUTER'">
     <ion-list>
       <ion-list-header class="title" color="dark">Informações gerais</ion-list-header>
       <ion-item [disabled]="editForm">
@@ -216,7 +215,7 @@
         </ion-item>
   
         <ion-item [disabled]="editForm" *ngFor="let storageDevice of storageDevices" (click)="electronicComponentModalPresent(storageDevice)">
-          <ion-icon slot="start" name="server"></ion-icon>
+          <ion-icon slot="start" size="large" name="server"></ion-icon>
           <ion-label *ngIf="storageDevice.manufacturer === '' && storageDevice.model === '' && storageDevice.sizeInGB === 0; else storageDeviceNotEmpty">
             <h2>Clique para gerenciar o armazenamento</h2>
           </ion-label>
@@ -340,7 +339,7 @@
       </div>
 
       <!--
-      <div *ngIf="equipmentType === 'MONITOR'">
+      <div *ngIf="equipment.equipmentType === 'MONITOR'">
         <ion-item *ngIf="availableComputers">
           <ion-label>Associar a um computador:</ion-label>
           <ion-select [(ngModel)]="formComputerId"  ok-text="Ok" cancel-text="Cancelar">
@@ -367,7 +366,7 @@
 
 
 
-  <ion-list *ngIf="equipmentType === 'PRINTER' || equipmentType === 'NETWORK_DEVICE'">
+  <ion-list *ngIf="equipment.equipmentType === 'PRINTER' || equipment.equipmentType === 'NETWORK_DEVICE'">
     <ion-list>
       <ion-list-header class="title" color="dark">Informações gerais</ion-list-header>
       
@@ -400,12 +399,12 @@
         <ion-input [disabled]="editForm" type="text" [(ngModel)]="formMacAddress"></ion-input>    
       </ion-item>
       
-      <ion-item *ngIf="equipmentType === 'PRINTER'">
+      <ion-item *ngIf="equipment.equipmentType === 'PRINTER'">
         <ion-label>Nome da impressora:</ion-label>
         <ion-input [disabled]="editForm" type="text" [(ngModel)]="formHostName"></ion-input>    
       </ion-item>
 
-      <ion-item *ngIf="equipmentType === 'NETWORK_DEVICE'">
+      <ion-item *ngIf="equipment.equipmentType === 'NETWORK_DEVICE'">
         <ion-label>Nome do dispositivo:</ion-label>
         <ion-input [disabled]="editForm" type="text" [(ngModel)]="formHostName"></ion-input>    
       </ion-item>
@@ -430,7 +429,7 @@
   </ion-list>
 
 
-  <ion-list *ngIf="equipmentType === 'MONITOR'">
+  <ion-list *ngIf="equipment.equipmentType === 'MONITOR'">
     <ion-list>
       <ion-list-header class="title" color="dark">Informações gerais</ion-list-header>
       

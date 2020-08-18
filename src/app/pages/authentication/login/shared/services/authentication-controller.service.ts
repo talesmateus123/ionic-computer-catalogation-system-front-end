@@ -65,7 +65,7 @@ export class AuthenticationControllerService {
     let msg: string = error;
     const toast = await this.toastController.create({
       header: 'Opps!',
-      message: 'Ocorreu um erro ao fazer login: ' + msg,
+      message: msg,
       position: 'bottom',
       duration: 2500,
       buttons: [

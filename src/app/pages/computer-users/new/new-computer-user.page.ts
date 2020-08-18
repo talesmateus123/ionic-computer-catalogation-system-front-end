@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ComputerUserControllerService } from '../shared';
 import { SectorControllerService } from '../../sectors';
+import { LoadingModalControllerService } from 'src/app/shared-resources';
 
 @Component({
   selector: 'app-new-computer-user',
@@ -10,6 +11,8 @@ import { SectorControllerService } from '../../sectors';
 export class NewComputerUserPage implements OnInit {
   private id: string;
 
+  public filledValues: boolean = false;
+  
   public formName: string;
 	public formLastName: string;
 	public formEmail: string;
@@ -18,12 +21,23 @@ export class NewComputerUserPage implements OnInit {
 
   constructor(
     public controller: ComputerUserControllerService,
-    public sectorController: SectorControllerService) { }
+    public sectorController: SectorControllerService,
+    private loadingModalControllerService: LoadingModalControllerService,
+    ) { }
 
   ngOnInit() {
-    this.sectorController.updateSectorsList();
+    this.initValues();
   }
 
+  async initValues() {
+    await this.loadingModalControllerService.loadingPresent();
+    this.sectorController.findAllSectors().toPromise().then((res) => {
+      this.sectorController.sectors = res;
+      this.filledValues = true;
+      this.loadingModalControllerService.loadingDismiss();
+    });
+  }
+  
   create() {
     this.controller.createComputerUser(
       {
