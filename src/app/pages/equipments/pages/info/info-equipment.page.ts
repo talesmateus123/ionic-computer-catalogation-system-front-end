@@ -61,9 +61,14 @@ export class InfoEquipmentPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadingModalControllerService.loadingPresent();
     this.id = this.route.snapshot.paramMap.get('id')
-    this.sectorController.updateSectorsList();
+    this.editForm = true;    
+    this.initValues();
+  }
+
+  async initValues() {
+    await this.loadingModalControllerService.loadingPresent();
+    await this.sectorController.updateSectorsList();
     this.controller.findEquipment(this.id).subscribe(
       res => {
         let response = res;
@@ -87,9 +92,9 @@ export class InfoEquipmentPage implements OnInit {
       error => {
         //this.controller.errorMessageAlert(error);
         this.controller.redirectToRootPage();
+        this.loadingModalControllerService.loadingDismiss();
       }
     );
-    this.editForm = true;    
   }
 
   public addProcessor() {
@@ -177,7 +182,7 @@ export class InfoEquipmentPage implements OnInit {
     });
   }
 
-  populateForm() {
+  async populateForm() {
     if(this.equipmentType === "COMPUTER") {
       this.formManufacturer = this.equipment.manufacturer;
       this.formModel = this.equipment.model;

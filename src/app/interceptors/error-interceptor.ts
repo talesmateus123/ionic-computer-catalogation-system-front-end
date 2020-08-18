@@ -16,16 +16,23 @@ export class ErrorInterceptor implements HttpInterceptor {
             .pipe(
                 retry(1),
                 catchError((error: HttpErrorResponse) => {
-                    //console.log(error.status)
-
+                    //console.log(error)
+                    let errorTitle = `Erro!`;
                     let errorMessage = '';
                     if(error.status === 0) {
-                        //errorMessage = `Falha ao obter conexão com o servidor.`;
+                        errorMessage = `Falha ao obter conexão com o servidor.`;
+                    }
+                    else if (error.status === 422) {
+                        errorTitle = `${error.error.error}`;
+                        let errors: any[] = error.error.errors;                        
+                        for (let index in errors)
+                            errorMessage = errorMessage + errors[index].fieldName + ": " + errors[index].message + "<br>";
                     }
                     else {
-                        //errorMessage = `Server error: ${error}\nMessage: `;
+                        errorTitle = `${error.error.error}`;
+                        errorMessage = `${error.error.message}`;
                     }
-                    this.toastMessageControllerService.errorMessageAlert(errorMessage);
+                    this.toastMessageControllerService.errorMessageAlert(errorTitle, errorMessage);
                     return throwError(errorMessage);
                 })
             )

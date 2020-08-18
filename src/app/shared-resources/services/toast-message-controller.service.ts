@@ -26,9 +26,9 @@ export class ToastMessageControllerService {
     toast.present();
   }
 
-  async errorMessageAlert(msg: string) {
+  async errorMessageAlert(title: string, msg: string) {
     const toast = await this.toastController.create({
-      header: 'Erro!',
+      header: title,
       message: msg,
       position: 'bottom',
       duration: 2500,

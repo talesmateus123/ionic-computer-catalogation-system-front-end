@@ -20,8 +20,13 @@ export class InfoSectorPage implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.loadingModalControllerService.loadingPresent();
     this.id = this.route.snapshot.paramMap.get('id')
+    this.editForm = true;
+    this.initValues();
+  }
+
+  async initValues() {
+    await this.loadingModalControllerService.loadingPresent();
     this.controller.findSector(this.id).subscribe(
       res => {
         this.sector = res
@@ -30,9 +35,9 @@ export class InfoSectorPage implements OnInit {
       error => {
         //this.controller.errorMessageAlert(error);
         this.controller.redirectToRootPage();
+        this.loadingModalControllerService.loadingDismiss();
       }
     )
-    this.editForm = true;
   }
   
   setEditForm() {

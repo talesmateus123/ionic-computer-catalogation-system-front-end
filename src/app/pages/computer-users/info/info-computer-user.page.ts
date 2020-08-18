@@ -29,9 +29,14 @@ export class InfoComputerUserPage implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.loadingModalControllerService.loadingPresent();
     this.id = this.route.snapshot.paramMap.get('id')
-    this.sectorController.updateSectorsList();
+    this.editForm = true;
+    this.initValues();
+  }
+
+  async initValues() {
+    await this.loadingModalControllerService.loadingPresent();
+    await this.sectorController.updateSectorsList();
     this.controller.findComputerUser(this.id).subscribe(
       res => {
         this.computerUser = res;
@@ -41,11 +46,11 @@ export class InfoComputerUserPage implements OnInit {
       error => {
         //this.controller.errorMessageAlert(error);
         this.controller.redirectToRootPage();
+        this.loadingModalControllerService.loadingDismiss();
       }
     );
-    this.editForm = true;
   }
-
+  
   setEditForm() {
     if (this.editForm)
       this.editForm = false;
