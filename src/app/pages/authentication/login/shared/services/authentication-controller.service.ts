@@ -39,8 +39,14 @@ export class AuthenticationControllerService {
     this.sessionManagerService.logout();
   }
 
+  public isLoggedIn(): boolean {
+    if(this.sessionManagerService.getSessionAuthorizationToken())
+      return true;
+    return false;
+  }
+
   redirectToMainPage(): void {
-    this.router.navigate(['sectors']);
+    this.router.navigate(['equipments']);
   }
 
   async successMessageAlert(msg: string) {

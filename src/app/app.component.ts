@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   public selectedIndex = 0;
   public appPages = [
     {
@@ -42,13 +41,11 @@ export class AppComponent implements OnInit {
     }    
   ];
   public labels = ['Family', 'Friends'];
-  public isTheHomePage: boolean;
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar,
-    private router: Router
+    private statusBar: StatusBar
   ) {
     this.initializeApp();
   }
@@ -60,17 +57,4 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    //console.log(this.router.url);
-    /*
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd ) {
-        if(event.url === "/" || event.url === "/home")
-          this.isTheHomePage = true;
-        else
-          this.isTheHomePage = false;
-      }
-    });
-    */
-  }
 }

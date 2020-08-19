@@ -11,7 +11,9 @@ import { User, Login } from '../models';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private url = `${env.baseUrl}${API_CONFIG.paths.login}`;
+  //private url = `${env.baseUrl}${API_CONFIG.paths.login}`;
+  private url = `${API_CONFIG.baseUrl}${API_CONFIG.paths.login}`;
+
 
   constructor(public http: HttpClient) {
   }

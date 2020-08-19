@@ -8,39 +8,39 @@ export class SessionManagerService {
 
   constructor() { }
 
-  public getSessionUserEmail(){
+  public getSessionUserEmail(): string {
     return localStorage['user-email'];
   }
 
-  public setSessionUserEmail(userMail: String){
+  public setSessionUserEmail(userMail: String): void {
     localStorage['user-email'] = userMail;
   }
 
-  public getSessionAuthorizationToken() {
+  public getSessionAuthorizationToken(): string {
     return localStorage['authorization-token'];
   }
 
-  public setSessionToken(token: string) {
+  public setSessionAuthorizationToken(token: string): void {
     localStorage['authorization-token'] = token;
   }
 
-  public getTokenExpirationDate() {
+  public getTokenExpirationDate(): void {
     return localStorage['token-expiration'];
   }
 
-  public setTokenExpirationDate(token: string) {
+  public setTokenExpirationDate(token: string): void {
     localStorage['token-expiration'] = token.substring(7);
   }
 
-  successfulLogin(authorizationValue: string) {
+  public successfulLogin(authorizationValue: string): void {
     let tok = authorizationValue.substring(7);
     this.setSessionUserEmail(jwt_decode(tok).sub);
-    this.setSessionToken(tok);
+    this.setSessionAuthorizationToken(tok);
   }
 
-  public logout() {
+  public logout(): void {
     this.setSessionUserEmail(null);
-    this.setSessionToken(null);
+    this.setSessionAuthorizationToken(null);
   }
   
 }

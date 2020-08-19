@@ -3,12 +3,16 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HTTP_INTERCEPTORS, HttpError
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { ToastMessageControllerService } from '../shared-resources';
+import { SessionManagerService } from 'src/app/pages/authentication/login/shared';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 
 export class ErrorInterceptor implements HttpInterceptor {
     constructor(
-        private toastMessageControllerService: ToastMessageControllerService
+        private toastMessageControllerService: ToastMessageControllerService,
+        private sessionManagerService: SessionManagerService,
+        private router: Router
     ) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
@@ -16,7 +20,6 @@ export class ErrorInterceptor implements HttpInterceptor {
             .pipe(
                 retry(1),
                 catchError((error: HttpErrorResponse) => {
-                    //console.log(error)
                     let errorTitle = `Erro!`;
                     let errorMessage = '';
                     if(error.status === 0) {
@@ -28,7 +31,14 @@ export class ErrorInterceptor implements HttpInterceptor {
                         for (let index in errors)
                             errorMessage = errorMessage + errors[index].fieldName + ": " + errors[index].message + "<br>";
                     }
-                    else {
+                    else if (error.status === 403) {
+                        errorTitle = `Proibido`;
+                        errorMessage = `Você precisa logar para continuar.`;
+                        this.sessionManagerService.logout();
+                        this.redirectToLoginPage();
+                        
+                    }
+                    else {                        
                         errorTitle = `${error.error.error}`;
                         errorMessage = `${error.error.message}`;
                     }
@@ -38,6 +48,10 @@ export class ErrorInterceptor implements HttpInterceptor {
             )
     }
 
+    private redirectToLoginPage(): void {
+        this.router.navigate(['login']);
+    }
+    
 }
 
 export const ErrorInterceptorProvider = {

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationControllerService, User, Login } from './shared';
+import { MenuController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,11 +14,25 @@ export class LoginPage implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private controller: AuthenticationControllerService
+    private controller: AuthenticationControllerService,
+    private menuController: MenuController,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.generateForm();
+    
+    if(this.controller.isLoggedIn()){
+      this.redirectToEquipmentsPage();
+    }
+  }
+
+  ionViewWillEnter() {
+    this.menuController.enable(false);
+  }
+
+  ionViewDidLeave() {
+    this.menuController.enable(true);
   }
 
   generateForm() {
@@ -31,9 +47,13 @@ export class LoginPage implements OnInit {
       this.controller.errorMessageAlert("Os dados do formulário estão incorretos");
       return;
     }
-      const login: Login = this.form.value;
+    const login: Login = this.form.value;
     this.controller.login(login);
   }
+
+  private redirectToEquipmentsPage(): void {
+    this.router.navigate(['login']);
+}
 
   eventHandler($keyCode) {
     if ($keyCode === 13)
