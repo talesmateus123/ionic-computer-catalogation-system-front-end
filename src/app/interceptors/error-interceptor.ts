@@ -3,16 +3,14 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HTTP_INTERCEPTORS, HttpError
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { ToastMessageControllerService } from '../shared-resources';
-import { SessionManagerService } from 'src/app/pages/authentication/login/shared';
-import { Router } from '@angular/router';
+import { AuthenticationControllerService } from 'src/app/pages/authentication/login/shared';
 
 @Injectable({ providedIn: 'root' })
 
 export class ErrorInterceptor implements HttpInterceptor {
     constructor(
         private toastMessageControllerService: ToastMessageControllerService,
-        private sessionManagerService: SessionManagerService,
-        private router: Router
+        private authenticationControllerService: AuthenticationControllerService
     ) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
@@ -34,9 +32,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                     else if (error.status === 403) {
                         errorTitle = `Proibido`;
                         errorMessage = `Você precisa logar para continuar.`;
-                        this.sessionManagerService.logout();
-                        this.redirectToLoginPage();
-                        
+                        this.authenticationControllerService.logout();
                     }
                     else {                        
                         errorTitle = `${error.error.error}`;
@@ -46,10 +42,6 @@ export class ErrorInterceptor implements HttpInterceptor {
                     return throwError(errorMessage);
                 })
             )
-    }
-
-    private redirectToLoginPage(): void {
-        this.router.navigate(['login']);
     }
     
 }

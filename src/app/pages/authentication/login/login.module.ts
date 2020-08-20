@@ -10,7 +10,6 @@ import { LoginPageRoutingModule } from './login-routing.module';
 
 import { LoginPage } from './login.page';
 import { AuthenticationService, AuthenticationControllerService} from './shared';
-import { SessionManagerService } from './shared/services/session-manager.service';
 import { ErrorInterceptorProvider } from 'src/app/interceptors/error-interceptor';
 
 @NgModule({
@@ -27,7 +26,6 @@ import { ErrorInterceptorProvider } from 'src/app/interceptors/error-interceptor
   ],
   providers: [
     FormBuilder,
-    SessionManagerService,
     AuthenticationService,
     AuthenticationControllerService,
     ErrorInterceptorProvider

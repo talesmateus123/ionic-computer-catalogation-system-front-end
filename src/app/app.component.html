@@ -19,6 +19,11 @@
                 <ion-label>{{ p.title }}</ion-label>
               </ion-item>
             </ion-menu-toggle>
+
+            <ion-item (click)="authenticationControllerService.logout()">
+              <ion-icon slot="start" size="large" ></ion-icon>
+              <ion-label>Logout</ion-label>
+            </ion-item>
           </ion-list>
 
           <ion-list id="labels-list">

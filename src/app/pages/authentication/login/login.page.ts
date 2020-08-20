@@ -21,10 +21,6 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.generateForm();
-    
-    if(this.controller.isLoggedIn()){
-      this.redirectToEquipmentsPage();
-    }
   }
 
   ionViewWillEnter() {
@@ -50,10 +46,6 @@ export class LoginPage implements OnInit {
     const login: Login = this.form.value;
     this.controller.login(login);
   }
-
-  private redirectToEquipmentsPage(): void {
-    this.router.navigate(['login']);
-}
 
   eventHandler($keyCode) {
     if ($keyCode === 13)

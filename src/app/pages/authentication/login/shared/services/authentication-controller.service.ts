@@ -3,9 +3,11 @@ import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
-import { SessionManagerService } from '../services/session-manager.service';
+import * as jwt_decode from 'jwt-decode';
+
+import { SessionStorageService } from './session-storage.service';
 import { AuthenticationService } from './authentication.service';
-import { Login } from '../models';
+import { Login, User } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -15,18 +17,17 @@ export class AuthenticationControllerService {
   constructor(
     private toastController: ToastController,
     private router: Router,
-    private sessionManagerService: SessionManagerService,
+    private sessionStorageService: SessionStorageService,
     private service: AuthenticationService,
     public http: HttpClient
   ) { }
 
-  login(login: Login) {
+  public login(login: Login) {
     this.service.login(login).subscribe(
       res => {
-        this.sessionManagerService.setTokenExpirationDate(res.headers.get('token-expiration'));
-        this.sessionManagerService.successfulLogin(res.headers.get('Authorization'));
+        this.successfulLogin(res.headers.get('Authorization'), res.headers.get('token-expiration'));
         this.successMessageAlert(null);
-        this.redirectToMainPage();
+        this.redirectToEquipmentsPage();
       },
       error => {
         console.log(error)
@@ -35,17 +36,44 @@ export class AuthenticationControllerService {
     );
   }
 
-  logout() {
-    this.sessionManagerService.logout();
+  public logout() {
+    this.sessionStorageService.setSessionAuthorizationToken(null);
+    this.sessionStorageService.setSessionUserEmail(null);
+    this.sessionStorageService.setTokenExpirationDate(null);
+    this.redirectToLoginPage();
+  }
+
+  public getSessionUser(): User {
+    if(this.sessionStorageService.getSessionAuthorizationToken() !== null 
+     && this.sessionStorageService.getSessionUserEmail() !== null
+     && this.sessionStorageService.getTokenExpirationDate() !== null) {
+      return {
+        token: this.sessionStorageService.getSessionAuthorizationToken(),
+        email: this.sessionStorageService.getSessionUserEmail(),
+        tokenExpiration: this.sessionStorageService.getTokenExpirationDate()
+      }
+    }
+    return null;
+  }
+
+  public successfulLogin(authorizationValue: string, tokenExpiration: string): void {
+    let tok = authorizationValue.substring(7);
+    this.sessionStorageService.setSessionUserEmail(jwt_decode(tok).sub);
+    this.sessionStorageService.setSessionAuthorizationToken(tok);
+    this.sessionStorageService.setTokenExpirationDate(tokenExpiration);
   }
 
   public isLoggedIn(): boolean {
-    if(this.sessionManagerService.getSessionAuthorizationToken())
+    if(this.getSessionUser() !== null)
       return true;
     return false;
   }
 
-  redirectToMainPage(): void {
+  public redirectToLoginPage(): void {
+    this.router.navigate(['login']);
+  }
+
+  public redirectToEquipmentsPage(): void {
     this.router.navigate(['equipments']);
   }
 

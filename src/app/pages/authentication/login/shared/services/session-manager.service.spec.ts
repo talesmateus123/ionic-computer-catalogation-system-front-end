@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SessionManagerService } from './session-manager.service';
+import { SessionStorageService } from './session-storage.service';
 
-describe('SessionManagerService', () => {
+describe('SessionStorageService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: SessionManagerService = TestBed.get(SessionManagerService);
+    const service: SessionStorageService = TestBed.get(SessionStorageService);
     expect(service).toBeTruthy();
   });
 });

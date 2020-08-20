@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { SessionManagerService } from '../pages/authentication/login/shared/services/session-manager.service';
+import { AuthenticationControllerService, User } from '../pages/authentication/login/shared';
+
 
 @Injectable({ providedIn: 'root' })
 
 export class AuthInterceptor implements HttpInterceptor {
     constructor(
-        private sessionManagerService: SessionManagerService
+        private authenticationControllerService: AuthenticationControllerService
     ) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        let authorization: string = this.sessionManagerService.getSessionAuthorizationToken();
+        let sessionUser: User = this.authenticationControllerService.getSessionUser();
         
-        if(authorization) {
+        if(sessionUser) {
             const authReq = request.clone({
-                headers: request.headers.set('Authorization', 'Bearer ' + authorization)
+                headers: request.headers.set('Authorization', 'Bearer ' + sessionUser.token)
             });
             return next.handle(authReq);
         }
