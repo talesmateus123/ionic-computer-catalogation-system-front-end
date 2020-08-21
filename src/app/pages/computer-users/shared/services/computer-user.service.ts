@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+import { environment } from 'src/environments/environment';
+
 import { ComputerUserDTO, ComputerUserNewDTO } from '../models';
 import { API_CONFIG } from 'src/app/config';
 
@@ -9,7 +11,7 @@ import { API_CONFIG } from 'src/app/config';
   providedIn: 'root'
 })
 export class ComputerUserService {
-  private url = `${API_CONFIG.baseUrl}${API_CONFIG.paths.computer_users}`;
+  private url = `${environment.baseApiUrl}${API_CONFIG.paths.computer_users}`;
 
   constructor(
     public http: HttpClient

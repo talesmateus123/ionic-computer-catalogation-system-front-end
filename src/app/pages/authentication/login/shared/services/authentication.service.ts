@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { environment as env } from '../../../../../../environments/environment';
+import { environment } from 'src/environments/environment';
 
 import { API_CONFIG } from 'src/app/config';
 import { User, Login } from '../models';
@@ -11,9 +11,7 @@ import { User, Login } from '../models';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  //private url = `${env.baseUrl}${API_CONFIG.paths.login}`;
-  private url = `${API_CONFIG.baseUrl}${API_CONFIG.paths.login}`;
-
+  private url = `${environment.baseUrl}${API_CONFIG.paths.login}`;
 
   constructor(public http: HttpClient) {
   }

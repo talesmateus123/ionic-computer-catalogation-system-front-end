@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
+import { environment } from 'src/environments/environment';
 
 import { MonitorDTO, MonitorNewDTO } from '../models';
 import { API_CONFIG } from 'src/app/config';
@@ -9,7 +11,7 @@ import { API_CONFIG } from 'src/app/config';
   providedIn: 'root'
 })
 export class MonitorService {
-  private url = `${API_CONFIG.baseUrl}${API_CONFIG.paths.monitors}`;
+  private url = `${environment.baseApiUrl}${API_CONFIG.paths.monitors}`;
 
   constructor(
     public http: HttpClient

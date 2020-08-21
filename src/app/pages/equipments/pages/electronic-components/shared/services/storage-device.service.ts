@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+import { environment } from 'src/environments/environment';
+
 import { API_CONFIG } from 'src/app/config';
 import { StorageDeviceDTO, StorageDeviceNewDTO } from '../models';
 
@@ -9,7 +11,7 @@ import { StorageDeviceDTO, StorageDeviceNewDTO } from '../models';
   providedIn: 'root'
 })
 export class StorageDeviceService {
-  private url = `${API_CONFIG.baseUrl}${API_CONFIG.paths.storage_devices}`;
+  private url = `${environment.baseApiUrl}${API_CONFIG.paths.storage_devices}`;
 
   constructor(public http: HttpClient) {
   }

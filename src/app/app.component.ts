@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { AuthenticationControllerService } from './pages/authentication/login/shared';
+import { AuthenticationControllerService } from './pages';
 
 @Component({
   selector: 'app-root',
@@ -60,8 +60,9 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.authenticationControllerService.isLoggedIn())
+    if(this.authenticationControllerService.isLoggedIn()) {
       this.authenticationControllerService.redirectToEquipmentsPage();
+    }
     else
       this.authenticationControllerService.redirectToLoginPage();
   }

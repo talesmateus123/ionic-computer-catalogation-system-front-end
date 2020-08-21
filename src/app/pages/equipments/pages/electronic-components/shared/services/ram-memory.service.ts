@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+import { environment } from 'src/environments/environment';
+
 import { API_CONFIG } from 'src/app/config';
 import { RamMemoryDTO, RamMemoryNewDTO } from '../models';
 
@@ -9,7 +11,7 @@ import { RamMemoryDTO, RamMemoryNewDTO } from '../models';
   providedIn: 'root'
 })
 export class RamMemoryService {
-  private url = `${API_CONFIG.baseUrl}${API_CONFIG.paths.ram_memories}`;
+  private url = `${environment.baseApiUrl}${API_CONFIG.paths.ram_memories}`;
 
   constructor(public http: HttpClient) {
   }

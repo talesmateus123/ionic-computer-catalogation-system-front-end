@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+import { environment } from 'src/environments/environment';
+
 import { API_CONFIG } from 'src/app/config';
 import { ProcessorDTO, ProcessorNewDTO } from '../models';
 
@@ -9,7 +11,7 @@ import { ProcessorDTO, ProcessorNewDTO } from '../models';
   providedIn: 'root'
 })
 export class ProcessorService {
-  private url = `${API_CONFIG.baseUrl}${API_CONFIG.paths.processors}`;
+  private url = `${environment.baseApiUrl}${API_CONFIG.paths.processors}`;
 
   constructor(public http: HttpClient) {
   }

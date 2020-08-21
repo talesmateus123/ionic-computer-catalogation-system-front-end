@@ -1,13 +1,15 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
+
+import { environment } from 'src/environments/environment';
 
 import { API_CONFIG } from 'src/app/config';
 import { SectorDTO, SectorNewDTO } from '../models';
 
 @Injectable()
 export class SectorService {
-    private url = `${API_CONFIG.baseUrl}${API_CONFIG.paths.sectors}`;
+    private url = `${environment.baseApiUrl}${API_CONFIG.paths.sectors}`;
 
     constructor(
         public http: HttpClient

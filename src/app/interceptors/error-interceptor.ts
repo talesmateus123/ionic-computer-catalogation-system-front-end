@@ -34,16 +34,15 @@ export class ErrorInterceptor implements HttpInterceptor {
                         errorMessage = `Você precisa logar para continuar.`;
                         this.authenticationControllerService.logout();
                     }
-                    else {                        
+                    else {
                         errorTitle = `${error.error.error}`;
                         errorMessage = `${error.error.message}`;
                     }
                     this.toastMessageControllerService.errorMessageAlert(errorTitle, errorMessage);
                     return throwError(errorMessage);
                 })
-            )
+            );
     }
-    
 }
 
 export const ErrorInterceptorProvider = {

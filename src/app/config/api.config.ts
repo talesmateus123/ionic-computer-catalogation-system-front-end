@@ -1,19 +1,16 @@
 export const API_CONFIG = {
-    //baseUrl: "http://10.1.1.11:8080/",
-    baseUrl: "http://54.232.163.104:8080/",
-    //baseUrl: "http://localhost:8080/",
     paths: {
         "login": "login",
-        "sectors": "api/sectors",
-        "computers": "api/computers",
-        "printers": "api/printers",
-        "network_devices": "api/network_devices",
-        "monitors": "api/monitors",
-        "computer_users": "api/computer_users",
-        "processors": "api/processors",
-        "storage_devices": "api/storage_devices",
-        "ram_memories": "api/ram_memories",
-        "electronics": "api/electronics"
+        "sectors": "sectors",
+        "computers": "computers",
+        "printers": "printers",
+        "network_devices": "network_devices",
+        "monitors": "monitors",
+        "computer_users": "computer_users",
+        "processors": "processors",
+        "storage_devices": "storage_devices",
+        "ram_memories": "ram_memories",
+        "electronics": "electronics"
     },
     standardSearchMethod: {
         "search": "search",

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
+
+import { environment } from 'src/environments/environment';
 
 import { API_CONFIG } from 'src/app/config';
 
@@ -8,7 +10,7 @@ import { API_CONFIG } from 'src/app/config';
   providedIn: 'root'
 })
 export class ReportService {
-  private url = `${API_CONFIG.baseUrl}`;
+  private url = `${environment.baseApiUrl}`;
 
   constructor(
     public http: HttpClient) { }
