@@ -76,15 +76,13 @@ export class InfoEquipmentPage implements OnInit {
     
     this.controller.findEquipment(this.id).subscribe(
       async res => {
+        this.equipment = res;
         if(res.equipmentType === "COMPUTER") {
-          this.equipment = res;
           if(this.equipment.ramMemories.length > 0 || this.equipment.storageDevices.length > 0)
             this.detailForm = true;
           await this.populateAvailableAvailableMonitors();
         }
-        else if(res.equipmentType === "PRINTER" || res.equipmentType === "NETWORK_DEVICE" || res.equipmentType === "MONITOR")
-          this.equipment = res;
-        this.populateForm();
+        await this.populateForm();
         this.filledValues = true;
         this.loadingModalControllerService.loadingDismiss();
       },
@@ -163,15 +161,15 @@ export class InfoEquipmentPage implements OnInit {
     this.computerUsers.splice(index, 1);
   }
 
-  setEditForm() {
+  public setEditForm() {
     if (this.editForm)
       this.editForm = false;
     else
       this.editForm = true;
   }
 
-  async populateAvailableAvailableMonitors() {
-    this.controller.getAvailableMonitors().toPromise().then((res) => {
+  private async populateAvailableAvailableMonitors() {
+    await this.controller.getAvailableMonitors().toPromise().then((res) => {
       this.availableMonitors = res;
       if (this.equipment.monitor !== null) {
         this.availableMonitors.push(this.equipment.monitor);
@@ -179,7 +177,7 @@ export class InfoEquipmentPage implements OnInit {
     });
   }
 
-  async populateForm() {
+  private async populateForm() {
     if(this.equipment.equipmentType === "COMPUTER") {
       this.formManufacturer = this.equipment.manufacturer;
       this.formModel = this.equipment.model;

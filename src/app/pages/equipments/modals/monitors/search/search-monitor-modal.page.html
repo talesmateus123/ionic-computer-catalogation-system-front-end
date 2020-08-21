@@ -1,0 +1,53 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Filtrar monitores</ion-title>
+
+    <ion-buttons slot="end">      
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-header translucent>
+  <ion-item>
+    <ion-label style="text-size-adjust: 10px;">Ordenar por</ion-label>
+    <ion-select class="title" [(ngModel)]="orderBy" ok-text="Ok" cancel-text="Cancelar">
+      <ion-select-option value="patrimonyId">Número de patrimônio</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label style="text-size-adjust: 10px;">Tipo de pesquisa</ion-label>
+    <ion-select class="title" [(ngModel)]="searchType" ok-text="Ok" cancel-text="Cancelar">
+      <ion-select-option value="DEFAULT">Generalizada</ion-select-option>
+    </ion-select>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label *ngIf="asc" style="text-size-adjust: 10px;">Ascendente</ion-label>
+    <ion-label *ngIf="!asc" style="text-size-adjust: 10px;">Descedente</ion-label>
+    <ion-toggle color="dark" slot="end" [(ngModel)]="asc"></ion-toggle>
+  </ion-item>
+</ion-header>
+
+<ion-content fullscreen (keypress)="eventHandler($event.keyCode)">
+  <ion-item *ngIf="searchType ==='DEFAULT'; else booleanValue">
+    <ion-label>Termo de filtro:</ion-label>
+    <ion-input type="text" [(ngModel)]="searchTerm"></ion-input>
+  </ion-item>
+  
+</ion-content>
+
+<ion-footer > 
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="12" class="ion-text-center">
+          <ion-button (click)="returnDataAndDismiss()" expand="block" fill="clear" color="dark">Ok</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>    
+</ion-footer>

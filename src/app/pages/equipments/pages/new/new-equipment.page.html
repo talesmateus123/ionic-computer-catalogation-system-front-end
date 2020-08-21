@@ -334,11 +334,11 @@
       <ion-list-header class="title" color="dark">Outros</ion-list-header>
 
       <div *ngIf="!formPersonalComputer">
-        <ion-item *ngIf="availableMonitors">
+        <ion-item>
           <ion-label>Associar a um monitor:</ion-label>
           <ion-select [(ngModel)]="formMonitorId"  ok-text="Ok" cancel-text="Cancelar">
             <ion-select-option value="">Nenhum</ion-select-option>
-            <ion-select-option *ngFor="let monitor of availableMonitors" value={{monitor.id}}>{{ monitor.patrimonyId }} {{ monitor.manufacturer }}</ion-select-option>
+            <ion-select-option *ngFor="let monitor of availableMonitors" [value]="monitor.id">{{ monitor.patrimonyId }} {{ monitor.manufacturer }}</ion-select-option>
           </ion-select>
         </ion-item>        
       </div>
@@ -355,7 +355,7 @@
       </div>
       -->
 
-      <ion-item *ngIf="sectorController.sectors">
+      <ion-item>
         <ion-label>Setor:</ion-label>
         <ion-select [(ngModel)]="formSectorId"  ok-text="Ok" cancel-text="Cancelar">
           <ion-select-option *ngFor="let sector of sectorController.sectors" [value]="sector.id">{{ sector.name }}</ion-select-option>
@@ -419,7 +419,7 @@
     <ion-list>
       <ion-list-header class="title" color="dark">Outros</ion-list-header>
 
-      <ion-item *ngIf="sectorController.sectors">
+      <ion-item>
         <ion-label>Setor:</ion-label>
         <ion-select [(ngModel)]="formSectorId"  ok-text="Ok" cancel-text="Cancelar">
           <ion-select-option *ngFor="let sector of sectorController.sectors" [value]="sector.id">{{ sector.name }}</ion-select-option>
@@ -458,7 +458,7 @@
     <ion-list>
       <ion-list-header class="title" color="dark">Outros</ion-list-header>
 
-      <ion-item *ngIf="sectorController.sectors">
+      <ion-item>
         <ion-label>Setor:</ion-label>
         <ion-select [(ngModel)]="formSectorId"  ok-text="Ok" cancel-text="Cancelar" required>
           <ion-select-option *ngFor="let sector of sectorController.sectors" [value]="sector.id">{{ sector.name }}</ion-select-option>

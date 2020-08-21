@@ -24,13 +24,13 @@ export class InfoElectronicComponentModalPage implements OnInit {
 
   public electronicComponent: any;
 
-  formManufacturer: string;
-  formModel: string;
-  formDescription: string;
-  formProcessorName: string;
-  formArchitecture: string
-  formSizeInGB: number;
-  formType: string;
+  public formManufacturer: string;
+  public formModel: string;
+  public formDescription: string;
+  public formProcessorName: string;
+  public formArchitecture: string
+  public formSizeInGB: number;
+  public formType: string;
   
   constructor(
     private modalController: ModalController,

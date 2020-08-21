@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
+import { ModalController } from '@ionic/angular';
+
 import { ComputerUserDTO, ComputerUserService } from '../../../computer-users';
-import { ModalController, ToastController } from '@ionic/angular';
 import { SearchComputerUserModalPage } from './search';
 
 @Component({
@@ -9,15 +11,15 @@ import { SearchComputerUserModalPage } from './search';
   styleUrls: ['./computer-users-modal.page.scss'],
 })
 export class ComputerUsersModalPage implements OnInit {
-  public index: number
+  private index: number
   public computerUsersAlreadyEntered: ComputerUserDTO[];
   public computerUsers: ComputerUserDTO[];
+  
   public searchTerm: string = "";
   public asc: boolean = true;
   public orderBy: string = "name";
 
   constructor(
-    private toastController: ToastController,
     private modalController: ModalController,
     private computerUserService: ComputerUserService
   ) { }
@@ -39,18 +41,18 @@ export class ComputerUsersModalPage implements OnInit {
     this.modalController.dismiss();
   }
   
-  updateComputerUsersList(): void {
+  private updateComputerUsersList(): void {
     this.computerUsers = undefined;
     this.computerUserService.findAll()
       .subscribe(response => {
         this.computerUsers = [];
-        for(let index in response) {
-          if(!this.contains(this.computerUsersAlreadyEntered, response[index]))
-            this.computerUsers.push(response[index]);
+        for(let i in response) {
+          if(!this.contains(this.computerUsersAlreadyEntered, response[i]))
+            this.computerUsers.push(response[i]);
         }
       }, 
       error => {
-        this.errorMessageAlert(error);
+        // this.errorMessageAlert(error);
       });
   }
 
@@ -77,7 +79,7 @@ export class ComputerUsersModalPage implements OnInit {
         }
       },
       error => {
-        this.errorMessageAlert(error);
+        // this.errorMessageAlert(error);
       });
   }
 
@@ -102,26 +104,4 @@ export class ComputerUsersModalPage implements OnInit {
     return await modal.present();
   }
 
-  async errorMessageAlert(error: any) {
-    let msg: any;
-    if (error.error.error === undefined)
-      msg = "Erro desconhecido";
-    else
-      msg = error.error.error;
-    const toast = await this.toastController.create({
-      header: 'Opps!',
-      message: 'Parece que ocorreu um erro: ' + msg,
-      position: 'bottom',
-      duration: 2500,
-      buttons: [
-        {
-          text: 'Ok',
-          role: 'cancel',
-          handler: () => {
-          }
-        }
-      ]
-    });
-    toast.present();
-  }
 }

@@ -1,6 +1,10 @@
 <ion-header translucent>
   <ion-toolbar>
-    <ion-title>Filtrar equipamentos</ion-title>
+    <ion-title *ngIf="equipmentType === 'Computadores'">Filtrar computadores</ion-title>    
+    <ion-title *ngIf="equipmentType === 'Impressoras'">Filtrar impressoras</ion-title>
+    <ion-title *ngIf="equipmentType === 'Dispositivos de rede'">Filtrar dispositivos de rede</ion-title>
+    <ion-title *ngIf="equipmentType === 'Monitores'">Filtrar monitores</ion-title>
+
     <ion-buttons slot="end">      
       <ion-button (click)="dismiss()">
         <ion-icon slot="icon-only" name="close"></ion-icon>
@@ -23,14 +27,14 @@
   <ion-item>
     <ion-label style="text-size-adjust: 10px;">Tipo de pesquisa</ion-label>
     <ion-select class="title" [(ngModel)]="searchType" ok-text="Ok" cancel-text="Cancelar">
-      <ion-select-option *ngIf="equipmentType === 'Computadores'" value="DEFAULT">Generalizada</ion-select-option>
+      <ion-select-option value="DEFAULT">Generalizada</ion-select-option>
       <ion-select-option *ngIf="equipmentType === 'Computadores'" value="COMPUTER_PROCESSOR">Por processador</ion-select-option>
       <!--
       <ion-select-option *ngIf="equipmentType === 'Computadores'" value="COMPUTER_COMPUTER_USER">Por usuário</ion-select-option>
       -->
       <ion-select-option *ngIf="equipmentType === 'Computadores'" value="COMPUTER_ONLINE">Online</ion-select-option>
-      <ion-select-option *ngIf="equipmentType === 'Computadores'" value="COMPUTER_ON_THE_DOMAIN">No domínio</ion-select-option>
-      <ion-select-option *ngIf="equipmentType === 'Computadores'" value="COMPUTER_PERSONAL_COMPUTER">Computador pessoal</ion-select-option>
+      <ion-select-option *ngIf="equipmentType === 'Computadores'" value="COMPUTER_ON_THE_DOMAIN">Pelo domínio</ion-select-option>
+      <ion-select-option *ngIf="equipmentType === 'Computadores'" value="COMPUTER_PERSONAL_COMPUTER">Por computador pessoal</ion-select-option>
     </ion-select>
   </ion-item>
 
@@ -51,11 +55,19 @@
 
   <ng-template #booleanValue>
     <ion-item>
-      <ion-label style="text-size-adjust: 10px;">Termo de filtro:</ion-label>
-      <ion-select class="title" [(ngModel)]="booleanSearchTerm" ok-text="Ok" cancel-text="Cancelar">
-        <ion-select-option value="true">Sim</ion-select-option>
-        <ion-select-option value="false">Não</ion-select-option>
-      </ion-select>
+      <ion-label style="text-size-adjust: 10px;">
+        Termo de filtro:
+        <p *ngIf="searchType  === 'COMPUTER_ONLINE' && booleanSearchTerm">Somente computadores online</p>
+        <p *ngIf="searchType  === 'COMPUTER_ONLINE' && !booleanSearchTerm">Somente computadores offline</p>
+
+        <p *ngIf="searchType  === 'COMPUTER_ON_THE_DOMAIN' && booleanSearchTerm">Somente computadores no domínio</p>
+        <p *ngIf="searchType  === 'COMPUTER_ON_THE_DOMAIN' && !booleanSearchTerm">Somente computadores fora do domínio</p>
+
+        <p *ngIf="searchType  === 'COMPUTER_PERSONAL_COMPUTER' && booleanSearchTerm">Somente computadores pessoais</p>
+        <p *ngIf="searchType  === 'COMPUTER_PERSONAL_COMPUTER' && !booleanSearchTerm">Somente computadores não pessoais</p>
+      </ion-label>
+      
+      <ion-toggle color="dark" slot="end" [(ngModel)]="booleanSearchTerm"></ion-toggle>
     </ion-item>
   </ng-template>
   
