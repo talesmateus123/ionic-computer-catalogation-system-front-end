@@ -6,7 +6,7 @@ import { ModalController } from '@ionic/angular';
 import { InfoElectronicComponentModalPage } from '../../modals/electronic-components';
 import { ActivatedRoute } from '@angular/router';
 import { ComputerUserDTO } from '../../../computer-users';
-import { ComputerUsersModalPage } from '../../modals';
+import { ComputerUsersModalPage, MonitorsModalPage } from '../../modals';
 
 import { RamMemoryDTO, StorageDeviceDTO, ProcessorDTO } from '../electronic-components'
 import { LoadingModalControllerService } from 'src/app/shared-resources';
@@ -442,6 +442,22 @@ export class InfoEquipmentPage implements OnInit {
       this.controller.deleteNetworkDevice(this.id);
     else if(this.equipment.equipmentType === "MONITOR")
       this.controller.deleteMonitor(this.id);
+  }
+
+  async monitorsModalPresent(electronicComponent: any) {
+    const modal = await this.modalController.create({
+      component: MonitorsModalPage,
+      componentProps: {
+        electronicComponent: electronicComponent,
+        editForm: false,
+      }
+    });    
+
+    modal.onDidDismiss().then((dataReturned) => {
+      if (dataReturned.data !== undefined)
+        console.log(dataReturned.data);
+    });
+    return await modal.present();
   }
 
   async electronicComponentModalPresent(electronicComponent: any) {

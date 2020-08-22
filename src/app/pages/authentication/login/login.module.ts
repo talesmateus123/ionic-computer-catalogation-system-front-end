@@ -11,6 +11,7 @@ import { LoginPageRoutingModule } from './login-routing.module';
 import { LoginPage } from './login.page';
 import { AuthenticationService, AuthenticationControllerService} from './shared';
 import { ErrorInterceptorProvider } from 'src/app/interceptors/error-interceptor';
+import { AuthInterceptorProvider } from 'src/app/interceptors/auth-interceptor';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { ErrorInterceptorProvider } from 'src/app/interceptors/error-interceptor
     FormBuilder,
     AuthenticationService,
     AuthenticationControllerService,
+    AuthInterceptorProvider,
     ErrorInterceptorProvider
   ]
 })

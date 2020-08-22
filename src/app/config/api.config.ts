@@ -1,6 +1,7 @@
 export const API_CONFIG = {
     paths: {
         "login": "login",
+        "clients": "clients",
         "sectors": "sectors",
         "computers": "computers",
         "printers": "printers",

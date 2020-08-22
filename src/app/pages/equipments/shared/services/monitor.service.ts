@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { MonitorDTO, MonitorNewDTO } from '../models';
+
 import { API_CONFIG } from 'src/app/config';
 
 @Injectable({

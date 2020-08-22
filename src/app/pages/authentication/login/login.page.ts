@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationControllerService, User, Login } from './shared';
+import { AuthenticationControllerService, Login } from './shared';
 import { MenuController } from '@ionic/angular';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -37,13 +36,13 @@ export class LoginPage implements OnInit {
     });
   }
 
-  login() {
+  async login() {
     if(this.form.invalid) {
       this.controller.errorMessageAlert("Os dados do formulário estão incorretos");
       return;
     }
     const login: Login = this.form.value;
-    this.controller.login(login);
+    await this.controller.login(login);
   }
 
   eventHandler($keyCode) {

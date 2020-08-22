@@ -3,11 +3,10 @@ import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
-import * as jwt_decode from 'jwt-decode';
-
 import { SessionStorageService } from './session-storage.service';
 import { AuthenticationService } from './authentication.service';
-import { Login, User } from '../models';
+import { Login, ClientDTO } from '../models';
+import { ClientService } from 'src/app/pages/shared-resources';
 
 @Injectable({
   providedIn: 'root'
@@ -19,15 +18,63 @@ export class AuthenticationControllerService {
     private router: Router,
     private sessionStorageService: SessionStorageService,
     private service: AuthenticationService,
+    private clientService: ClientService,
     public http: HttpClient
   ) { }
 
   public login(login: Login) {
-    this.service.login(login).subscribe(
-      res => {
-        this.successfulLogin(res.headers.get('Authorization'), res.headers.get('token-expiration'));
-        this.successMessageAlert(null);
-        this.redirectToEquipmentsPage();
+    this.service.login(login).toPromise().then(async (res) => {
+      this.successfulLogin(res.headers.get('Authorization'));
+      await this.setSessionUser(res.headers.get('user-id'));
+      this.successMessageAlert(null);
+      this.redirectToEquipmentsPage();
+    })
+  }
+
+  public logout() {
+    this.sessionStorageService.setSessionUserId(null);
+    this.sessionStorageService.setSessionUserEmail(null);
+    this.sessionStorageService.setSessionUserName(null);
+    this.sessionStorageService.setSessionUserAdminRole(null);
+    this.sessionStorageService.setSessionUserClientRole(null);
+    this.sessionStorageService.setSessionAuthorizationToken(null);
+    this.redirectToLoginPage();
+  }
+
+  private successfulLogin(authorizationValue: string) {
+    this.sessionStorageService.setSessionAuthorizationToken(authorizationValue.substring(7));
+  }
+
+  public getSessionUser(): ClientDTO {
+    if(this.sessionStorageService.getSessionAuthorizationToken() 
+     && this.sessionStorageService.getSessionUserEmail()
+     && this.sessionStorageService.getSessionUserName()) {
+      let user: ClientDTO = {
+        id: this.sessionStorageService.getSessionUserId(),
+        email: this.sessionStorageService.getSessionUserEmail(),
+        name: this.sessionStorageService.getSessionUserName()
+      }
+      if(this.sessionStorageService.sessionUserHasAdminRole())
+        user.hasAdminProfile = true;
+      if(this.sessionStorageService.sessionUserHasClientRole())
+        user.hasClientProfile = true;
+      return user;
+    }
+    return null;
+  }
+
+  private async setSessionUser(userId: string) {
+    this.clientService.findById(userId).subscribe(
+      async res => {
+        this.sessionStorageService.setSessionUserId(res.id);
+        this.sessionStorageService.setSessionUserEmail(res.email);
+        this.sessionStorageService.setSessionUserName(res.name);
+        res.profiles.forEach((profile) => {
+          if(profile === "ADMIN") this.sessionStorageService.setSessionUserAdminRole(true);
+          else if (profile ==="CLIENT") this.sessionStorageService.setSessionUserClientRole(true);
+        })
+
+        console.log(this.getSessionUser());
       },
       error => {
         console.log(error)
@@ -36,31 +83,8 @@ export class AuthenticationControllerService {
     );
   }
 
-  public logout() {
-    this.sessionStorageService.setSessionAuthorizationToken(null);
-    this.sessionStorageService.setSessionUserEmail(null);
-    this.sessionStorageService.setTokenExpirationDate(null);
-    this.redirectToLoginPage();
-  }
-
-  public getSessionUser(): User {
-    if(this.sessionStorageService.getSessionAuthorizationToken() !== null 
-     && this.sessionStorageService.getSessionUserEmail() !== null
-     && this.sessionStorageService.getTokenExpirationDate() !== null) {
-      return {
-        token: this.sessionStorageService.getSessionAuthorizationToken(),
-        email: this.sessionStorageService.getSessionUserEmail(),
-        tokenExpiration: this.sessionStorageService.getTokenExpirationDate()
-      }
-    }
-    return null;
-  }
-
-  public successfulLogin(authorizationValue: string, tokenExpiration: string): void {
-    let tok = authorizationValue.substring(7);
-    this.sessionStorageService.setSessionUserEmail(jwt_decode(tok).sub);
-    this.sessionStorageService.setSessionAuthorizationToken(tok);
-    this.sessionStorageService.setTokenExpirationDate(tokenExpiration);
+  public getSessionAuthorizationToken(): string {
+    return this.sessionStorageService.getSessionAuthorizationToken();
   }
 
   public isLoggedIn(): boolean {
