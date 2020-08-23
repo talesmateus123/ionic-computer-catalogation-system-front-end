@@ -1,0 +1,17 @@
+<ion-header *ngIf="user">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Gerenciar conta de usuário</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="user">
+  <ion-item lines="none">
+    <ion-label>
+      <h2>{{user.name}}</h2>
+      <p>{{user.email}}</p>
+    </ion-label>
+  </ion-item>
+</ion-content>

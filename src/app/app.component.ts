@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { AuthenticationControllerService } from './pages';
+import { AuthenticationControllerService, ClientDTO } from './pages';
 
 @Component({
   selector: 'app-root',
@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
       icon: 'document-text'
     }    
   ];
-  public labels = ['Family', 'Friends'];
+  public user: ClientDTO;
 
   constructor(
     private platform: Platform,
@@ -62,6 +62,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     if(this.authenticationControllerService.isLoggedIn()) {
       this.authenticationControllerService.redirectToEquipmentsPage();
+      this.user = this.authenticationControllerService.getSessionUser();
     }
     else
       this.authenticationControllerService.redirectToLoginPage();

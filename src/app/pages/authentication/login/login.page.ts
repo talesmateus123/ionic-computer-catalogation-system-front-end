@@ -25,10 +25,6 @@ export class LoginPage implements OnInit {
     this.menuController.enable(false);
   }
 
-  ionViewDidLeave() {
-    this.menuController.enable(true);
-  }
-
   generateForm() {
     this.form = this.formBuilder.group({
       email: ['', [ Validators.required, Validators.email ]],
@@ -42,7 +38,9 @@ export class LoginPage implements OnInit {
       return;
     }
     const login: Login = this.form.value;
+
     await this.controller.login(login);
+    await this.menuController.enable(true);
   }
 
   eventHandler($keyCode) {

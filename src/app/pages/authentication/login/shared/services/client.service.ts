@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 
-import { ClientDTO, ClientNewDTO } from '../../authentication';
+import { ClientDTO, ClientNewDTO } from '../models';
 
 import { API_CONFIG } from 'src/app/config';
 

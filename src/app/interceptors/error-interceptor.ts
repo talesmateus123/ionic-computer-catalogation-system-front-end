@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-import { ToastMessageControllerService } from '../shared-resources';
+import { ToastMessageControllerService, LoadingModalControllerService } from '../shared-resources';
 import { AuthenticationControllerService } from 'src/app/pages/authentication/login/shared';
 
 @Injectable({ providedIn: 'root' })
@@ -10,6 +10,7 @@ import { AuthenticationControllerService } from 'src/app/pages/authentication/lo
 export class ErrorInterceptor implements HttpInterceptor {
     constructor(
         private toastMessageControllerService: ToastMessageControllerService,
+        private loadingModalControllerService: LoadingModalControllerService,
         private authenticationControllerService: AuthenticationControllerService
     ) { }
 
@@ -39,6 +40,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                         errorMessage = `${error.error.message}`;
                     }
                     this.toastMessageControllerService.errorMessageAlert(errorTitle, errorMessage);
+                    this.loadingModalControllerService.loadingDismiss();
                     return throwError(errorMessage);
                 })
             );

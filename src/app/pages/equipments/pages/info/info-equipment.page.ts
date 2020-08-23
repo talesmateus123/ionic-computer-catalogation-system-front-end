@@ -74,7 +74,7 @@ export class InfoEquipmentPage implements OnInit {
       this.sectorController.sectors = res;
     });
     
-    this.controller.findEquipment(this.id).subscribe(
+    await this.controller.findEquipment(this.id).toPromise().then(
       async res => {
         this.equipment = res;
         if(res.equipmentType === "COMPUTER") {
@@ -85,13 +85,11 @@ export class InfoEquipmentPage implements OnInit {
         await this.populateForm();
         this.filledValues = true;
         this.loadingModalControllerService.loadingDismiss();
-      },
-      error => {
-        //this.controller.errorMessageAlert(error);
-        this.controller.redirectToRootPage();
-        this.loadingModalControllerService.loadingDismiss();
       }
-    );
+    )
+    .catch(() => {
+      this.controller.redirectToRootPage()
+    });
   }
 
   public addProcessor() {
@@ -225,7 +223,7 @@ export class InfoEquipmentPage implements OnInit {
     }
   }
 
-  update() {    
+  update() {
     if(this.equipment.equipmentType === "COMPUTER") {
       if(!this.detailForm){
         this.formMotherBoardName = undefined;
@@ -264,128 +262,27 @@ export class InfoEquipmentPage implements OnInit {
         processor_model: this.processors[0] != undefined ? this.processors[0].model : undefined,
         processor_description: this.processors[0] != undefined ? this.processors[0].description : undefined,
         processor_processorName: this.processors[0] != undefined ? this.processors[0].processorName : undefined,
-        processor_architecture: this.processors[0] != undefined ? this.processors[0].architecture : undefined,
-        
-        ramMemory1_id: this.ramMemories[0] != undefined ? this.ramMemories[0].id : undefined,
-        ramMemory1_manufacturer: this.ramMemories[0] != undefined ? this.ramMemories[0].manufacturer : undefined,
-        ramMemory1_model: this.ramMemories[0] != undefined ? this.ramMemories[0].model : undefined,
-        ramMemory1_description: this.ramMemories[0] != undefined ? this.ramMemories[0].description : undefined,
-        ramMemory1_sizeInGB: this.ramMemories[0] != undefined ? this.ramMemories[0].sizeInGB : undefined,
-        ramMemory1_architecture: this.ramMemories[0] != undefined ? this.ramMemories[0].architecture : undefined,
-
-        ramMemory2_id: this.ramMemories[1] != undefined ? this.ramMemories[1].id : undefined,
-        ramMemory2_manufacturer: this.ramMemories[1] != undefined ? this.ramMemories[1].manufacturer : undefined,
-        ramMemory2_model: this.ramMemories[1] != undefined ? this.ramMemories[1].model : undefined,
-        ramMemory2_description: this.ramMemories[1] != undefined ? this.ramMemories[1].description : undefined,
-        ramMemory2_sizeInGB: this.ramMemories[1] != undefined ? this.ramMemories[1].sizeInGB : undefined,
-        ramMemory2_architecture: this.ramMemories[1] != undefined ? this.ramMemories[1].architecture : undefined,
-
-        ramMemory3_id: this.ramMemories[2] != undefined ? this.ramMemories[2].id : undefined,
-        ramMemory3_manufacturer: this.ramMemories[2] != undefined ? this.ramMemories[2].manufacturer : undefined,
-        ramMemory3_model: this.ramMemories[2] != undefined ? this.ramMemories[2].model : undefined,
-        ramMemory3_description: this.ramMemories[2] != undefined ? this.ramMemories[2].description : undefined,
-        ramMemory3_sizeInGB: this.ramMemories[2] != undefined ? this.ramMemories[2].sizeInGB : undefined,
-        ramMemory3_architecture: this.ramMemories[2] != undefined ? this.ramMemories[2].architecture : undefined,
-      
-        ramMemory4_id: this.ramMemories[3] != undefined ? this.ramMemories[3].id : undefined,
-        ramMemory4_manufacturer: this.ramMemories[3] != undefined ? this.ramMemories[3].manufacturer : undefined,
-        ramMemory4_model: this.ramMemories[3] != undefined ? this.ramMemories[3].model : undefined,
-        ramMemory4_description: this.ramMemories[3] != undefined ? this.ramMemories[3].description : undefined,
-        ramMemory4_sizeInGB: this.ramMemories[3] != undefined ? this.ramMemories[3].sizeInGB : undefined,
-        ramMemory4_architecture: this.ramMemories[3] != undefined ? this.ramMemories[3].architecture : undefined,
-
-        ramMemory5_id: this.ramMemories[4] != undefined ? this.ramMemories[4].id : undefined,
-        ramMemory5_manufacturer: this.ramMemories[4] != undefined ? this.ramMemories[4].manufacturer : undefined,
-        ramMemory5_model: this.ramMemories[4] != undefined ? this.ramMemories[4].model : undefined,
-        ramMemory5_description: this.ramMemories[4] != undefined ? this.ramMemories[4].description : undefined,
-        ramMemory5_sizeInGB: this.ramMemories[4] != undefined ? this.ramMemories[4].sizeInGB : undefined,
-        ramMemory5_architecture: this.ramMemories[4] != undefined ? this.ramMemories[4].architecture : undefined,
-
-        ramMemory6_id: this.ramMemories[5] != undefined ? this.ramMemories[5].id : undefined,
-        ramMemory6_manufacturer: this.ramMemories[5] != undefined ? this.ramMemories[5].manufacturer : undefined,
-        ramMemory6_model: this.ramMemories[5] != undefined ? this.ramMemories[5].model : undefined,
-        ramMemory6_description: this.ramMemories[5] != undefined ? this.ramMemories[5].description : undefined,
-        ramMemory6_sizeInGB: this.ramMemories[5] != undefined ? this.ramMemories[5].sizeInGB : undefined,
-        ramMemory6_architecture: this.ramMemories[5] != undefined ? this.ramMemories[5].architecture : undefined,
-
-        ramMemory7_id: this.ramMemories[6] != undefined ? this.ramMemories[6].id : undefined,
-        ramMemory7_manufacturer: this.ramMemories[6] != undefined ? this.ramMemories[6].manufacturer : undefined,
-        ramMemory7_model: this.ramMemories[6] != undefined ? this.ramMemories[6].model : undefined,
-        ramMemory7_description: this.ramMemories[6] != undefined ? this.ramMemories[6].description : undefined,
-        ramMemory7_sizeInGB: this.ramMemories[6] != undefined ? this.ramMemories[6].sizeInGB : undefined,
-        ramMemory7_architecture: this.ramMemories[6] != undefined ? this.ramMemories[6].architecture : undefined,
-
-        ramMemory8_id: this.ramMemories[7] != undefined ? this.ramMemories[7].id : undefined,
-        ramMemory8_manufacturer: this.ramMemories[7] != undefined ? this.ramMemories[7].manufacturer : undefined,
-        ramMemory8_model: this.ramMemories[7] != undefined ? this.ramMemories[7].model : undefined,
-        ramMemory8_description: this.ramMemories[7] != undefined ? this.ramMemories[7].description : undefined,
-        ramMemory8_sizeInGB: this.ramMemories[7] != undefined ? this.ramMemories[7].sizeInGB : undefined,
-        ramMemory8_architecture: this.ramMemories[7] != undefined ? this.ramMemories[7].architecture : undefined,
-
-        storageDevice1_id: this.storageDevices[0] != undefined ? this.storageDevices[0].id : undefined,
-        storageDevice1_manufacturer: this.storageDevices[0] != undefined ? this.storageDevices[0].manufacturer : undefined,
-        storageDevice1_model: this.storageDevices[0] != undefined ? this.storageDevices[0].model : undefined,
-        storageDevice1_description: this.storageDevices[0] != undefined ? this.storageDevices[0].description : undefined,
-        storageDevice1_sizeInGB: this.storageDevices[0] != undefined ? this.storageDevices[0].sizeInGB : undefined,
-        storageDevice1_architecture: this.storageDevices[0] != undefined ? this.storageDevices[0].architecture : undefined,
-        storageDevice1_type: this.storageDevices[0] != undefined ? this.storageDevices[0].type : undefined,
-
-        storageDevice2_id: this.storageDevices[1] != undefined ? this.storageDevices[1].id : undefined,
-        storageDevice2_manufacturer: this.storageDevices[1] != undefined ? this.storageDevices[1].manufacturer : undefined,
-        storageDevice2_model: this.storageDevices[1] != undefined ? this.storageDevices[1].model : undefined,
-        storageDevice2_description: this.storageDevices[1] != undefined ? this.storageDevices[1].description : undefined,
-        storageDevice2_sizeInGB: this.storageDevices[1] != undefined ? this.storageDevices[1].sizeInGB : undefined,
-        storageDevice2_architecture: this.storageDevices[1] != undefined ? this.storageDevices[1].architecture : undefined,
-        storageDevice2_type: this.storageDevices[1] != undefined ? this.storageDevices[1].type : undefined,
-        
-        storageDevice3_id: this.storageDevices[2] != undefined ? this.storageDevices[2].id : undefined,
-        storageDevice3_manufacturer: this.storageDevices[2] != undefined ? this.storageDevices[2].manufacturer : undefined,
-        storageDevice3_model: this.storageDevices[2] != undefined ? this.storageDevices[2].model : undefined,
-        storageDevice3_description: this.storageDevices[2] != undefined ? this.storageDevices[2].description : undefined,
-        storageDevice3_sizeInGB: this.storageDevices[2] != undefined ? this.storageDevices[2].sizeInGB : undefined,
-        storageDevice3_architecture: this.storageDevices[2] != undefined ? this.storageDevices[2].architecture : undefined,
-        storageDevice3_type: this.storageDevices[2] != undefined ? this.storageDevices[2].type : undefined,
-
-        storageDevice4_id: this.storageDevices[3] != undefined ? this.storageDevices[3].id : undefined,
-        storageDevice4_manufacturer: this.storageDevices[3] != undefined ? this.storageDevices[3].manufacturer : undefined,
-        storageDevice4_model: this.storageDevices[3] != undefined ? this.storageDevices[3].model : undefined,
-        storageDevice4_description: this.storageDevices[3] != undefined ? this.storageDevices[3].description : undefined,
-        storageDevice4_sizeInGB: this.storageDevices[3] != undefined ? this.storageDevices[3].sizeInGB : undefined,
-        storageDevice4_architecture: this.storageDevices[3] != undefined ? this.storageDevices[3].architecture : undefined,
-        storageDevice4_type: this.storageDevices[3] != undefined ? this.storageDevices[3].type : undefined,
-
-        storageDevice5_id: this.storageDevices[4] != undefined ? this.storageDevices[4].id : undefined,
-        storageDevice5_manufacturer: this.storageDevices[4] != undefined ? this.storageDevices[4].manufacturer : undefined,
-        storageDevice5_model: this.storageDevices[4] != undefined ? this.storageDevices[4].model : undefined,
-        storageDevice5_description: this.storageDevices[4] != undefined ? this.storageDevices[4].description : undefined,
-        storageDevice5_sizeInGB: this.storageDevices[4] != undefined ? this.storageDevices[4].sizeInGB : undefined,
-        storageDevice5_architecture: this.storageDevices[4] != undefined ? this.storageDevices[4].architecture : undefined,
-        storageDevice5_type: this.storageDevices[4] != undefined ? this.storageDevices[4].type : undefined,
-
-        storageDevice6_id: this.storageDevices[5] != undefined ? this.storageDevices[5].id : undefined,
-        storageDevice6_manufacturer: this.storageDevices[5] != undefined ? this.storageDevices[5].manufacturer : undefined,
-        storageDevice6_model: this.storageDevices[5] != undefined ? this.storageDevices[5].model : undefined,
-        storageDevice6_description: this.storageDevices[5] != undefined ? this.storageDevices[5].description : undefined,
-        storageDevice6_sizeInGB: this.storageDevices[5] != undefined ? this.storageDevices[5].sizeInGB : undefined,
-        storageDevice6_architecture: this.storageDevices[5] != undefined ? this.storageDevices[5].architecture : undefined,
-        storageDevice6_type: this.storageDevices[5] != undefined ? this.storageDevices[5].type : undefined,
-
-        storageDevice7_id: this.storageDevices[6] != undefined ? this.storageDevices[6].id : undefined,
-        storageDevice7_manufacturer: this.storageDevices[6] != undefined ? this.storageDevices[6].manufacturer : undefined,
-        storageDevice7_model: this.storageDevices[6] != undefined ? this.storageDevices[6].model : undefined,
-        storageDevice7_description: this.storageDevices[6] != undefined ? this.storageDevices[6].description : undefined,
-        storageDevice7_sizeInGB: this.storageDevices[6] != undefined ? this.storageDevices[6].sizeInGB : undefined,
-        storageDevice7_architecture: this.storageDevices[6] != undefined ? this.storageDevices[6].architecture : undefined,
-        storageDevice7_type: this.storageDevices[6] != undefined ? this.storageDevices[6].type : undefined,
-
-        storageDevice8_id: this.storageDevices[7] != undefined ? this.storageDevices[7].id : undefined,
-        storageDevice8_manufacturer: this.storageDevices[7] != undefined ? this.storageDevices[7].manufacturer : undefined,
-        storageDevice8_model: this.storageDevices[7] != undefined ? this.storageDevices[7].model : undefined,
-        storageDevice8_description: this.storageDevices[7] != undefined ? this.storageDevices[7].description : undefined,
-        storageDevice8_sizeInGB: this.storageDevices[7] != undefined ? this.storageDevices[7].sizeInGB : undefined,
-        storageDevice8_architecture: this.storageDevices[7] != undefined ? this.storageDevices[7].architecture : undefined,
-        storageDevice8_type: this.storageDevices[7] != undefined ? this.storageDevices[7].type : undefined,
+        processor_architecture: this.processors[0] != undefined ? this.processors[0].architecture : undefined
       };
+
+      for (let i=0; i<this.ramMemories.length; i++) {
+        eval(`equipment.ramMemory${i+1}_id = '${this.ramMemories[i].id}'`);
+        eval(`equipment.ramMemory${i+1}_manufacturer = '${this.ramMemories[i].manufacturer}'`);
+        eval(`equipment.ramMemory${i+1}_model = '${this.ramMemories[i].model}'`);
+        eval(`equipment.ramMemory${i+1}_description = '${this.ramMemories[i].description}'`);
+        eval(`equipment.ramMemory${i+1}_sizeInGB = ${this.ramMemories[i].sizeInGB}`);
+        eval(`equipment.ramMemory${i+1}_architecture = '${this.ramMemories[i].architecture}'`);
+      }
+
+      for (let i=0; i<this.storageDevices.length; i++) {
+        eval(`equipment.storageDevice${i+1}_id = '${this.storageDevices[i].id}'`);
+        eval(`equipment.storageDevice${i+1}_manufacturer = '${this.storageDevices[i].manufacturer}'`);
+        eval(`equipment.storageDevice${i+1}_model = '${this.storageDevices[i].model}'`);
+        eval(`equipment.storageDevice${i+1}_description = '${this.storageDevices[i].description}'`);
+        eval(`equipment.storageDevice${i+1}_sizeInGB = ${this.storageDevices[i].sizeInGB}`);
+        eval(`equipment.storageDevice${i+1}_architecture = '${this.storageDevices[i].architecture}'`);
+        eval(`equipment.storageDevice${i+1}_type = '${this.storageDevices[i].type}'`);
+      }
 
       this.controller.updateComputer(this.id, equipment);
     }
@@ -467,11 +364,6 @@ export class InfoEquipmentPage implements OnInit {
         electronicComponent: electronicComponent,
         editForm: false,
       }
-    });    
-
-    modal.onDidDismiss().then((dataReturned) => {
-      if (dataReturned.data !== undefined)
-        console.log(dataReturned.data);
     });
     return await modal.present();
   }

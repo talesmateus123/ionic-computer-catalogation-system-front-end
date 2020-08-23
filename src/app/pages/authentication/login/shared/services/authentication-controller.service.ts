@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 
 import { SessionStorageService } from './session-storage.service';
 import { AuthenticationService } from './authentication.service';
+import { ClientService } from './client.service';
 import { Login, ClientDTO } from '../models';
-import { ClientService } from 'src/app/pages/shared-resources';
+import { LoadingModalControllerService } from 'src/app/shared-resources';
 
 @Injectable({
   providedIn: 'root'
@@ -15,20 +15,26 @@ export class AuthenticationControllerService {
 
   constructor(
     private toastController: ToastController,
+    private loadingModalControllerService: LoadingModalControllerService,
     private router: Router,
     private sessionStorageService: SessionStorageService,
     private service: AuthenticationService,
-    private clientService: ClientService,
-    public http: HttpClient
+    private clientService: ClientService
   ) { }
 
-  public login(login: Login) {
-    this.service.login(login).toPromise().then(async (res) => {
-      this.successfulLogin(res.headers.get('Authorization'));
-      await this.setSessionUser(res.headers.get('user-id'));
-      this.successMessageAlert(null);
-      this.redirectToEquipmentsPage();
-    })
+  public async login(login: Login) {
+    await this.loadingModalControllerService.loadingPresent('Entrando...');
+    this.service.login(login)
+      .toPromise().then(async response => {
+        this.successfulLogin(response.headers.get('Authorization'));
+        await this.setSessionUser(response.headers.get('user-id'));
+        this.successMessageAlert(null);
+        this.redirectToEquipmentsPage();
+        this.loadingModalControllerService.loadingDismiss();
+      })
+      .catch(() => {
+
+      })
   }
 
   public logout() {
@@ -46,7 +52,7 @@ export class AuthenticationControllerService {
   }
 
   public getSessionUser(): ClientDTO {
-    if(this.sessionStorageService.getSessionAuthorizationToken() 
+    if(this.sessionStorageService.getSessionAuthorizationToken()
      && this.sessionStorageService.getSessionUserEmail()
      && this.sessionStorageService.getSessionUserName()) {
       let user: ClientDTO = {
@@ -64,23 +70,20 @@ export class AuthenticationControllerService {
   }
 
   private async setSessionUser(userId: string) {
-    this.clientService.findById(userId).subscribe(
-      async res => {
-        this.sessionStorageService.setSessionUserId(res.id);
-        this.sessionStorageService.setSessionUserEmail(res.email);
-        this.sessionStorageService.setSessionUserName(res.name);
-        res.profiles.forEach((profile) => {
-          if(profile === "ADMIN") this.sessionStorageService.setSessionUserAdminRole(true);
-          else if (profile ==="CLIENT") this.sessionStorageService.setSessionUserClientRole(true);
-        })
-
-        console.log(this.getSessionUser());
-      },
-      error => {
-        console.log(error)
-        this.errorMessageAlert(error);
-      }
-    );
+    this.clientService.findById(userId).
+      subscribe(
+        async res => {
+          this.sessionStorageService.setSessionUserId(res.id);
+          this.sessionStorageService.setSessionUserEmail(res.email);
+          this.sessionStorageService.setSessionUserName(res.name);
+          res.profiles.forEach((profile) => {
+            if (profile === "ADMIN") this.sessionStorageService.setSessionUserAdminRole(true);
+            else if (profile ==="CLIENT") this.sessionStorageService.setSessionUserClientRole(true);
+          })
+        }, 
+        error => {
+          
+        });
   }
 
   public getSessionAuthorizationToken(): string {

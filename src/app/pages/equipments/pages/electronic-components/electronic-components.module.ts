@@ -12,6 +12,8 @@ import { InfoElectronicComponentPage } from './info';
 import { ElectronicComponentControllerService, RamMemoryService, StorageDeviceService, ProcessorService } from './shared';
 import { ElectronicService } from 'src/app/pages/shared-resources';
 import { SearchElectronicComponentPage } from './search/search-electronic-component.page';
+import { AuthInterceptorProvider } from 'src/app/interceptors/auth-interceptor';
+import { ErrorInterceptorProvider } from 'src/app/interceptors/error-interceptor';
 
 @NgModule({
   imports: [
@@ -33,7 +35,9 @@ import { SearchElectronicComponentPage } from './search/search-electronic-compon
     ElectronicService,
     ProcessorService,
     RamMemoryService,
-    StorageDeviceService
+    StorageDeviceService,
+    AuthInterceptorProvider,
+    ErrorInterceptorProvider
   ]
 })
 export class ElectronicComponentsPageModule {}

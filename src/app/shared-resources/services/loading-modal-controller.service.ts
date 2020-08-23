@@ -8,9 +8,9 @@ export class LoadingModalControllerService {
 
   constructor(private loadingController: LoadingController) { }
 
-  async loadingPresent() {
+  async loadingPresent(msg?: string) {
     await this.loadingController.create({
-      message: 'Carregando...',
+      message: msg ? msg : 'Carregando...',
       spinner: 'crescent' ,
     }).then(a => {
       a.present();
@@ -18,7 +18,9 @@ export class LoadingModalControllerService {
   }
 
   async loadingDismiss() {
-    await this.loadingController.dismiss();
+    this.loadingController.getTop().then(loading => {
+      loading ? this.loadingController.dismiss() : null;
+    })
   }
 
 }

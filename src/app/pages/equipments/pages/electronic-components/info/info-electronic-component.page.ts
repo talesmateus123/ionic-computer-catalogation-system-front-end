@@ -19,7 +19,11 @@ export class InfoElectronicComponentPage implements OnInit {
     private route: ActivatedRoute) {  }
 
   ngOnInit() {
-    this.controller.loadingPresent();
+    this.initValues();
+  }
+
+  async initValues() {
+    await this.controller.loadingPresent();
     this.id = this.route.snapshot.paramMap.get('id');
     this.electronicComponent = this.controller.findElectronic(this.id).subscribe(
       res => {

@@ -1,22 +1,22 @@
 import { EquipmentNewDTO } from './equipment_new.dto';
 
 export class ComputerNewDTO extends EquipmentNewDTO {;
-	ipAddress?: string;
-	macAddress?: string;
-	hostName?: string;
-	motherBoardName?: string;
-	hasCdBurner?: boolean;
-	cabinetModel?: string;
-	operatingSystem?: string;
-	operatingSystemArchitecture?: string;
-	computerType?: string;
-	onTheDomain?: boolean;
-	personalComputer?: boolean;
-	totalRamMemory?: number;
-	totalStorageMemory?: number;
-	monitorId?: number;
-	sectorId?: number;
-	computerUsersId?: string[];
+	ipAddress: string;
+	macAddress: string;
+	hostName: string;
+	motherBoardName: string;
+	hasCdBurner: boolean;
+	cabinetModel: string;
+	operatingSystem: string;
+	operatingSystemArchitecture: string;
+	computerType: string;
+	onTheDomain: boolean;
+	personalComputer: boolean;
+	totalRamMemory: number;
+	totalStorageMemory: number;
+	monitorId: number;
+	sectorId: number;
+	computerUsersId: string[];
 
 	processor_id?: string;
 	processor_manufacturer?: string;

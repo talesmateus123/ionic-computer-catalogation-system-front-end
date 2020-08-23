@@ -31,7 +31,7 @@ export class NewComputerUserPage implements OnInit {
 
   async initValues() {
     await this.loadingModalControllerService.loadingPresent();
-    this.sectorController.findAllSectors().toPromise().then((res) => {
+    await this.sectorController.findAllSectors().toPromise().then((res) => {
       this.sectorController.sectors = res;
       this.filledValues = true;
       this.loadingModalControllerService.loadingDismiss();

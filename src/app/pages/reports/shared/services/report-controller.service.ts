@@ -6,6 +6,7 @@ import { LoadingModalControllerService } from 'src/app/shared-resources';
   providedIn: 'root'
 })
 export class ReportControllerService {
+  private loadingMsg: string = 'Processando...';
 
   constructor(
     private reportService: ReportService,
@@ -13,67 +14,62 @@ export class ReportControllerService {
   ) { }
 
   async getComputersReport() {
-    await this.loadingModalControllerService.loadingPresent();
+    await this.loadingModalControllerService.loadingPresent(this.loadingMsg);
     this.reportService.getComputersReport()
-      .subscribe(response => {
-        this.savePdf(response, "Relatório dos computadores");
+      .subscribe(res => {
+        this.savePdf(res, "Relatório dos computadores");
         this.loadingModalControllerService.loadingDismiss();
       },
       error => {
-        //console.log(error);
-        this.loadingModalControllerService.loadingDismiss();
+        
       });
   }
 
   async getPrintersReport() {
-    await this.loadingModalControllerService.loadingPresent();
+    await this.loadingModalControllerService.loadingPresent(this.loadingMsg);
     this.reportService.getPrintersReport()
-      .subscribe(response => {
-        this.savePdf(response, "Relatório das impressoras");
+      .subscribe(res => {
+        this.savePdf(res, "Relatório das impressoras");
         this.loadingModalControllerService.loadingDismiss();
       },
       error => {
-        //console.log(error);
-        this.loadingModalControllerService.loadingDismiss();
+
       });
   }
 
   async getMonitorsReport() {
-    await this.loadingModalControllerService.loadingPresent();
+    await this.loadingModalControllerService.loadingPresent(this.loadingMsg);
     this.reportService.getMonitorsReport()
-      .subscribe(response => {
-        this.savePdf(response, "Relatório dos monitores");
+      .subscribe(res => {
+        this.savePdf(res, "Relatório dos monitores");
         this.loadingModalControllerService.loadingDismiss();
       },
       error => {
-        //console.log(error);
-        this.loadingModalControllerService.loadingDismiss();
+
       });
   }
 
   async getComputerUsersReport() {
-    await this.loadingModalControllerService.loadingPresent();
+    await this.loadingModalControllerService.loadingPresent(this.loadingMsg);
     this.reportService.getComputerUsersReport()
-      .subscribe(response => {
-        this.savePdf(response, "Relatório dos usuários");
+      .subscribe(res => {
+        this.savePdf(res, "Relatório dos usuários");
         this.loadingModalControllerService.loadingDismiss();
       },
       error => {
-        //console.log(error);
-        this.loadingModalControllerService.loadingDismiss();
+
       });
   }
 
   async getSectorsReport() {
-    await this.loadingModalControllerService.loadingPresent();
+    await this.loadingModalControllerService.loadingPresent(this.loadingMsg);
     this.reportService.getSectorsReport()
-      .subscribe(response => {
-        this.savePdf(response, "Relatório dos setores");
+      .subscribe(res => {
+        this.savePdf(res, "Relatório dos setores");
         this.loadingModalControllerService.loadingDismiss();
       },
       error => {
-        //console.log(error);
-        this.loadingModalControllerService.loadingDismiss();
+
       });
   }
 

@@ -72,9 +72,9 @@ export class EquipmentControllerService {
     this.computerService.search(searchTerm, direction, orderBy)
       .subscribe(response => {
         this.computers = response.body.content;
-      },
+      }, 
       error => {
-        ////this.toastMessageControllerService.errorMessageAlert(error);
+        
       });
   }
 
@@ -83,9 +83,9 @@ export class EquipmentControllerService {
     this.computerService.searchComputerProcessor(searchTerm, direction, orderBy)
       .subscribe(response => {
         this.computers = response.body.content;
-      },
+      }, 
       error => {
-        //this.toastMessageControllerService.errorMessageAlert(error);
+        
       });
   }
 
@@ -94,9 +94,9 @@ export class EquipmentControllerService {
     this.computerService.searchComputerComputerUser(searchTerm, direction, orderBy)
       .subscribe(response => {
         this.computers = response.body.content;
-      },
+      }, 
       error => {
-        //this.toastMessageControllerService.errorMessageAlert(error);
+        
       });
   }
 
@@ -105,9 +105,9 @@ export class EquipmentControllerService {
     this.computerService.searchComputerOnline(searchTerm, direction, orderBy)
       .subscribe(response => {
         this.computers = response.body.content;
-      },
+      }, 
       error => {
-        //this.toastMessageControllerService.errorMessageAlert(error);
+        
       });
   }
 
@@ -116,9 +116,9 @@ export class EquipmentControllerService {
     this.computerService.searchComputerOnTheDomain(searchTerm, direction, orderBy)
       .subscribe(response => {
         this.computers = response.body.content;
-      },
+      }, 
       error => {
-        //this.toastMessageControllerService.errorMessageAlert(error);
+        
       });
   }
 
@@ -127,9 +127,9 @@ export class EquipmentControllerService {
     this.computerService.searchComputerPersonalComputer(searchTerm, direction, orderBy)
       .subscribe(response => {
         this.computers = response.body.content;
-      },
+      }, 
       error => {
-        //this.toastMessageControllerService.errorMessageAlert(error);
+        
       });
   }
 
@@ -138,9 +138,9 @@ export class EquipmentControllerService {
     this.printerService.search(searchTerm, direction, orderBy)
       .subscribe(response => {
         this.printers = response.body.content;
-      },
+      }, 
       error => {
-        //this.toastMessageControllerService.errorMessageAlert(error);
+        
       });
   }
 
@@ -149,9 +149,9 @@ export class EquipmentControllerService {
     this.networkDeviceService.search(searchTerm, direction, orderBy)
       .subscribe(response => {
         this.networkDevices = response.body.content;
-      },
+      }, 
       error => {
-        //this.toastMessageControllerService.errorMessageAlert(error);
+        
       });
   }
 
@@ -160,53 +160,53 @@ export class EquipmentControllerService {
     this.monitorService.search(searchTerm, direction, orderBy)
       .subscribe(response => {
         this.monitors = response.body.content;
-      },
+      }, 
       error => {
-        //this.toastMessageControllerService.errorMessageAlert(error);
+        
       });
   }
 
-  updateComputersList(): void {
+  async updateComputersList() {
     this.computers = undefined;
-    this.computerService.findAll()
-      .subscribe(response => {
+    await this.computerService.findAll()
+      .toPromise().then(response => {
         this.computers = response;
-      }, 
-      error => {
-        //this.toastMessageControllerService.errorMessageAlert(error);
+      })
+      .catch(() => {
+
       });
   }
 
-  updatePrintersList(): void {
+  async updatePrintersList() {
     this.printers = undefined;
-    this.printerService.findAll()
-      .subscribe(response => {
+    await this.printerService.findAll()
+      .toPromise().then(response => {
         this.printers = response;
-      }, 
-      error => {
-        //this.toastMessageControllerService.errorMessageAlert(error);
+      })
+      .catch(() => {
+
       });
   }
 
-  updateNetworkDevicesList(): void {
+  async updateNetworkDevicesList() {
     this.networkDevices = undefined;
-    this.networkDeviceService.findAll()
-      .subscribe(response => {
+    await this.networkDeviceService.findAll()
+      .toPromise().then(response => {
         this.networkDevices = response;
-      }, 
-      error => {
-        //this.toastMessageControllerService.errorMessageAlert(error);
+      })
+      .catch(() => {
+
       });
   }
 
-  updateMonitorsList(): void {
+  async updateMonitorsList() {
     this.monitors = undefined;
-    this.monitorService.findAll()
-      .subscribe(response => {
+    await this.monitorService.findAll()
+      .toPromise().then(response => {
         this.monitors = response;
-      }, 
-      error => {
-        //this.toastMessageControllerService.errorMessageAlert(error);
+      })
+      .catch(() => {
+
       });
   }
 
@@ -215,14 +215,15 @@ export class EquipmentControllerService {
       objetcNewDTO.ipAddress = null;
     if(objetcNewDTO.macAddress === "")
       objetcNewDTO.macAddress = null;
-    this.computerService.create(objetcNewDTO).subscribe(res => {
-      this.toastMessageControllerService.successMessageAlert("Computador criado com sucesso");
-      this.updateComputersList();
-      this.redirectToRootPage();
-    }, 
-    error => {
-      //this.toastMessageControllerService.errorMessageAlert(error);
-    });
+    this.computerService.create(objetcNewDTO)
+      .subscribe(res => {
+        this.toastMessageControllerService.successMessageAlert("Computador criado com sucesso");
+        this.updateComputersList();
+        this.redirectToRootPage();
+      }, 
+      error => {
+        
+      });
   }
 
   createPrinter(objetcNewDTO: PrinterNewDTO) {
@@ -230,14 +231,15 @@ export class EquipmentControllerService {
       objetcNewDTO.ipAddress = null;
     if(objetcNewDTO.macAddress === "")
       objetcNewDTO.macAddress = null;
-    this.printerService.create(objetcNewDTO).subscribe(res => {
-      this.toastMessageControllerService.successMessageAlert("Impressora criada com sucesso");
-      this.updatePrintersList();
-      this.redirectToRootPage();
-    }, 
-    error => {
-      //this.toastMessageControllerService.errorMessageAlert(error);
-    });
+    this.printerService.create(objetcNewDTO)
+      .subscribe(res => {
+        this.toastMessageControllerService.successMessageAlert("Impressora criada com sucesso");
+        this.updatePrintersList();
+        this.redirectToRootPage();
+      }, 
+      error => {
+        
+      });
   }
 
   createNetworkDevice(objetcNewDTO: NetworkDeviceNewDTO) {
@@ -245,25 +247,27 @@ export class EquipmentControllerService {
       objetcNewDTO.ipAddress = null;
     if(objetcNewDTO.macAddress === "")
       objetcNewDTO.macAddress = null;
-    this.networkDeviceService.create(objetcNewDTO).subscribe(res => {
-      this.toastMessageControllerService.successMessageAlert("Dispositivo de rede criado com sucesso");
-      this.updateNetworkDevicesList();
-      this.redirectToRootPage();
-    }, 
-    error => {
-      //this.toastMessageControllerService.errorMessageAlert(error);
-    });
+    this.networkDeviceService.create(objetcNewDTO)
+      .subscribe(res => {
+        this.toastMessageControllerService.successMessageAlert("Dispositivo de rede criado com sucesso");
+        this.updateNetworkDevicesList();
+        this.redirectToRootPage();
+      }, 
+      error => {
+        
+      });
   }
 
   createMonitor(objetcNewDTO: MonitorNewDTO) {
-    this.monitorService.create(objetcNewDTO).subscribe(res => {
-      this.toastMessageControllerService.successMessageAlert("Monitor criado com sucesso");
-      this.updateMonitorsList();
-      this.redirectToRootPage();
-    }, 
-    error => {
-      //this.toastMessageControllerService.errorMessageAlert(error);
-    });
+    this.monitorService.create(objetcNewDTO)
+      .subscribe(res => {
+        this.toastMessageControllerService.successMessageAlert("Monitor criado com sucesso");
+        this.updateMonitorsList();
+        this.redirectToRootPage();
+      }, 
+      error => {
+        
+      });
   }
 
   updateComputer(id: string, objetcNewDTO: ComputerNewDTO): void {
@@ -271,14 +275,15 @@ export class EquipmentControllerService {
       objetcNewDTO.ipAddress = null;
     if(objetcNewDTO.macAddress === "")
       objetcNewDTO.macAddress = null;
-    this.computerService.update(id, objetcNewDTO).subscribe(res => {
-      this.toastMessageControllerService.successMessageAlert("Computador atualizado com sucesso");
-      this.updateComputersList();
-      this.redirectToRootPage();
-    }, 
-    error => {
-      //this.toastMessageControllerService.errorMessageAlert(error);
-    });
+    this.computerService.update(id, objetcNewDTO)
+      .subscribe(res => {
+        this.toastMessageControllerService.successMessageAlert("Computador atualizado com sucesso");
+        this.updateComputersList();
+        this.redirectToRootPage();
+      }, 
+      error => {
+        
+      });
   }
   
   updatePrinter(id: string, objetcNewDTO: PrinterNewDTO): void {
@@ -286,14 +291,15 @@ export class EquipmentControllerService {
       objetcNewDTO.ipAddress = null;
     if(objetcNewDTO.macAddress === "")
       objetcNewDTO.macAddress = null;
-    this.printerService.update(id, objetcNewDTO).subscribe(res => {
-      this.toastMessageControllerService.successMessageAlert("Impressora atualizada com sucesso");
-      this.updatePrintersList();
-      this.redirectToRootPage();
-    }, 
-    error => {
-      //this.toastMessageControllerService.errorMessageAlert(error);
-    });
+    this.printerService.update(id, objetcNewDTO)
+      .subscribe(res => {
+        this.toastMessageControllerService.successMessageAlert("Impressora atualizada com sucesso");
+        this.updatePrintersList();
+        this.redirectToRootPage();
+      }, 
+      error => {
+        
+      });
   }
   
   updateNetworkDevice(id: string, objetcNewDTO: NetworkDeviceNewDTO): void {
@@ -301,69 +307,75 @@ export class EquipmentControllerService {
       objetcNewDTO.ipAddress = null;
     if(objetcNewDTO.macAddress === "")
       objetcNewDTO.macAddress = null;
-    this.networkDeviceService.update(id, objetcNewDTO).subscribe(res => {
-      this.toastMessageControllerService.successMessageAlert("Dispositivo de rede atualizado com sucesso");
-      this.updateNetworkDevicesList();
-      this.redirectToRootPage();
-    }, 
-    error => {
-      //this.toastMessageControllerService.errorMessageAlert(error);
-    });
+    this.networkDeviceService.update(id, objetcNewDTO)
+      .subscribe(res => {
+        this.toastMessageControllerService.successMessageAlert("Dispositivo de rede atualizado com sucesso");
+        this.updateNetworkDevicesList();
+        this.redirectToRootPage();
+      }, 
+      error => {
+        
+      });
   }
 
   updateMonitor(id: string, objetcNewDTO: MonitorNewDTO): void {
-    this.monitorService.update(id, objetcNewDTO).subscribe(res => {
-      this.toastMessageControllerService.successMessageAlert("Monitor atualizado com sucesso");
-      this.updateMonitorsList();
-      this.redirectToRootPage();
-    }, 
-    error => {
-      //this.toastMessageControllerService.errorMessageAlert(error);
-    });
+    this.monitorService.update(id, objetcNewDTO)
+      .subscribe(res => {
+        this.toastMessageControllerService.successMessageAlert("Monitor atualizado com sucesso");
+        this.updateMonitorsList();
+        this.redirectToRootPage();
+      },
+      error => {
+        
+      });
   }
 
   deleteComputer(id: string): void {
-    this.computerService.delete(id).subscribe(res => {
-      this.toastMessageControllerService.successMessageAlert("Computador excluído com sucesso");
-      this.updateComputersList();
-      this.redirectToRootPage();
-    }, 
-    error => {
-      //this.toastMessageControllerService.errorMessageAlert(error);
-    });
+    this.computerService.delete(id)
+      .subscribe(res => {
+        this.toastMessageControllerService.successMessageAlert("Computador excluído com sucesso");
+        this.updateComputersList();
+        this.redirectToRootPage();
+      }, 
+      error => {
+        
+      });
   }
 
   deletePrinter(id: string): void {
-    this.printerService.delete(id).subscribe(res => {
-      this.toastMessageControllerService.successMessageAlert("Impressora excluída com sucesso");
-      this.updatePrintersList();
-      this.redirectToRootPage();
-    }, 
-    error => {
-      //this.toastMessageControllerService.errorMessageAlert(error);
-    });
+    this.printerService.delete(id)
+      .subscribe(res => {
+        this.toastMessageControllerService.successMessageAlert("Impressora excluída com sucesso");
+        this.updatePrintersList();
+        this.redirectToRootPage();
+      }, 
+      error => {
+        
+      });
   }
 
   deleteNetworkDevice(id: string): void {
-    this.networkDeviceService.delete(id).subscribe(res => {
-      this.toastMessageControllerService.successMessageAlert("Dispositivo de rede excluído com sucesso");
-      this.updateNetworkDevicesList();
-      this.redirectToRootPage();
-    }, 
-    error => {
-      //this.toastMessageControllerService.errorMessageAlert(error);
-    });
+    this.networkDeviceService.delete(id)
+      .subscribe(res => {
+        this.toastMessageControllerService.successMessageAlert("Dispositivo de rede excluído com sucesso");
+        this.updateNetworkDevicesList();
+        this.redirectToRootPage();
+      },
+      error => {
+        
+      });
   }
 
   deleteMonitor(id: string): void {
-    this.monitorService.delete(id).subscribe(res => {
-      this.toastMessageControllerService.successMessageAlert("Monitor excluído com sucesso");
-      this.updateMonitorsList();
-      this.redirectToRootPage();
-    }, 
-    error => {
-      //this.toastMessageControllerService.errorMessageAlert(error);
-    });
+    this.monitorService.delete(id)
+      .subscribe(res => {
+        this.toastMessageControllerService.successMessageAlert("Monitor excluído com sucesso");
+        this.updateMonitorsList();
+        this.redirectToRootPage();
+      }, 
+      error => {
+        
+      });
   }
 
   getAvailableComputers(): Observable<ComputerDTO[]> {

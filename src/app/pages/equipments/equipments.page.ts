@@ -14,13 +14,15 @@ export class EquipmentsPage implements OnInit {
     "Dispositivos de rede",
     "Monitores",
   ];
+  public filledList: boolean = false;
 
   constructor(
     public controller: EquipmentControllerService
   ) { }
 
-  ngOnInit() {
-    this.updateAllLists();
+  async ngOnInit() {
+    await this.controller.updateComputersList();
+    this.filledList = true;
   }
 
   updateAllLists() {
@@ -28,6 +30,19 @@ export class EquipmentsPage implements OnInit {
     this.controller.updatePrintersList();
     this.controller.updateNetworkDevicesList();
     this.controller.updateMonitorsList();
+  }
+
+  async onChangeEquipmentType(equipmentType) {
+    this.filledList = false;
+    if(equipmentType === "Computadores" && !this.controller.computers)
+      await this.controller.updateComputersList(); 
+    else if(equipmentType === "Impressoras" && !this.controller.printers)
+      await this.controller.updatePrintersList(); 
+    else if(equipmentType === "Dispositivos de rede" && !this.controller.networkDevices)
+      await this.controller.updateNetworkDevicesList();
+    else if(equipmentType === "Monitores" && !this.controller.monitors)
+      await this.controller.updateMonitorsList(); 
+    this.filledList = true;
   }
   
 }

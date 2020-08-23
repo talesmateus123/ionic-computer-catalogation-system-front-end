@@ -43,7 +43,7 @@ export class InfoComputerUserPage implements OnInit {
       this.sectorController.sectors = res;
     });
 
-    this.controller.findComputerUser(this.id).subscribe(
+    await this.controller.findComputerUser(this.id).toPromise().then(
       res => {
         this.computerUser = res;
         this.populateForm();
@@ -51,9 +51,7 @@ export class InfoComputerUserPage implements OnInit {
         this.loadingModalControllerService.loadingDismiss();
       },
       error => {
-        //this.controller.errorMessageAlert(error);
         this.controller.redirectToRootPage();
-        this.loadingModalControllerService.loadingDismiss();
       }
     );
   }

@@ -30,18 +30,16 @@ export class InfoSectorPage implements OnInit {
 
   async initValues() {
     await this.loadingModalControllerService.loadingPresent();
-    this.controller.findSector(this.id).subscribe(
-      res => {
-        this.sector = res
-        this.filledValues = true;
-        this.loadingModalControllerService.loadingDismiss();
-      },
-      error => {
-        //this.controller.errorMessageAlert(error);
-        this.controller.redirectToRootPage();
-        this.loadingModalControllerService.loadingDismiss();
-      }
-    )
+    this.controller.findSector(this.id)
+      .subscribe(
+        res => {
+          this.sector = res
+          this.filledValues = true;
+          this.loadingModalControllerService.loadingDismiss();
+        },
+        error => {
+          this.controller.redirectToRootPage();
+        });
   }
   
   setEditForm() {

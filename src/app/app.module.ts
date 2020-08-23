@@ -9,7 +9,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AuthInterceptorProvider } from './interceptors/auth-interceptor';
+import { AuthenticationControllerService } from './pages';
+import { AuthInterceptorProvider, ErrorInterceptorProvider } from './interceptors';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,9 @@ import { AuthInterceptorProvider } from './interceptors/auth-interceptor';
   providers: [
     StatusBar,
     SplashScreen,
+    AuthenticationControllerService,
     AuthInterceptorProvider,
+    ErrorInterceptorProvider,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

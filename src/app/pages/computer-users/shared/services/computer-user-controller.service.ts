@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -35,7 +35,7 @@ export class ComputerUserControllerService {
         this.computerUsers = response.body.content;
       },
       error => {
-        //this.toastMessageControllerService.errorMessageAlert(error);
+        
       });
   }
 
@@ -44,9 +44,9 @@ export class ComputerUserControllerService {
     this.computerUserService.findAll()
       .subscribe(response => {
         this.computerUsers = response;
-      }, 
+      },
       error => {
-        //this.toastMessageControllerService.errorMessageAlert(error);
+
       });
   }
 
@@ -56,14 +56,15 @@ export class ComputerUserControllerService {
     if(objetcNewDTO.email === "")
       objetcNewDTO.email = null;
 
-    this.computerUserService.create(objetcNewDTO).subscribe(res => {
-      this.toastMessageControllerService.successMessageAlert("Usuário criado com sucesso");
-      this.updateComputerUsersList();
-      this.redirectToRootPage();
-    }, 
-    error => {
-      //this.toastMessageControllerService.errorMessageAlert(error);
-    });
+    this.computerUserService.create(objetcNewDTO)
+      .subscribe(res => {
+        this.toastMessageControllerService.successMessageAlert("Usuário criado com sucesso");
+        this.updateComputerUsersList();
+        this.redirectToRootPage();
+      },
+      error => {
+        
+      });
   }
 
   updateComputerUser(id: string, objetcNewDTO: ComputerUserNewDTO): void {
@@ -72,25 +73,27 @@ export class ComputerUserControllerService {
     if(objetcNewDTO.email === "")
       objetcNewDTO.email = null;
 
-    this.computerUserService.update(id, objetcNewDTO).subscribe(res => {
-      this.toastMessageControllerService.successMessageAlert("Usuário atualizado com sucesso");
-      this.updateComputerUsersList();
-      this.redirectToRootPage();
-    }, 
-    error => {
-      //this.toastMessageControllerService.errorMessageAlert(error);
-    });
+    this.computerUserService.update(id, objetcNewDTO)
+      .subscribe(res => {
+        this.toastMessageControllerService.successMessageAlert("Usuário atualizado com sucesso");
+        this.updateComputerUsersList();
+        this.redirectToRootPage();
+      },
+      error => {
+        
+      });
   }
   
   deleteComputerUser(id: string): void {
-    this.computerUserService.delete(id).subscribe(res => {
-      this.toastMessageControllerService.successMessageAlert("Usuário excluído com sucesso");
-      this.updateComputerUsersList();
-      this.redirectToRootPage();
-    }, 
-    error => {
-      //this.toastMessageControllerService.errorMessageAlert(error);
-    });
+    this.computerUserService.delete(id)
+      .subscribe(res => {
+        this.toastMessageControllerService.successMessageAlert("Usuário excluído com sucesso");
+        this.updateComputerUsersList();
+        this.redirectToRootPage();
+      },
+      error => {
+        
+      });
   }
 
   redirectToRootPage(): void {

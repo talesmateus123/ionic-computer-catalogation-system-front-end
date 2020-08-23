@@ -11,7 +11,9 @@ export const API_CONFIG = {
         "processors": "processors",
         "storage_devices": "storage_devices",
         "ram_memories": "ram_memories",
-        "electronics": "electronics"
+        "electronics": "electronics",
+        "auth_refresh_token": "auth/refresh_token",
+        "auth_forgot_password": "auth/forgot_password"
     },
     standardSearchMethod: {
         "search": "search",

@@ -31,11 +31,11 @@ export class SectorControllerService {
   searchSector(searchTerm: string, direction: string, orderBy: string): void {
     this.sectors = undefined;
     this.sectorService.search(searchTerm, direction, orderBy)
-      .subscribe(response => {
-        this.sectors = response.body.content;
-      },
+      .subscribe(res => {
+        this.sectors = res.body.content;
+      }, 
       error => {
-        //this.toastMessageControllerService.errorMessageAlert(error);
+
       });
   }
 
@@ -46,55 +46,56 @@ export class SectorControllerService {
   updateSectorsList(): void {
     this.sectors = undefined;
     this.sectorService.findAll()
-      .subscribe(response => {
-        this.sectors = response;
-      },
+      .subscribe(
+        res => {
+        this.sectors = res;
+      }, 
       error => {
-        //this.toastMessageControllerService.errorMessageAlert(error);
+        
       });
   }
 
   createSector(objetcNewDTO: SectorNewDTO): void {
     if(objetcNewDTO.phone === "")
       objetcNewDTO.phone = null;
-    this.sectorService.create(objetcNewDTO).subscribe(
-      res => {
-        this.toastMessageControllerService.successMessageAlert("Setor criado com sucesso");
-        this.updateSectorsList();
-        this.redirectToRootPage();
-      },
-      error => {
-        //this.toastMessageControllerService.errorMessageAlert(error);
-      }
-    );
+    this.sectorService.create(objetcNewDTO)
+      .subscribe(
+        res => {
+          this.toastMessageControllerService.successMessageAlert("Setor criado com sucesso");
+          this.updateSectorsList();
+          this.redirectToRootPage();
+        }, 
+        error => {
+          
+        });
   }
 
   updateSector(id: string, objetcNewDTO: SectorNewDTO): void {
     if(objetcNewDTO.phone === "")
     objetcNewDTO.phone = null;
-    this.sectorService.update(id, objetcNewDTO).subscribe(
-      res => {
-        this.toastMessageControllerService.successMessageAlert("Setor salvo com sucesso");
-        this.updateSectorsList();
-        this.redirectToRootPage();
-      },
-      error => {
-        //this.toastMessageControllerService.errorMessageAlert(error);
-      }
-    );
+    this.sectorService.update(id, objetcNewDTO)
+      .subscribe(
+        res => {
+          this.toastMessageControllerService.successMessageAlert("Setor salvo com sucesso");
+          this.updateSectorsList();
+          this.redirectToRootPage();
+        }, 
+        error => {
+        
+        });
   }
 
   deleteSector(id: string): void {
-    this.sectorService.delete(id).subscribe(
-      res => {
-        this.toastMessageControllerService.successMessageAlert("Setor excluído com sucesso");
-        this.updateSectorsList();
-        this.redirectToRootPage();
-      },
-      error => {
-        //this.toastMessageControllerService.errorMessageAlert(error);
-      }
-    );
+    this.sectorService.delete(id)
+      .subscribe(
+        res => {
+          this.toastMessageControllerService.successMessageAlert("Setor excluído com sucesso");
+          this.updateSectorsList();
+          this.redirectToRootPage();
+        }, 
+        error => {
+          
+        });
   }
 
   redirectToRootPage(): void {

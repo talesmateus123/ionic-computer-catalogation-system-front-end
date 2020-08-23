@@ -1,21 +1,6 @@
 <ion-content (keypress)="eventHandler($event.keyCode)">
-  <ion-grid class="appTitle">
-    <ion-row>
-      <ion-col sizeXl="2" sizeLg="2" sizeMd="0" sizeXs="0"></ion-col>
-      <ion-col sizeXl="8" sizeLg="8" sizeMd="12" sizeXs="12">
-        <!--
-        <ion-list-header>
-          <h1>Sistema de catalogagem de computadores</h1>
-        </ion-list-header>
-        -->
-        <!--<ion-note>hi@ionicframework.com</ion-note>-->
-      </ion-col>
-      <ion-col sizeXl="2" sizeLg="2" sizeMd="0" sizeXs="0"></ion-col>
-    </ion-row>
-  </ion-grid>
-
   <form [formGroup]="form" novalidate>
-    <ion-grid class="ion-text-center loginForm">
+    <ion-grid class="ion-text-center" style="padding-top: 250px;">
       <ion-row>
         <ion-col sizeXl="4" sizeLg="4" sizeMd="3" sizeXs="0"></ion-col>
         <ion-col sizeXl="4" sizeLg="4" sizeMd="6" sizeXs="12">
@@ -31,7 +16,11 @@
                 <ion-input type="password" placeholder="Senha" formControlName="password"></ion-input>
               </ion-item>
               
-              <br>
+              <ion-item routerLink="/forgot-password" lines="none">
+                <ion-label>
+                  <p>Esqueceu sua senha?</p>
+                </ion-label>
+              </ion-item> 
 
               <ion-button expand="block" color="dark" (click)="login()">Entrar</ion-button>
             </ion-card-content>

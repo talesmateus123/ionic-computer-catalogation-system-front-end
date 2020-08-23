@@ -137,7 +137,7 @@
     </ion-list>
 
     <ng-template #ramMemoryAdvanced>
-      <ion-list>
+      <ion-list *ngIf="!formPersonalComputer">
         <ion-list-header class="title" color="dark">
           Memória RAM
           <ion-buttons *ngIf="!editForm && ramMemories.length != 8">
@@ -200,7 +200,7 @@
     </ion-list>
 
     <ng-template #storageDeviceAdvanced>
-      <ion-list>
+      <ion-list *ngIf="!formPersonalComputer">
         <ion-list-header class="title" color="dark">
           Armazenamento
           <ion-buttons *ngIf="!editForm && storageDevices.length != 8">

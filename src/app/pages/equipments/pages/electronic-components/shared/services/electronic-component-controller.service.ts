@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { LoadingController, ToastController } from '@ionic/angular';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
 
@@ -38,7 +37,6 @@ export class ElectronicComponentControllerService {
     private _location: Location,
     public loadingController: LoadingController,
     public toastController: ToastController,
-    private router: Router, 
     private electronicComponentService: ElectronicService,
     private processorService: ProcessorService,
     private ramMemoryService: RamMemoryService,
@@ -55,138 +53,148 @@ export class ElectronicComponentControllerService {
   }
 
   updateProcessorsList(): void {
-    this.processorService.findAll().subscribe(
-      response => {
-        this.processors = response;
-      },
-      error => {
-        console.log(error);
-      });
-  }
+    this.processorService.findAll()
+      .subscribe(
+        response => {
+          this.processors = response;
+        },
+        error => {
+          
+        });
+    }
 
   updateRamMemoriesList(): void {
-    this.ramMemoryService.findAll().subscribe(
-      response => {
-        this.ramMemories = response;
-      },
-      error => {
-        console.log(error);
-      });
+    this.ramMemoryService.findAll()
+      .subscribe(
+        response => {
+          this.ramMemories = response;
+        },
+        error => {
+          
+        });
   }
 
   updateStorageDevicesList(): void {
-    this.storageDeviceService.findAll().subscribe(
-      response => {
-        this.storageDevices = response;
-      },
-      error => {
-        console.log(error);
-      });
+    this.storageDeviceService.findAll()
+      .subscribe(
+        response => {
+          this.storageDevices = response;
+        },
+        error => {
+          
+        });
   }
 
   createProcessor(objetcNewDTO: ProcessorNewDTO): void {
     if(objetcNewDTO.processorName === "")
       objetcNewDTO.processorName = null;
-    this.processorService.create(objetcNewDTO).subscribe(res => {
-      this.successMessageAlert("Processador criado com sucesso");
-      this.updateProcessorsList();
-      this.redirectToRootPage();
-    }, 
-    error => {
-      console.log(error)
-      this.errorMessageAlert(error);
-    });
+    this.processorService.create(objetcNewDTO)
+      .subscribe(res => {
+        this.successMessageAlert("Processador criado com sucesso");
+        this.updateProcessorsList();
+        this.redirectToRootPage();
+      },
+      error => {
+        
+      });
   }
 
   createRamMemory(objetcNewDTO: RamMemoryNewDTO): void {
-    this.ramMemoryService.create(objetcNewDTO).subscribe(res => {
-      this.successMessageAlert("Memória RAM criada com sucesso");
-      this.updateRamMemoriesList();
-      this.redirectToRootPage();
-    }, 
-    error => {
-      console.log(error)
-      this.errorMessageAlert(error);
-    });
+    this.ramMemoryService.create(objetcNewDTO)
+      .subscribe(res => {
+        this.successMessageAlert("Memória RAM criada com sucesso");
+        this.updateRamMemoriesList();
+        this.redirectToRootPage();
+      },
+      error => {
+        
+      });
   }
 
   createStorageDevice(objetcNewDTO: StorageDeviceNewDTO): void {
-    this.storageDeviceService.create(objetcNewDTO).subscribe(res => {
-      this.successMessageAlert("Dispositivo de armazenamento criado com sucesso");
-      this.updateStorageDevicesList();
-      this.redirectToRootPage();
-    }, 
-    error => {
-      this.errorMessageAlert(error);
-    });
+    this.storageDeviceService.create(objetcNewDTO)
+      .subscribe(res => {
+        this.successMessageAlert("Dispositivo de armazenamento criado com sucesso");
+        this.updateStorageDevicesList();
+        this.redirectToRootPage();
+      },
+      error => {
+        
+      });
   }
 
   updateProcessor(id: string, objetcNewDTO: ProcessorNewDTO): void {
     if(objetcNewDTO.processorName === "")
       objetcNewDTO.processorName = null;
-    this.processorService.update(id, objetcNewDTO).subscribe(res => {
-      this.successMessageAlert("Processador atualizado com sucesso");
-      this.updateProcessorsList();
-      this.redirectToRootPage();
-    }, 
-    error => {
-      this.errorMessageAlert(error);
-    });
+    this.processorService.update(id, objetcNewDTO)
+      .subscribe(res => {
+        this.successMessageAlert("Processador atualizado com sucesso");
+        this.updateProcessorsList();
+        this.redirectToRootPage();
+      },
+      error => {
+        
+      });
   }
 
   updateRamMemory(id: string, objetcNewDTO: RamMemoryNewDTO): void {
-    this.ramMemoryService.update(id, objetcNewDTO).subscribe(res => {
-      this.successMessageAlert("Memória RAM atualizada com sucesso");
-      this.updateRamMemoriesList();
-      this.redirectToRootPage();
-    }, 
-    error => {
-      this.errorMessageAlert(error);
-    });
+    this.ramMemoryService.update(id, objetcNewDTO)
+      .subscribe(res => {
+        this.successMessageAlert("Memória RAM atualizada com sucesso");
+        this.updateRamMemoriesList();
+        this.redirectToRootPage();
+      },
+      error => {
+        
+      });
   }
 
   updateStorageDevice(id: string, objetcNewDTO: StorageDeviceNewDTO): void {
-    this.storageDeviceService.update(id, objetcNewDTO).subscribe(res => {
-      this.successMessageAlert("Dispositivo de armazenamento atualizado com sucesso");
-      this.updateStorageDevicesList();
-      this.redirectToRootPage();
-    }, 
-    error => {
-      this.errorMessageAlert(error);
-    });
+    this.storageDeviceService.update(id, objetcNewDTO)
+      .subscribe(res => {
+        this.successMessageAlert("Dispositivo de armazenamento atualizado com sucesso");
+        this.updateStorageDevicesList();
+        this.redirectToRootPage();
+      },
+      error => {
+        
+      });
   }
 
   deleteProcessor(id: string): void {
-    this.processorService.delete(id).subscribe(res => {
-      this.successMessageAlert("Processador excluído com sucesso");
-      this.updateProcessorsList();
-      this.redirectToRootPage();
-    }, 
-    error => {
-      this.errorMessageAlert(error);
-    });
+    this.processorService.delete(id)
+      .subscribe(res => {
+        this.successMessageAlert("Processador excluído com sucesso");
+        this.updateProcessorsList();
+        this.redirectToRootPage();
+      },
+      error => {
+        
+      });
   }
 
   deleteRamMemory(id: string): void {
-    this.ramMemoryService.delete(id).subscribe(res => {
-      this.successMessageAlert("Memória RAM excluída com sucesso");
-      this.updateRamMemoriesList();
-      this.redirectToRootPage();
-    }, 
-    error => {
-      this.errorMessageAlert(error);
-    });
+    this.ramMemoryService.delete(id)
+      .subscribe(res => {
+        this.successMessageAlert("Memória RAM excluída com sucesso");
+        this.updateRamMemoriesList();
+        this.redirectToRootPage();
+      },
+      error => {
+        
+      });
   }
 
   deleteStorageDevice(id: string): void {
-    this.storageDeviceService.delete(id).subscribe(res => {
-      this.successMessageAlert("Dispositivo de armazenamento excluído com sucesso");
-      this.updateStorageDevicesList();
-      this.redirectToRootPage();
-    }, 
-    error => {
-      this.errorMessageAlert(error);
-    });
+    this.storageDeviceService.delete(id)
+      .subscribe(res => {
+        this.successMessageAlert("Dispositivo de armazenamento excluído com sucesso");
+        this.updateStorageDevicesList();
+        this.redirectToRootPage();
+      },
+      error => {
+        
+      });
   }
 
   getAvailableProcessors(): Observable<ProcessorDTO[]> {
@@ -203,7 +211,6 @@ export class ElectronicComponentControllerService {
 
   redirectToRootPage(): void {
     this._location.back();
-    //this.router.navigate(['electronic-components']);
   }
 
   async loadingPresent() {
