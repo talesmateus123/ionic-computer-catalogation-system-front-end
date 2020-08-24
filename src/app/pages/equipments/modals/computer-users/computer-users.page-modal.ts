@@ -44,15 +44,15 @@ export class ComputerUsersModalPage implements OnInit {
   private updateComputerUsersList(): void {
     this.computerUsers = undefined;
     this.computerUserService.findAll()
-      .subscribe(response => {
+      .subscribe(res => {
         this.computerUsers = [];
-        for(let i in response) {
-          if(!this.contains(this.computerUsersAlreadyEntered, response[i]))
-            this.computerUsers.push(response[i]);
+        for(let i in res) {
+          if(!this.contains(this.computerUsersAlreadyEntered, res[i]))
+            this.computerUsers.push(res[i]);
         }
       }, 
       error => {
-        // this.errorMessageAlert(error);
+        
       });
   }
 
@@ -71,11 +71,11 @@ export class ComputerUsersModalPage implements OnInit {
   private searchComputerUser(searchTerm: string, direction: string, orderBy: string) {
     this.computerUsers = undefined;
     this.computerUserService.search(searchTerm, direction, orderBy)
-      .subscribe(response => {
+      .subscribe(res => {
         this.computerUsers = [];
-        for(let index in response.body.content) {
-          if(!this.contains(this.computerUsersAlreadyEntered, response.body.content[index]))
-            this.computerUsers.push(response.body.content[index]);
+        for(let index in res.body.content) {
+          if(!this.contains(this.computerUsersAlreadyEntered, res.body.content[index]))
+            this.computerUsers.push(res.body.content[index]);
         }
       },
       error => {

@@ -42,6 +42,17 @@ export class MonitorService {
     })
   }
 
+  searchAvailable(searchTerm: string, direction: string, orderBy: string): Observable<any> {
+    return this.http.get(`${this.url}/search/available`, {
+      params: {
+          searchTerm: searchTerm,
+          direction: direction,
+          orderBy: orderBy
+      },
+      observe: 'response'
+    })
+  }
+
   create(object: MonitorNewDTO): Observable<any> {
       return this.http.post<MonitorNewDTO>(`${this.url}`, object);
   }

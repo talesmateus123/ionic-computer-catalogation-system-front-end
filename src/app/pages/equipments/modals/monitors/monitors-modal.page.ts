@@ -19,7 +19,6 @@ export class MonitorsModalPage implements OnInit {
   public booleanSearchTerm: boolean = true;
   public asc: boolean = true;
   public orderBy: string = "patrimonyId";
-  public equipmentType: string = "Computadores";
   public searchType: string = "DEFAULT";
 
 
@@ -48,15 +47,15 @@ export class MonitorsModalPage implements OnInit {
   private updateMonitorsList(): void {
     this.monitors = undefined;
     this.monitorService.findAll()
-      .subscribe(response => {
+      .subscribe(res => {
         this.monitors = [];
-        for(let i in response) {
-          if(!this.contains(this.monitorsAlreadyEntered, response[i]))
-            this.monitors.push(response[i]);
+        for(let i in res) {
+          if(!this.contains(this.monitorsAlreadyEntered, res[i]))
+            this.monitors.push(res[i]);
         }
       }, 
       error => {
-        // this.errorMessageAlert(error);
+        
       });
   }
 
@@ -74,16 +73,16 @@ export class MonitorsModalPage implements OnInit {
 
   private searchMonitor(searchTerm: string, direction: string, orderBy: string) {
     this.monitors = undefined;
-    this.monitorService.search(searchTerm, direction, orderBy)
-      .subscribe(response => {
-        this.monitors = response.body.content;
+    this.monitorService.searchAvailable(searchTerm, direction, orderBy)
+      .subscribe(res => {
+        this.monitors = res.body.content;
       },
       error => {
         //this.toastMessageControllerService.errorMessageAlert(error);
       });
   }
 
-  async searchMonitorModalPresent() {
+  async searchModalPresent() {
     const modal = await this.modalController.create({
       component: SearchMonitorModalPage,
       componentProps: { 
@@ -92,7 +91,6 @@ export class MonitorsModalPage implements OnInit {
         asc: this.asc,
         orderBy: this.orderBy,
         searchType: this.searchType,
-        equipmentType: this.equipmentType
       }
     });
 

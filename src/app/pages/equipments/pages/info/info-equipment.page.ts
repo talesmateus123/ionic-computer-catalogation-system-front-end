@@ -46,6 +46,7 @@ export class InfoEquipmentPage implements OnInit {
 	public formMonitorId: number;
 	public formSectorId: number;
 
+  public monitors: MonitorDTO[] = [];
   public processors: ProcessorDTO[] = [];
   public ramMemories: RamMemoryDTO[] = [];
   public storageDevices: StorageDeviceDTO[] = [];
@@ -90,6 +91,11 @@ export class InfoEquipmentPage implements OnInit {
     .catch(() => {
       this.controller.redirectToRootPage()
     });
+  }
+
+  public addMonitor() {
+    if(this.monitors.length < 1)
+      this.monitors.push(undefined);
   }
 
   public addProcessor() {
@@ -141,6 +147,10 @@ export class InfoEquipmentPage implements OnInit {
   public addUser() {
     if(this.computerUsers.length < 5)
       this.computerUsers.push(undefined);
+  }
+
+  public deleteMonitor(index: number) {
+    this.monitors.splice(index, 1);
   }
 
   public deleteProcessor() {
@@ -195,7 +205,7 @@ export class InfoEquipmentPage implements OnInit {
       this.formTotalRamMemory = this.equipment.totalRamMemory;
       this.formTotalStorageMemory = this.equipment.totalStorageMemory;
       if (this.equipment.monitor !== null)   
-        this.formMonitorId = this.equipment.monitor.id;
+        this.monitors[0] = this.equipment.monitor;
       this.formSectorId = this.equipment.sector.id;
       if( this.equipment.processor != null)
         this.processors[0] =  this.equipment.processor;
@@ -233,9 +243,11 @@ export class InfoEquipmentPage implements OnInit {
       }
 
       let computerUsersId: string[] = [];
-      for(let computerUser in this.computerUsers) {
-       computerUsersId.push(this.computerUsers[computerUser].id);
-      }
+      
+      this.computerUsers.forEach(computerUser => {
+        computerUsersId.push(computerUser.id);
+      });
+
       let equipment: ComputerNewDTO = {
         patrimonyId: this.formPatrimonyId,
         manufacturer: this.formManufacturer,
@@ -254,15 +266,15 @@ export class InfoEquipmentPage implements OnInit {
         personalComputer: this.formPersonalComputer,
         totalRamMemory: this.formTotalRamMemory,
         totalStorageMemory: this.formTotalStorageMemory,
-        monitorId: this.formMonitorId,
+        monitorId: this.monitors[0] ? Number(this.monitors[0].id) : undefined,
         sectorId: this.formSectorId,
         computerUsersId: computerUsersId,
-        processor_id: this.processors[0] != undefined ? this.processors[0].id : undefined,
-        processor_manufacturer: this.processors[0] != undefined ? this.processors[0].manufacturer : undefined,
-        processor_model: this.processors[0] != undefined ? this.processors[0].model : undefined,
-        processor_description: this.processors[0] != undefined ? this.processors[0].description : undefined,
-        processor_processorName: this.processors[0] != undefined ? this.processors[0].processorName : undefined,
-        processor_architecture: this.processors[0] != undefined ? this.processors[0].architecture : undefined
+        processor_id: this.processors[0] ? this.processors[0].id : undefined,
+        processor_manufacturer: this.processors[0] ? this.processors[0].manufacturer : undefined,
+        processor_model: this.processors[0] ? this.processors[0].model : undefined,
+        processor_description: this.processors[0] ? this.processors[0].description : undefined,
+        processor_processorName: this.processors[0] ? this.processors[0].processorName : undefined,
+        processor_architecture: this.processors[0] ? this.processors[0].architecture : undefined
       };
 
       for (let i=0; i<this.ramMemories.length; i++) {
@@ -341,18 +353,18 @@ export class InfoEquipmentPage implements OnInit {
       this.controller.deleteMonitor(this.id);
   }
 
-  async monitorsModalPresent(electronicComponent: any) {
+  async monitorsModalPresent(index: number) {
     const modal = await this.modalController.create({
       component: MonitorsModalPage,
       componentProps: {
-        electronicComponent: electronicComponent,
-        editForm: false,
+        index: index,
+        monitorsAlreadyEntered: this.availableMonitors
       }
     });    
 
     modal.onDidDismiss().then((dataReturned) => {
       if (dataReturned.data !== undefined)
-        console.log(dataReturned.data);
+        this.monitors.splice(dataReturned.data.index, 1, dataReturned.data.monitor);
     });
     return await modal.present();
   }

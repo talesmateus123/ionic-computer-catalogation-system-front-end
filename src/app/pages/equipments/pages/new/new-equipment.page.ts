@@ -6,7 +6,7 @@ import { ModalController } from '@ionic/angular';
 import { InfoElectronicComponentModalPage } from '../../modals/electronic-components';
 import { ProcessorDTO, RamMemoryDTO, StorageDeviceDTO } from '../electronic-components';
 import { ComputerUserDTO } from 'src/app/pages/computer-users';
-import { ComputerUsersModalPage } from '../../modals';
+import { ComputerUsersModalPage, MonitorsModalPage } from '../../modals';
 import { LoadingModalControllerService } from 'src/app/shared-resources';
 
 @Component({
@@ -41,9 +41,9 @@ export class NewEquipmentPage implements OnInit {
 	public formPersonalComputer: boolean = false;
 	public formTotalRamMemory: number = 0;
 	public formTotalStorageMemory: number = 0;
-	public formMonitorId: number;
 	public formSectorId: number;
 
+  public monitors: MonitorDTO[] = [];
   public processors: ProcessorDTO[] = [];
   public ramMemories: RamMemoryDTO[] = [];
   public storageDevices: StorageDeviceDTO[] = [];
@@ -86,6 +86,11 @@ export class NewEquipmentPage implements OnInit {
     await this.populateAvailableAvailableMonitors();
 
     this.filledValues = true;
+  }
+
+  public addMonitor() {
+    if(this.monitors.length < 1)
+      this.monitors.push(undefined);
   }
 
   public addProcessor() {
@@ -137,6 +142,10 @@ export class NewEquipmentPage implements OnInit {
   public addUser() {
     if(this.computerUsers.length < 5)
       this.computerUsers.push(undefined);
+  }
+
+  public deleteMonitor(index: number) {
+    this.monitors.splice(index, 1);
   }
 
   public deleteProcessor() {
@@ -195,7 +204,7 @@ export class NewEquipmentPage implements OnInit {
         personalComputer: this.formPersonalComputer,
         totalRamMemory: this.formTotalRamMemory,
         totalStorageMemory: this.formTotalStorageMemory,
-        monitorId: this.formMonitorId,
+        monitorId: this.monitors[0] ? Number(this.monitors[0].id) : undefined,
         sectorId: this.formSectorId,
         computerUsersId: computerUsersId,
 
@@ -268,6 +277,22 @@ export class NewEquipmentPage implements OnInit {
         }
       );
     }
+  }
+
+  async monitorsModalPresent(index: number) {
+    const modal = await this.modalController.create({
+      component: MonitorsModalPage,
+      componentProps: {
+        index: index,
+        monitorsAlreadyEntered: this.availableMonitors
+      }
+    });    
+
+    modal.onDidDismiss().then((dataReturned) => {
+      if (dataReturned.data !== undefined)
+        this.monitors.splice(dataReturned.data.index, 1, dataReturned.data.monitor);
+    });
+    return await modal.present();
   }
 
   async electronicComponentModalPresent(electronicComponent: any) {

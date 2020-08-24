@@ -11,10 +11,11 @@ import { NewEquipmentPage, InfoEquipmentPage, ElectronicComponentControllerServi
 import { ComputerService, MonitorService, PrinterService, NetworkDeviceService, EquipmentControllerService } from './shared';
 import { ElectronicService } from '../shared-resources';
 import { SectorControllerService, SectorService } from '../sectors';
-import { SearchEquipmentModalPage, InfoElectronicComponentModalPage, ComputerUsersModalPage, SearchComputerUserModalPage  } from './modals';
+import { SearchEquipmentModalPage, InfoElectronicComponentModalPage, ComputerUsersModalPage, SearchComputerUserModalPage, MonitorsModalPage  } from './modals';
 import { ComputerUserService } from '../computer-users';
 import { AuthInterceptorProvider } from 'src/app/interceptors/auth-interceptor';
 import { ErrorInterceptorProvider } from 'src/app/interceptors/error-interceptor';
+import { SearchMonitorModalPage } from './modals/monitors/search/search-monitor-modal.page';
 
 @NgModule({
   imports: [
@@ -32,12 +33,16 @@ import { ErrorInterceptorProvider } from 'src/app/interceptors/error-interceptor
     SearchEquipmentModalPage,
     InfoElectronicComponentModalPage,
     ComputerUsersModalPage,
-    SearchComputerUserModalPage
+    SearchComputerUserModalPage,
+    MonitorsModalPage,
+    SearchMonitorModalPage
   ],
   entryComponents: [
     InfoElectronicComponentModalPage,
     ComputerUsersModalPage,
-    SearchComputerUserModalPage
+    SearchComputerUserModalPage,
+    MonitorsModalPage,
+    SearchMonitorModalPage
   ],
   providers: [
     EquipmentControllerService,
