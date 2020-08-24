@@ -21,23 +21,25 @@ export class ErrorInterceptor implements HttpInterceptor {
                 catchError((error: HttpErrorResponse) => {
                     let errorTitle = `Erro!`;
                     let errorMessage = '';
-                    if(error.status === 0) {
-                        errorMessage = `Falha ao obter conexão com o servidor.`;
-                    }
-                    else if (error.status === 422) {
-                        errorTitle = `${error.error.error}`;
-                        let errors: any[] = error.error.errors;                        
-                        for (let index in errors)
-                            errorMessage = errorMessage + errors[index].fieldName + ": " + errors[index].message + "<br>";
-                    }
-                    else if (error.status === 403) {
-                        errorTitle = `Proibido`;
-                        errorMessage = `Você precisa logar para continuar.`;
-                        this.authenticationControllerService.logout();
-                    }
-                    else {
-                        errorTitle = `${error.error.error}`;
-                        errorMessage = `${error.error.message}`;
+                    switch(error.status) {
+                        case 0:
+                            errorMessage = `Falha ao obter conexão com o servidor.`;
+                            break;
+                        case 403: 
+                            errorTitle = `Proibido`;
+                            errorMessage = `Você precisa logar para continuar.`;
+                            this.authenticationControllerService.logout();
+                            break;
+                        case 422:
+                            errorTitle = `${error.error.error}`;
+                            let errors: any[] = error.error.errors;
+                            errors.forEach(error => {
+                                errorMessage = `${errorMessage}${error.fieldName}: ${error.message} <br>`
+                            });
+                            break;
+                        default:
+                            errorTitle = `${error.error.error}`;
+                            errorMessage = `${error.error.message}`;
                     }
                     this.toastMessageControllerService.errorMessageAlert(errorTitle, errorMessage);
                     this.loadingModalControllerService.loadingDismiss();

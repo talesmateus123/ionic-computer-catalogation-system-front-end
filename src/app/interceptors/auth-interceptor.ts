@@ -12,11 +12,11 @@ export class AuthInterceptor implements HttpInterceptor {
     ) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        let authorizationToken: string = this.authenticationControllerService.getSessionAuthorizationToken();
+        let securityKey: string = this.authenticationControllerService.getSessionSecurityKey();
 
-        if(authorizationToken) {
+        if(securityKey) {
             const authReq = request.clone({
-                headers: request.headers.set('Authorization', 'Bearer ' + authorizationToken)
+                headers: request.headers.set('Authorization', 'Bearer ' + securityKey)
             });
             return next.handle(authReq);
         }

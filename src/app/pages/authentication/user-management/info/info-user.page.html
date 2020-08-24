@@ -1,9 +1,9 @@
-<ion-header *ngIf="filledValues">
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="equipments"></ion-back-button>
+      <ion-back-button defaultHref="user"></ion-back-button>
     </ion-buttons>
-    <ion-title>Informações do setor</ion-title>
+    <ion-title>Informações do usuário</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="setEditForm()">
         <ion-icon slot="icon-only" name="create"></ion-icon>
@@ -12,14 +12,18 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="filledValues" (keypress)="eventHandler($event.keyCode)">
+<ion-content (keypress)="eventHandler($event.keyCode)">
   <ion-item>
     <ion-label>Nome:</ion-label>
-    <ion-input [disabled]="editForm" type="text" [(ngModel)]="sector.name"></ion-input>
+    <ion-input [disabled]="editForm" type="text" [(ngModel)]="user.name"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label>Telefone:</ion-label>
-    <ion-input [disabled]="editForm" type="text" [(ngModel)]="sector.phone"></ion-input>    
+    <ion-label>E-mail:</ion-label>
+    <ion-input [disabled]="editForm" type="text" [(ngModel)]="user.email"></ion-input>    
+  </ion-item>
+  <ion-item>
+    <ion-label>Senha:</ion-label>
+    <ion-input [disabled]="editForm" type="password" [(ngModel)]="user.password"></ion-input>    
   </ion-item>
 </ion-content>
 
@@ -27,10 +31,12 @@
   <ion-toolbar>
     <ion-grid>
       <ion-row class="ion-align-items-center">
+        <!--
         <ion-col size="6" class="ion-text-center">            
           <ion-button (click)="delete()" expand="block" fill="clear" color="dark">Excluir</ion-button>
         </ion-col>
-        <ion-col size="6" class="ion-text-center">
+        -->
+        <ion-col size="12" class="ion-text-center">
           <ion-button (click)="update()" expand="block" fill="clear" color="dark">Salvar</ion-button>
         </ion-col>
       </ion-row>

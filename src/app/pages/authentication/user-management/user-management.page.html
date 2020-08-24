@@ -9,9 +9,12 @@
 
 <ion-content *ngIf="user">
   <ion-item lines="none">
+    <ion-icon slot="start" name="person"></ion-icon>
     <ion-label>
-      <h2>{{user.name}}</h2>
-      <p>{{user.email}}</p>
+      <h3>{{user.name}} <a *ngIf="user.hasAdminProfile" style="color: black;">(Administrador)</a></h3> 
+      <p>
+        <a [routerLink]="['/user/info']">Alterar informações</a>
+      </p>
     </ion-label>
   </ion-item>
 </ion-content>

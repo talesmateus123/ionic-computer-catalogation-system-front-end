@@ -5,15 +5,18 @@ import { ToastController } from '@ionic/angular';
   providedIn: 'root'
 })
 export class ToastMessageControllerService {
+  private duration: number = 3500;
 
-  constructor(private toastController: ToastController) { }
+  constructor(
+    private toastController: ToastController
+  ) { }
 
-  async successMessageAlert(msg: string) {
+  async successMessageAlert(msg: string, header?: string) {
     const toast = await this.toastController.create({
-      header: 'Sucesso',
+      header: header ? header : 'Sucesso!',
       message: msg,
       position: 'bottom',
-      duration: 2500,
+      duration: this.duration,
       buttons: [
         {
           text: 'Ok',
@@ -26,12 +29,12 @@ export class ToastMessageControllerService {
     toast.present();
   }
 
-  async errorMessageAlert(title: string, msg: string) {
+  async errorMessageAlert(header: string, msg?: string) {
     const toast = await this.toastController.create({
-      header: title,
-      message: msg,
+      header: header,
+      message: msg ? msg : null,
       position: 'bottom',
-      duration: 3500,
+      duration: this.duration,
       buttons: [
         {
           text: 'Ok',

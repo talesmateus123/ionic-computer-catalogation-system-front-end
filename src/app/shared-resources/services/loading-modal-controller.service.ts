@@ -6,7 +6,9 @@ import { LoadingController } from '@ionic/angular';
 })
 export class LoadingModalControllerService {
 
-  constructor(private loadingController: LoadingController) { }
+  constructor(
+    private loadingController: LoadingController
+  ) { }
 
   async loadingPresent(msg?: string) {
     await this.loadingController.create({
@@ -18,7 +20,7 @@ export class LoadingModalControllerService {
   }
 
   async loadingDismiss() {
-    this.loadingController.getTop().then(loading => {
+    await this.loadingController.getTop().then(loading => {
       loading ? this.loadingController.dismiss() : null;
     })
   }

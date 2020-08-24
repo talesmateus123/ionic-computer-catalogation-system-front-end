@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: UserManagementPage
+  },
+  {
+    path: 'info',
+    loadChildren: () => import('./info').then( m => m.InfoUserPageModule)
   }
 ];
 

@@ -35,6 +35,13 @@
         </ion-label>
       </ng-template>
     </ion-item>
+
+    <ion-item *ngIf="monitors.length === 0" lines="none">
+      <ion-label class="ion-text-center">
+        <p>Nenhum monitor disponível</p>
+      </ion-label>
+    </ion-item>
+    
   </ion-list>
 
   <!-- Skeleton screen -->

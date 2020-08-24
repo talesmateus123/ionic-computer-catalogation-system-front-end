@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationControllerService, Login } from './shared';
 import { MenuController } from '@ionic/angular';
+
+import { AuthenticationControllerService, Login } from './shared';
+import { ToastMessageControllerService } from 'src/app/shared-resources';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +15,7 @@ export class LoginPage implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private toastMessageControllerService: ToastMessageControllerService,
     private controller: AuthenticationControllerService,
     private menuController: MenuController
   ) { }
@@ -34,13 +37,13 @@ export class LoginPage implements OnInit {
 
   async login() {
     if(this.form.invalid) {
-      this.controller.errorMessageAlert("Os dados do formulário estão incorretos");
+      this.toastMessageControllerService.errorMessageAlert("Os dados do formulário estão incorretos");
       return;
     }
     const login: Login = this.form.value;
 
     await this.controller.login(login);
-    await this.menuController.enable(true);
+    this.menuController.enable(true);
   }
 
   eventHandler($keyCode) {
