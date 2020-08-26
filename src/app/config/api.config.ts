@@ -12,6 +12,7 @@ export const API_CONFIG = {
         "storage_devices": "storage_devices",
         "ram_memories": "ram_memories",
         "electronics": "electronics",
+        "ping_request": "ping",
         "auth_refresh_token": "auth/refresh_token",
         "auth_forgot_password": "auth/forgot_password"
     },

@@ -9,7 +9,7 @@ export class SessionStorageService {
   constructor() { }
 
   public getSessionUser(): ClientDTO {
-    return JSON.parse(localStorage['user']);
+    return localStorage['user'] ? JSON.parse(localStorage['user']) : null;
   }
 
   public setSessionUser(user: any): void {

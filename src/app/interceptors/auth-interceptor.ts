@@ -3,12 +3,11 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS
 import { Observable } from 'rxjs';
 import { AuthenticationControllerService } from '../pages/authentication/login/shared';
 
-
 @Injectable({ providedIn: 'root' })
 
 export class AuthInterceptor implements HttpInterceptor {
     constructor(
-        private authenticationControllerService: AuthenticationControllerService
+        private authenticationControllerService: AuthenticationControllerService,
     ) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

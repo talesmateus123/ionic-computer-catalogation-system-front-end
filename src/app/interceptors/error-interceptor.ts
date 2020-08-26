@@ -33,9 +33,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                         case 422:
                             errorTitle = `${error.error.error}`;
                             let errors: any[] = error.error.errors;
-                            errors.forEach(error => {
-                                errorMessage = `${errorMessage}${error.fieldName}: ${error.message} <br>`
-                            });
+                            errors.forEach(error => {errorMessage = `${errorMessage}${error.fieldName}: ${error.message} <br>`});
                             break;
                         default:
                             errorTitle = `${error.error.error}`;

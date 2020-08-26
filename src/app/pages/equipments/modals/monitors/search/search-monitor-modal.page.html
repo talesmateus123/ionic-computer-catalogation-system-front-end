@@ -33,7 +33,7 @@
 </ion-header>
 
 <ion-content fullscreen (keypress)="eventHandler($event.keyCode)">
-  <ion-item *ngIf="searchType ==='DEFAULT'; else booleanValue">
+  <ion-item *ngIf="searchType ==='DEFAULT'">
     <ion-label>Termo de filtro:</ion-label>
     <ion-input type="text" [(ngModel)]="searchTerm"></ion-input>
   </ion-item>

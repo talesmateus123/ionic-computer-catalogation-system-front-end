@@ -30,6 +30,10 @@ const routes: Routes = [
     path: 'forgot-password',
     loadChildren: () => import('./pages').then( m => m.ForgotPasswordPageModule)
   },
+  {
+    path: 'no-connection',
+    loadChildren: () => import('./pages/no-connection/no-connection.module').then( m => m.NoConnectionPageModule)
+  },
 ];
 
 @NgModule({

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthenticationControllerService, ClientDTO } from './pages';
+import { PingRequestService } from './pages/shared-resources';
 
 @Component({
   selector: 'app-root',
@@ -47,6 +48,8 @@ export class AppComponent implements OnInit {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
+    private menuController: MenuController,
+    private pingRequestService: PingRequestService,
     public authenticationControllerService: AuthenticationControllerService
   ) {
     this.initializeApp();
@@ -54,18 +57,25 @@ export class AppComponent implements OnInit {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
+      this.statusBar.show();
       this.splashScreen.hide();
     });
   }
 
   ngOnInit() {
+    this.checkIfLoggedIn();
+  }
+
+  private async checkIfLoggedIn() {
     if(this.authenticationControllerService.isLoggedIn()) {
-      this.authenticationControllerService.redirectToEquipmentsPage();
-      this.user = this.authenticationControllerService.getSessionUser();
+      await this.pingRequestService.ping().toPromise().then(() => {
+        this.authenticationControllerService.redirectToEquipmentsPage();
+        this.user = this.authenticationControllerService.getSessionUser();
+        this.menuController.enable(true);
+      });
+      return;
     }
-    else
-      this.authenticationControllerService.redirectToLoginPage();
+    this.authenticationControllerService.redirectToLoginPage();
   }
 
 }
