@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Platform, MenuController } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthenticationControllerService, ClientDTO } from './pages';
@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
       title: 'Gerar relatórios',
       url: 'reports',
       icon: 'document-text'
-    }    
+    }
   ];
   public user: ClientDTO;
 
@@ -48,7 +48,6 @@ export class AppComponent implements OnInit {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private menuController: MenuController,
     private pingRequestService: PingRequestService,
     public authenticationControllerService: AuthenticationControllerService
   ) {
@@ -67,11 +66,10 @@ export class AppComponent implements OnInit {
   }
 
   private async checkIfLoggedIn() {
-    if(this.authenticationControllerService.isLoggedIn()) {
+    if (this.authenticationControllerService.isLoggedIn()) {
       await this.pingRequestService.ping().toPromise().then(() => {
+        this.user = this.authenticationControllerService.user;
         this.authenticationControllerService.redirectToEquipmentsPage();
-        this.user = this.authenticationControllerService.getSessionUser();
-        this.menuController.enable(true);
       });
       return;
     }

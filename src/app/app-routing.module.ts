@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
+import { NoConnectionPage } from './pages/no-connection/no-connection.page';
+
 const routes: Routes = [
   {
     path: 'equipments',
@@ -32,7 +34,7 @@ const routes: Routes = [
   },
   {
     path: 'no-connection',
-    loadChildren: () => import('./pages/no-connection/no-connection.module').then( m => m.NoConnectionPageModule)
+    component: NoConnectionPage
   },
 ];
 

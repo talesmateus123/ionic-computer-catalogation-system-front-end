@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MenuController } from '@ionic/angular';
 
 import { AuthenticationControllerService, Login } from './shared';
 import { ToastMessageControllerService } from 'src/app/shared-resources';
@@ -16,16 +15,11 @@ export class LoginPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private toastMessageControllerService: ToastMessageControllerService,
-    private controller: AuthenticationControllerService,
-    private menuController: MenuController
+    private controller: AuthenticationControllerService
   ) { }
 
   ngOnInit() {
     this.generateForm();
-  }
-
-  ionViewWillEnter() {
-    this.menuController.enable(false);
   }
 
   generateForm() {
@@ -43,7 +37,6 @@ export class LoginPage implements OnInit {
     const login: Login = this.form.value;
 
     await this.controller.login(login);
-    this.menuController.enable(true);
   }
 
   eventHandler($keyCode) {

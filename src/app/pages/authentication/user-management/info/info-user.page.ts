@@ -20,7 +20,7 @@ export class InfoUserPage implements OnInit {
 
   ngOnInit() {
     this.editForm = true;
-    let clientDTO: ClientDTO = this.authenticationControllerService.getSessionUser();
+    let clientDTO: ClientDTO = this.authenticationControllerService.user;
     this.id = clientDTO.id;
     this.user = {
       name: clientDTO.name,

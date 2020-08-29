@@ -1,3 +1,4 @@
+import { NoConnectionPage } from './pages/no-connection/no-connection.page';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -14,7 +15,8 @@ import { AuthInterceptorProvider, ErrorInterceptorProvider } from './interceptor
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NoConnectionPage
   ],
   entryComponents: [],
   imports: [

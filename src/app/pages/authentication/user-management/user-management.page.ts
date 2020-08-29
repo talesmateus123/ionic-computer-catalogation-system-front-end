@@ -8,14 +8,14 @@ import { ClientDTO, AuthenticationControllerService } from '../login';
   styleUrls: ['./user-management.page.scss'],
 })
 export class UserManagementPage implements OnInit {
-  user: ClientDTO;
+  public user: ClientDTO;
 
   constructor(
     private authenticationControllerService: AuthenticationControllerService
   ) { }
 
   ngOnInit() {
-    this.user = this.authenticationControllerService.getSessionUser();
+    this.user = this.authenticationControllerService.user;
   }
 
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
 import { AuthUtilService } from '../shared-resources';
 import { ToastMessageControllerService, LoadingModalControllerService } from 'src/app/shared-resources';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -13,7 +12,6 @@ export class ForgotPasswordPage implements OnInit {
   public email: string;
 
   constructor(
-    private menuController: MenuController,
     private loadingModalControllerService: LoadingModalControllerService,
     private toastMessageControllerService: ToastMessageControllerService,
     private service: AuthUtilService
@@ -23,7 +21,6 @@ export class ForgotPasswordPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.menuController.enable(false);
   }
 
   async forgotPassword() {
@@ -34,7 +31,7 @@ export class ForgotPasswordPage implements OnInit {
         this.toastMessageControllerService.successMessageAlert(`Um e-mail com sua nova senha foi enviado para ${this.email}`);
       },
       error => {
-        
+
       });
   }
 

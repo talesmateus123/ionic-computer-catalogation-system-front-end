@@ -11,7 +11,6 @@ import { LoadingModalControllerService, ToastMessageControllerService } from 'sr
   providedIn: 'root'
 })
 export class AuthenticationControllerService {
-
   constructor(
     private toastMessageControllerService: ToastMessageControllerService,
     private loadingModalControllerService: LoadingModalControllerService,
@@ -37,13 +36,9 @@ export class AuthenticationControllerService {
   }
 
   public logout() {
-    this.sessionStorageService.setSessionUser(null);
+    this.user = null;
     this.sessionStorageService.setSessionSecurityKey(null);
     this.redirectToLoginPage();
-  }
-
-  public getSessionUser(): ClientDTO {
-    return this.sessionStorageService.getSessionUser();
   }
 
   private findSessionUser(userId: string) {
@@ -51,10 +46,19 @@ export class AuthenticationControllerService {
       subscribe(
         res => {
           this.sessionStorageService.setSessionUser(res);
+          this.user = res;
         }, 
         error => {
           
         });
+  }
+
+  get user() {
+    return this.sessionStorageService.getSessionUser();
+  }
+
+  set user(user: ClientDTO) {
+    this.sessionStorageService.setSessionUser(user);
   }
 
   public getSessionSecurityKey(): string {
@@ -62,7 +66,7 @@ export class AuthenticationControllerService {
   }
 
   public isLoggedIn(): boolean {
-    return this.getSessionUser() ? true : false;
+    return this.user ? true : false;
   }
 
   public redirectToLoginPage(): void {

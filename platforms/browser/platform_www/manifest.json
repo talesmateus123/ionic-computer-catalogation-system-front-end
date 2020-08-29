@@ -1,6 +1,6 @@
 {
-  "name": "MyApp",
-  "short_name": "MyApp",
+  "name": "Sistema de catalogagem de computadores",
+  "short_name": "Sistema de catalogagem de computadores",
   "description": "Description of your app from template",
   "start_url": "index.html",
   "scope": "index.html",
