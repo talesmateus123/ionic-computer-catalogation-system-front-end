@@ -20,14 +20,14 @@ export class InfoUserPage implements OnInit {
 
   ngOnInit() {
     this.editForm = true;
-    let clientDTO: ClientDTO = this.authenticationControllerService.user;
+    const clientDTO: ClientDTO = this.authenticationControllerService.user;
     this.id = clientDTO.id;
     this.user = {
       name: clientDTO.name,
       email: clientDTO.email,
-      password: ""
+      password: ''
     };
-  } 
+  }
 
   setEditForm() {
     if (this.editForm)
@@ -35,11 +35,11 @@ export class InfoUserPage implements OnInit {
     else
       this.editForm = true;
   }
-  
-  update(){
+
+  update() {
     this.service.update(this.id, this.user)
       .subscribe(res => {
-        this.toastMessageControllerService.successMessageAlert("Usuário salvo com sucesso")
+        this.toastMessageControllerService.successMessageAlert('Usuário salvo com sucesso')
         this.authenticationControllerService.logout();
       },
       error => {
@@ -47,10 +47,10 @@ export class InfoUserPage implements OnInit {
       });
   }
 
-  delete(){
+  delete() {
     this.service.delete(this.id)
       .subscribe(res => {
-        this.toastMessageControllerService.successMessageAlert("Usuário excluído com sucesso")
+        this.toastMessageControllerService.successMessageAlert('Usuário excluído com sucesso')
         this.authenticationControllerService.logout();
       },
       error => {

@@ -42,7 +42,6 @@ export class AppComponent implements OnInit {
       icon: 'document-text'
     }
   ];
-  public user: ClientDTO;
 
   constructor(
     private platform: Platform,
@@ -68,7 +67,6 @@ export class AppComponent implements OnInit {
   private async checkIfLoggedIn() {
     if (this.authenticationControllerService.isLoggedIn()) {
       await this.pingRequestService.ping().toPromise().then(() => {
-        this.user = this.authenticationControllerService.user;
         this.authenticationControllerService.redirectToEquipmentsPage();
       });
       return;

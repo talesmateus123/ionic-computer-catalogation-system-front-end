@@ -13,18 +13,18 @@ import { concat } from 'rxjs';
 })
 export class InfoComputerUserPage implements OnInit {
   private id: string;
-  public editForm: boolean
+  public editForm: boolean = true;
 
   public filledValues: boolean = false;
 
   public formName: string;
-	public formLastName: string;
-	public formEmail: string;
-	public formSectorId: number;
+  public formLastName: string;
+  public formEmail: string;
+  public formSectorId: number;
   public formUseTheComputersId: number[];
 
   public computerUser: any;
-  
+
   constructor(
     public controller: ComputerUserControllerService,
     public sectorController: SectorControllerService,
@@ -32,8 +32,7 @@ export class InfoComputerUserPage implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id')
-    this.editForm = true;
+    this.id = this.route.snapshot.paramMap.get('id');
     this.initValues();
   }
 
@@ -55,12 +54,9 @@ export class InfoComputerUserPage implements OnInit {
       }
     );
   }
-  
+
   setEditForm() {
-    if (this.editForm)
-      this.editForm = false;
-    else
-      this.editForm = true;
+    this.editForm = !this.editForm;
   }
 
   populateForm() {
@@ -68,11 +64,10 @@ export class InfoComputerUserPage implements OnInit {
     this.formLastName = this.computerUser.lastName;
     this.formEmail = this.computerUser.email;
     this.formSectorId = this.computerUser.sector.id;
-    // this.formUseTheComputersId = this.computerUser.;
   }
 
-  update() {    
-    this.controller.updateComputerUser(this.id, 
+  update() {
+    this.controller.updateComputerUser(this.id,
       {
         name: this.formName,
         lastName: this.formLastName,

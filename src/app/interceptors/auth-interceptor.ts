@@ -11,9 +11,9 @@ export class AuthInterceptor implements HttpInterceptor {
     ) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        let securityKey: string = this.authenticationControllerService.getSessionSecurityKey();
+        const securityKey: string = this.authenticationControllerService.getSessionSecurityKey();
 
-        if(securityKey) {
+        if (securityKey) {
             const authReq = request.clone({
                 headers: request.headers.set('Authorization', 'Bearer ' + securityKey)
             });
@@ -28,4 +28,4 @@ export const AuthInterceptorProvider = {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
-}
+};

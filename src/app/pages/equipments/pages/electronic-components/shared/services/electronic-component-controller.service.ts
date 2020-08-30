@@ -6,9 +6,9 @@ import { Location } from '@angular/common';
 import { ProcessorService } from './processor.service';
 import { RamMemoryService } from './ram-memory.service';
 import { StorageDeviceService } from './storage-device.service';
-import { 
-  ProcessorDTO, RamMemoryDTO, StorageDeviceDTO, ProcessorNewDTO, 
-  RamMemoryNewDTO, StorageDeviceNewDTO, ArchitectureType, 
+import {
+  ProcessorDTO, RamMemoryDTO, StorageDeviceDTO, ProcessorNewDTO,
+  RamMemoryNewDTO, StorageDeviceNewDTO, ArchitectureType,
   RamMemoryArchitecture, StorageDeviceArchitecture, StorageDeviceType } from '../models';
 import { ElectronicService } from 'src/app/pages/shared-resources';
 
@@ -17,9 +17,9 @@ import { ElectronicService } from 'src/app/pages/shared-resources';
 })
 export class ElectronicComponentControllerService {
   public electronicComponentTypes: string[] =[
-    "PROCESSOR",
-    "RAM_MEMORY",
-    "STORAGE_DEVICE",
+    'PROCESSOR',
+    'RAM_MEMORY',
+    'STORAGE_DEVICE',
   ];
 
   public keys = Object.keys;
@@ -34,7 +34,7 @@ export class ElectronicComponentControllerService {
   public storageDevices: StorageDeviceDTO[];
 
   constructor(
-    private _location: Location,
+    private _LOCATION: Location,
     public loadingController: LoadingController,
     public toastController: ToastController,
     private electronicComponentService: ElectronicService,
@@ -86,11 +86,11 @@ export class ElectronicComponentControllerService {
   }
 
   createProcessor(objetcNewDTO: ProcessorNewDTO): void {
-    if(objetcNewDTO.processorName === "")
+    if(objetcNewDTO.processorName === '')
       objetcNewDTO.processorName = null;
     this.processorService.create(objetcNewDTO)
       .subscribe(res => {
-        this.successMessageAlert("Processador criado com sucesso");
+        this.successMessageAlert('Processador criado com sucesso');
         this.updateProcessorsList();
         this.redirectToRootPage();
       },
@@ -102,7 +102,7 @@ export class ElectronicComponentControllerService {
   createRamMemory(objetcNewDTO: RamMemoryNewDTO): void {
     this.ramMemoryService.create(objetcNewDTO)
       .subscribe(res => {
-        this.successMessageAlert("Memória RAM criada com sucesso");
+        this.successMessageAlert('Memória RAM criada com sucesso');
         this.updateRamMemoriesList();
         this.redirectToRootPage();
       },
@@ -114,7 +114,7 @@ export class ElectronicComponentControllerService {
   createStorageDevice(objetcNewDTO: StorageDeviceNewDTO): void {
     this.storageDeviceService.create(objetcNewDTO)
       .subscribe(res => {
-        this.successMessageAlert("Dispositivo de armazenamento criado com sucesso");
+        this.successMessageAlert('Dispositivo de armazenamento criado com sucesso');
         this.updateStorageDevicesList();
         this.redirectToRootPage();
       },
@@ -124,11 +124,11 @@ export class ElectronicComponentControllerService {
   }
 
   updateProcessor(id: string, objetcNewDTO: ProcessorNewDTO): void {
-    if(objetcNewDTO.processorName === "")
+    if(objetcNewDTO.processorName === '')
       objetcNewDTO.processorName = null;
     this.processorService.update(id, objetcNewDTO)
       .subscribe(res => {
-        this.successMessageAlert("Processador atualizado com sucesso");
+        this.successMessageAlert('Processador atualizado com sucesso');
         this.updateProcessorsList();
         this.redirectToRootPage();
       },
@@ -140,7 +140,7 @@ export class ElectronicComponentControllerService {
   updateRamMemory(id: string, objetcNewDTO: RamMemoryNewDTO): void {
     this.ramMemoryService.update(id, objetcNewDTO)
       .subscribe(res => {
-        this.successMessageAlert("Memória RAM atualizada com sucesso");
+        this.successMessageAlert('Memória RAM atualizada com sucesso');
         this.updateRamMemoriesList();
         this.redirectToRootPage();
       },
@@ -152,7 +152,7 @@ export class ElectronicComponentControllerService {
   updateStorageDevice(id: string, objetcNewDTO: StorageDeviceNewDTO): void {
     this.storageDeviceService.update(id, objetcNewDTO)
       .subscribe(res => {
-        this.successMessageAlert("Dispositivo de armazenamento atualizado com sucesso");
+        this.successMessageAlert('Dispositivo de armazenamento atualizado com sucesso');
         this.updateStorageDevicesList();
         this.redirectToRootPage();
       },
@@ -164,7 +164,7 @@ export class ElectronicComponentControllerService {
   deleteProcessor(id: string): void {
     this.processorService.delete(id)
       .subscribe(res => {
-        this.successMessageAlert("Processador excluído com sucesso");
+        this.successMessageAlert('Processador excluído com sucesso');
         this.updateProcessorsList();
         this.redirectToRootPage();
       },
@@ -176,7 +176,7 @@ export class ElectronicComponentControllerService {
   deleteRamMemory(id: string): void {
     this.ramMemoryService.delete(id)
       .subscribe(res => {
-        this.successMessageAlert("Memória RAM excluída com sucesso");
+        this.successMessageAlert('Memória RAM excluída com sucesso');
         this.updateRamMemoriesList();
         this.redirectToRootPage();
       },
@@ -188,7 +188,7 @@ export class ElectronicComponentControllerService {
   deleteStorageDevice(id: string): void {
     this.storageDeviceService.delete(id)
       .subscribe(res => {
-        this.successMessageAlert("Dispositivo de armazenamento excluído com sucesso");
+        this.successMessageAlert('Dispositivo de armazenamento excluído com sucesso');
         this.updateStorageDevicesList();
         this.redirectToRootPage();
       },
@@ -210,7 +210,7 @@ export class ElectronicComponentControllerService {
   }
 
   redirectToRootPage(): void {
-    this._location.back();
+    this._LOCATION.back();
   }
 
   async loadingPresent() {
@@ -248,7 +248,7 @@ export class ElectronicComponentControllerService {
   async errorMessageAlert(error: any) {
     let msg: any;
     if (error.error.error === undefined)
-      msg = "Erro desconhecido";
+      msg = 'Erro desconhecido';
     else
       msg = error.error.error;
     const toast = await this.toastController.create({

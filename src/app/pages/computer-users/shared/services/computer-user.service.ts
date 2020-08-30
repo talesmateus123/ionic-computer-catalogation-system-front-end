@@ -15,41 +15,41 @@ export class ComputerUserService {
 
   constructor(
     public http: HttpClient
-    ) {
+  ) {
   }
 
   findAll(): Observable<ComputerUserDTO[]> {
-      return this.http.get<ComputerUserDTO[]>(`${this.url}`);
+    return this.http.get<ComputerUserDTO[]>(`${this.url}`);
   }
-  
+
   findAvailable(): Observable<ComputerUserDTO[]> {
     return this.http.get<ComputerUserDTO[]>(`${this.url}/available`);
   }
 
   findById(id: string): Observable<ComputerUserDTO> {
-      return this.http.get<ComputerUserDTO>(`${this.url}/${id}`);
+    return this.http.get<ComputerUserDTO>(`${this.url}/${id}`);
   }
-  
+
   search(searchTerm: string, direction: string, orderBy: string): Observable<any> {
     return this.http.get(`${this.url}/search`, {
       params: {
-          searchTerm: searchTerm,
-          direction: direction,
-          orderBy: orderBy
+          searchTerm,
+          direction,
+          orderBy
       },
       observe: 'response'
     })
   }
 
   create(object: ComputerUserNewDTO): Observable<any> {
-      return this.http.post<ComputerUserNewDTO>(`${this.url}`, object);
+    return this.http.post<ComputerUserNewDTO>(`${this.url}`, object);
   }
 
   update(id: string, object: ComputerUserNewDTO): Observable<any> {
-      return this.http.put<ComputerUserNewDTO>(`${this.url}/${id}`, object);
+    return this.http.put<ComputerUserNewDTO>(`${this.url}/${id}`, object);
   }
 
   delete(id: string): Observable<any> {
-      return this.http.delete<ComputerUserNewDTO>(`${this.url}/${id}`);
+    return this.http.delete<ComputerUserNewDTO>(`${this.url}/${id}`);
   }
 }

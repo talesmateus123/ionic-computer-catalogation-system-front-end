@@ -10,12 +10,12 @@ import { LoadingModalControllerService } from 'src/app/shared-resources';
   styleUrls: ['./info-sector.page.scss'],
 })
 export class InfoSectorPage implements OnInit {
-  id: string;
+  private id: string;
 
   public filledValues: boolean = false;
-  
-  sector: SectorNewDTO;
-  editForm: boolean
+
+  public sector: SectorNewDTO;
+  public editForm: boolean = true;
 
   constructor(
     public controller: SectorControllerService,
@@ -23,8 +23,7 @@ export class InfoSectorPage implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id')
-    this.editForm = true;
+    this.id = this.route.snapshot.paramMap.get('id');
     this.initValues();
   }
 
@@ -33,7 +32,7 @@ export class InfoSectorPage implements OnInit {
     this.controller.findSector(this.id)
       .subscribe(
         res => {
-          this.sector = res
+          this.sector = res;
           this.filledValues = true;
           this.loadingModalControllerService.loadingDismiss();
         },
@@ -41,19 +40,16 @@ export class InfoSectorPage implements OnInit {
           this.controller.redirectToRootPage();
         });
   }
-  
+
   setEditForm() {
-    if (this.editForm)
-      this.editForm = false;
-    else
-      this.editForm = true;
+    this.editForm = !this.editForm;
   }
 
-  update(){
+  update() {
     this.controller.updateSector(this.id, this.sector);
   }
 
-  delete(){
+  delete() {
     this.controller.deleteSector(this.id);
   }
 

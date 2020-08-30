@@ -10,7 +10,7 @@ export class SearchComputerUserPage implements OnInit {
   public searchTerm: string;
   public asc: boolean;
   public orderBy: string;
-  
+
   constructor(
     private modalController: ModalController
   ) { }
@@ -21,7 +21,7 @@ export class SearchComputerUserPage implements OnInit {
   returnDataAndDismiss() {
     this.modalController.dismiss(
       {
-        searchTerm: this.searchTerm, 
+        searchTerm: this.searchTerm,
         asc: this.asc,
         orderBy: this.orderBy
       }

@@ -8,13 +8,12 @@ import { EquipmentControllerService } from './shared';
   styleUrls: ['./equipments.page.scss'],
 })
 export class EquipmentsPage implements OnInit {
-  equipmentTypes: string[] =[
-    "Computadores",
-    "Impressoras",
-    "Dispositivos de rede",
-    "Monitores",
+  equipmentTypes: string[] = [
+    'Computadores',
+    'Impressoras',
+    'Dispositivos de rede',
+    'Monitores',
   ];
-  public filledList: boolean = false;
 
   constructor(
     public controller: EquipmentControllerService
@@ -22,7 +21,6 @@ export class EquipmentsPage implements OnInit {
 
   async ngOnInit() {
     await this.controller.updateComputersList();
-    this.filledList = true;
   }
 
   updateAllLists() {
@@ -33,16 +31,16 @@ export class EquipmentsPage implements OnInit {
   }
 
   async onChangeEquipmentType(equipmentType) {
-    this.filledList = false;
-    if(equipmentType === "Computadores" && !this.controller.computers)
-      await this.controller.updateComputersList(); 
-    else if(equipmentType === "Impressoras" && !this.controller.printers)
+    this.controller.filledList = false;
+    if (equipmentType === 'Computadores' && !this.controller.computers)
+      await this.controller.updateComputersList();
+    else if (equipmentType === 'Impressoras' && !this.controller.printers)
       await this.controller.updatePrintersList(); 
-    else if(equipmentType === "Dispositivos de rede" && !this.controller.networkDevices)
+    else if (equipmentType === 'Dispositivos de rede' && !this.controller.networkDevices)
       await this.controller.updateNetworkDevicesList();
-    else if(equipmentType === "Monitores" && !this.controller.monitors)
+    else if (equipmentType === 'Monitores' && !this.controller.monitors)
       await this.controller.updateMonitorsList(); 
-    this.filledList = true;
+    this.controller.filledList = true;
   }
   
 }

@@ -29,12 +29,12 @@ export class PrinterService {
   search(searchTerm: string, direction: string, orderBy: string): Observable<any> {
     return this.http.get(`${this.url}/search`, {
       params: {
-          searchTerm: searchTerm,
-          direction: direction,
-          orderBy: orderBy
+          searchTerm,
+          direction,
+          orderBy
       },
       observe: 'response'
-    })
+    });
   }
 
   create(object: PrinterNewDTO): Observable<any> {

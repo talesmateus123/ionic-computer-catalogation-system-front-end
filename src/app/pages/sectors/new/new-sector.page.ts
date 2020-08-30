@@ -11,8 +11,8 @@ import { SectorNewDTO, SectorService, SectorControllerService } from '../shared'
 })
 export class NewSectorPage implements OnInit {  
   sector: SectorNewDTO = {
-    name: "",
-    phone: ""
+    name: '',
+    phone: ''
   };
 
   constructor(public controller: SectorControllerService) { }

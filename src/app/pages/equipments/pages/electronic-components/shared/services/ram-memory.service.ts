@@ -17,7 +17,7 @@ export class RamMemoryService {
   }
 
   findAll(): Observable<RamMemoryDTO[]> {
-      return this.http.get<RamMemoryDTO[]>(`${this.url}`);
+    return this.http.get<RamMemoryDTO[]>(`${this.url}`);
   }
 
   findAvailable(): Observable<RamMemoryDTO[]> {
@@ -25,18 +25,18 @@ export class RamMemoryService {
   }
 
   findById(id: string): Observable<RamMemoryDTO> {
-      return this.http.get<RamMemoryDTO>(`${this.url}/${id}`);
+    return this.http.get<RamMemoryDTO>(`${this.url}/${id}`);
   }
 
   create(object: RamMemoryNewDTO): Observable<any> {
-      return this.http.post<RamMemoryNewDTO>(`${this.url}`, object);
+    return this.http.post<RamMemoryNewDTO>(`${this.url}`, object);
   }
 
   update(id: string, object: RamMemoryNewDTO): Observable<any> {
-      return this.http.put<RamMemoryNewDTO>(`${this.url}/${id}`, object);
+    return this.http.put<RamMemoryNewDTO>(`${this.url}/${id}`, object);
   }
 
   delete(id: string): Observable<any> {
-      return this.http.delete<RamMemoryNewDTO>(`${this.url}/${id}`);
+    return this.http.delete<RamMemoryNewDTO>(`${this.url}/${id}`);
   }
 }

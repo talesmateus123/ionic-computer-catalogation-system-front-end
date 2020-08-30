@@ -6,28 +6,29 @@ import { Observable } from 'rxjs';
 import { ComputerUserService } from './computer-user.service';
 import { ComputerUserDTO, ComputerUserNewDTO } from '../models';
 import { SearchComputerUserPage } from '../../search';
-import { ToastMessageControllerService } from 'src/app/shared-resources';
+import { LoadingModalControllerService, ToastMessageControllerService } from 'src/app/shared-resources';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ComputerUserControllerService {
-  public searchTerm: string = "";
+  public searchTerm: string = '';
   public asc: boolean = true;
-  public orderBy: string = "name";
+  public orderBy: string = 'name';
 
   public computerUsers: ComputerUserDTO[];
 
   constructor(
     private modalController: ModalController,
-    private router: Router, 
+    private router: Router,
+    private loadingModalControllerService: LoadingModalControllerService,
     private toastMessageControllerService: ToastMessageControllerService,
     private computerUserService: ComputerUserService) { }
-  
+
   findComputerUser(id: string): Observable<any> {
     return this.computerUserService.findById(id);
   }
-  
+
   searchComputerUser(searchTerm: string, direction: string, orderBy: string): void {
     this.computerUsers = undefined;
     this.computerUserService.search(searchTerm, direction, orderBy)
@@ -35,7 +36,7 @@ export class ComputerUserControllerService {
         this.computerUsers = response.body.content;
       },
       error => {
-        
+
       });
   }
 
@@ -50,49 +51,55 @@ export class ComputerUserControllerService {
       });
   }
 
-  createComputerUser(objetcNewDTO: ComputerUserNewDTO): void {
-    if(objetcNewDTO.lastName === "")
+  async createComputerUser(objetcNewDTO: ComputerUserNewDTO) {
+    await this.loadingModalControllerService.loadingPresent('Salvando');
+    if(objetcNewDTO.lastName === '')
       objetcNewDTO.lastName = null;
-    if(objetcNewDTO.email === "")
+    if(objetcNewDTO.email === '')
       objetcNewDTO.email = null;
 
     this.computerUserService.create(objetcNewDTO)
       .subscribe(res => {
-        this.toastMessageControllerService.successMessageAlert("Usuário criado com sucesso");
+        this.toastMessageControllerService.successMessageAlert('Usuário criado com sucesso');
+        this.loadingModalControllerService.loadingDismiss();
         this.updateComputerUsersList();
         this.redirectToRootPage();
       },
       error => {
-        
+
       });
   }
 
-  updateComputerUser(id: string, objetcNewDTO: ComputerUserNewDTO): void {
-    if(objetcNewDTO.lastName === "")
+  async updateComputerUser(id: string, objetcNewDTO: ComputerUserNewDTO) {
+    await this.loadingModalControllerService.loadingPresent('Salvando');
+    if(objetcNewDTO.lastName === '')
       objetcNewDTO.lastName = null;
-    if(objetcNewDTO.email === "")
+    if(objetcNewDTO.email === '')
       objetcNewDTO.email = null;
 
     this.computerUserService.update(id, objetcNewDTO)
       .subscribe(res => {
-        this.toastMessageControllerService.successMessageAlert("Usuário atualizado com sucesso");
+        this.toastMessageControllerService.successMessageAlert('Usuário atualizado com sucesso');
+        this.loadingModalControllerService.loadingDismiss();
         this.updateComputerUsersList();
         this.redirectToRootPage();
       },
       error => {
-        
+
       });
   }
-  
-  deleteComputerUser(id: string): void {
+
+  async deleteComputerUser(id: string) {
+    await this.loadingModalControllerService.loadingPresent('Excluindo');
     this.computerUserService.delete(id)
       .subscribe(res => {
-        this.toastMessageControllerService.successMessageAlert("Usuário excluído com sucesso");
+        this.toastMessageControllerService.successMessageAlert('Usuário excluído com sucesso');
+        this.loadingModalControllerService.loadingDismiss();
         this.updateComputerUsersList();
         this.redirectToRootPage();
       },
       error => {
-        
+
       });
   }
 
@@ -103,7 +110,7 @@ export class ComputerUserControllerService {
   async searchModalPresent() {
     const modal = await this.modalController.create({
       component: SearchComputerUserPage,
-      componentProps: { 
+      componentProps: {
         searchTerm: this.searchTerm,
         asc: this.asc,
         orderBy: this.orderBy
@@ -116,7 +123,7 @@ export class ComputerUserControllerService {
         this.asc = dataReturned.data.asc;
         this.orderBy = dataReturned.data.orderBy;
 
-        this.searchComputerUser(dataReturned.data.searchTerm, dataReturned.data.asc ? "ASC" : "DESC", dataReturned.data.orderBy);
+        this.searchComputerUser(dataReturned.data.searchTerm, dataReturned.data.asc ? 'ASC' : 'DESC', dataReturned.data.orderBy);
       }
     });
     return await modal.present();

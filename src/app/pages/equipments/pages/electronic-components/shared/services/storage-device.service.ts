@@ -17,7 +17,7 @@ export class StorageDeviceService {
   }
 
   findAll(): Observable<StorageDeviceDTO[]> {
-      return this.http.get<StorageDeviceDTO[]>(`${this.url}`);
+    return this.http.get<StorageDeviceDTO[]>(`${this.url}`);
   }
 
   findAvailable(): Observable<StorageDeviceDTO[]> {
@@ -25,18 +25,18 @@ export class StorageDeviceService {
   }
 
   findById(id: string): Observable<StorageDeviceDTO> {
-      return this.http.get<StorageDeviceDTO>(`${this.url}/${id}`);
+    return this.http.get<StorageDeviceDTO>(`${this.url}/${id}`);
   }
 
   create(object: StorageDeviceNewDTO): Observable<any> {
-      return this.http.post<StorageDeviceNewDTO>(`${this.url}`, object);
+    return this.http.post<StorageDeviceNewDTO>(`${this.url}`, object);
   }
 
   update(id: string, object: StorageDeviceNewDTO): Observable<any> {
-      return this.http.put<StorageDeviceNewDTO>(`${this.url}/${id}`, object);
+    return this.http.put<StorageDeviceNewDTO>(`${this.url}/${id}`, object);
   }
 
   delete(id: string): Observable<any> {
-      return this.http.delete<StorageDeviceNewDTO>(`${this.url}/${id}`);
+    return this.http.delete<StorageDeviceNewDTO>(`${this.url}/${id}`);
   }
 }

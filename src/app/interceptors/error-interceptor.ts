@@ -21,19 +21,19 @@ export class ErrorInterceptor implements HttpInterceptor {
                 catchError((error: HttpErrorResponse) => {
                     let errorTitle = `Erro!`;
                     let errorMessage = '';
-                    switch(error.status) {
+                    switch (error.status) {
                         case 0:
                             errorMessage = `Falha ao obter conexão com o servidor.`;
                             break;
-                        case 403: 
+                        case 403:
                             errorTitle = `Proibido`;
                             errorMessage = `Você precisa logar para continuar.`;
                             this.authenticationControllerService.logout();
                             break;
                         case 422:
                             errorTitle = `${error.error.error}`;
-                            let errors: any[] = error.error.errors;
-                            errors.forEach(error => {errorMessage = `${errorMessage}${error.fieldName}: ${error.message} <br>`});
+                            const errors: any[] = error.error.errors;
+                            errors.forEach(error => {errorMessage = `${errorMessage}${error.fieldName}: ${error.message} <br>`; });
                             break;
                         default:
                             errorTitle = `${error.error.error}`;
@@ -51,4 +51,4 @@ export const ErrorInterceptorProvider = {
     provide: HTTP_INTERCEPTORS,
     useClass: ErrorInterceptor,
     multi: true
-}
+};

@@ -21,7 +21,7 @@ export class ComputerService {
   findAll(): Observable<ComputerDTO[]> {
       return this.http.get<ComputerDTO[]>(`${this.url}`);
   }
-  
+
   findAvailable(): Observable<ComputerDTO[]> {
     return this.http.get<ComputerDTO[]>(`${this.url}/available`);
   }
@@ -33,67 +33,67 @@ export class ComputerService {
   search(searchTerm: string, direction: string, orderBy: string): Observable<any> {
     return this.http.get(`${this.url}/${API_CONFIG.standardSearchMethod.search}`, {
       params: {
-          searchTerm: searchTerm,
-          direction: direction,
-          orderBy: orderBy
+          searchTerm,
+          direction,
+          orderBy
       },
       observe: 'response'
-    })
+    });
   }
 
   searchComputerProcessor(searchTerm: string, direction: string, orderBy: string): Observable<any> {
     return this.http.get(`${this.url}/${API_CONFIG.computerSearchMethods.searchComputerProcessor}`, {
       params: {
-          searchTerm: searchTerm,
-          direction: direction,
-          orderBy: orderBy
+          searchTerm,
+          direction,
+          orderBy
       },
       observe: 'response'
-    })
+    });
   }
 
   searchComputerComputerUser(searchTerm: string, direction: string, orderBy: string): Observable<any> {
     return this.http.get(`${this.url}/${API_CONFIG.computerSearchMethods.searchComputerComputerUser}`, {
       params: {
-          searchTerm: searchTerm,
-          direction: direction,
-          orderBy: orderBy
+          searchTerm,
+          direction,
+          orderBy
       },
       observe: 'response'
-    })
+    });
   }
 
   searchComputerOnline(searchTerm: string, direction: string, orderBy: string): Observable<any> {
     return this.http.get(`${this.url}/${API_CONFIG.computerSearchMethods.searchComputerOnline}`, {
       params: {
-          searchTerm: searchTerm,
-          direction: direction,
-          orderBy: orderBy
+          searchTerm,
+          direction,
+          orderBy
       },
       observe: 'response'
-    })
+    });
   }
 
   searchComputerOnTheDomain(searchTerm: string, direction: string, orderBy: string): Observable<any> {
     return this.http.get(`${this.url}/${API_CONFIG.computerSearchMethods.searchComputerOnTheDomain}`, {
       params: {
-          searchTerm: searchTerm,
-          direction: direction,
-          orderBy: orderBy
+          searchTerm,
+          direction,
+          orderBy
       },
       observe: 'response'
-    })
+    });
   }
 
   searchComputerPersonalComputer(searchTerm: string, direction: string, orderBy: string): Observable<any> {
     return this.http.get(`${this.url}/${API_CONFIG.computerSearchMethods.searchComputerPersonalComputer}`, {
       params: {
-          searchTerm: searchTerm,
-          direction: direction,
-          orderBy: orderBy
+          searchTerm,
+          direction,
+          orderBy
       },
       observe: 'response'
-    })
+    });
   }
 
   create(object: ComputerNewDTO): Observable<any> {

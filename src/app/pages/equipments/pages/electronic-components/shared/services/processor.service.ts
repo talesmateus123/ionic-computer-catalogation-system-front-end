@@ -17,7 +17,7 @@ export class ProcessorService {
   }
 
   findAll(): Observable<ProcessorDTO[]> {
-      return this.http.get<ProcessorDTO[]>(`${this.url}`);
+    return this.http.get<ProcessorDTO[]>(`${this.url}`);
   }
 
   findAvailable(): Observable<ProcessorDTO[]> {
@@ -25,11 +25,11 @@ export class ProcessorService {
   }
 
   findById(id: string): Observable<ProcessorDTO> {
-      return this.http.get<ProcessorDTO>(`${this.url}/${id}`);
+    return this.http.get<ProcessorDTO>(`${this.url}/${id}`);
   }
 
   create(object: ProcessorNewDTO): Observable<any> {
-      return this.http.post<ProcessorNewDTO>(`${this.url}`, object);
+    return this.http.post<ProcessorNewDTO>(`${this.url}`, object);
   }
 
   update(id: string, object: ProcessorNewDTO): Observable<any> {
@@ -37,6 +37,6 @@ export class ProcessorService {
   }
 
   delete(id: string): Observable<any> {
-      return this.http.delete<ProcessorNewDTO>(`${this.url}/${id}`);
+    return this.http.delete<ProcessorNewDTO>(`${this.url}/${id}`);
   }
 }

@@ -32,7 +32,7 @@ export class AuthenticationControllerService {
       })
       .catch(() => {
 
-      })
+      });
   }
 
   public logout() {
@@ -47,7 +47,7 @@ export class AuthenticationControllerService {
         res => {
           this.sessionStorageService.setSessionUser(res);
           this.user = res;
-        }, 
+        },
         error => {
           
         });

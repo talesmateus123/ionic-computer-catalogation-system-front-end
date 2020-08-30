@@ -9,15 +9,13 @@ import { LoadingModalControllerService } from 'src/app/shared-resources';
   styleUrls: ['./new-computer-user.page.scss'],
 })
 export class NewComputerUserPage implements OnInit {
-  private id: string;
-
   public filledValues: boolean = false;
-  
+
   public formName: string;
-	public formLastName: string;
-	public formEmail: string;
-	public formSectorId: number;
-	public formUseTheComputersId: number[];
+  public formLastName: string;
+  public formEmail: string;
+  public formSectorId: number;
+  public formUseTheComputersId: number[];
 
   constructor(
     public controller: ComputerUserControllerService,
@@ -37,7 +35,7 @@ export class NewComputerUserPage implements OnInit {
       this.loadingModalControllerService.loadingDismiss();
     });
   }
-  
+
   create() {
     this.controller.createComputerUser(
       {

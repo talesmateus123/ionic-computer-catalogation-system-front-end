@@ -6,13 +6,13 @@ import { ElectronicComponentControllerService } from './shared';
   templateUrl: './electronic-components.page.html',
   styleUrls: ['./electronic-components.page.scss'],
 })
-export class ElectronicComponentsPage implements OnInit {  
+export class ElectronicComponentsPage implements OnInit {
   public electronicComponentTypes: string[] = [
-    "Processadores",
-    "Memórias RAM",
-    "Dispositivos de armazenamento",
+    'Processadores',
+    'Memórias RAM',
+    'Dispositivos de armazenamento',
   ];
-  public electronicComponentType = "Processadores";
+  public electronicComponentType = 'Processadores';
 
   constructor(public controller: ElectronicComponentControllerService) { }
 

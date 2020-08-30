@@ -11,7 +11,7 @@ import { ElectronicComponentControllerService } from '../shared';
 export class InfoElectronicComponentPage implements OnInit {
   private id: string;
   public electronicComponentType: string;
-  public editForm: boolean = true;
+  public editForm = true;
   public electronicComponent: any;
 
   constructor(
@@ -27,7 +27,7 @@ export class InfoElectronicComponentPage implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.electronicComponent = this.controller.findElectronic(this.id).subscribe(
       res => {
-        let response = res;
+        const response = res;
         this.electronicComponentType = response.equipmentType;
         this.electronicComponent = response;
         this.controller.loadingDismiss();
@@ -37,18 +37,14 @@ export class InfoElectronicComponentPage implements OnInit {
         this.controller.redirectToRootPage();
       }
     );
-    this.editForm = true;
   }
 
   setEditForm() {
-    if (this.editForm)
-      this.editForm = false;
-    else
-      this.editForm = true;
+    this.editForm = !this.editForm;
   }
 
   update() {
-    if(this.electronicComponentType === "PROCESSOR"){
+    if (this.electronicComponentType === 'PROCESSOR') {
       this.controller.updateProcessor(this.id,
         {
           manufacturer: this.electronicComponent.manufacturer,
@@ -60,7 +56,7 @@ export class InfoElectronicComponentPage implements OnInit {
         }
       );
     }
-    if(this.electronicComponentType === "RAM_MEMORY"){
+    if (this.electronicComponentType === 'RAM_MEMORY') {
       this.controller.updateRamMemory(this.id,
         {
           manufacturer: this.electronicComponent.manufacturer,
@@ -72,7 +68,7 @@ export class InfoElectronicComponentPage implements OnInit {
         }
       );
     }
-    if(this.electronicComponentType === "STORAGE_DEVICE"){
+    if (this.electronicComponentType === 'STORAGE_DEVICE') {
       this.controller.updateStorageDevice(this.id,
         {
           manufacturer: this.electronicComponent.manufacturer,
@@ -88,13 +84,13 @@ export class InfoElectronicComponentPage implements OnInit {
   }
 
   delete() {
-    if(this.electronicComponentType === "PROCESSOR"){
+    if (this.electronicComponentType === 'PROCESSOR') {
       this.controller.deleteProcessor(this.id);
     }
-    if(this.electronicComponentType === "RAM_MEMORY"){
+    if (this.electronicComponentType === 'RAM_MEMORY') {
       this.controller.deleteRamMemory(this.id);
     }
-    if(this.electronicComponentType === "STORAGE_DEVICE"){
+    if (this.electronicComponentType === 'STORAGE_DEVICE') {
       this.controller.deleteStorageDevice(this.id);
     }
   }

@@ -1,39 +1,41 @@
 import { Injectable } from '@angular/core';
-import { LoadingController, ModalController } from '@ionic/angular';
+import {  ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { SectorService } from './sector.service';
 import { Observable } from 'rxjs';
+
+import { SectorService } from './sector.service';
 import { SectorDTO, SectorNewDTO } from '../models';
 import { SearchSectorPage } from '../../search';
-import { ToastMessageControllerService } from 'src/app/shared-resources';
+import { LoadingModalControllerService, ToastMessageControllerService } from 'src/app/shared-resources';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SectorControllerService {
-  private searchTerm: string = "";
+  private searchTerm: string = '';
   private asc: boolean = true;
-  private orderBy: string = "name";
+  private orderBy: string = 'name';
 
   public sectors: SectorDTO[];
 
   constructor(
     private modalController: ModalController,
     private router: Router,
+    private loadingModalControllerService: LoadingModalControllerService,
     private toastMessageControllerService: ToastMessageControllerService,
-    private sectorService: SectorService) { 
+    private sectorService: SectorService) {
   }
 
   findSector(id: string): Observable<SectorDTO> {
     return this.sectorService.findById(id);
   }
-  
+
   searchSector(searchTerm: string, direction: string, orderBy: string): void {
     this.sectors = undefined;
     this.sectorService.search(searchTerm, direction, orderBy)
       .subscribe(res => {
         this.sectors = res.body.content;
-      }, 
+      },
       error => {
 
       });
@@ -49,50 +51,56 @@ export class SectorControllerService {
       .subscribe(
         res => {
         this.sectors = res;
-      }, 
+      },
       error => {
         
       });
   }
 
-  createSector(objetcNewDTO: SectorNewDTO): void {
-    if(objetcNewDTO.phone === "")
+  async createSector(objetcNewDTO: SectorNewDTO) {
+    await this.loadingModalControllerService.loadingPresent('Salvando');
+    if (objetcNewDTO.phone === '')
       objetcNewDTO.phone = null;
     this.sectorService.create(objetcNewDTO)
       .subscribe(
         res => {
-          this.toastMessageControllerService.successMessageAlert("Setor criado com sucesso");
+          this.toastMessageControllerService.successMessageAlert('Setor criado com sucesso');
+          this.loadingModalControllerService.loadingDismiss();
           this.updateSectorsList();
           this.redirectToRootPage();
-        }, 
+        },
         error => {
           
         });
   }
 
-  updateSector(id: string, objetcNewDTO: SectorNewDTO): void {
-    if(objetcNewDTO.phone === "")
-    objetcNewDTO.phone = null;
+  async updateSector(id: string, objetcNewDTO: SectorNewDTO){
+    await this.loadingModalControllerService.loadingPresent('Salvando');
+    if (objetcNewDTO.phone === '')
+      objetcNewDTO.phone = null;
     this.sectorService.update(id, objetcNewDTO)
       .subscribe(
         res => {
-          this.toastMessageControllerService.successMessageAlert("Setor salvo com sucesso");
+          this.toastMessageControllerService.successMessageAlert('Setor salvo com sucesso');
+          this.loadingModalControllerService.loadingDismiss();
           this.updateSectorsList();
           this.redirectToRootPage();
-        }, 
+        },
         error => {
         
         });
   }
 
-  deleteSector(id: string): void {
+  async deleteSector(id: string) {
+    await this.loadingModalControllerService.loadingPresent('Excluindo');
     this.sectorService.delete(id)
       .subscribe(
         res => {
-          this.toastMessageControllerService.successMessageAlert("Setor excluído com sucesso");
+          this.toastMessageControllerService.successMessageAlert('Setor excluído com sucesso');
+          this.loadingModalControllerService.loadingDismiss();
           this.updateSectorsList();
           this.redirectToRootPage();
-        }, 
+        },
         error => {
           
         });
@@ -105,7 +113,7 @@ export class SectorControllerService {
   async searchModalPresent() {
     const modal = await this.modalController.create({
       component: SearchSectorPage,
-      componentProps: { 
+      componentProps: {
         searchTerm: this.searchTerm,
         asc: this.asc,
         orderBy: this.orderBy
@@ -118,7 +126,7 @@ export class SectorControllerService {
         this.asc = dataReturned.data.asc;
         this.orderBy = dataReturned.data.orderBy;
 
-        this.searchSector(dataReturned.data.searchTerm, dataReturned.data.asc ? "ASC" : "DESC", dataReturned.data.orderBy);
+        this.searchSector(dataReturned.data.searchTerm, dataReturned.data.asc ? 'ASC' : 'DESC', dataReturned.data.orderBy);
       }
     });
     return await modal.present();

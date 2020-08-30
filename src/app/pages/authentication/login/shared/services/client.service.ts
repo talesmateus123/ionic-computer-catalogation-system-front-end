@@ -20,22 +20,22 @@ export class ClientService {
   }
 
   findAll(): Observable<ClientDTO[]> {
-      return this.http.get<ClientDTO[]>(`${this.url}`);
+    return this.http.get<ClientDTO[]>(`${this.url}`);
   }
 
   findById(id: string): Observable<any> {
-      return this.http.get<any>(`${this.url}/${id}`);
+    return this.http.get<any>(`${this.url}/${id}`);
   }
 
   create(object: ClientNewDTO): Observable<any> {
-      return this.http.post<ClientNewDTO>(`${this.url}`, object);
+    return this.http.post<ClientNewDTO>(`${this.url}`, object);
   }
 
   update(id: string, object: ClientNewDTO): Observable<any> {
-      return this.http.put<ClientNewDTO>(`${this.url}/${id}`, object);
+    return this.http.put<ClientNewDTO>(`${this.url}/${id}`, object);
   }
 
   delete(id: string): Observable<any> {
-      return this.http.delete<ClientNewDTO>(`${this.url}/${id}`);
+    return this.http.delete<ClientNewDTO>(`${this.url}/${id}`);
   }
 }

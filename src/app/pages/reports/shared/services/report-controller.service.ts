@@ -15,24 +15,24 @@ export class ReportControllerService {
   private loadingMsg: string = 'Processando...';
 
   constructor(
-    private transfer: FileTransfer, 
+    private transfer: FileTransfer,
     private fileOpener: FileOpener,
     private file: File,
     private platform: Platform,
     private reportService: ReportService,
     private loadingModalControllerService: LoadingModalControllerService,
-    private toastMessageControllerService:ToastMessageControllerService
+    private toastMessageControllerService: ToastMessageControllerService
   ) { }
 
   async getComputersReport() {
     await this.loadingModalControllerService.loadingPresent(this.loadingMsg);
     this.reportService.getComputersReport()
       .subscribe(res => {
-        this.save(res, "Relatório dos computadores");
+        this.save(res, 'Relatório dos computadores');
         this.loadingModalControllerService.loadingDismiss();
       },
       error => {
-        
+
       });
   }
 
@@ -40,7 +40,7 @@ export class ReportControllerService {
     await this.loadingModalControllerService.loadingPresent(this.loadingMsg);
     this.reportService.getPrintersReport()
       .subscribe(res => {
-        this.save(res, "Relatório das impressoras");
+        this.save(res, 'Relatório das impressoras');
         this.loadingModalControllerService.loadingDismiss();
       },
       error => {
@@ -52,7 +52,7 @@ export class ReportControllerService {
     await this.loadingModalControllerService.loadingPresent(this.loadingMsg);
     this.reportService.getMonitorsReport()
       .subscribe(res => {
-        this.save(res, "Relatório dos monitores");
+        this.save(res, 'Relatório dos monitores');
         this.loadingModalControllerService.loadingDismiss();
       },
       error => {
@@ -64,7 +64,7 @@ export class ReportControllerService {
     await this.loadingModalControllerService.loadingPresent(this.loadingMsg);
     this.reportService.getComputerUsersReport()
       .subscribe(res => {
-        this.save(res, "Relatório dos usuários");
+        this.save(res, 'Relatório dos usuários');
         this.loadingModalControllerService.loadingDismiss();
       },
       error => {
@@ -76,7 +76,7 @@ export class ReportControllerService {
     await this.loadingModalControllerService.loadingPresent(this.loadingMsg);
     this.reportService.getSectorsReport()
       .subscribe(res => {
-        this.save(res, "Relatório dos setores");
+        this.save(res, 'Relatório dos setores');
         this.loadingModalControllerService.loadingDismiss();
       },
       error => {
@@ -85,7 +85,7 @@ export class ReportControllerService {
   }
 
   private save(pdfFile: any, pdfTitle: string) {
-    var pdfBlob = new Blob([pdfFile], { type: "application/pdf" });
+    var pdfBlob = new Blob([pdfFile], { type: 'application/pdf' });
     // IE doesn't allow using a blob object directly as link href
     // instead it is necessary to use msSaveOrOpenBlob
     if (window.navigator && window.navigator.msSaveOrOpenBlob) {
@@ -100,7 +100,7 @@ export class ReportControllerService {
     //if(this.platform.is('mobileweb') || this.platform.is('android')) {
 
       this.saveInPlatform(encodeURI(data), pdfTitle);
-      
+
       console.log(data.substring(5))
       return;
     //}
@@ -118,9 +118,9 @@ export class ReportControllerService {
       entry => {
         this.fileOpener.open(entry.toURL(), 'application/pdf');
         //this.toastMessageControllerService.successMessageAlert("entrou" + entry.toURL());
-      }, 
+      },
       error => {
-        this.toastMessageControllerService.errorMessageAlert("erro");
+        this.toastMessageControllerService.errorMessageAlert('erro');
         console.log(error)
       });
   }

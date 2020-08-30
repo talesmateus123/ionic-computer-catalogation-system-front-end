@@ -9,17 +9,17 @@ import { ElectronicComponentControllerService } from '../shared';
   styleUrls: ['./new-electronic-component.page.scss'],
 })
 export class NewElectronicComponentPage implements OnInit {
-  public electronicComponentType: string = "PROCESSOR";
+  public electronicComponentType: string = 'PROCESSOR';
   formManufacturer: string;
   formModel: string;
   formDescription: string;
   formItWorks: boolean = true;
   formSize: number = 0;
   formProcessorNumber: string;
-  formProcessorArchitecture: string = "AMD64";
-  formRamMemoryArchitecture: string = "DDR3";
-  formStorageDeviceArchitecture: string = "SATA";
-  formStorageDeviceType: string = "HD";
+  formProcessorArchitecture: string = 'AMD64';
+  formRamMemoryArchitecture: string = 'DDR3';
+  formStorageDeviceArchitecture: string = 'SATA';
+  formStorageDeviceType: string = 'HD';
 	// computerId: number;
 
   constructor(
@@ -33,11 +33,10 @@ export class NewElectronicComponentPage implements OnInit {
           this.electronicComponentType = params.type;
         }
       });
-    
   }
 
   create() {
-    if(this.electronicComponentType === "PROCESSOR"){
+    if (this.electronicComponentType === 'PROCESSOR') {
       this.controller.createProcessor(
         {
           manufacturer: this.formManufacturer,
@@ -49,7 +48,7 @@ export class NewElectronicComponentPage implements OnInit {
         }
       );
     }
-    if(this.electronicComponentType === "RAM_MEMORY"){
+    if (this.electronicComponentType === 'RAM_MEMORY') {
       this.controller.createRamMemory(
         {
           manufacturer: this.formManufacturer,
@@ -61,7 +60,7 @@ export class NewElectronicComponentPage implements OnInit {
         }
       );
     }
-    if(this.electronicComponentType === "STORAGE_DEVICE"){
+    if (this.electronicComponentType === 'STORAGE_DEVICE') {
       this.controller.createStorageDevice(
         {
           manufacturer: this.formManufacturer,

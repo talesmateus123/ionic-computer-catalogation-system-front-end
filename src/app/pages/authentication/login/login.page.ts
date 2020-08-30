@@ -30,8 +30,8 @@ export class LoginPage implements OnInit {
   }
 
   async login() {
-    if(this.form.invalid) {
-      this.toastMessageControllerService.errorMessageAlert("Os dados do formulário estão incorretos");
+    if (this.form.invalid) {
+      this.toastMessageControllerService.errorMessageAlert('Os dados do formulário estão incorretos');
       return;
     }
     const login: Login = this.form.value;

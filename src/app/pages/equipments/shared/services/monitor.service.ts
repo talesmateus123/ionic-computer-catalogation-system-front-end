@@ -34,23 +34,23 @@ export class MonitorService {
   search(searchTerm: string, direction: string, orderBy: string): Observable<any> {
     return this.http.get(`${this.url}/search`, {
       params: {
-          searchTerm: searchTerm,
-          direction: direction,
-          orderBy: orderBy
+          searchTerm,
+          direction,
+          orderBy
       },
       observe: 'response'
-    })
+    });
   }
 
   searchAvailable(searchTerm: string, direction: string, orderBy: string): Observable<any> {
     return this.http.get(`${this.url}/search/available`, {
       params: {
-          searchTerm: searchTerm,
-          direction: direction,
-          orderBy: orderBy
+          searchTerm,
+          direction,
+          orderBy
       },
       observe: 'response'
-    })
+    });
   }
 
   create(object: MonitorNewDTO): Observable<any> {
