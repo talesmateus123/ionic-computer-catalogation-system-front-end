@@ -1,10 +1,10 @@
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { ToastMessageControllerService, LoadingModalControllerService } from 'src/app/shared-resources';
 import { ComputerUserControllerService } from '../shared';
 import { SectorControllerService } from '../../sectors';
-import { LoadingModalControllerService } from 'src/app/shared-resources';
-import { concat } from 'rxjs';
 
 @Component({
   selector: 'app-info-computer-user',
@@ -12,28 +12,36 @@ import { concat } from 'rxjs';
   styleUrls: ['./info-computer-user.page.scss'],
 })
 export class InfoComputerUserPage implements OnInit {
+  form: FormGroup;
+
   private id: string;
   public editForm: boolean = true;
 
   public filledValues: boolean = false;
 
-  public formName: string;
-  public formLastName: string;
-  public formEmail: string;
-  public formSectorId: number;
-  public formUseTheComputersId: number[];
-
   public computerUser: any;
 
   constructor(
+    private formBuilder: FormBuilder,
+    private toastMessageControllerService: ToastMessageControllerService,
+    private loadingModalControllerService: LoadingModalControllerService,
     public controller: ComputerUserControllerService,
     public sectorController: SectorControllerService,
-    private loadingModalControllerService: LoadingModalControllerService,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
+    this.generateForm();
     this.initValues();
+  }
+
+  generateForm() {
+    this.form = this.formBuilder.group({
+      name: ['', [ Validators.required, Validators.minLength(4), Validators.maxLength(20) ]],
+      lastName: ['', [ Validators.minLength(4), Validators.maxLength(20) ]],
+      email: ['', [ Validators.email ]],
+      sector: ['', [ Validators.required ]],
+    });
   }
 
   async initValues() {
@@ -60,26 +68,30 @@ export class InfoComputerUserPage implements OnInit {
   }
 
   populateForm() {
-    this.formName = this.computerUser.name;
-    this.formLastName = this.computerUser.lastName;
-    this.formEmail = this.computerUser.email;
-    this.formSectorId = this.computerUser.sector.id;
+    this.form.get('name').setValue(this.computerUser.name);
+    this.form.get('lastName').setValue(this.computerUser.lastName);
+    this.form.get('email').setValue(this.computerUser.email);
+    this.form.get('sector').setValue(this.computerUser.sector.id);
   }
 
   update() {
+    if (this.form.invalid) {
+      this.toastMessageControllerService.errorMessageAlert('Os dados do formulário estão incorretos');
+      return;
+    }
+
     this.controller.updateComputerUser(this.id,
       {
-        name: this.formName,
-        lastName: this.formLastName,
-        email: this.formEmail,
-        sectorId: this.formSectorId,
-        useTheComputersId: this.formUseTheComputersId,
+        name: this.form.get('name').value,
+        lastName: this.form.get('lastName').value,
+        email: this.form.get('email').value,
+        sectorId: this.form.get('sector').value
       }
     );
   }
 
   delete() {
-      this.controller.deleteComputerUser(this.id);
+    this.controller.deleteComputerUser(this.id);
   }
 
   eventHandler($keyCode) {

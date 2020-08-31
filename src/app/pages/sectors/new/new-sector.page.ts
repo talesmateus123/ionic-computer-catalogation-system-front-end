@@ -1,27 +1,43 @@
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
 
-import { ActivatedRoute, Router } from '@angular/router';
-import { SectorNewDTO, SectorService, SectorControllerService } from '../shared';
+import { ToastMessageControllerService } from './../../../shared-resources/services/toast-message-controller.service';
+import { SectorNewDTO, SectorControllerService } from '../shared';
 
 @Component({
   selector: 'app-new-sector',
   templateUrl: './new-sector.page.html',
   styleUrls: ['./new-sector.page.scss'],
 })
-export class NewSectorPage implements OnInit {  
-  sector: SectorNewDTO = {
-    name: '',
-    phone: ''
-  };
+export class NewSectorPage implements OnInit {
+  form: FormGroup;
 
-  constructor(public controller: SectorControllerService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private toastMessageControllerService: ToastMessageControllerService,
+    private controller: SectorControllerService
+  ) { }
 
   ngOnInit() {
+    this.generateForm();
   }
 
-  create(){
-    this.controller.createSector(this.sector);
+  generateForm() {
+    this.form = this.formBuilder.group({
+      name: ['', [ Validators.required, Validators.minLength(3), Validators.maxLength(30) ]],
+      phone: ['', [ Validators.pattern('(\\(\\d{2}\\)\\s)(\\d{4,5}\\-\\d{4})') ]]
+    });
+  }
+
+  create() {
+    if (this.form.invalid) {
+      this.toastMessageControllerService.errorMessageAlert('Os dados do formulário estão incorretos');
+      return;
+    }
+    this.controller.createSector({
+      name: this.form.get('name').value,
+      phone: this.form.get('phone').value
+    });
   }
 
   eventHandler($keyCode) {

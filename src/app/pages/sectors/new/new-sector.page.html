@@ -8,14 +8,16 @@
 </ion-header>
 
 <ion-content (keypress)="eventHandler($event.keyCode)">
-  <ion-item>
-    <ion-label>Nome:</ion-label>
-    <ion-input type="text" [(ngModel)]="sector.name" ></ion-input>    
-  </ion-item>
-  <ion-item>
-    <ion-label>Telefone:</ion-label>
-    <ion-input type="text" [(ngModel)]="sector.phone" ></ion-input>    
-  </ion-item>
+  <form [formGroup]="form" novalidate>
+    <ion-item>
+      <ion-label>Nome:</ion-label>
+      <ion-input type="text" formControlName="name"></ion-input>    
+    </ion-item>
+    <ion-item>
+      <ion-label>Telefone:</ion-label>
+      <ion-input type="text" formControlName="phone"></ion-input>    
+    </ion-item>
+  </form>
 </ion-content>
 <ion-footer> 
   <ion-toolbar>

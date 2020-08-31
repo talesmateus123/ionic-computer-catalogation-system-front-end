@@ -13,14 +13,16 @@
 </ion-header>
 
 <ion-content *ngIf="filledValues" (keypress)="eventHandler($event.keyCode)">
-  <ion-item>
-    <ion-label>Nome:</ion-label>
-    <ion-input [disabled]="editForm" type="text" [(ngModel)]="sector.name"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>Telefone:</ion-label>
-    <ion-input [disabled]="editForm" type="text" [(ngModel)]="sector.phone"></ion-input>    
-  </ion-item>
+  <form [formGroup]="form" novalidate>
+    <ion-item>
+      <ion-label>Nome:</ion-label>
+      <ion-input [attr.disabled]="editForm" type="text" formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Telefone:</ion-label>
+      <ion-input [attr.disabled]="editForm" type="text" formControlName="phone"></ion-input>    
+    </ion-item>
+  </form>
 </ion-content>
 
 <ion-footer *ngIf="!editForm"> 

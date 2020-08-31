@@ -11,10 +11,10 @@ export class ToastMessageControllerService {
     private toastController: ToastController
   ) { }
 
-  async successMessageAlert(msg: string, header?: string) {
+  async successMessageAlert(message: string, header?: string) {
     const toast = await this.toastController.create({
       header: header ? header : 'Sucesso!',
-      message: msg,
+      message,
       position: 'bottom',
       duration: this.duration,
       buttons: [
@@ -29,12 +29,13 @@ export class ToastMessageControllerService {
     toast.present();
   }
 
-  async errorMessageAlert(header: string, msg?: string) {
+  async errorMessageAlert(header: string, message?: string) {
     const toast = await this.toastController.create({
-      header: header,
-      message: msg ? msg : null,
+      header,
+      message: message ? message : null,
       position: 'bottom',
       duration: this.duration,
+      color: 'danger',
       buttons: [
         {
           text: 'Ok',

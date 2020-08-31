@@ -13,27 +13,29 @@
 </ion-header>
 
 <ion-content *ngIf="filledValues" (keypress)="eventHandler($event.keyCode)">
-  <ion-item>
-    <ion-label>Nome:</ion-label>
-    <ion-input [disabled]="editForm" type="text" [(ngModel)]="formName"></ion-input>    
-  </ion-item>
+  <form [formGroup]="form" novalidate>
+    <ion-item>
+      <ion-label>Nome:</ion-label>
+      <ion-input [attr.disabled]="editForm" type="text" formControlName="name"></ion-input>    
+    </ion-item>
 
-  <ion-item>
-    <ion-label>Sobrenome:</ion-label>
-    <ion-input [disabled]="editForm" type="text" [(ngModel)]="formLastName"></ion-input>    
-  </ion-item>
+    <ion-item>
+      <ion-label>Sobrenome:</ion-label>
+      <ion-input [attr.disabled]="editForm" type="text" formControlName="lastName"></ion-input>    
+    </ion-item>
 
-  <ion-item>
-    <ion-label>Email:</ion-label>
-    <ion-input [disabled]="editForm" type="email" [(ngModel)]="formEmail"></ion-input>    
-  </ion-item>
+    <ion-item>
+      <ion-label>Email:</ion-label>
+      <ion-input [attr.disabled]="editForm" type="email" formControlName="email"></ion-input>    
+    </ion-item>
 
-  <ion-item *ngIf="sectorController.sectors">
-    <ion-label>Setor:</ion-label>
-    <ion-select [disabled]="editForm" [(ngModel)]="formSectorId"  ok-text="Ok" cancel-text="Cancelar">
-      <ion-select-option *ngFor="let sector of sectorController.sectors" [value]="sector.id" >{{ sector.name }}</ion-select-option>
-    </ion-select>
-  </ion-item>
+    <ion-item *ngIf="sectorController.sectors">
+      <ion-label>Setor:</ion-label>
+      <ion-select [attr.disabled]="editForm"  ok-text="Ok" cancel-text="Cancelar" formControlName="sector">
+        <ion-select-option *ngFor="let sector of sectorController.sectors" [value]="sector.id" >{{ sector.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </form>
 </ion-content>
 
 <ion-footer *ngIf="!editForm"> 
