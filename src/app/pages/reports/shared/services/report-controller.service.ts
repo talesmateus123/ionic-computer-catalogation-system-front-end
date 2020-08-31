@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
-import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { File } from '@ionic-native/file/ngx';
 
@@ -12,10 +11,9 @@ import { LoadingModalControllerService, ToastMessageControllerService } from 'sr
   providedIn: 'root'
 })
 export class ReportControllerService {
-  private loadingMsg: string = 'Processando...';
+  private loadingMsg = 'Processando...';
 
   constructor(
-    private transfer: FileTransfer,
     private fileOpener: FileOpener,
     private file: File,
     private platform: Platform,
@@ -85,63 +83,51 @@ export class ReportControllerService {
   }
 
   private save(pdfFile: any, pdfTitle: string) {
-    var pdfBlob = new Blob([pdfFile], { type: 'application/pdf' });
+    const pdfBlob = new Blob([pdfFile], { type: 'application/pdf' });
     // IE doesn't allow using a blob object directly as link href
     // instead it is necessary to use msSaveOrOpenBlob
+
     if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-        this.saveInIe(pdfBlob)
-        return;
+      this.saveInIe(pdfBlob);
+      return;
     }
 
-    // Create a link pointing to the ObjectURL containing the blob.
-    const data = window.URL.createObjectURL(pdfBlob);
-
-    pdfTitle = `${pdfTitle}.pdf`
-    //if(this.platform.is('mobileweb') || this.platform.is('android')) {
-
-      this.saveInPlatform(encodeURI(data), pdfTitle);
-
-      console.log(data.substring(5))
+    pdfTitle = `${pdfTitle}.pdf`;
+    if (this.platform.is('mobileweb') || this.platform.is('android')) {
+      this.saveInPlatform(pdfBlob, pdfTitle);
       return;
-    //}
+    }
 
-    this.saveInOthersBrowsers(data, pdfTitle);
+    this.saveInOthersBrowsers(pdfBlob, pdfTitle);
   }
 
   private saveInIe(pdfBlob: any) {
     window.navigator.msSaveOrOpenBlob(pdfBlob);
   }
 
-  private saveInPlatform(data: any, pdfTitle: string) {
-    const fileTransfer: FileTransferObject = this.transfer.create();
-    fileTransfer.download(data, this.file.dataDirectory + pdfTitle).then(
-      entry => {
-        this.fileOpener.open(entry.toURL(), 'application/pdf');
-        //this.toastMessageControllerService.successMessageAlert("entrou" + entry.toURL());
-      },
-      error => {
-        this.toastMessageControllerService.errorMessageAlert('erro');
-        console.log(error)
+  private saveInPlatform(pdfBlob: any, pdfTitle: string) {
+    this.file.writeFile(this.file.cacheDirectory, pdfTitle, pdfBlob, { replace: true }).then((fileEntry: any) => {
+      // Open with File Opener plugin
+      this.fileOpener.open(fileEntry.toURL(), 'application/pdf');
+    }).catch((error) => {
+        this.toastMessageControllerService.errorMessageAlert('Ocorreu um erro.', JSON.stringify(error));
       });
   }
 
-  private saveInOthersBrowsers(data: any, pdfTitle: string) {
-    let link = document.createElement('a');
-    link.href = data;
+  private saveInOthersBrowsers(pdfBlob: any, pdfTitle: string) {
+    const link = document.createElement('a');
+    // Create a link pointing to the ObjectURL containing the blob.
+    link.href = window.URL.createObjectURL(pdfBlob);
     link.download = pdfTitle;
 
-    console.log(link)
-
-    /*
-    // this is necessary as link.click() does not work on the latest firefox
+    // This is necessary as link.click() does not work on the latest firefox
     link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
 
-    setTimeout(function () {
-        // For Firefox it is necessary to delay revoking the ObjectURL
-        window.URL.revokeObjectURL(link.href);
-        link.remove();
+    setTimeout(function() {
+      // For Firefox it is necessary to delay revoking the ObjectURL
+      window.URL.revokeObjectURL(link.href);
+      link.remove();
     }, 100);
-    */
   }
 
 }

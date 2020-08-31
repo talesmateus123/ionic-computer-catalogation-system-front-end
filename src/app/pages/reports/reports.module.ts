@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
-import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 
 import { ReportsPageRoutingModule } from './reports-routing.module';
@@ -27,9 +26,7 @@ import { FileOpener } from '@ionic-native/file-opener/ngx';
     ReportsPage
   ],
   providers: [
-    FileTransfer,
     FileOpener,
-    FileTransferObject,
     File,
     ReportControllerService,
     ReportService,
