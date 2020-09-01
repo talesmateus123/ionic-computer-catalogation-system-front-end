@@ -1,3 +1,5 @@
+import { ToastMessageControllerService } from './../../../../../shared-resources/services/toast-message-controller.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
@@ -8,7 +10,9 @@ import { ArchitectureType, RamMemoryArchitecture, StorageDeviceArchitecture, Sto
   templateUrl: './info-electronic-component-modal.page.html',
   styleUrls: ['./info-electronic-component-modal.page.scss'],
 })
-export class InfoElectronicComponentModalPage implements OnInit {  
+export class InfoElectronicComponentModalPage implements OnInit {
+  form: FormGroup;
+
   public electronicComponentTypes: string[] =[
     "PROCESSOR",
     "RAM_MEMORY",
@@ -28,32 +32,80 @@ export class InfoElectronicComponentModalPage implements OnInit {
   public formModel: string;
   public formDescription: string;
   public formProcessorName: string;
-  public formArchitecture: string
+  public formArchitecture: string;
   public formSizeInGB: number;
   public formType: string;
-  
+
   constructor(
+    private formBuilder: FormBuilder,
+    private toastMessageControllerService: ToastMessageControllerService,
     private modalController: ModalController,
     ) { }
 
   ngOnInit() {
-    this.formManufacturer = this.electronicComponent.manufacturer
-    this.formModel = this.electronicComponent.model;
-    this.formDescription = this.electronicComponent.description;
-    this.formProcessorName = this.electronicComponent.processorName;
-    this.formArchitecture = this.electronicComponent.architecture;
-    this.formSizeInGB = this.electronicComponent.sizeInGB;
-    this.formType = this.electronicComponent.type;
+    this.generateForm();
+    this.populateForm();
+  }
+
+  private async populateForm() {
+    this.form.get('manufacturer').setValue(this.electronicComponent.manufacturer);
+    this.form.get('model').setValue(this.electronicComponent.model);
+    this.form.get('description').setValue(this.electronicComponent.description);
+    this.form.get('processorName').setValue(this.electronicComponent.processorName);
+    this.form.get('architecture').setValue(this.electronicComponent.architecture);
+    this.form.get('sizeInGB').setValue(this.electronicComponent.sizeInGB);
+    this.form.get('type').setValue(this.electronicComponent.type);
+  }
+
+  generateForm() {
+    this.form = this.formBuilder.group({
+    manufacturer: ['', [  ]],
+    model: ['', [  ]],
+    description: ['', [ Validators.maxLength(100) ]],
+    processorName: ['', this.electronicComponent.equipmentType === 'PROCESSOR' ? [ Validators.required ] : [  ] ],
+    architecture: ['', [ Validators.required ]],
+    sizeInGB: [0, [ Validators.required, Validators.min(1) ]],
+    type: [, this.electronicComponent.equipmentType === 'STORAGE_DEVICE' ? [ Validators.required ] : [  ] ],
+    });
+  }
+
+  private presentFormErrorMessages() {
+    let errorMessages: string = '';
+
+    if (this.form.controls.description.errors) {
+      if (this.form.controls.description.errors.maxlength) {
+        errorMessages = errorMessages +
+          '- O campo nome deve ter no máximo ' +
+          this.form.controls.description.errors.maxlength.requiredLength +
+          ' caracteres. <br>';
+      }
+    }
+
+    if (this.form.controls.sizeInGB.errors) {
+      if (this.form.controls.sizeInGB.errors.min) {
+        errorMessages = errorMessages +
+          '- O campo tamanho deve ser no mínimo ' +
+          this.form.controls.sizeInGB.errors.min.min +
+          '. <br>';
+      }
+    }
+
+    this.toastMessageControllerService.errorMessageAlert('Os dados do formulário estão incorretos', errorMessages);
   }
 
   returnDataAndDismiss() {
-    this.electronicComponent.manufacturer = this.formManufacturer;
-    this.electronicComponent.model = this.formModel;
-    this.electronicComponent.description = this.formDescription;
-    this.electronicComponent.processorName = this.formProcessorName;
-    this.electronicComponent.architecture = this.formArchitecture;
-    this.electronicComponent.sizeInGB = this.formSizeInGB;
-    this.electronicComponent.type = this.formType;
+    if (this.form.invalid) {
+      this.presentFormErrorMessages();
+      return;
+    }
+
+    this.electronicComponent.manufacturer = this.form.get('manufacturer').value;
+    this.electronicComponent.model = this.form.get('model').value;
+    this.electronicComponent.description = this.form.get('description').value;
+    this.electronicComponent.processorName = this.form.get('processorName').value;
+    this.electronicComponent.architecture = this.form.get('architecture').value;
+    this.electronicComponent.sizeInGB = this.form.get('sizeInGB').value;
+    this.electronicComponent.type = this.form.get('type').value;
 
     this.modalController.dismiss(
       {
@@ -64,11 +116,11 @@ export class InfoElectronicComponentModalPage implements OnInit {
 
   dismiss() {
     this.modalController.dismiss();
-  }  
+  }
 
   eventHandler($keyCode) {
     if ($keyCode === 13)
       this.returnDataAndDismiss();
   }
-  
+
 }

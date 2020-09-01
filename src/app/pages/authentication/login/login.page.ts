@@ -29,19 +29,32 @@ export class LoginPage implements OnInit {
     });
   }
 
+  private presentFormErrorMessages() {
+    let errorMessages: string = '';
+    if (this.form.controls.email.errors.required) {
+      errorMessages = errorMessages + '- O campo e-mail é obrigatório. <br>';
+    }
+    if (this.form.controls.email.errors.email) {
+      errorMessages = errorMessages + '- E-mail inválido. <br>';
+    }
+    this.toastMessageControllerService.errorMessageAlert('Os dados do formulário estão incorretos', errorMessages);
+  }
+
   async login() {
     if (this.form.invalid) {
-      this.toastMessageControllerService.errorMessageAlert('Os dados do formulário estão incorretos');
+      this.presentFormErrorMessages();
       return;
     }
+
     const login: Login = this.form.value;
 
     await this.controller.login(login);
   }
 
   eventHandler($keyCode) {
-    if ($keyCode === 13)
+    if ($keyCode === 13) {
       this.login();
+    }
   }
 
 }

@@ -74,9 +74,53 @@ export class InfoComputerUserPage implements OnInit {
     this.form.get('sectorId').setValue(this.computerUser.sector.id);
   }
 
+  private presentFormErrorMessages() {
+    let errorMessages: string = '';
+    if (this.form.controls.name.errors) {
+      if (this.form.controls.name.errors.required) {
+        errorMessages = errorMessages + '- O campo nome é obrigatório. <br>';
+      }
+      if (this.form.controls.name.errors.minlength) {
+        errorMessages = errorMessages +
+          '- O campo nome deve ter no mínimo ' +
+          this.form.controls.name.errors.minlength.requiredLength +
+          ' caracteres. <br>';
+      }
+      if (this.form.controls.name.errors.maxlength) {
+        errorMessages = errorMessages +
+          '- O campo nome deve ter no máximo ' +
+          this.form.controls.name.errors.maxlength.requiredLength +
+          ' caracteres. <br>';
+      }
+    }
+
+    if (this.form.controls.lastName.errors) {
+      if (this.form.controls.lastName.errors.minlength) {
+        errorMessages = errorMessages +
+          '- O campo sobrenome deve ter no mínimo ' +
+          this.form.controls.lastName.errors.minlength.requiredLength +
+          ' caracteres. <br>';
+      }
+      if (this.form.controls.lastName.errors.maxlength) {
+        errorMessages = errorMessages +
+          '- O campo sobrenome deve ter no máximo ' +
+          this.form.controls.lastName.errors.maxlength.requiredLength +
+          ' caracteres. <br>';
+      }
+    }
+
+    if (this.form.controls.email.errors) {
+      if (this.form.controls.email.errors.email) {
+        errorMessages = errorMessages + '- E-mail inválido. <br>';
+      }
+    }
+
+    this.toastMessageControllerService.errorMessageAlert('Os dados do formulário estão incorretos', errorMessages);
+  }
+
   update() {
     if (this.form.invalid) {
-      this.toastMessageControllerService.errorMessageAlert('Os dados do formulário estão incorretos');
+      this.presentFormErrorMessages();
       return;
     }
 
@@ -85,7 +129,7 @@ export class InfoComputerUserPage implements OnInit {
         name: this.form.get('name').value,
         lastName: this.form.get('lastName').value,
         email: this.form.get('email').value,
-        sectorId: this.form.get('sector').value
+        sectorId: this.form.get('sectorId').value
       }
     );
   }

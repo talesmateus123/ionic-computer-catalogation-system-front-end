@@ -50,7 +50,7 @@ export class InfoElectronicComponentPage implements OnInit {
           manufacturer: this.electronicComponent.manufacturer,
           model: this.electronicComponent.model,
           description: this.electronicComponent.description,
-	        processorName: this.electronicComponent.processorName,
+          processorName: this.electronicComponent.processorName,
           architecture: this.electronicComponent.architecture,
           computerId: null
         }

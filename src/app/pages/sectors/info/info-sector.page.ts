@@ -67,11 +67,41 @@ export class InfoSectorPage implements OnInit {
     this.form.get('phone').setValue(this.sector.phone);
   }
 
+  private presentFormErrorMessages() {
+    let errorMessages: string = '';
+    if (this.form.controls.name.errors) {
+      if (this.form.controls.name.errors.required) {
+        errorMessages = errorMessages + '- O campo nome é obrigatório. <br>';
+      }
+      if (this.form.controls.name.errors.minlength) {
+        errorMessages = errorMessages +
+          '- O campo nome deve ter no mínimo ' +
+          this.form.controls.name.errors.minlength.requiredLength +
+          ' caracteres. <br>';
+      }
+      if (this.form.controls.name.errors.maxlength) {
+        errorMessages = errorMessages +
+          '- O campo nome deve ter no máximo ' +
+          this.form.controls.name.errors.maxlength.requiredLength +
+          ' caracteres. <br>';
+      }
+    }
+
+    if (this.form.controls.phone.errors) {
+      if (this.form.controls.phone.errors.pattern) {
+        errorMessages = errorMessages + '- Telefone inválido, deve coincidir com \"(12) 1234-5678\". <br>';
+      }
+    }
+
+    this.toastMessageControllerService.errorMessageAlert('Os dados do formulário estão incorretos', errorMessages);
+  }
+
   update() {
     if (this.form.invalid) {
-      this.toastMessageControllerService.errorMessageAlert('Os dados do formulário estão incorretos');
+      this.presentFormErrorMessages();
       return;
     }
+
     this.controller.updateSector(this.id,
       {
         name: this.form.get('name').value,

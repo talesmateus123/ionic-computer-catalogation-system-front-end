@@ -45,9 +45,53 @@ export class NewComputerUserPage implements OnInit {
     });
   }
 
+  private presentFormErrorMessages() {
+    let errorMessages: string = '';
+    if (this.form.controls.name.errors) {
+      if (this.form.controls.name.errors.required) {
+        errorMessages = errorMessages + '- O campo nome é obrigatório. <br>';
+      }
+      if (this.form.controls.name.errors.minlength) {
+        errorMessages = errorMessages +
+          '- O campo nome deve ter no mínimo ' +
+          this.form.controls.name.errors.minlength.requiredLength +
+          ' caracteres. <br>';
+      }
+      if (this.form.controls.name.errors.maxlength) {
+        errorMessages = errorMessages +
+          '- O campo nome deve ter no máximo ' +
+          this.form.controls.name.errors.maxlength.requiredLength +
+          ' caracteres. <br>';
+      }
+    }
+
+    if (this.form.controls.lastName.errors) {
+      if (this.form.controls.lastName.errors.minlength) {
+        errorMessages = errorMessages +
+          '- O campo sobrenome deve ter no mínimo ' +
+          this.form.controls.lastName.errors.minlength.requiredLength +
+          ' caracteres. <br>';
+      }
+      if (this.form.controls.lastName.errors.maxlength) {
+        errorMessages = errorMessages +
+          '- O campo sobrenome deve ter no máximo ' +
+          this.form.controls.lastName.errors.maxlength.requiredLength +
+          ' caracteres. <br>';
+      }
+    }
+
+    if (this.form.controls.email.errors) {
+      if (this.form.controls.email.errors.email) {
+        errorMessages = errorMessages + '- E-mail inválido. <br>';
+      }
+    }
+
+    this.toastMessageControllerService.errorMessageAlert('Os dados do formulário estão incorretos', errorMessages);
+  }
+
   create() {
     if (this.form.invalid) {
-      this.toastMessageControllerService.errorMessageAlert('Os dados do formulário estão incorretos');
+      this.presentFormErrorMessages();
       return;
     }
 
@@ -62,7 +106,8 @@ export class NewComputerUserPage implements OnInit {
   }
 
   eventHandler($keyCode) {
-    if ($keyCode === 13)
+    if ($keyCode === 13) {
       this.create();
+    }
   }
 }

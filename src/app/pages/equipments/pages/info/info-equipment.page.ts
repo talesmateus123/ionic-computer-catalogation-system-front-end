@@ -120,11 +120,11 @@ export class InfoEquipmentPage implements OnInit {
         createdDate: null,
         lastModifiedDate: null,
         equipmentType: 'PROCESSOR',
-	      manufacturer: '',
-	      model: '',
-	      description: '',
-	      processorName: '',
-	      architecture: 'AMD64'
+        manufacturer: '',
+        model: '',
+        description: '',
+        processorName: '',
+        architecture: 'AMD64'
       });
     }
   }
@@ -250,9 +250,34 @@ export class InfoEquipmentPage implements OnInit {
     }
   }
 
+  private presentFormErrorMessages() {
+    let errorMessages: string = '';
+
+    if (this.form.controls.description.errors) {
+      if (this.form.controls.description.errors.maxlength) {
+        errorMessages = errorMessages +
+          '- O campo descrição deve ter no máximo ' +
+          this.form.controls.description.errors.maxlength.requiredLength +
+          ' caracteres. <br>';
+      }
+    }
+
+    if (this.form.controls.ipAddress.errors) {
+      if (this.form.controls.ipAddress.errors.pattern) {
+        errorMessages = errorMessages + '- Endereço IP inválido, deve coincidir com \"10.1.1.50\". <br>';
+      }
+    }
+
+    if (this.form.controls.macAddress.errors) {
+      errorMessages = errorMessages + '- Endereço MAC inválido, deve coincidir com \"00:19:B9:FB:E2:57\". <br>';
+    }
+
+    this.toastMessageControllerService.errorMessageAlert('Os dados do formulário estão incorretos', errorMessages);
+  }
+
   update() {
     if (this.form.invalid) {
-      this.toastMessageControllerService.errorMessageAlert('Os dados do formulário estão incorretos');
+      this.presentFormErrorMessages();
       return;
     }
 
