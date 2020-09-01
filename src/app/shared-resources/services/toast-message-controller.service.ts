@@ -35,7 +35,6 @@ export class ToastMessageControllerService {
       message: message ? message : null,
       position: 'bottom',
       duration: this.duration,
-      color: 'danger',
       buttons: [
         {
           text: 'Ok',

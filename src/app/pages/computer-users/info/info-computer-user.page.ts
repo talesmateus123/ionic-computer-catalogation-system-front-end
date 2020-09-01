@@ -40,7 +40,7 @@ export class InfoComputerUserPage implements OnInit {
       name: ['', [ Validators.required, Validators.minLength(4), Validators.maxLength(20) ]],
       lastName: ['', [ Validators.minLength(4), Validators.maxLength(20) ]],
       email: ['', [ Validators.email ]],
-      sector: ['', [ Validators.required ]],
+      sectorId: ['', [ Validators.required ]],
     });
   }
 
@@ -71,7 +71,7 @@ export class InfoComputerUserPage implements OnInit {
     this.form.get('name').setValue(this.computerUser.name);
     this.form.get('lastName').setValue(this.computerUser.lastName);
     this.form.get('email').setValue(this.computerUser.email);
-    this.form.get('sector').setValue(this.computerUser.sector.id);
+    this.form.get('sectorId').setValue(this.computerUser.sector.id);
   }
 
   update() {

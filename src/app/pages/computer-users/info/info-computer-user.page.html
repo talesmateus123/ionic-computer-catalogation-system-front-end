@@ -31,7 +31,7 @@
 
     <ion-item *ngIf="sectorController.sectors">
       <ion-label>Setor:</ion-label>
-      <ion-select [attr.disabled]="editForm"  ok-text="Ok" cancel-text="Cancelar" formControlName="sector">
+      <ion-select [attr.disabled]="editForm"  ok-text="Ok" cancel-text="Cancelar" formControlName="sectorId">
         <ion-select-option *ngFor="let sector of sectorController.sectors" [value]="sector.id" >{{ sector.name }}</ion-select-option>
       </ion-select>
     </ion-item>

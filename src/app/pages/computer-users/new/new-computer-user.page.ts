@@ -32,7 +32,7 @@ export class NewComputerUserPage implements OnInit {
       name: ['', [ Validators.required, Validators.minLength(4), Validators.maxLength(20) ]],
       lastName: ['', [ Validators.minLength(4), Validators.maxLength(20) ]],
       email: ['', [ Validators.email ]],
-      sector: ['', [ Validators.required ]],
+      sectorId: ['', [ Validators.required ]],
     });
   }
 
@@ -56,7 +56,7 @@ export class NewComputerUserPage implements OnInit {
         name: this.form.get('name').value,
         lastName: this.form.get('lastName').value,
         email: this.form.get('email').value,
-        sectorId: this.form.get('sector').value
+        sectorId: this.form.get('sectorId').value
       }
     );
   }

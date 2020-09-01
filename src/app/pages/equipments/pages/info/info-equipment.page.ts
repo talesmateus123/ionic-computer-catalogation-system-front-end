@@ -1,15 +1,16 @@
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
+import { ToastMessageControllerService, LoadingModalControllerService } from 'src/app/shared-resources';
 import { MonitorDTO, EquipmentControllerService, ComputerNewDTO } from '../../shared';
 import { SectorControllerService } from '../../../sectors';
-import { ModalController } from '@ionic/angular';
 import { InfoElectronicComponentModalPage } from '../../modals/electronic-components';
-import { ActivatedRoute } from '@angular/router';
 import { ComputerUserDTO } from '../../../computer-users';
 import { ComputerUsersModalPage, MonitorsModalPage } from '../../modals';
+import { RamMemoryDTO, StorageDeviceDTO, ProcessorDTO } from '../electronic-components';
 
-import { RamMemoryDTO, StorageDeviceDTO, ProcessorDTO } from '../electronic-components'
-import { LoadingModalControllerService } from 'src/app/shared-resources';
 
 @Component({
   selector: 'app-info-equipment',
@@ -17,6 +18,8 @@ import { LoadingModalControllerService } from 'src/app/shared-resources';
   styleUrls: ['./info-equipment.page.scss'],
 })
 export class InfoEquipmentPage implements OnInit {
+  form: FormGroup;
+
   private id: string;
 
   public filledValues: boolean = false;
@@ -25,26 +28,6 @@ export class InfoEquipmentPage implements OnInit {
   public editForm: boolean = true;
 
   public equipment: any;
-
-  public formPatrimonyId: string;
-	public formManufacturer: string;
-	public formModel: string;
-	public formDescription: string;
-	public formIpAddress: string;
-	public formMacAddress: string;
-	public formHostName: string;
-	public formMotherBoardName: string;
-	public formHasCdBurner: boolean = true;
-	public formCabinetModel: string;
-	public formOperatingSystem: string = 'NONE';
-	public formOperatingSystemArchitecture: string = 'NONE';
-	public formComputerType: string = 'DESKTOP';
-	public formOnTheDomain: boolean = false;
-	public formPersonalComputer: boolean = false;
-	public formTotalRamMemory: number = 0;
-	public formTotalStorageMemory: number = 0;
-	public formMonitorId: number;
-	public formSectorId: number;
 
   public monitors: MonitorDTO[] = [];
   public processors: ProcessorDTO[] = [];
@@ -55,15 +38,18 @@ export class InfoEquipmentPage implements OnInit {
   public availableMonitors: MonitorDTO[];
 
   constructor(
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private toastMessageControllerService: ToastMessageControllerService,
+    private loadingModalControllerService: LoadingModalControllerService,
+    private modalController: ModalController,
     public controller: EquipmentControllerService,
     public sectorController: SectorControllerService,
-    private loadingModalControllerService: LoadingModalControllerService,
-    private route: ActivatedRoute,
-    private modalController: ModalController
   ) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
+    this.generateForm();
     this.initValues();
   }
 
@@ -89,7 +75,35 @@ export class InfoEquipmentPage implements OnInit {
       }
     )
     .catch(() => {
-      this.controller.redirectToRootPage()
+      this.controller.redirectToRootPage();
+    });
+  }
+
+  generateForm() {
+    this.form = this.formBuilder.group({
+      patrimonyId: ['', [  ]],
+      manufacturer: ['', [  ]],
+      model: ['', [  ]],
+      description: ['', [ Validators.maxLength(100) ]],
+      ipAddress: ['', [
+        Validators.pattern('^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$') 
+      ]],
+      macAddress: ['', [ Validators.pattern('^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$') ]],
+      hostName: ['', [  ]],
+      motherBoardName: ['', [  ]],
+      hasCdBurner: [true, [  ]],
+      cabinetModel: ['', [  ]],
+      operatingSystem: ['NONE', [  ]],
+      operatingSystemArchitecture: ['NONE', [  ]],
+      computerType: ['DESKTOP', [ Validators.required ]],
+      onTheDomain: [false, [ Validators.required ]],
+      personalComputer: [false, [ Validators.required ]],
+      teamViewerId: ['', [  ]],
+      teamViewerPass: ['', [  ]],
+      totalRamMemory: [0.0, [  ]],
+      totalStorageMemory: [0.0, [  ]],
+      monitorId: [, [  ]],
+      sectorId: [, [ Validators.required ]],
     });
   }
 
@@ -189,27 +203,27 @@ export class InfoEquipmentPage implements OnInit {
 
   private async populateForm() {
     if (this.equipment.equipmentType === 'COMPUTER') {
-      this.formManufacturer = this.equipment.manufacturer;
-      this.formModel = this.equipment.model;
-      this.formDescription = this.equipment.description;
-      this.formPatrimonyId = this.equipment.patrimonyId;
-      this.formIpAddress = this.equipment.ipAddress;
-      this.formMacAddress = this.equipment.macAddress;
-      this.formHostName = this.equipment.hostName;
-      this.formMotherBoardName = this.equipment.motherBoardName;
-      this.formHasCdBurner = this.equipment.hasCdBurner;
-      this.formCabinetModel = this.equipment.cabinetModel;
-      this.formOperatingSystem = this.equipment.operatingSystem;
-      this.formOperatingSystemArchitecture = this.equipment.operatingSystemArchitecture;
-      this.formComputerType = this.equipment.computerType;
-      this.formOnTheDomain = this.equipment.onTheDomain;
-      this.formPersonalComputer = this.equipment.personalComputer;
-      this.formTotalRamMemory = this.equipment.totalRamMemory;
-      this.formTotalStorageMemory = this.equipment.totalStorageMemory;
+      this.form.get('manufacturer').setValue(this.equipment.manufacturer);
+      this.form.get('model').setValue(this.equipment.model);
+      this.form.get('description').setValue(this.equipment.description);
+      this.form.get('patrimonyId').setValue(this.equipment.patrimonyId);
+      this.form.get('ipAddress').setValue(this.equipment.ipAddress);
+      this.form.get('macAddress').setValue(this.equipment.macAddress);
+      this.form.get('hostName').setValue(this.equipment.hostName);
+      this.form.get('motherBoardName').setValue(this.equipment.motherBoardName);
+      this.form.get('hasCdBurner').setValue(this.equipment.hasCdBurner);
+      this.form.get('cabinetModel').setValue(this.equipment.cabinetModel);
+      this.form.get('operatingSystem').setValue(this.equipment.operatingSystem);
+      this.form.get('operatingSystemArchitecture').setValue(this.equipment.operatingSystemArchitecture);
+      this.form.get('computerType').setValue(this.equipment.computerType);
+      this.form.get('onTheDomain').setValue(this.equipment.onTheDomain);
+      this.form.get('personalComputer').setValue(this.equipment.personalComputer);
+      this.form.get('totalRamMemory').setValue(this.equipment.totalRamMemory);
+      this.form.get('totalStorageMemory').setValue(this.equipment.totalStorageMemory);
       if (this.equipment.monitor !== null) {
         this.monitors[0] = this.equipment.monitor;
       }
-      this.formSectorId = this.equipment.sector.id;
+      this.form.get('sectorId').setValue(this.equipment.sector.id);
       if ( this.equipment.processor != null) {
         this.processors[0] =  this.equipment.processor;
       }
@@ -218,30 +232,34 @@ export class InfoEquipmentPage implements OnInit {
       this.computerUsers = this.equipment.computerUsers;
     }
     else if (this.equipment.equipmentType === 'PRINTER' || this.equipment.equipmentType === 'NETWORK_DEVICE') {
-      this.formManufacturer = this.equipment.manufacturer;
-      this.formModel = this.equipment.model;
-      this.formDescription = this.equipment.description;
-      this.formPatrimonyId = this.equipment.patrimonyId;
-      this.formIpAddress = this.equipment.ipAddress;
-      this.formMacAddress = this.equipment.macAddress;
-      this.formHostName = this.equipment.hostName;
-      this.formSectorId = this.equipment.sector.id;
+      this.form.get('manufacturer').setValue(this.equipment.manufacturer);
+      this.form.get('model').setValue(this.equipment.model);
+      this.form.get('description').setValue(this.equipment.description);
+      this.form.get('patrimonyId').setValue(this.equipment.patrimonyId);
+      this.form.get('ipAddress').setValue(this.equipment.ipAddress);
+      this.form.get('macAddress').setValue(this.equipment.macAddress);
+      this.form.get('hostName').setValue(this.equipment.hostName);
+      this.form.get('sectorId').setValue(this.equipment.sector.id);
     }
     else if (this.equipment.equipmentType === 'MONITOR') {
-      this.formManufacturer = this.equipment.manufacturer;
-      this.formModel = this.equipment.model;
-      this.formDescription = this.equipment.description;
-      this.formPatrimonyId = this.equipment.patrimonyId;
-      // this.formComputerId = this.monitor.computer;
-      this.formSectorId = this.equipment.sector.id;
+      this.form.get('manufacturer').setValue(this.equipment.manufacturer);
+      this.form.get('model').setValue(this.equipment.model);
+      this.form.get('description').setValue(this.equipment.description);
+      this.form.get('patrimonyId').setValue(this.equipment.patrimonyId);
+      this.form.get('sectorId').setValue(this.equipment.sector.id);
     }
   }
 
   update() {
+    if (this.form.invalid) {
+      this.toastMessageControllerService.errorMessageAlert('Os dados do formulário estão incorretos');
+      return;
+    }
+
     if (this.equipment.equipmentType === 'COMPUTER') {
       if (!this.detailForm) {
-        this.formMotherBoardName = undefined;
-        this.formCabinetModel = undefined;
+        this.form.get('motherBoardName').setValue(undefined);
+        this.form.get('cabinetModel').setValue(undefined);
         this.ramMemories = [];
         this.storageDevices = [];
       }
@@ -253,33 +271,37 @@ export class InfoEquipmentPage implements OnInit {
       });
 
       const equipment: ComputerNewDTO = {
-        patrimonyId: this.formPatrimonyId,
-        manufacturer: this.formManufacturer,
-        model: this.formModel,
-        description: this.formDescription,
-        ipAddress: this.formIpAddress,
-        macAddress: this.formMacAddress,
-        hostName: this.formHostName,
-        motherBoardName: this.formMotherBoardName,
-        hasCdBurner: this.formHasCdBurner,
-        cabinetModel: this.formCabinetModel,
-        operatingSystem: this.formOperatingSystem,
-        operatingSystemArchitecture: this.formOperatingSystemArchitecture,
-        computerType: this.formComputerType,
-        onTheDomain: this.formOnTheDomain,
-        personalComputer: this.formPersonalComputer,
-        totalRamMemory: this.formTotalRamMemory,
-        totalStorageMemory: this.formTotalStorageMemory,
+        patrimonyId: this.form.get('patrimonyId').value,
+        manufacturer: this.form.get('manufacturer').value,
+        model: this.form.get('model').value,
+        description: this.form.get('description').value,
+        ipAddress: this.form.get('ipAddress').value,
+        macAddress: this.form.get('macAddress').value,
+        hostName: this.form.get('hostName').value,
+        motherBoardName: this.form.get('motherBoardName').value,
+        hasCdBurner: this.form.get('hasCdBurner').value,
+        cabinetModel: this.form.get('cabinetModel').value,
+        operatingSystem: this.form.get('operatingSystem').value,
+        operatingSystemArchitecture: this.form.get('operatingSystemArchitecture').value,
+        computerType: this.form.get('computerType').value,
+        onTheDomain: this.form.get('onTheDomain').value,
+        personalComputer: this.form.get('personalComputer').value,
+        totalRamMemory: this.form.get('totalRamMemory').value,
+        totalStorageMemory: this.form.get('totalStorageMemory').value,
         monitorId: this.monitors[0] ? Number(this.monitors[0].id) : undefined,
-        sectorId: this.formSectorId,
-        computerUsersId,
-        processor_id: this.processors[0] ? this.processors[0].id : undefined,
-        processor_manufacturer: this.processors[0] ? this.processors[0].manufacturer : undefined,
-        processor_model: this.processors[0] ? this.processors[0].model : undefined,
-        processor_description: this.processors[0] ? this.processors[0].description : undefined,
-        processor_processorName: this.processors[0] ? this.processors[0].processorName : undefined,
-        processor_architecture: this.processors[0] ? this.processors[0].architecture : undefined
+        sectorId: this.form.get('sectorId').value,
+        computerUsersId
       };
+
+      // Validation in processor and others hardware devices is missing
+      if (this.processors[0]) {
+        equipment.processor_id = this.processors[0].id;
+        equipment.processor_manufacturer = this.processors[0].manufacturer;
+        equipment.processor_model = this.processors[0].model;
+        equipment.processor_description = this.processors[0].description;
+        equipment.processor_processorName = this.processors[0].processorName;
+        equipment.processor_architecture = this.processors[0].architecture;
+      }
 
       for (let i = 0; i < this.ramMemories.length; i++) {
         eval(`equipment.ramMemory${i + 1}_id = '${this.ramMemories[i].id}'`);
@@ -305,42 +327,39 @@ export class InfoEquipmentPage implements OnInit {
     else if (this.equipment.equipmentType === 'PRINTER') {
       this.controller.updatePrinter(this.id,
         {
-          manufacturer: this.formManufacturer,
-          model: this.formModel,
-          description: this.formDescription,
-          patrimonyId: this.formPatrimonyId,
-          ipAddress: this.formIpAddress,
-          macAddress: this.formMacAddress,
-          hostName: this.formHostName,
-          sectorId: this.formSectorId,
-
+          manufacturer: this.form.get('manufacturer').value,
+          model: this.form.get('model').value,
+          description: this.form.get('description').value,
+          patrimonyId: this.form.get('patrimonyId').value,
+          ipAddress: this.form.get('ipAddress').value,
+          macAddress: this.form.get('macAddress').value,
+          hostName: this.form.get('hostName').value,
+          sectorId: this.form.get('sectorId').value
         }
       );
     }
     else if (this.equipment.equipmentType === 'NETWORK_DEVICE') {
       this.controller.updateNetworkDevice(this.id,
         {
-          manufacturer: this.formManufacturer,
-          model: this.formModel,
-          description: this.formDescription,
-          patrimonyId: this.formPatrimonyId,
-          ipAddress: this.formIpAddress,
-          macAddress: this.formMacAddress,
-          hostName: this.formHostName,
-          sectorId: this.formSectorId,
-
+          manufacturer: this.form.get('manufacturer').value,
+          model: this.form.get('model').value,
+          description: this.form.get('description').value,
+          patrimonyId: this.form.get('patrimonyId').value,
+          ipAddress: this.form.get('ipAddress').value,
+          macAddress: this.form.get('macAddress').value,
+          hostName: this.form.get('hostName').value,
+          sectorId: this.form.get('sectorId').value
         }
       );
     }
     else if (this.equipment.equipmentType === 'MONITOR') {
       this.controller.updateMonitor(this.id,
         {
-          manufacturer: this.formManufacturer,
-          model: this.formModel,
-          description: this.formDescription,
-          patrimonyId: this.formPatrimonyId,
-          sectorId: this.formSectorId,
-          computerId: null
+          manufacturer: this.form.get('manufacturer').value,
+          model: this.form.get('model').value,
+          description: this.form.get('description').value,
+          patrimonyId: this.form.get('patrimonyId').value,
+          sectorId: this.form.get('sectorId').value
         }
       );
     }
