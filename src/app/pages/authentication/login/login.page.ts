@@ -31,11 +31,19 @@ export class LoginPage implements OnInit {
 
   private presentFormErrorMessages() {
     let errorMessages: string = '';
-    if (this.form.controls.email.errors.required) {
-      errorMessages = errorMessages + '- O campo e-mail é obrigatório. <br>';
+    if (this.form.controls.email.errors) {
+      if (this.form.controls.email.errors.required) {
+        errorMessages = errorMessages + '- O campo e-mail é obrigatório. <br>';
+      }
+      if (this.form.controls.email.errors.email) {
+        errorMessages = errorMessages + '- E-mail inválido. <br>';
+      }
     }
-    if (this.form.controls.email.errors.email) {
-      errorMessages = errorMessages + '- E-mail inválido. <br>';
+
+    if (this.form.controls.password.errors) {
+      if (this.form.controls.password.errors.required) {
+        errorMessages = errorMessages + '- O campo senha é obrigatório. <br>';
+      }
     }
     this.toastMessageControllerService.errorMessageAlert('Os dados do formulário estão incorretos', errorMessages);
   }
