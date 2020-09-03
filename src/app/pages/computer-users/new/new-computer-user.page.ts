@@ -86,6 +86,12 @@ export class NewComputerUserPage implements OnInit {
       }
     }
 
+    if (this.form.controls.sectorId.errors) {
+      if (this.form.controls.sectorId.errors.required) {
+        errorMessages = errorMessages + '- O campo setor é obrigatório. <br>';
+      }
+    }
+
     this.toastMessageControllerService.errorMessageAlert('Os dados do formulário estão incorretos', errorMessages);
   }
 

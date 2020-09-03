@@ -28,29 +28,29 @@
     <ion-list *ngIf="equipment.equipmentType === 'COMPUTER'">
       <ion-list>
         <ion-list-header class="title" color="dark">Informações gerais</ion-list-header>
-        <ion-item [disabled]="editForm">
+        <ion-item [attr.disabled]="editForm">
           <ion-label style="text-size-adjust: 10px;">Computador pessoal</ion-label>
           <ion-toggle color="dark" slot="end" formControlName="personalComputer" required></ion-toggle>
         </ion-item>
 
-        <ion-item [disabled]="editForm">
+        <ion-item [attr.disabled]="editForm">
           <ion-label>Tipo de equipamento:</ion-label>
           <ion-select formControlName="computerType"  ok-text="Ok" cancel-text="Cancelar" required>
             <ion-select-option *ngFor="let computerType of controller.keys(controller.computerTypes)" [value]="computerType">{{controller.computerTypes[computerType]}}</ion-select-option>
           </ion-select>
         </ion-item>
 
-        <ion-item *ngIf="!form.get('personalComputer').value" [disabled]="editForm">
+        <ion-item *ngIf="!form.get('personalComputer').value" [attr.disabled]="editForm">
           <ion-label>Número de patrimônio:</ion-label>
           <ion-input type="text" formControlName="patrimonyId"></ion-input>
         </ion-item>
 
-        <ion-item *ngIf="!form.get('personalComputer').value" [disabled]="editForm">
+        <ion-item *ngIf="!form.get('personalComputer').value" [attr.disabled]="editForm">
           <ion-label>Fabricante:</ion-label>
           <ion-input type="text" formControlName="manufacturer"></ion-input>    
         </ion-item>
 
-        <ion-item *ngIf="!form.get('personalComputer').value" [disabled]="editForm">
+        <ion-item *ngIf="!form.get('personalComputer').value" [attr.disabled]="editForm">
           <ion-label>Modelo:</ion-label>
           <ion-input type="text" formControlName="model"></ion-input>
         </ion-item>
@@ -59,17 +59,17 @@
 
       <ion-list *ngIf="!form.get('personalComputer').value">
         <ion-list-header class="title" color="dark">Informações do hardware</ion-list-header>
-        <ion-item [disabled]="editForm">
+        <ion-item [attr.disabled]="editForm">
           <ion-label>Possui leitor de CD/DVD?</ion-label>
           <ion-checkbox color="dark" formControlName="hasCdBurner"></ion-checkbox>    
         </ion-item>
 
-        <ion-item *ngIf="detailForm" [disabled]="editForm">
+        <ion-item *ngIf="detailForm" [attr.disabled]="editForm">
           <ion-label>Nome da placa mãe:</ion-label>
           <ion-input type="text" formControlName="motherBoardName"></ion-input>    
         </ion-item>
 
-        <ion-item *ngIf="detailForm" [disabled]="editForm">
+        <ion-item *ngIf="detailForm" [attr.disabled]="editForm">
           <ion-label>Modelo do gabinete:</ion-label>
           <ion-input type="text" formControlName="cabinetModel"></ion-input>    
         </ion-item>
@@ -83,12 +83,12 @@
           </ion-buttons>
         </ion-list-header>
 
-        <ion-item [disabled]="editForm" *ngIf="processors.length === 0; else processorAdded">
+        <ion-item [attr.disabled]="editForm" *ngIf="processors.length === 0; else processorAdded">
           <ion-label>Nenhum processador adicionado</ion-label>
         </ion-item>
 
         <ng-template #processorAdded >
-          <ion-item [disabled]="editForm" (click)="electronicComponentModalPresent(processors[0])">
+          <ion-item [attr.disabled]="editForm" (click)="electronicComponentModalPresent(processors[0])">
             <ion-icon slot="start" size="large" name="hardware-chip"></ion-icon>
             <ion-label *ngIf="processors[0].manufacturer === '' && processors[0].model === '' && processors[0].processorName === ''; else processorNotEmpty">
               <h2>Clique para gerenciar o processador</h2>
@@ -127,7 +127,7 @@
           Memória RAM
         </ion-list-header>
 
-        <ion-item [disabled]="editForm">
+        <ion-item [attr.disabled]="editForm">
           <ion-range formControlName="totalRamMemory" min="0" max="16" pin color="dark">
             <ion-icon slot="start" size="small" name="ram-memory"></ion-icon>
             <ion-icon slot="end" size="large" name="ram-memory"></ion-icon>
@@ -148,11 +148,11 @@
             </ion-buttons>
           </ion-list-header>
     
-          <ion-item [disabled]="editForm" *ngIf="ramMemories.length === 0">
+          <ion-item [attr.disabled]="editForm" *ngIf="ramMemories.length === 0">
             <ion-label>Nenhuma memória RAM adicionada</ion-label>
           </ion-item>
     
-          <ion-item [disabled]="editForm" *ngFor="let ramMemory of ramMemories" (click)="electronicComponentModalPresent(ramMemory)">
+          <ion-item [attr.disabled]="editForm" *ngFor="let ramMemory of ramMemories" (click)="electronicComponentModalPresent(ramMemory)">
             <ion-icon slot="start" size="large" name="ram-memory"></ion-icon>
             <ion-label *ngIf="ramMemory.manufacturer === '' && ramMemory.model === '' && ramMemory.sizeInGB === 0; else ramMemoryNotEmpty">
               <h2>Clique para gerenciar a memória RAM</h2>
@@ -190,7 +190,7 @@
           Armazenamento
         </ion-list-header>
 
-        <ion-item [disabled]="editForm">
+        <ion-item [attr.disabled]="editForm">
           <ion-range formControlName="totalStorageMemory" min="0" max="2000" step="20" pin color="dark">
             <ion-icon slot="start" size="small" name="server"></ion-icon>
             <ion-icon slot="end" size="large" name="server"></ion-icon>
@@ -211,11 +211,11 @@
             </ion-buttons>
           </ion-list-header>
     
-          <ion-item [disabled]="editForm" *ngIf="storageDevices.length === 0">
+          <ion-item [attr.disabled]="editForm" *ngIf="storageDevices.length === 0">
             <ion-label>Nenhuma armazenamento adicionado</ion-label>
           </ion-item>
     
-          <ion-item [disabled]="editForm" *ngFor="let storageDevice of storageDevices" (click)="electronicComponentModalPresent(storageDevice)">
+          <ion-item [attr.disabled]="editForm" *ngFor="let storageDevice of storageDevices" (click)="electronicComponentModalPresent(storageDevice)">
             <ion-icon slot="start" size="large" name="server"></ion-icon>
             <ion-label *ngIf="storageDevice.manufacturer === '' && storageDevice.model === '' && storageDevice.sizeInGB === 0; else storageDeviceNotEmpty">
               <h2>Clique para gerenciar o armazenamento</h2>
@@ -251,22 +251,22 @@
         <ion-list-header class="title" color="dark">Informações de rede</ion-list-header>
         <ion-item *ngIf="!form.get('personalComputer').value">
           <ion-label>Está no domínio?</ion-label>
-          <ion-checkbox [disabled]="editForm" color="dark" formControlName="onTheDomain" required></ion-checkbox>    
+          <ion-checkbox [attr.disabled]="editForm" color="dark" formControlName="onTheDomain" required></ion-checkbox>    
         </ion-item>
 
         <ion-item>
           <ion-label>Endereço IP:</ion-label>
-          <ion-input [disabled]="editForm" type="text" formControlName="ipAddress"></ion-input>    
+          <ion-input [attr.disabled]="editForm" type="text" formControlName="ipAddress"></ion-input>    
         </ion-item>
 
         <ion-item>
           <ion-label>Endereço MAC:</ion-label>
-          <ion-input [disabled]="editForm" type="text" formControlName="macAddress"></ion-input>    
+          <ion-input [attr.disabled]="editForm" type="text" formControlName="macAddress"></ion-input>    
         </ion-item>
         
         <ion-item>
           <ion-label>Nome do computador:</ion-label>
-          <ion-input [disabled]="editForm" type="text" formControlName="hostName"></ion-input>    
+          <ion-input [attr.disabled]="editForm" type="text" formControlName="hostName"></ion-input>    
         </ion-item>
       </ion-list>
         
@@ -275,14 +275,14 @@
         <div>     
           <ion-item>
             <ion-label>Sistema operacional:</ion-label>
-            <ion-select [disabled]="editForm" formControlName="operatingSystem"  ok-text="Ok" cancel-text="Cancelar">
+            <ion-select [attr.disabled]="editForm" formControlName="operatingSystem"  ok-text="Ok" cancel-text="Cancelar">
               <ion-select-option *ngFor="let operatingSystem of controller.keys(controller.operatingSystems)" [value]="operatingSystem">{{controller.operatingSystems[operatingSystem]}}</ion-select-option>
             </ion-select>
           </ion-item>
 
           <ion-item>
             <ion-label>Arquitetura do sistema operacional:</ion-label>
-            <ion-select [disabled]="editForm" formControlName="operatingSystemArchitecture"  ok-text="Ok" cancel-text="Cancelar">
+            <ion-select [attr.disabled]="editForm" formControlName="operatingSystemArchitecture"  ok-text="Ok" cancel-text="Cancelar">
               <ion-select-option *ngFor="let operatingSystemArchitecture of controller.keys(controller.operatingSystemArchitectures)" [value]="operatingSystemArchitecture">{{controller.operatingSystemArchitectures[operatingSystemArchitecture]}}</ion-select-option>
             </ion-select>
           </ion-item>
@@ -299,11 +299,11 @@
           </ion-buttons>
         </ion-list-header>
 
-        <ion-item [disabled]="editForm" *ngIf="computerUsers.length === 0">
+        <ion-item [attr.disabled]="editForm" *ngIf="computerUsers.length === 0">
           <ion-label>Nenhum usuário adicionado</ion-label>
         </ion-item>
 
-        <ion-item [disabled]="editForm" *ngFor="let computerUser of computerUsers" (click)="computerUsersModalPagePresent(computerUsers.indexOf(computerUser))">
+        <ion-item [attr.disabled]="editForm" *ngFor="let computerUser of computerUsers" (click)="computerUsersModalPagePresent(computerUsers.indexOf(computerUser))">
           <ion-icon slot="start" size="large" name="person"></ion-icon>
           <ion-label *ngIf="computerUser === undefined; else notEmpty">
             <h2>Clique para selecionar um usuário</h2>
@@ -335,11 +335,11 @@
           </ion-buttons>
         </ion-list-header>
 
-        <ion-item [disabled]="editForm" *ngIf="monitors.length === 0">
+        <ion-item [attr.disabled]="editForm" *ngIf="monitors.length === 0">
           <ion-label>Nenhum monitor adicionado</ion-label>
         </ion-item>
 
-        <ion-item [disabled]="editForm" *ngFor="let monitor of monitors" (click)="monitorsModalPresent(monitors.indexOf(monitor))">
+        <ion-item [attr.disabled]="editForm" *ngFor="let monitor of monitors" (click)="monitorsModalPresent(monitors.indexOf(monitor))">
           <ion-icon slot="start" size="large" name="desktop"></ion-icon>
           <ion-label *ngIf="monitor === undefined; else notEmpty">
             <h2>Clique para selecionar um monitor</h2>
@@ -375,7 +375,7 @@
         <ion-list-header class="title" color="dark">Outros</ion-list-header>
         <ion-item>
           <ion-label>Setor:</ion-label>
-          <ion-select [disabled]="editForm" formControlName="sectorId"  ok-text="Ok" cancel-text="Cancelar">
+          <ion-select [attr.disabled]="editForm" formControlName="sectorId"  ok-text="Ok" cancel-text="Cancelar">
             <ion-select-option *ngFor="let sector of sectorController.sectors" [value]="sector.id">{{ sector.name }}</ion-select-option>
           </ion-select>
         </ion-item>
@@ -383,7 +383,7 @@
 
       <ion-item>
         <ion-label position="floating">Descrição:</ion-label>
-        <ion-textarea [disabled]="editForm" formControlName="description" rows="4"></ion-textarea>
+        <ion-textarea [attr.disabled]="editForm" formControlName="description" rows="4"></ion-textarea>
       </ion-item>  
     </ion-list>
 
@@ -395,17 +395,17 @@
         
         <ion-item>
           <ion-label>Número de patrimônio:</ion-label>
-          <ion-input [disabled]="editForm" type="text" formControlName="patrimonyId"></ion-input>
+          <ion-input [attr.disabled]="editForm" type="text" formControlName="patrimonyId"></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label>Fabricante:</ion-label>
-          <ion-input [disabled]="editForm" type="text" formControlName="manufacturer"></ion-input>    
+          <ion-input [attr.disabled]="editForm" type="text" formControlName="manufacturer"></ion-input>    
         </ion-item>
 
         <ion-item>
           <ion-label>Modelo:</ion-label>
-          <ion-input [disabled]="editForm" type="text" formControlName="model"></ion-input>
+          <ion-input [attr.disabled]="editForm" type="text" formControlName="model"></ion-input>
         </ion-item>
       </ion-list>
 
@@ -414,22 +414,22 @@
 
         <ion-item>
           <ion-label>Endereço IP:</ion-label>
-          <ion-input [disabled]="editForm" type="text" formControlName="ipAddress"></ion-input>    
+          <ion-input [attr.disabled]="editForm" type="text" formControlName="ipAddress"></ion-input>    
         </ion-item>
 
         <ion-item>
           <ion-label>Endereço MAC:</ion-label>
-          <ion-input [disabled]="editForm" type="text" formControlName="macAddress"></ion-input>    
+          <ion-input [attr.disabled]="editForm" type="text" formControlName="macAddress"></ion-input>    
         </ion-item>
         
         <ion-item *ngIf="equipment.equipmentType === 'PRINTER'">
           <ion-label>Nome da impressora:</ion-label>
-          <ion-input [disabled]="editForm" type="text" formControlName="hostName"></ion-input>    
+          <ion-input [attr.disabled]="editForm" type="text" formControlName="hostName"></ion-input>    
         </ion-item>
 
         <ion-item *ngIf="equipment.equipmentType === 'NETWORK_DEVICE'">
           <ion-label>Nome do dispositivo:</ion-label>
-          <ion-input [disabled]="editForm" type="text" formControlName="hostName"></ion-input>    
+          <ion-input [attr.disabled]="editForm" type="text" formControlName="hostName"></ion-input>    
         </ion-item>
 
       </ion-list>
@@ -439,7 +439,7 @@
 
         <ion-item>
           <ion-label>Setor:</ion-label>
-          <ion-select [disabled]="editForm" formControlName="sectorId"  ok-text="Ok" cancel-text="Cancelar">
+          <ion-select [attr.disabled]="editForm" formControlName="sectorId"  ok-text="Ok" cancel-text="Cancelar">
             <ion-select-option *ngFor="let sector of sectorController.sectors" [value]="sector.id" required>{{ sector.name }}</ion-select-option>
           </ion-select>
         </ion-item>
@@ -447,7 +447,7 @@
 
       <ion-item>
         <ion-label position="floating">Descrição:</ion-label>
-        <ion-textarea [disabled]="editForm" formControlName="description" rows="4"></ion-textarea>
+        <ion-textarea [attr.disabled]="editForm" formControlName="description" rows="4"></ion-textarea>
       </ion-item>  
     </ion-list>
 
@@ -458,17 +458,17 @@
         
         <ion-item>
           <ion-label>Número de patrimônio:</ion-label>
-          <ion-input [disabled]="editForm" type="text" formControlName="patrimonyId"></ion-input>
+          <ion-input [attr.disabled]="editForm" type="text" formControlName="patrimonyId"></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label>Fabricante:</ion-label>
-          <ion-input [disabled]="editForm" type="text" formControlName="manufacturer"></ion-input>    
+          <ion-input [attr.disabled]="editForm" type="text" formControlName="manufacturer"></ion-input>    
         </ion-item>
 
         <ion-item>
           <ion-label>Modelo:</ion-label>
-          <ion-input [disabled]="editForm" type="text" formControlName="model"></ion-input>
+          <ion-input [attr.disabled]="editForm" type="text" formControlName="model"></ion-input>
         </ion-item>
       </ion-list>
 
@@ -477,7 +477,7 @@
 
         <ion-item>
           <ion-label>Setor:</ion-label>
-          <ion-select [disabled]="editForm" formControlName="sectorId"  ok-text="Ok" cancel-text="Cancelar" required>
+          <ion-select [attr.disabled]="editForm" formControlName="sectorId"  ok-text="Ok" cancel-text="Cancelar" required>
             <ion-select-option *ngFor="let sector of sectorController.sectors" [value]="sector.id">{{ sector.name }}</ion-select-option>
           </ion-select>
         </ion-item>
@@ -485,7 +485,7 @@
 
       <ion-item>
         <ion-label position="floating">Descrição:</ion-label>
-        <ion-textarea [disabled]="editForm" formControlName="description" rows="4"></ion-textarea>
+        <ion-textarea [attr.disabled]="editForm" formControlName="description" rows="4"></ion-textarea>
       </ion-item>  
     </ion-list>
   </form>

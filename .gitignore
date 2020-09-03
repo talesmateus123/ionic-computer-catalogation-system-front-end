@@ -25,7 +25,6 @@ npm-debug.log*
 /.vscode
 /coverage
 /dist
-/platforms
 /node_modules
 /plugins
 /www

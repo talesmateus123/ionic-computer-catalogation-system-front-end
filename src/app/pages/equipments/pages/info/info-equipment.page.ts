@@ -292,8 +292,12 @@ export class InfoEquipmentPage implements OnInit {
       const computerUsersId: string[] = [];
 
       this.computerUsers.forEach(computerUser => {
-        computerUsersId.push(computerUser.id);
+        if (computerUser) {
+          computerUsersId.push(computerUser.id);
+        }
       });
+
+      const monitorId: number = this.monitors[0] ? Number(this.monitors[0].id) : undefined;
 
       const equipment: ComputerNewDTO = {
         patrimonyId: this.form.get('patrimonyId').value,
@@ -313,8 +317,8 @@ export class InfoEquipmentPage implements OnInit {
         personalComputer: this.form.get('personalComputer').value,
         totalRamMemory: this.form.get('totalRamMemory').value,
         totalStorageMemory: this.form.get('totalStorageMemory').value,
-        monitorId: this.monitors[0] ? Number(this.monitors[0].id) : undefined,
         sectorId: this.form.get('sectorId').value,
+        monitorId,
         computerUsersId
       };
 

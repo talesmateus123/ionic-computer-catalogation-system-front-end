@@ -45,6 +45,7 @@ export class LoginPage implements OnInit {
         errorMessages = errorMessages + '- O campo senha é obrigatório. <br>';
       }
     }
+    
     this.toastMessageControllerService.errorMessageAlert('Os dados do formulário estão incorretos', errorMessages);
   }
 
