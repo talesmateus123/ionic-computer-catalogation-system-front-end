@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  baseUrl: 'http://10.1.1.11:8080/',
-  baseApiUrl: 'http://10.1.1.11:8080/api/'
+  baseUrl: 'http://54.234.75.216:8080/computer-catalogation-system-back-end/',
+  baseApiUrl: 'http://54.234.75.216:8080/computer-catalogation-system-back-end/api/'
 };
