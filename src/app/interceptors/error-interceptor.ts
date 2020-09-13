@@ -25,6 +25,11 @@ export class ErrorInterceptor implements HttpInterceptor {
                         case 0:
                             errorMessage = `Falha ao obter conexão com o servidor.`;
                             break;
+                        case 401:
+                            errorTitle = `Acesso negado`;
+                            errorMessage = `E-mail ou senha invalidos.`;
+                            this.authenticationControllerService.logout();
+                            break;
                         case 403:
                             errorTitle = `Proibido`;
                             errorMessage = `Você precisa logar para continuar.`;
