@@ -1,4 +1,4 @@
-import { ToastMessageControllerService } from './../../../../../shared-resources/services/toast-message-controller.service';
+import { ToastMessageControllerService } from '../../../../../shared-resources/services/toast-message-controller.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
@@ -13,7 +13,7 @@ import { ArchitectureType, RamMemoryArchitecture, StorageDeviceArchitecture, Sto
 export class InfoElectronicComponentModalPage implements OnInit {
   form: FormGroup;
 
-  public electronicComponentTypes: string[] =[
+  public electronicComponentTypes: string[] = [
     "PROCESSOR",
     "RAM_MEMORY",
     "STORAGE_DEVICE",
@@ -64,7 +64,8 @@ export class InfoElectronicComponentModalPage implements OnInit {
     description: ['', [ Validators.maxLength(100) ]],
     processorName: ['', this.electronicComponent.equipmentType === 'PROCESSOR' ? [ Validators.required ] : [  ] ],
     architecture: ['', [ Validators.required ]],
-    sizeInGB: [0, [ Validators.required, Validators.min(1) ]],
+    sizeInGB: [0, this.electronicComponent.equipmentType === 'RAM_MEMORY' || this.electronicComponent.equipmentType === 'STORAGE_DEVICE' ?
+       [ Validators.required, Validators.min(1) ] : [  ] ],
     type: [, this.electronicComponent.equipmentType === 'STORAGE_DEVICE' ? [ Validators.required ] : [  ] ],
     });
   }
@@ -75,9 +76,15 @@ export class InfoElectronicComponentModalPage implements OnInit {
     if (this.form.controls.description.errors) {
       if (this.form.controls.description.errors.maxlength) {
         errorMessages = errorMessages +
-          '- O campo nome deve ter no máximo ' +
+          '- O campo descrição deve ter no máximo ' +
           this.form.controls.description.errors.maxlength.requiredLength +
           ' caracteres. <br>';
+      }
+    }
+
+    if (this.form.controls.processorName.errors) {
+      if (this.form.controls.processorName.errors.required) {
+        errorMessages = errorMessages + '- O campo número do processador é obrigatório. <br>';
       }
     }
 

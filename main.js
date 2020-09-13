@@ -11,6 +11,7 @@ function createWindow () {
     minWidth: 1100,
     minHeight: 650,
     center: true,
+    title: 'Sistema de catalogagem de computadores',
     webPreferences: {
       nodeIntegration: true
     }
@@ -18,7 +19,7 @@ function createWindow () {
 
   mainWindow.loadURL(
     url.format({
-      pathname: path.join(__dirname, `/dist/index.html`),
+      pathname: path.join(__dirname, `/www/index.html`),
       protocol: "file:",
       slashes: true
     })
