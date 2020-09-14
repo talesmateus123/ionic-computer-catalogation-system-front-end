@@ -37,4 +37,12 @@ export class SessionStorageService {
     localStorage['security-key'] = token;
   }
 
+  public getSessionSavedEmail(): string {
+    return localStorage['saved-email'] !== 'null' ? localStorage['saved-email'] : null;
+  }
+
+  public setSessionSavedEmail(email: string): void {
+    localStorage['saved-email'] = email;
+  }
+
 }

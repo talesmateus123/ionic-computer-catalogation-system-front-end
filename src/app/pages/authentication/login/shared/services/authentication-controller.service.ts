@@ -49,7 +49,7 @@ export class AuthenticationControllerService {
           this.user = res;
         },
         error => {
-          
+
         });
   }
 
@@ -64,6 +64,15 @@ export class AuthenticationControllerService {
   public getSessionSecurityKey(): string {
     return this.sessionStorageService.getSessionSecurityKey();
   }
+
+  public getSessionSavedEmail(): string {
+    return this.sessionStorageService.getSessionSavedEmail();
+  }
+
+  public setSessionSavedEmail(email: string) {
+    return this.sessionStorageService.setSessionSavedEmail(email);
+  }
+
 
   public isLoggedIn(): boolean {
     return this.user ? true : false;

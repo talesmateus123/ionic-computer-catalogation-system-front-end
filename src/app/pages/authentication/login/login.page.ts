@@ -24,7 +24,10 @@ export class LoginPage implements OnInit {
 
   generateForm() {
     this.form = this.formBuilder.group({
-      email: ['', [ Validators.required, Validators.email ]],
+      email: [
+        this.controller.getSessionSavedEmail() ? this.controller.getSessionSavedEmail() : '', 
+        [ Validators.required, Validators.email ]
+      ],
       password: ['', [ Validators.required, Validators.minLength(4) ]]
     });
   }
@@ -45,7 +48,7 @@ export class LoginPage implements OnInit {
         errorMessages = errorMessages + '- O campo senha é obrigatório. <br>';
       }
     }
-    
+
     this.toastMessageControllerService.errorMessageAlert('Os dados do formulário estão incorretos', errorMessages);
   }
 
@@ -56,7 +59,7 @@ export class LoginPage implements OnInit {
     }
 
     const login: Login = this.form.value;
-
+    this.controller.setSessionSavedEmail(this.form.get('email').value)
     await this.controller.login(login);
   }
 
