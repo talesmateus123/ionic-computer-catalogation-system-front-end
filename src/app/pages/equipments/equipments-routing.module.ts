@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { EquipmentsPage } from './equipments.page';
 import { InfoEquipmentPage } from './pages/info/info-equipment.page';
 import { NewEquipmentPage } from './pages/new/new-equipment.page';
-import { SearchEquipmentModalPage } from './modals/search/search-equipment-modal.page';
+import { SearchEquipmentModalPage, HelpEquipmentModalPage } from './modals';
 
 const routes: Routes = [
   {
@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: 'electronic-components',
     loadChildren: () => import('./pages/electronic-components').then( m => m.ElectronicComponentsPageModule)
+  },
+  {
+    path: 'help',
+    component: HelpEquipmentModalPage
   }
 ];
 

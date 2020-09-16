@@ -1,3 +1,4 @@
+import { HelpEquipmentModalPage } from './../../modals/help/help-equipment-modal.page';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
@@ -257,6 +258,8 @@ export class NewEquipmentPage implements OnInit {
         computerType: this.form.get('computerType').value,
         onTheDomain: this.form.get('onTheDomain').value,
         personalComputer: this.form.get('personalComputer').value,
+        teamViewerId: this.form.get('teamViewerId').value,
+        teamViewerPass: this.form.get('teamViewerPass').value,
         totalRamMemory: this.form.get('totalRamMemory').value,
         totalStorageMemory: this.form.get('totalStorageMemory').value,
         sectorId: this.form.get('sectorId').value,
@@ -291,7 +294,7 @@ export class NewEquipmentPage implements OnInit {
         eval(`equipment.storageDevice${i + 1}_architecture = '${this.storageDevices[i].architecture}'`);
         eval(`equipment.storageDevice${i + 1}_type = '${this.storageDevices[i].type}'`);
       }
-      
+
       this.controller.createComputer(equipment);
     } else if (this.equipmentType === 'PRINTER') {
       this.controller.createPrinter(
@@ -329,6 +332,25 @@ export class NewEquipmentPage implements OnInit {
         }
       );
     }
+  }
+
+  async helpEquipmentModalPresent() {
+    const modal = await this.modalController.create({
+      component: HelpEquipmentModalPage,
+      componentProps: {
+        editForm: this.editForm,
+        teamViewerId: this.form.get('teamViewerId').value,
+        teamViewerPass: this.form.get('teamViewerPass').value
+      }
+    });
+
+    modal.onDidDismiss().then((dataReturned) => {
+      if (dataReturned.data) {
+        this.form.get('teamViewerId').setValue(dataReturned.data.teamViewerId);
+        this.form.get('teamViewerPass').setValue(dataReturned.data.teamViewerPass);
+      }
+    });
+    return await modal.present();
   }
 
   async monitorsModalPresent(index: number) {

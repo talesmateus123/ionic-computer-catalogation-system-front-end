@@ -8,6 +8,9 @@
     <ion-title *ngIf="equipmentType === 'NETWORK_DEVICE'">Novo dispositivo de rede</ion-title>
     <ion-title *ngIf="equipmentType === 'MONITOR'">Novo monitor</ion-title>
     <ion-buttons slot="end">
+      <ion-button (click)="helpEquipmentModalPresent()">
+        <ion-icon slot="icon-only" name="information-circle"></ion-icon>
+      </ion-button>
       <ion-button>
         <ion-select [(ngModel)]="equipmentType"  ok-text="Ok" cancel-text="Cancelar" interface="popover">
           <ion-select-option *ngFor="let equipment of controller.equipmentTypes" [value]="equipment">

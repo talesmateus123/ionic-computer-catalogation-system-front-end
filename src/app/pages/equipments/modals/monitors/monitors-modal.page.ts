@@ -14,12 +14,12 @@ export class MonitorsModalPage implements OnInit {
   private index: number
   public monitorsAlreadyEntered: MonitorDTO[];
   public monitors: MonitorDTO[];
-  
-  public searchTerm: string= "";
+
+  public searchTerm: string= '';
   public booleanSearchTerm: boolean = true;
   public asc: boolean = true;
-  public orderBy: string = "patrimonyId";
-  public searchType: string = "DEFAULT";
+  public orderBy: string = 'patrimonyId';
+  public searchType: string = 'DEFAULT';
 
 
   constructor(
@@ -35,7 +35,7 @@ export class MonitorsModalPage implements OnInit {
     this.modalController.dismiss(
       {
         index: this.index,
-        monitor: monitor
+        monitor
       }
      );
   }
@@ -49,20 +49,21 @@ export class MonitorsModalPage implements OnInit {
     this.monitorService.findAll()
       .subscribe(res => {
         this.monitors = [];
-        for(let i in res) {
-          if(!this.contains(this.monitorsAlreadyEntered, res[i]))
+        for (const i in res) {
+          if (!this.contains(this.monitorsAlreadyEntered, res[i])) {
             this.monitors.push(res[i]);
+          }
         }
-      }, 
+      },
       error => {
-        
+
       });
   }
 
   private contains(a: MonitorDTO[], obj: MonitorDTO) {
-    var i = a.length;
+    let i = a.length;
     while (i--) {
-      if(a[i] != undefined) {
+      if (a[i] !== undefined) {
         if (a[i].id === obj.id) {
           return true;
         }
@@ -85,7 +86,7 @@ export class MonitorsModalPage implements OnInit {
   async searchModalPresent() {
     const modal = await this.modalController.create({
       component: SearchMonitorModalPage,
-      componentProps: { 
+      componentProps: {
         searchTerm: this.searchTerm,
         booleanSearchTerm: this.booleanSearchTerm,
         asc: this.asc,
@@ -95,14 +96,14 @@ export class MonitorsModalPage implements OnInit {
     });
 
     modal.onDidDismiss().then((dataReturned) => {
-      if (dataReturned.data !== undefined) {
+      if (dataReturned.data) {
         this.searchTerm = dataReturned.data.searchTerm;
         this.booleanSearchTerm = dataReturned.data.booleanSearchTerm;
         this.asc = dataReturned.data.asc;
         this.orderBy = dataReturned.data.orderBy;
         this.searchType = dataReturned.data.searchType;
 
-        this.searchMonitor(dataReturned.data.searchTerm, dataReturned.data.asc ? "ASC" : "DESC", dataReturned.data.orderBy);
+        this.searchMonitor(dataReturned.data.searchTerm, dataReturned.data.asc ? 'ASC' : 'DESC', dataReturned.data.orderBy);
       }
     });
     return await modal.present();

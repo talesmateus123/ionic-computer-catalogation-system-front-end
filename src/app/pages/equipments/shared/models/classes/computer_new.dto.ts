@@ -12,6 +12,8 @@ export class ComputerNewDTO extends EquipmentNewDTO {;
 	computerType: string;
 	onTheDomain: boolean;
 	personalComputer: boolean;
+	teamViewerId: string;
+	teamViewerPass: string;
 	totalRamMemory: number;
 	totalStorageMemory: number;
 	monitorId: number;

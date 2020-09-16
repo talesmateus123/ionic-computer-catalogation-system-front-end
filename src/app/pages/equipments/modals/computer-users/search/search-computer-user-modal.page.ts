@@ -21,7 +21,7 @@ export class SearchComputerUserModalPage implements OnInit {
   returnDataAndDismiss() {
     this.modalController.dismiss(
       {
-        searchTerm: this.searchTerm, 
+        searchTerm: this.searchTerm,
         asc: this.asc,
         orderBy: this.orderBy
       }
@@ -33,7 +33,8 @@ export class SearchComputerUserModalPage implements OnInit {
   }
 
   eventHandler($keyCode) {
-    if ($keyCode === 13)
+    if ($keyCode === 13) {
       this.returnDataAndDismiss();
+    }
   }
 }

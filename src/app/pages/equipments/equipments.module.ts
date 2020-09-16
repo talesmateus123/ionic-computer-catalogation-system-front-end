@@ -11,14 +11,14 @@ import {
   NewEquipmentPage, InfoEquipmentPage, ElectronicComponentControllerService,
   ProcessorService, RamMemoryService, StorageDeviceService
 } from './pages';
-import { 
+import {
   ComputerService, MonitorService, PrinterService, NetworkDeviceService,
   EquipmentControllerService
 } from './shared';
 import { ElectronicService } from '../shared-resources';
 import { SectorControllerService, SectorService } from '../sectors';
 import {
-  SearchEquipmentModalPage, InfoElectronicComponentModalPage,
+  SearchEquipmentModalPage, HelpEquipmentModalPage, InfoElectronicComponentModalPage,
   ComputerUsersModalPage, SearchComputerUserModalPage, MonitorsModalPage
 } from './modals';
 import { ComputerUserService } from '../computer-users';
@@ -41,18 +41,20 @@ import { SearchMonitorModalPage } from './modals/monitors/search/search-monitor-
     NewEquipmentPage,
     InfoEquipmentPage,
     SearchEquipmentModalPage,
+    HelpEquipmentModalPage,
     InfoElectronicComponentModalPage,
     ComputerUsersModalPage,
     SearchComputerUserModalPage,
     MonitorsModalPage,
-    SearchMonitorModalPage
+    SearchMonitorModalPage,
   ],
   entryComponents: [
     InfoElectronicComponentModalPage,
+    HelpEquipmentModalPage,
     ComputerUsersModalPage,
     SearchComputerUserModalPage,
     MonitorsModalPage,
-    SearchMonitorModalPage
+    SearchMonitorModalPage,
   ],
   providers: [
     EquipmentControllerService,

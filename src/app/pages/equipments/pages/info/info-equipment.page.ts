@@ -1,3 +1,4 @@
+import { HelpEquipmentModalPage } from './../../modals/help/help-equipment-modal.page';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -218,6 +219,8 @@ export class InfoEquipmentPage implements OnInit {
       this.form.get('computerType').setValue(this.equipment.computerType);
       this.form.get('onTheDomain').setValue(this.equipment.onTheDomain);
       this.form.get('personalComputer').setValue(this.equipment.personalComputer);
+      this.form.get('teamViewerId').setValue(this.equipment.teamViewerId);
+      this.form.get('teamViewerPass').setValue(this.equipment.teamViewerPass);
       this.form.get('totalRamMemory').setValue(this.equipment.totalRamMemory);
       this.form.get('totalStorageMemory').setValue(this.equipment.totalStorageMemory);
       if (this.equipment.monitor !== null) {
@@ -315,6 +318,8 @@ export class InfoEquipmentPage implements OnInit {
         computerType: this.form.get('computerType').value,
         onTheDomain: this.form.get('onTheDomain').value,
         personalComputer: this.form.get('personalComputer').value,
+        teamViewerId: this.form.get('teamViewerId').value,
+        teamViewerPass: this.form.get('teamViewerPass').value,
         totalRamMemory: this.form.get('totalRamMemory').value,
         totalStorageMemory: this.form.get('totalStorageMemory').value,
         sectorId: this.form.get('sectorId').value,
@@ -409,6 +414,25 @@ export class InfoEquipmentPage implements OnInit {
     }
   }
 
+  async helpEquipmentModalPresent() {
+    const modal = await this.modalController.create({
+      component: HelpEquipmentModalPage,
+      componentProps: {
+        editForm: this.editForm,
+        teamViewerId: this.form.get('teamViewerId').value,
+        teamViewerPass: this.form.get('teamViewerPass').value
+      }
+    });
+
+    modal.onDidDismiss().then((dataReturned) => {
+      if (dataReturned.data) {
+        this.form.get('teamViewerId').setValue(dataReturned.data.teamViewerId);
+        this.form.get('teamViewerPass').setValue(dataReturned.data.teamViewerPass);
+      }
+    });
+    return await modal.present();
+  }
+
   async monitorsModalPresent(index: number) {
     const modal = await this.modalController.create({
       component: MonitorsModalPage,
@@ -419,7 +443,7 @@ export class InfoEquipmentPage implements OnInit {
     });
 
     modal.onDidDismiss().then((dataReturned) => {
-      if (dataReturned.data !== undefined) {
+      if (dataReturned.data) {
         this.monitors.splice(dataReturned.data.index, 1, dataReturned.data.monitor);
       }
     });
@@ -447,7 +471,7 @@ export class InfoEquipmentPage implements OnInit {
     });
 
     modal.onDidDismiss().then((dataReturned) => {
-      if (dataReturned.data !== undefined) {
+      if (dataReturned.data) {
         this.computerUsers.splice(dataReturned.data.index, 1, dataReturned.data.computerUser);
       }
     });

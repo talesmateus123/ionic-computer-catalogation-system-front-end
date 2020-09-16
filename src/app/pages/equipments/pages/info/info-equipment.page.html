@@ -8,6 +8,9 @@
     <ion-title *ngIf="equipment.equipmentType === 'NETWORK_DEVICE'">Informações do dispositivo de rede</ion-title>
     <ion-title *ngIf="equipment.equipmentType === 'MONITOR'">Informações do monitor</ion-title>
     <ion-buttons slot="end">
+      <ion-button (click)="helpEquipmentModalPresent()">
+        <ion-icon slot="icon-only" name="information-circle"></ion-icon>
+      </ion-button>
       <ion-button (click)="setEditForm()">
         <ion-icon slot="icon-only" name="create"></ion-icon>          
       </ion-button>
@@ -25,7 +28,7 @@
 
 <ion-content *ngIf="filledValues" (keypress)="eventHandler($event.keyCode)">
   <form [formGroup]="form" novalidate>
-    <ion-list *ngIf="equipment.equipmentType === 'COMPUTER'">
+    <ion-list *ngIf="equipment.equipmentType === 'COMPUTER'" style="padding-top: 0px;">
       <ion-list>
         <ion-list-header class="title" color="dark">Informações gerais</ion-list-header>
         <ion-item [attr.disabled]="editForm">

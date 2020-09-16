@@ -1,7 +1,8 @@
+import { Component, OnInit } from '@angular/core';
+
+import { ModalController } from '@ionic/angular';
 import { ToastMessageControllerService } from '../../../../../shared-resources/services/toast-message-controller.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
 
 import { ArchitectureType, RamMemoryArchitecture, StorageDeviceArchitecture, StorageDeviceType } from '../shared/models/enums';
 
@@ -14,9 +15,9 @@ export class InfoElectronicComponentModalPage implements OnInit {
   form: FormGroup;
 
   public electronicComponentTypes: string[] = [
-    "PROCESSOR",
-    "RAM_MEMORY",
-    "STORAGE_DEVICE",
+    'PROCESSOR',
+    'RAM_MEMORY',
+    'STORAGE_DEVICE',
   ];
 
   public keys = Object.keys;
@@ -126,8 +127,9 @@ export class InfoElectronicComponentModalPage implements OnInit {
   }
 
   eventHandler($keyCode) {
-    if ($keyCode === 13)
+    if ($keyCode === 13) {
       this.returnDataAndDismiss();
+    }
   }
 
 }

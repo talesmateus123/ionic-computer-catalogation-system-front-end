@@ -13,20 +13,21 @@ export class SearchEquipmentModalPage implements OnInit {
   public orderBy: string;
   public searchType: string;
   public equipmentType: string;
-  
+
   constructor(
     private modalController: ModalController
   ) { }
 
   ngOnInit() {
-    if (this.equipmentType !== "Computadores")
-      this.orderBy = "patrimonyId"
+    if (this.equipmentType !== 'Computadores') {
+      this.orderBy = 'patrimonyId';
+    }
   }
 
   returnDataAndDismiss() {
     this.modalController.dismiss(
       {
-        searchTerm: this.searchTerm, 
+        searchTerm: this.searchTerm,
         booleanSearchTerm: this.booleanSearchTerm,
         asc: this.asc,
         orderBy: this.orderBy,
@@ -40,7 +41,8 @@ export class SearchEquipmentModalPage implements OnInit {
   }
 
   eventHandler($keyCode) {
-    if ($keyCode === 13)
+    if ($keyCode === 13) {
       this.returnDataAndDismiss();
+    }
   }
 }
