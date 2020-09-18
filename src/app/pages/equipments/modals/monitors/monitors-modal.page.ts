@@ -11,8 +11,8 @@ import { SearchMonitorModalPage } from './search/search-monitor-modal.page';
   styleUrls: ['./monitors-modal.page.scss'],
 })
 export class MonitorsModalPage implements OnInit {
-  private index: number
-  public monitorsAlreadyEntered: MonitorDTO[];
+  private index: number;
+  public monitorAlreadyEntered: MonitorDTO;
   public monitors: MonitorDTO[];
 
   public searchTerm: string= '';
@@ -46,13 +46,13 @@ export class MonitorsModalPage implements OnInit {
 
   private updateMonitorsList(): void {
     this.monitors = undefined;
-    this.monitorService.findAll()
+    this.monitorService.findAvailable()
       .subscribe(res => {
-        this.monitors = [];
-        for (const i in res) {
-          if (!this.contains(this.monitorsAlreadyEntered, res[i])) {
-            this.monitors.push(res[i]);
-          }
+        this.monitors = res;
+        this.monitors.forEach(monitor => console.log(monitor));
+        console.log(this.monitorAlreadyEntered);
+        if (this.monitorAlreadyEntered) {
+          this.monitors.push(this.monitorAlreadyEntered);
         }
       },
       error => {

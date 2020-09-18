@@ -38,7 +38,7 @@ export class ComputerUserService {
           orderBy
       },
       observe: 'response'
-    })
+    });
   }
 
   create(object: ComputerUserNewDTO): Observable<any> {

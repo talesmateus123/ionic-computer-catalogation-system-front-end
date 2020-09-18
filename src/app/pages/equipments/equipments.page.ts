@@ -23,23 +23,20 @@ export class EquipmentsPage implements OnInit {
     await this.controller.updateComputersList();
   }
 
-  updateAllLists() {
-    this.controller.updateComputersList();
-    this.controller.updatePrintersList();
-    this.controller.updateNetworkDevicesList();
-    this.controller.updateMonitorsList();
-  }
-
   async onChangeEquipmentType(equipmentType) {
     this.controller.filledList = false;
-    if (equipmentType === 'Computadores' && !this.controller.computers)
+    if (equipmentType === 'Computadores' && !this.controller.computers) {
       await this.controller.updateComputersList();
-    else if (equipmentType === 'Impressoras' && !this.controller.printers)
-      await this.controller.updatePrintersList(); 
-    else if (equipmentType === 'Dispositivos de rede' && !this.controller.networkDevices)
+    }
+    else if (equipmentType === 'Impressoras' && !this.controller.printers) {
+      await this.controller.updatePrintersList();
+    }
+    else if (equipmentType === 'Dispositivos de rede' && !this.controller.networkDevices) {
       await this.controller.updateNetworkDevicesList();
-    else if (equipmentType === 'Monitores' && !this.controller.monitors)
-      await this.controller.updateMonitorsList(); 
+    }
+    else if (equipmentType === 'Monitores' && !this.controller.monitors) {
+      await this.controller.updateMonitorsList();
+    }
     this.controller.filledList = true;
   }
   

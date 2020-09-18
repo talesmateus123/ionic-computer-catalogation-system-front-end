@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-search-computer-user',
-  templateUrl: './search-computer-user.page.html',
-  styleUrls: ['./search-computer-user.page.scss'],
+  selector: 'app-search-support-modal',
+  templateUrl: './search-support-modal.page.html',
+  styleUrls: ['./search-support-modal.page.scss'],
 })
-export class SearchComputerUserPage implements OnInit {
+export class SearchSupportModalPage implements OnInit {
   public searchTerm: string;
   public asc: boolean;
   public orderBy: string;
@@ -14,6 +14,7 @@ export class SearchComputerUserPage implements OnInit {
   constructor(
     private modalController: ModalController
   ) { }
+
 
   ngOnInit() {
   }
@@ -37,4 +38,5 @@ export class SearchComputerUserPage implements OnInit {
       this.returnDataAndDismiss();
     }
   }
+
 }

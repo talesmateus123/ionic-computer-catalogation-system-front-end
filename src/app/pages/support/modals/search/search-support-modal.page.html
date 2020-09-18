@@ -1,0 +1,29 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Filtrar suporte</ion-title>
+    <ion-buttons slot="end">      
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content translucent (keypress)="eventHandler($event.keyCode)">
+  <ion-item>
+    <ion-label>Termo de filtro:</ion-label>
+    <ion-input type="text" [(ngModel)]="searchTerm"></ion-input>
+  </ion-item>
+</ion-content>
+
+<ion-footer > 
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="12" class="ion-text-center">
+          <ion-button (click)="returnDataAndDismiss()" expand="block" fill="clear" color="dark">Ok</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>    
+</ion-footer>

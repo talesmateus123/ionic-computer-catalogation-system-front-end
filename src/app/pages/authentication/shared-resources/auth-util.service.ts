@@ -1,5 +1,5 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
@@ -17,7 +17,7 @@ export class AuthUtilService {
   ) {}
 
   refreshToken(): Observable<any> {
-    return this.http.post<any>(`${this.url}${API_CONFIG.paths.auth_refresh_token}`, null);
+    return this.http.post<any>(`${this.url}${API_CONFIG.paths.auth_refresh_token}`, { observe: 'response' });
   }
 
   forgotPassword(object: any): Observable<any> {

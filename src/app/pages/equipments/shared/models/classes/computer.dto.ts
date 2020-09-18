@@ -20,5 +20,5 @@ export class ComputerDTO extends EquipmentDTO {
 	storageDevices: any[];
 	computerUsers: any[];
 	totalRamMemory: number;
-	totalStorageMemory: number;	
+	totalStorageMemory: number;
 }

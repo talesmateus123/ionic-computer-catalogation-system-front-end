@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { SupportPage } from './support.page';
+import { InfoSupportPage } from './info';
+import { SearchSupportModalPage } from './modals';
 
 const routes: Routes = [
   {
@@ -9,8 +11,12 @@ const routes: Routes = [
     component: SupportPage
   },
   {
-    path: 'info',
-    loadChildren: () => import('./info-support/info-support.module').then( m => m.InfoSupportPageModule)
+    path: 'info/:id',
+    component: InfoSupportPage
+  },
+  {
+    path: 'search',
+    component: SearchSupportModalPage
   }
 ];
 

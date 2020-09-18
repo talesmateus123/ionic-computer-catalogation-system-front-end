@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SupportControllerService } from './shared/services/support-controller.service';
 
 @Component({
   selector: 'app-support',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SupportPage implements OnInit {
 
-  constructor() { }
+  constructor(public controller: SupportControllerService) { }
 
   ngOnInit() {
+    this.controller.updateSupportsList();
   }
 
 }

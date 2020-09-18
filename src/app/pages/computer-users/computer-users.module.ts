@@ -38,6 +38,6 @@ import { ErrorInterceptorProvider } from 'src/app/interceptors/error-interceptor
     SectorService,
     AuthInterceptorProvider,
     ErrorInterceptorProvider
-  ]  
+  ]
 })
 export class ComputerUsersPageModule {}

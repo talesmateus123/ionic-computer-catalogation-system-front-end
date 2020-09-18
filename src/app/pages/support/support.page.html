@@ -1,9 +1,62 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>support</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Suporte</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="controller.searchModalPresent()">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <ion-list *ngIf="controller.supportInfos">
+    <ion-item *ngFor="let supportInfo of controller.supportInfos" routerLink="/support/info/{{supportInfo.id}}">
+      <ion-icon slot="start" size="large" name="person"></ion-icon>
+      <ion-label slot="start">
+        <h2>{{ supportInfo.computerPatrimonyId }}</h2>
+        <p *ngFor="let computerUserName of supportInfo.computerUserNames">{{ computerUserName }}</p>
+      </ion-label>
+      <ion-note slot="end">
+        <p>{{ supportInfo.sectorName }}</p>
+      </ion-note>
+    </ion-item>
+  </ion-list>
+
+  <!-- Skeleton screen -->
+  <div *ngIf="!controller.supportInfos">
+    <ion-list>
+      <ion-item>
+        <ion-avatar slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label>
+          <h2>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h2>
+          <p>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-avatar slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label>
+          <h2>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h2>
+          <p>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
 
 </ion-content>

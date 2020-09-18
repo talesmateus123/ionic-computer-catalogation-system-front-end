@@ -28,6 +28,9 @@
           <h3 *ngIf="!monitor.model">{{ monitor.manufacturer }}</h3>
           <h3 *ngIf="monitor.model">{{ monitor.manufacturer }} | {{ monitor.model }}</h3>
         </ion-label>
+        <ion-note slot="end">
+          <p>{{ monitor.sectorName }}</p>
+        </ion-note>
       </ng-template>
     </ion-item>
 

@@ -7,6 +7,9 @@ import { IonicModule } from '@ionic/angular';
 import { SupportPageRoutingModule } from './support-routing.module';
 
 import { SupportPage } from './support.page';
+import { InfoSupportPage } from './info';
+import { SearchSupportModalPage } from './modals';
+import { SupportControllerService, SupportInfoService } from './shared';
 
 @NgModule({
   imports: [
@@ -15,6 +18,14 @@ import { SupportPage } from './support.page';
     IonicModule,
     SupportPageRoutingModule
   ],
-  declarations: [SupportPage]
+  declarations: [
+    SupportPage,
+    InfoSupportPage,
+    SearchSupportModalPage
+  ],
+  providers: [
+    SupportControllerService,
+    SupportInfoService
+  ]
 })
 export class SupportPageModule {}

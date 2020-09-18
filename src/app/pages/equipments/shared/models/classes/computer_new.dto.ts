@@ -1,6 +1,6 @@
 import { EquipmentNewDTO } from './equipment_new.dto';
 
-export class ComputerNewDTO extends EquipmentNewDTO {;
+export class ComputerNewDTO extends EquipmentNewDTO {
 	ipAddress: string;
 	macAddress: string;
 	hostName: string;

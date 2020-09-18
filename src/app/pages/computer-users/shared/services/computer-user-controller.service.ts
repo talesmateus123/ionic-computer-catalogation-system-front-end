@@ -23,7 +23,8 @@ export class ComputerUserControllerService {
     private router: Router,
     private loadingModalControllerService: LoadingModalControllerService,
     private toastMessageControllerService: ToastMessageControllerService,
-    private computerUserService: ComputerUserService) { }
+    private computerUserService: ComputerUserService
+  ) { }
 
   findComputerUser(id: string): Observable<any> {
     return this.computerUserService.findById(id);
@@ -53,10 +54,12 @@ export class ComputerUserControllerService {
 
   async createComputerUser(objetcNewDTO: ComputerUserNewDTO) {
     await this.loadingModalControllerService.loadingPresent('Salvando');
-    if(objetcNewDTO.lastName === '')
+    if (objetcNewDTO.lastName === '') {
       objetcNewDTO.lastName = null;
-    if(objetcNewDTO.email === '')
+    }
+    if (objetcNewDTO.email === '') {
       objetcNewDTO.email = null;
+    }
 
     this.computerUserService.create(objetcNewDTO)
       .subscribe(res => {
@@ -72,10 +75,12 @@ export class ComputerUserControllerService {
 
   async updateComputerUser(id: string, objetcNewDTO: ComputerUserNewDTO) {
     await this.loadingModalControllerService.loadingPresent('Salvando');
-    if(objetcNewDTO.lastName === '')
+    if (objetcNewDTO.lastName === '') {
       objetcNewDTO.lastName = null;
-    if(objetcNewDTO.email === '')
+    }
+    if (objetcNewDTO.email === '') {
       objetcNewDTO.email = null;
+    }
 
     this.computerUserService.update(id, objetcNewDTO)
       .subscribe(res => {

@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 import { ToastMessageControllerService, LoadingModalControllerService } from 'src/app/shared-resources';
-import { ComputerDTO, MonitorDTO, EquipmentControllerService, ComputerNewDTO } from '../../shared';
+import { MonitorDTO, EquipmentControllerService, ComputerNewDTO } from '../../shared';
 import { SectorControllerService } from '../../../sectors';
 import { ModalController } from '@ionic/angular';
 import { InfoElectronicComponentModalPage } from '../../modals/electronic-components';
@@ -32,8 +32,6 @@ export class NewEquipmentPage implements OnInit {
   public ramMemories: RamMemoryDTO[] = [];
   public storageDevices: StorageDeviceDTO[] = [];
   public computerUsers: ComputerUserDTO[] = [];
-
-  public availableMonitors: MonitorDTO[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -94,8 +92,6 @@ export class NewEquipmentPage implements OnInit {
       this.sectorController.sectors = res;
       this.loadingModalControllerService.loadingDismiss();
     });
-
-    await this.populateAvailableAvailableMonitors();
 
     this.filledValues = true;
   }
@@ -179,13 +175,6 @@ export class NewEquipmentPage implements OnInit {
 
   public deleteUser(index: number) {
     this.computerUsers.splice(index, 1);
-  }
-
-  async populateAvailableAvailableMonitors() {
-    await this.controller.getAvailableMonitors()
-      .toPromise().then(res => {
-        this.availableMonitors = res;
-      });
   }
 
   private presentFormErrorMessages() {
@@ -358,7 +347,7 @@ export class NewEquipmentPage implements OnInit {
       component: MonitorsModalPage,
       componentProps: {
         index,
-        monitorsAlreadyEntered: this.availableMonitors
+        monitorAlreadyEntered: this.equipment.monitor
       }
     });
 

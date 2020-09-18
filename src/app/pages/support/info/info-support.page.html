@@ -1,0 +1,48 @@
+<ion-header *ngIf="filledValues">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="support"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Informações de suporte</ion-title>
+  </ion-toolbar>  
+</ion-header>
+
+<ion-content *ngIf="filledValues">
+  <ion-list>
+    <ion-list-header class="title" color="dark">Computador</ion-list-header>
+
+    <ion-item disabled>
+      <ion-label>Número de patrimônio:</ion-label>
+      <ion-input type="text" [(ngModel)]="supportInfo.computerPatrimonyId"></ion-input>
+    </ion-item>
+
+    <ion-list-header class="title" color="dark">TeamViewer</ion-list-header>
+
+    <ion-item disabled>
+      <ion-label>Senha:</ion-label>
+      <ion-input type="text" [(ngModel)]="supportInfo.teamViewerPass"></ion-input>
+    </ion-item>
+
+    <ion-item disabled>
+      <ion-label>Setor:</ion-label>
+      <ion-input type="text" [(ngModel)]="supportInfo.sectorName"></ion-input>
+    </ion-item>
+
+    <ion-list-header class="title" color="dark">Usuários</ion-list-header>
+
+    <ion-item disabled *ngIf="supportInfo.computerUserNames.length === 0">
+      <ion-icon slot="start" size="large" name="person"></ion-icon>
+      <ion-label>
+        <h2>Nenhum usuário um usuário adicionado</h2>
+      </ion-label>
+    </ion-item>
+
+    <ion-item disabled *ngFor="let computerUserName of supportInfo.computerUserNames">
+      <ion-icon slot="start" size="large" name="person"></ion-icon>
+      <ion-label>
+        <h2>{{ computerUserName }}</h2>
+      </ion-label>
+    </ion-item>
+
+  </ion-list>
+</ion-content>

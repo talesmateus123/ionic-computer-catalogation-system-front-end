@@ -36,8 +36,6 @@ export class InfoEquipmentPage implements OnInit {
   public storageDevices: StorageDeviceDTO[] = [];
   public computerUsers: ComputerUserDTO[] = [];
 
-  public availableMonitors: MonitorDTO[];
-
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -68,7 +66,6 @@ export class InfoEquipmentPage implements OnInit {
           if (this.equipment.ramMemories.length > 0 || this.equipment.storageDevices.length > 0) {
             this.detailForm = true;
           }
-          await this.populateAvailableAvailableMonitors();
         }
         await this.populateForm();
         this.filledValues = true;
@@ -191,15 +188,6 @@ export class InfoEquipmentPage implements OnInit {
 
   public setEditForm() {
     this.editForm = !this.editForm;
-  }
-
-  private async populateAvailableAvailableMonitors() {
-    await this.controller.getAvailableMonitors().toPromise().then((res) => {
-      this.availableMonitors = res;
-      if (this.equipment.monitor !== null) {
-        this.availableMonitors.push(this.equipment.monitor);
-      }
-    });
   }
 
   private async populateForm() {
@@ -438,7 +426,7 @@ export class InfoEquipmentPage implements OnInit {
       component: MonitorsModalPage,
       componentProps: {
         index,
-        monitorsAlreadyEntered: this.availableMonitors
+        monitorAlreadyEntered: this.equipment.monitor
       }
     });
 
