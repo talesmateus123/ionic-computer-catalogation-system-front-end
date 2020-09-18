@@ -35,7 +35,8 @@ const routes: Routes = [
   {
     path: 'no-connection',
     component: NoConnectionPage
-  },  {
+  },
+  {
     path: 'support',
     loadChildren: () => import('./pages/support/support.module').then( m => m.SupportPageModule)
   },

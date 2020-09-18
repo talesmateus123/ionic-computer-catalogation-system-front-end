@@ -1,4 +1,3 @@
-import { HelpEquipmentModalPage } from './../../modals/help/help-equipment-modal.page';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -11,7 +10,7 @@ import { InfoElectronicComponentModalPage } from '../../modals/electronic-compon
 import { ComputerUserDTO } from '../../../computer-users';
 import { ComputerUsersModalPage, MonitorsModalPage } from '../../modals';
 import { RamMemoryDTO, StorageDeviceDTO, ProcessorDTO } from '../electronic-components';
-
+import { SupportEquipmentModalPage } from './../../modals';
 
 @Component({
   selector: 'app-info-equipment',
@@ -404,7 +403,7 @@ export class InfoEquipmentPage implements OnInit {
 
   async helpEquipmentModalPresent() {
     const modal = await this.modalController.create({
-      component: HelpEquipmentModalPage,
+      component: SupportEquipmentModalPage,
       componentProps: {
         editForm: this.editForm,
         teamViewerId: this.form.get('teamViewerId').value,

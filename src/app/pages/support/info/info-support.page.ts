@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
-import { SupportInfo, SupportControllerService } from './../shared';
-import { LoadingModalControllerService } from './../../../shared-resources';
+import { SupportInfo, SupportControllerService } from '../shared';
+import { LoadingModalControllerService } from '../../../shared-resources';
 
 @Component({
   selector: 'app-info-support',

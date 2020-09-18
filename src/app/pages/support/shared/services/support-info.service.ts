@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { API_CONFIG } from 'src/app/config';
-import { SupportInfo } from './../models/support-info';
+import { SupportInfo } from '../models/support-info';
 
 @Injectable({
   providedIn: 'root'

@@ -18,7 +18,7 @@ import {
 import { ElectronicService } from '../shared-resources';
 import { SectorControllerService, SectorService } from '../sectors';
 import {
-  SearchEquipmentModalPage, HelpEquipmentModalPage, InfoElectronicComponentModalPage,
+  SearchEquipmentModalPage, SupportEquipmentModalPage, InfoElectronicComponentModalPage,
   ComputerUsersModalPage, SearchComputerUserModalPage, MonitorsModalPage
 } from './modals';
 import { ComputerUserService } from '../computer-users';
@@ -41,7 +41,7 @@ import { SearchMonitorModalPage } from './modals/monitors/search/search-monitor-
     NewEquipmentPage,
     InfoEquipmentPage,
     SearchEquipmentModalPage,
-    HelpEquipmentModalPage,
+    SupportEquipmentModalPage,
     InfoElectronicComponentModalPage,
     ComputerUsersModalPage,
     SearchComputerUserModalPage,
@@ -50,7 +50,7 @@ import { SearchMonitorModalPage } from './modals/monitors/search/search-monitor-
   ],
   entryComponents: [
     InfoElectronicComponentModalPage,
-    HelpEquipmentModalPage,
+    SupportEquipmentModalPage,
     ComputerUsersModalPage,
     SearchComputerUserModalPage,
     MonitorsModalPage,

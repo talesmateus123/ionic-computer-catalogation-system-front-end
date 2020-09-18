@@ -2,11 +2,11 @@ import { ModalController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-help-equipment-modal',
-  templateUrl: './help-equipment-modal.page.html',
-  styleUrls: ['./help-equipment-modal.page.scss'],
+  selector: 'app-support-equipment-modal',
+  templateUrl: './support-equipment-modal.page.html',
+  styleUrls: ['./support-equipment-modal.page.scss'],
 })
-export class HelpEquipmentModalPage implements OnInit {
+export class SupportEquipmentModalPage implements OnInit {
   public editForm: boolean;
   public teamViewerId: string;
   public teamViewerPass: string;
