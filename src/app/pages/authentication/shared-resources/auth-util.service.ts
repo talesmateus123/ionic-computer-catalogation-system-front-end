@@ -16,10 +16,6 @@ export class AuthUtilService {
       public http: HttpClient
   ) {}
 
-  refreshToken(): Observable<any> {
-    return this.http.post<any>(`${this.url}${API_CONFIG.paths.auth_refresh_token}`, { observe: 'response' });
-  }
-
   forgotPassword(object: any): Observable<any> {
     return this.http.post<any>(`${this.url}${API_CONFIG.paths.auth_forgot_password}`, object);
   }

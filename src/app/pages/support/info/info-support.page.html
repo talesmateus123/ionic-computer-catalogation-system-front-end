@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="support"></ion-back-button>
     </ion-buttons>
-    <ion-title>Informações de suporte</ion-title>
+    <ion-title>Informações para suporte</ion-title>
   </ion-toolbar>  
 </ion-header>
 
@@ -19,21 +19,20 @@
     <ion-list-header class="title" color="dark">TeamViewer</ion-list-header>
 
     <ion-item disabled>
-      <ion-label>Senha:</ion-label>
-      <ion-input type="text" [(ngModel)]="supportInfo.teamViewerPass"></ion-input>
+      <ion-label>ID:</ion-label>
+      <ion-input type="text" [(ngModel)]="supportInfo.teamViewerId"></ion-input>
     </ion-item>
 
     <ion-item disabled>
-      <ion-label>Setor:</ion-label>
-      <ion-input type="text" [(ngModel)]="supportInfo.sectorName"></ion-input>
+      <ion-label>Senha:</ion-label>
+      <ion-input type="text" [(ngModel)]="supportInfo.teamViewerPass"></ion-input>
     </ion-item>
 
     <ion-list-header class="title" color="dark">Usuários</ion-list-header>
 
     <ion-item disabled *ngIf="supportInfo.computerUserNames.length === 0">
-      <ion-icon slot="start" size="large" name="person"></ion-icon>
       <ion-label>
-        <h2>Nenhum usuário um usuário adicionado</h2>
+        <h2>Nenhum usuário adicionado</h2>
       </ion-label>
     </ion-item>
 
@@ -42,6 +41,13 @@
       <ion-label>
         <h2>{{ computerUserName }}</h2>
       </ion-label>
+    </ion-item>
+
+    <ion-list-header class="title" color="dark">Outros</ion-list-header>
+
+    <ion-item disabled>
+      <ion-label>Setor:</ion-label>
+      <ion-input type="text" [(ngModel)]="supportInfo.sectorName"></ion-input>
     </ion-item>
 
   </ion-list>

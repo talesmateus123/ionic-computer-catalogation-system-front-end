@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
+import jwt_decode from 'jwt-decode';
+
 import { SessionStorageService } from './session-storage.service';
 import { AuthenticationService } from './authentication.service';
 import { ClientService } from './client.service';
 import { Login, ClientDTO } from '../models';
+import { AuthUtilService } from './../../../shared-resources';
 import { LoadingModalControllerService, ToastMessageControllerService } from 'src/app/shared-resources';
 
 @Injectable({
@@ -17,21 +20,24 @@ export class AuthenticationControllerService {
     private router: Router,
     private sessionStorageService: SessionStorageService,
     private service: AuthenticationService,
+    private authUtilService: AuthUtilService,
     private clientService: ClientService
   ) { }
 
   public async login(login: Login) {
     await this.loadingModalControllerService.loadingPresent('Entrando...');
-    await this.service.login(login)
+    this.service.login(login)
       .toPromise().then(async response => {
-        await this.sessionStorageService.setSessionSecurityKey(response.headers.get('Authorization').substring(7));
-        await this.findSessionUser(response.headers.get('user-id'));
+        const securityKey = await response.headers.get('Authorization').substring(7);
+        await this.sessionStorageService.setSessionSecurityKey(securityKey);
+        await this.findSessionUser(securityKey);
+        this.scheduleToWarnExpiratingToken();
         this.toastMessageControllerService.successMessageAlert(null, 'Logado com sucesso!');
         this.redirectToEquipmentsPage();
         this.loadingModalControllerService.loadingDismiss();
       })
-      .catch(() => {
-
+      .catch(error => {
+        
       });
   }
 
@@ -41,9 +47,11 @@ export class AuthenticationControllerService {
     this.redirectToLoginPage();
   }
 
-  private findSessionUser(userId: string) {
-    this.clientService.findById(userId).
-      subscribe(
+  private async findSessionUser(securityKey: string) {
+    const email = await jwt_decode(securityKey).sub;
+
+    this.clientService.findByEmail(email)
+      .subscribe(
         res => {
           this.sessionStorageService.setSessionUser(res);
           this.user = res;
@@ -84,6 +92,17 @@ export class AuthenticationControllerService {
 
   public redirectToEquipmentsPage(): void {
     this.router.navigate(['equipments']);
+  }
+
+  private scheduleToWarnExpiratingToken() {
+    const toWarnExpiratingToken = () => {
+        this.toastMessageControllerService.successMessageAlert(
+          'Salve todas as alterações antes que a sessão expire.',
+          'A sessão está prestes a expirar...',
+        );
+      };
+
+    setTimeout(toWarnExpiratingToken, 1000000);
   }
 
 }

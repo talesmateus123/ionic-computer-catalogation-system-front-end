@@ -16,14 +16,14 @@
 
   <ion-list *ngIf="controller.supportInfos">
     <ion-item *ngFor="let supportInfo of controller.supportInfos" routerLink="/support/info/{{supportInfo.id}}">
-      <ion-icon slot="start" size="large" name="person"></ion-icon>
-      <ion-label slot="start" *ngIf="supportInfo.computerUserNames.length !== 0; else withoutInformation">
+      <ion-icon slot="start" size="large" name="desktop"></ion-icon>
+      <ion-label *ngIf="supportInfo.computerUserNames.length !== 0; else withoutInformation">
         <h2 *ngFor="let computerUserName of supportInfo.computerUserNames">{{ computerUserName }} </h2>
         <p>{{ supportInfo.computerPatrimonyId }}</p>
       </ion-label>
 
       <ng-template #withoutInformation>
-        <ion-label slot="start">
+        <ion-label>
           <h2>Sem usuário</h2>
           <p>{{ supportInfo.computerPatrimonyId }}</p>
         </ion-label>
