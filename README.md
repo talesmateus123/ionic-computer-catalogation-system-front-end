@@ -10,9 +10,9 @@ The project is the front end application of the [COMPUTER CATOLOGATION SYSTEM (B
 ## Execution instructions
 * You will must have installed [NODE JS](https://nodejs.org/en/download/) starting with version 10;
 * After installing the node, install the Angular framework using the command:
-`npm install -g @ angular / cli`
+`npm install -g @ angular/cli`
 * Install the Ionic framework using the command:
-`npm install -g @ ionic / cli`
+`npm install -g @ ionic/cli`
 * After cloning the repository, inside the project directory, enter the following command:
 `npm install`
 * Use the following command to run the system:
