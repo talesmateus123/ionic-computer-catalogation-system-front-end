@@ -1,8 +1,8 @@
-# COMPUTER CATOLOGATION SYSTEM (BACK END) 
+# COMPUTER CATOLOGATION SYSTEM (FRONT END) 
 
 ## Project information 
 ### Goal 
-The project is the front-end application of the [COMPUTER CATOLOGATION SYSTEM (BACK END)](https://github.com/talesmateus123/spring-boot-computer-catalogation-system-back-end) repository.
+The project is the front end application of the [COMPUTER CATOLOGATION SYSTEM (BACK END)](https://github.com/talesmateus123/spring-boot-computer-catalogation-system-back-end) repository.
 
 ## Information of technology used
 * This project was developed with Angular framework 8.3.23 and Ionic framework 5.0.0
