@@ -20,7 +20,6 @@ export class AuthenticationControllerService {
     private router: Router,
     private sessionStorageService: SessionStorageService,
     private service: AuthenticationService,
-    private authUtilService: AuthUtilService,
     private clientService: ClientService
   ) { }
 
@@ -29,15 +28,12 @@ export class AuthenticationControllerService {
     this.service.login(login)
       .toPromise().then(async response => {
         const securityKey = await response.headers.get('Authorization').substring(7);
-        await this.sessionStorageService.setSessionSecurityKey(securityKey);
+        this.sessionStorageService.setSessionSecurityKey(securityKey);
         await this.findSessionUser(securityKey);
         this.scheduleToWarnExpiratingToken();
         this.toastMessageControllerService.successMessageAlert(null, 'Logado com sucesso!');
         this.redirectToEquipmentsPage();
         this.loadingModalControllerService.loadingDismiss();
-      })
-      .catch(error => {
-        
       });
   }
 
@@ -50,14 +46,11 @@ export class AuthenticationControllerService {
   private async findSessionUser(securityKey: string) {
     const email = await jwt_decode(securityKey).sub;
 
-    this.clientService.findByEmail(email)
-      .subscribe(
+    await this.clientService.findByEmail(email)
+      .toPromise().then(
         res => {
           this.sessionStorageService.setSessionUser(res);
           this.user = res;
-        },
-        error => {
-
         });
   }
 

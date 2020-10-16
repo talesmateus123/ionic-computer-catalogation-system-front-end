@@ -23,8 +23,8 @@ export class ClientService {
     return this.http.get<ClientDTO[]>(`${this.url}`);
   }
 
-  findByEmail(email: string): Observable<any> {
-    return this.http.get<any>(`${this.url}/${email}`);
+  findByEmail(email: string): Observable<ClientDTO> {
+    return this.http.get<ClientDTO>(`${this.url}/${email}`);
   }
 
   create(object: ClientNewDTO): Observable<any> {
