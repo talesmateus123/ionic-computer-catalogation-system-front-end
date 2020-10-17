@@ -35,7 +35,7 @@ export class EquipmentControllerService {
 
   public keys = Object.keys;
 
-  public filledList: boolean = false;
+  public filledList = false;
 
   public searchTerm = '';
   public booleanSearchTerm = true;
@@ -77,9 +77,6 @@ export class EquipmentControllerService {
       .subscribe(response => {
         this.computers = response.body.content;
         this.filledList = true;
-      },
-      error => {
-
       });
   }
 
@@ -90,9 +87,6 @@ export class EquipmentControllerService {
       .subscribe(response => {
         this.computers = response.body.content;
         this.filledList = true;
-      },
-      error => {
-
       });
   }
 
@@ -103,9 +97,6 @@ export class EquipmentControllerService {
       .subscribe(response => {
         this.computers = response.body.content;
         this.filledList = true;
-      },
-      error => {
-
       });
   }
 
@@ -116,9 +107,6 @@ export class EquipmentControllerService {
       .subscribe(response => {
         this.computers = response.body.content;
         this.filledList = true;
-      },
-      error => {
-
       });
   }
 
@@ -129,9 +117,6 @@ export class EquipmentControllerService {
       .subscribe(response => {
         this.computers = response.body.content;
         this.filledList = true;
-      },
-      error => {
-
       });
   }
 
@@ -142,9 +127,6 @@ export class EquipmentControllerService {
       .subscribe(response => {
         this.computers = response.body.content;
         this.filledList = true;
-      },
-      error => {
-
       });
   }
 
@@ -155,9 +137,6 @@ export class EquipmentControllerService {
       .subscribe(response => {
         this.printers = response.body.content;
         this.filledList = true;
-      },
-      error => {
-
       });
   }
 
@@ -168,9 +147,6 @@ export class EquipmentControllerService {
       .subscribe(response => {
         this.networkDevices = response.body.content;
         this.filledList = true;
-      },
-      error => {
-
       });
   }
 
@@ -181,9 +157,6 @@ export class EquipmentControllerService {
       .subscribe(response => {
         this.monitors = response.body.content;
         this.filledList = true;
-      },
-      error => {
-
       });
   }
 
@@ -194,9 +167,6 @@ export class EquipmentControllerService {
       .toPromise().then(response => {
         this.computers = response;
         this.filledList = true;
-      })
-      .catch(() => {
-
       });
   }
 
@@ -207,9 +177,6 @@ export class EquipmentControllerService {
       .toPromise().then(response => {
         this.printers = response;
         this.filledList = true;
-      })
-      .catch(() => {
-
       });
   }
 
@@ -220,9 +187,6 @@ export class EquipmentControllerService {
       .toPromise().then(response => {
         this.networkDevices = response;
         this.filledList = true;
-      })
-      .catch(() => {
-
       });
   }
 
@@ -233,9 +197,6 @@ export class EquipmentControllerService {
       .toPromise().then(response => {
         this.monitors = response;
         this.filledList = true;
-      })
-      .catch(() => {
-
       });
   }
 
@@ -253,9 +214,6 @@ export class EquipmentControllerService {
         this.loadingModalControllerService.loadingDismiss();
         this.updateComputersList();
         this.redirectToRootPage();
-      },
-      error => {
-
       });
   }
 
@@ -273,9 +231,6 @@ export class EquipmentControllerService {
         this.loadingModalControllerService.loadingDismiss();
         this.updatePrintersList();
         this.redirectToRootPage();
-      },
-      error => {
-
       });
   }
 
@@ -293,9 +248,6 @@ export class EquipmentControllerService {
         this.loadingModalControllerService.loadingDismiss();
         this.updateNetworkDevicesList();
         this.redirectToRootPage();
-      },
-      error => {
-
       });
   }
 
@@ -307,9 +259,6 @@ export class EquipmentControllerService {
         this.loadingModalControllerService.loadingDismiss();
         this.updateMonitorsList();
         this.redirectToRootPage();
-      },
-      error => {
-
       });
   }
 
@@ -322,14 +271,11 @@ export class EquipmentControllerService {
       objetcNewDTO.macAddress = null;
     }
     this.computerService.update(id, objetcNewDTO)
-      .subscribe(res => {
+      .subscribe((res) => {
         this.toastMessageControllerService.successMessageAlert('Computador atualizado com sucesso');
         this.loadingModalControllerService.loadingDismiss();
         this.updateComputersList();
         this.redirectToRootPage();
-      },
-      error => {
-
       });
   }
 
@@ -347,9 +293,6 @@ export class EquipmentControllerService {
         this.loadingModalControllerService.loadingDismiss();
         this.updatePrintersList();
         this.redirectToRootPage();
-      },
-      error => {
-
       });
   }
 
@@ -367,9 +310,6 @@ export class EquipmentControllerService {
         this.loadingModalControllerService.loadingDismiss();
         this.updateNetworkDevicesList();
         this.redirectToRootPage();
-      },
-      error => {
-
       });
   }
 
@@ -381,9 +321,6 @@ export class EquipmentControllerService {
         this.loadingModalControllerService.loadingDismiss();
         this.updateMonitorsList();
         this.redirectToRootPage();
-      },
-      error => {
-
       });
   }
 
@@ -395,9 +332,6 @@ export class EquipmentControllerService {
         this.loadingModalControllerService.loadingDismiss();
         this.updateComputersList();
         this.redirectToRootPage();
-      },
-      error => {
-
       });
   }
 
@@ -409,9 +343,6 @@ export class EquipmentControllerService {
         this.loadingModalControllerService.loadingDismiss();
         this.updatePrintersList();
         this.redirectToRootPage();
-      },
-      error => {
-
       });
   }
 
@@ -423,9 +354,6 @@ export class EquipmentControllerService {
         this.loadingModalControllerService.loadingDismiss();
         this.updateNetworkDevicesList();
         this.redirectToRootPage();
-      },
-      error => {
-
       });
   }
 
@@ -437,9 +365,6 @@ export class EquipmentControllerService {
         this.loadingModalControllerService.loadingDismiss();
         this.updateMonitorsList();
         this.redirectToRootPage();
-      },
-      error => {
-
       });
   }
 

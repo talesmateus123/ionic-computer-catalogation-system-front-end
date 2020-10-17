@@ -22,15 +22,11 @@ const routes: Routes = [
   {
     path: 'search',
     component: SearchEquipmentModalPage
-  },
-  {
-    path: 'electronic-components',
-    loadChildren: () => import('./pages/electronic-components').then( m => m.ElectronicComponentsPageModule)
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],  
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
 export class EquipmentsPageRoutingModule {}

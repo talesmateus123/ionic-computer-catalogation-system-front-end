@@ -22,10 +22,10 @@ export class InfoEquipmentPage implements OnInit {
 
   private id: string;
 
-  public filledValues: boolean = false;
+  public filledValues = false;
 
-  public detailForm: boolean = false;
-  public editForm: boolean = true;
+  public detailForm = false;
+  public editForm = true;
 
   public equipment: any;
 
@@ -83,7 +83,7 @@ export class InfoEquipmentPage implements OnInit {
       model: ['', [  ]],
       description: ['', [ Validators.maxLength(100) ]],
       ipAddress: ['', [
-        Validators.pattern('^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$') 
+        Validators.pattern('^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$')
       ]],
       macAddress: ['', [ Validators.pattern('^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$') ]],
       hostName: ['', [  ]],
@@ -241,7 +241,7 @@ export class InfoEquipmentPage implements OnInit {
   }
 
   private presentFormErrorMessages() {
-    let errorMessages: string = '';
+    let errorMessages = '';
 
     if (this.form.controls.description.errors) {
       if (this.form.controls.description.errors.maxlength) {

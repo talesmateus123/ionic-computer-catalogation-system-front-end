@@ -139,7 +139,8 @@ export class InfoComputerUserPage implements OnInit {
   }
 
   eventHandler($keyCode) {
-    if ($keyCode === 13)
+    if ($keyCode === 13) {
       this.update();
+    }
   }
 }

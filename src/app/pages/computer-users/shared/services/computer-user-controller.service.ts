@@ -12,9 +12,9 @@ import { LoadingModalControllerService, ToastMessageControllerService } from 'sr
   providedIn: 'root'
 })
 export class ComputerUserControllerService {
-  public searchTerm: string = '';
-  public asc: boolean = true;
-  public orderBy: string = 'name';
+  public searchTerm = '';
+  public asc = true;
+  public orderBy = 'name';
 
   public computerUsers: ComputerUserDTO[];
 
@@ -35,9 +35,6 @@ export class ComputerUserControllerService {
     this.computerUserService.search(searchTerm, direction, orderBy)
       .subscribe(response => {
         this.computerUsers = response.body.content;
-      },
-      error => {
-
       });
   }
 
@@ -46,9 +43,6 @@ export class ComputerUserControllerService {
     this.computerUserService.findAll()
       .subscribe(response => {
         this.computerUsers = response;
-      },
-      error => {
-
       });
   }
 
@@ -67,9 +61,6 @@ export class ComputerUserControllerService {
         this.loadingModalControllerService.loadingDismiss();
         this.updateComputerUsersList();
         this.redirectToRootPage();
-      },
-      error => {
-
       });
   }
 
@@ -88,9 +79,6 @@ export class ComputerUserControllerService {
         this.loadingModalControllerService.loadingDismiss();
         this.updateComputerUsersList();
         this.redirectToRootPage();
-      },
-      error => {
-
       });
   }
 
@@ -102,9 +90,6 @@ export class ComputerUserControllerService {
         this.loadingModalControllerService.loadingDismiss();
         this.updateComputerUsersList();
         this.redirectToRootPage();
-      },
-      error => {
-
       });
   }
 
