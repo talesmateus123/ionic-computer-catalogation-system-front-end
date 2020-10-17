@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
-import { NoConnectionPage, NotFoundPage } from './pages';
-import { AuthOrHomePage } from './pages/authentication/auth-or-home/auth-or-home.page';
+import { AuthOrHomePage, NoConnectionPage, NotFoundPage } from './pages';
 
 const routes: Routes = [
   {

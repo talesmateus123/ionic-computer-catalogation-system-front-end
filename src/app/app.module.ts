@@ -11,8 +11,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthenticationControllerService } from './pages';
 import { AuthInterceptorProvider, ErrorInterceptorProvider } from './interceptors';
-import { AuthOrHomePage } from './pages/authentication/auth-or-home/auth-or-home.page';
-import { NotFoundPage, NoConnectionPage } from './pages';
+import { AuthOrHomePage, NotFoundPage, NoConnectionPage } from './pages';
 
 @NgModule({
   declarations: [

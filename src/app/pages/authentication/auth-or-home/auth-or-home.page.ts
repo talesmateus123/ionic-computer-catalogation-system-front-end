@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationControllerService } from 'src/app/pages';
-import { PingRequestService } from './../../shared-resources';
+import { AuthenticationControllerService } from 'src/app/pages/authentication/login/shared/services/authentication-controller.service';
+import { PingRequestService } from './../../shared-resources/services/ping-request.service';
 
 @Component({
   selector: 'app-auth-or-home',
@@ -15,6 +15,7 @@ export class AuthOrHomePage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.checkIfLoggedIn();
   }
 
   private async checkIfLoggedIn() {
