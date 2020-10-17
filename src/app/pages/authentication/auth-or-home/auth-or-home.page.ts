@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RouteRedirectorService, PingRequestService } from './../../shared-resources';
 import { AuthenticationControllerService } from 'src/app/pages/authentication/login/shared/services/authentication-controller.service';
-import { PingRequestService } from './../../shared-resources/services/ping-request.service';
 
 @Component({
   selector: 'app-auth-or-home',
@@ -10,8 +10,9 @@ import { PingRequestService } from './../../shared-resources/services/ping-reque
 export class AuthOrHomePage implements OnInit {
 
   constructor(
-    private pingRequestService: PingRequestService,
-    public authenticationControllerService: AuthenticationControllerService
+    private routeRedirectorService: RouteRedirectorService,
+    private authenticationControllerService: AuthenticationControllerService,
+    private pingRequestService: PingRequestService
   ) { }
 
   ngOnInit() {
@@ -21,11 +22,11 @@ export class AuthOrHomePage implements OnInit {
   private async checkIfLoggedIn() {
     if (this.authenticationControllerService.isLoggedIn()) {
       await this.pingRequestService.ping().toPromise().then(() => {
-        this.authenticationControllerService.redirectToEquipmentsPage();
+        this.routeRedirectorService.redirectToEquipmentsPage();
       });
       return;
     }
-    this.authenticationControllerService.redirectToLoginPage();
+    this.routeRedirectorService.redirectToLoginPage();
   }
 
 }

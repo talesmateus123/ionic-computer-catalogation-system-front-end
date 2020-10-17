@@ -23,13 +23,6 @@ export class AppComponent {
       url: 'support',
       icon: 'sad'
     },
-    /*
-    {
-      title: 'Componentes eletrônicos',
-      url: 'equipments/electronic-components',
-      icon: 'hardware-chip'
-    },
-    */
     {
       title: 'Usuários',
       url: 'computer-users',

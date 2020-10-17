@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { ToastMessageControllerService, LoadingModalControllerService } from '../shared-resources';
 import { AuthenticationControllerService } from 'src/app/pages/authentication/login/shared';
+import { RouteRedirectorService } from 'src/app/pages/shared-resources';
 
 @Injectable({ providedIn: 'root' })
 
@@ -11,6 +12,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     constructor(
         private toastMessageControllerService: ToastMessageControllerService,
         private loadingModalControllerService: LoadingModalControllerService,
+        private routeRedirectorService: RouteRedirectorService,
         private authenticationControllerService: AuthenticationControllerService
     ) { }
 
@@ -19,11 +21,11 @@ export class ErrorInterceptor implements HttpInterceptor {
             .pipe(
                 retry(1),
                 catchError((error: HttpErrorResponse) => {
-                    let errorTitle = `Erro!`;
+                    let errorTitle: string;
                     let errorMessage = '';
                     switch (error.status) {
                         case 0:
-                            errorMessage = `Falha ao obter conexão com o servidor.`;
+                            this.routeRedirectorService.redirectToNoConnectionPage();
                             break;
                         case 401:
                             errorTitle = `Acesso negado`;
@@ -44,7 +46,9 @@ export class ErrorInterceptor implements HttpInterceptor {
                             errorTitle = `${error.error.error}`;
                             errorMessage = `${error.error.message}`;
                     }
-                    this.toastMessageControllerService.errorMessageAlert(errorTitle, errorMessage);
+                    if (errorTitle) {
+                        this.toastMessageControllerService.errorMessageAlert(errorTitle, errorMessage);
+                    }
                     this.loadingModalControllerService.loadingDismiss();
                     return throwError(errorMessage);
                 })

@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-
 import jwt_decode from 'jwt-decode';
 
 import { SessionStorageService } from './session-storage.service';
 import { AuthenticationService } from './authentication.service';
 import { ClientService } from './client.service';
 import { Login, ClientDTO } from '../models';
-import { AuthUtilService } from './../../../shared-resources';
 import { LoadingModalControllerService, ToastMessageControllerService } from 'src/app/shared-resources';
+import { RouteRedirectorService } from 'src/app/pages/shared-resources';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +15,7 @@ export class AuthenticationControllerService {
   constructor(
     private toastMessageControllerService: ToastMessageControllerService,
     private loadingModalControllerService: LoadingModalControllerService,
-    private router: Router,
+    private routeRedirectorService: RouteRedirectorService,
     private sessionStorageService: SessionStorageService,
     private service: AuthenticationService,
     private clientService: ClientService
@@ -32,7 +30,7 @@ export class AuthenticationControllerService {
         await this.findSessionUser(securityKey);
         this.scheduleToWarnExpiratingToken();
         this.toastMessageControllerService.successMessageAlert(null, 'Logado com sucesso!');
-        this.redirectToEquipmentsPage();
+        this.routeRedirectorService.redirectToEquipmentsPage();
         this.loadingModalControllerService.loadingDismiss();
       });
   }
@@ -40,7 +38,7 @@ export class AuthenticationControllerService {
   public logout() {
     this.user = null;
     this.sessionStorageService.setSessionSecurityKey(null);
-    this.redirectToLoginPage();
+    this.routeRedirectorService.redirectToLoginPage();
   }
 
   private async findSessionUser(securityKey: string) {
@@ -77,14 +75,6 @@ export class AuthenticationControllerService {
 
   public isLoggedIn(): boolean {
     return this.user ? true : false;
-  }
-
-  public redirectToLoginPage(): void {
-    this.router.navigate(['login']);
-  }
-
-  public redirectToEquipmentsPage(): void {
-    this.router.navigate(['equipments']);
   }
 
   private scheduleToWarnExpiratingToken() {

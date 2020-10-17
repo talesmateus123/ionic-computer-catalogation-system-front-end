@@ -29,19 +29,19 @@ export class SessionStorageService {
   }
 
   public getSessionSecurityKey(): string {
-    return localStorage['security-key'] !== 'null' ? localStorage['security-key'] : null;
+    return localStorage.securityKey !== 'null' ? localStorage.securityKey : null;
   }
 
   public setSessionSecurityKey(token: string): void {
-    localStorage['security-key'] = token;
+    localStorage.securityKey = token;
   }
 
   public getSessionSavedEmail(): string {
-    return localStorage['saved-email'] !== 'null' ? localStorage['saved-email'] : null;
+    return localStorage.savedEmail !== 'null' ? localStorage.savedEmail : null;
   }
 
   public setSessionSavedEmail(email: string): void {
-    localStorage['saved-email'] = email;
+    localStorage.savedEmail = email;
   }
 
 }
