@@ -1,4 +1,3 @@
-import { NoConnectionPage } from './pages/no-connection/no-connection.page';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -12,10 +11,13 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthenticationControllerService } from './pages';
 import { AuthInterceptorProvider, ErrorInterceptorProvider } from './interceptors';
+import { NotFoundPage } from './pages/not-found/not-found.page';
+import { NoConnectionPage } from './pages/no-connection/no-connection.page';
 
 @NgModule({
   declarations: [
     AppComponent,
+    NotFoundPage,
     NoConnectionPage
   ],
   entryComponents: [],

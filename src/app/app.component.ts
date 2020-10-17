@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { AuthenticationControllerService, ClientDTO } from './pages';
-import { PingRequestService } from './pages/shared-resources';
+import { AuthenticationControllerService } from './pages';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   public selectedIndex = 0;
   public appPages = [
     {
@@ -52,7 +51,6 @@ export class AppComponent implements OnInit {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private pingRequestService: PingRequestService,
     public authenticationControllerService: AuthenticationControllerService
   ) {
     this.initializeApp();
@@ -63,20 +61,6 @@ export class AppComponent implements OnInit {
       this.statusBar.show();
       this.splashScreen.hide();
     });
-  }
-
-  ngOnInit() {
-    this.checkIfLoggedIn();
-  }
-
-  private async checkIfLoggedIn() {
-    if (this.authenticationControllerService.isLoggedIn()) {
-      await this.pingRequestService.ping().toPromise().then(() => {
-        this.authenticationControllerService.redirectToEquipmentsPage();
-      });
-      return;
-    }
-    this.authenticationControllerService.redirectToLoginPage();
   }
 
 }

@@ -2,8 +2,18 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import { NoConnectionPage } from './pages/no-connection/no-connection.page';
+import { NotFoundPage } from './pages/not-found/not-found.page';
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'auth-or-home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'auth-or-home',
+    loadChildren: () => import('./pages/authentication/auth-or-home/auth-or-home.module').then( m => m.AuthOrHomePageModule)
+  },
   {
     path: 'equipments',
     loadChildren: () => import('./pages').then( m => m.EquipmentsPageModule)
@@ -33,14 +43,17 @@ const routes: Routes = [
     loadChildren: () => import('./pages').then( m => m.ForgotPasswordPageModule)
   },
   {
+    path: 'support',
+    loadChildren: () => import('./pages/support/support.module').then( m => m.SupportPageModule)
+  },
+  {
     path: 'no-connection',
     component: NoConnectionPage
   },
   {
-    path: 'support',
-    loadChildren: () => import('./pages/support/support.module').then( m => m.SupportPageModule)
-  },
-
+    path: '**',
+    component: NotFoundPage
+  }
 ];
 
 @NgModule({
